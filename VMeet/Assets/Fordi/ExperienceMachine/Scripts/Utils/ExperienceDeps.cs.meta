@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: fa00f2330a42a0a4089ddd8be74f5324
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_vRMenuPrefab: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

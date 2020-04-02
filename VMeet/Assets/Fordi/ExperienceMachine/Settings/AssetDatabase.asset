@@ -1,0 +1,1031 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9561f2fded670b949a321be46748169c, type: 3}
+  m_Name: AssetDatabase
+  m_EditorClassIdentifier: 
+  MandalaGroups:
+  - Name: Floral
+    Description: These mandalas are healing mandalas.
+    ResourceType: 2
+    Preview: {fileID: 21300000, guid: 14ca8fb90e5964b4cb1201af60a498f3, type: 3}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Pink Floral
+      Description: This is a floral mandala
+      ResourceType: 2
+      Preview: {fileID: 21300000, guid: 83bf338783443964bb239a68056854b6, type: 3}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      SceneName: Pink Floral
+      Mandala: {fileID: 2237619091659904508, guid: 8c0723964bb84414d8fdf0c8165cbe26,
+        type: 3}
+      Preset1:
+      - Name: Orange
+        Description: Stands for energy
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 1, g: 0.3454259, b: 0, a: 1}
+        PrimaryDescription: Energy
+        SecondaryDescription: Endurance
+        TertiaryDescription: Curiosity
+        ShortDescription: Energy
+      - Name: Blue
+        Description: Stands for peace
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 0.07168007, g: 0, b: 1, a: 1}
+        PrimaryDescription: Peace
+        SecondaryDescription: Harmony
+        TertiaryDescription: Trust
+        ShortDescription: Peace
+      - Name: Green
+        Description: Stands for life
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 0.074893214, g: 0.9339623, b: 0.5090683, a: 1}
+        PrimaryDescription: Nature
+        SecondaryDescription: Healing
+        TertiaryDescription: Growth
+        ShortDescription: Nature
+      CustomPreset:
+      - Name: Yellow
+        Description: Stands for peace.
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 1, g: 1, b: 0, a: 1}
+        PrimaryDescription: Happiness
+        SecondaryDescription: Hope
+        TertiaryDescription: Clarity
+        ShortDescription: Clarity
+      - Name: Orange
+        Description: Stands for peace.
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 1, g: 0.4117647, b: 0, a: 1}
+        PrimaryDescription: Energy
+        SecondaryDescription: Endurance
+        TertiaryDescription: Curiosity
+        ShortDescription: Curiosity
+      - Name: Orange
+        Description: Stands for peace.
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 1, g: 0.4117647, b: 0, a: 1}
+        PrimaryDescription: Energy
+        SecondaryDescription: Endurance
+        TertiaryDescription: Curiosity
+        ShortDescription: Curiosity
+    - Name: Floral Life
+      Description: This is a floral mandala
+      ResourceType: 2
+      Preview: {fileID: 21300000, guid: cdda8323ca28e4c48a1844c1ffe14229, type: 3}
+      LargePreview: {fileID: 21300000, guid: cdda8323ca28e4c48a1844c1ffe14229, type: 3}
+      SpecialCommand: 
+      SceneName: Pink Floral
+      Mandala: {fileID: 6695996235457516535, guid: 353309a437206bc41b6f77756a45b439,
+        type: 3}
+      Preset1:
+      - Name: Orange
+        Description: Stands for energy
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 1, g: 0.3454259, b: 0, a: 1}
+        PrimaryDescription: Energy
+        SecondaryDescription: Endurance
+        TertiaryDescription: Curiosity
+        ShortDescription: Energy
+      - Name: Blue
+        Description: Stands for peace
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 0.07168007, g: 0, b: 1, a: 1}
+        PrimaryDescription: Peace
+        SecondaryDescription: Harmony
+        TertiaryDescription: Trust
+        ShortDescription: Peace
+      - Name: Green
+        Description: Stands for life
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 0.074893214, g: 0.9339623, b: 0.5090683, a: 1}
+        PrimaryDescription: Nature
+        SecondaryDescription: Healing
+        TertiaryDescription: Growth
+        ShortDescription: Nature
+      CustomPreset:
+      - Name: Red
+        Description: Stands for love and passion.
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 1, g: 0, b: 0, a: 1}
+        PrimaryDescription: Passion
+        SecondaryDescription: Courage
+        TertiaryDescription: Prosperity
+        ShortDescription: Prosperity
+      - Name: Yellow
+        Description: Stands for peace.
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 1, g: 1, b: 0, a: 1}
+        PrimaryDescription: Happiness
+        SecondaryDescription: Hope
+        TertiaryDescription: Clarity
+        ShortDescription: Clarity
+      - Name: Blue
+        Description: Stands for peace.
+        ResourceType: 1
+        Preview: {fileID: 0}
+        LargePreview: {fileID: 0}
+        SpecialCommand: 
+        Color: {r: 0, g: 0.45262766, b: 1, a: 1}
+        PrimaryDescription: Peace
+        SecondaryDescription: Harmony
+        TertiaryDescription: Trust
+        ShortDescription: Trust
+    MusicGroupName: 
+  ColorGroups:
+  - Name: Main
+    Description: 
+    ResourceType: 1
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Red
+      Description: Stands for love and passion.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 1, g: 0, b: 0, a: 1}
+      PrimaryDescription: Passion
+      SecondaryDescription: Courage
+      TertiaryDescription: Prosperity
+      ShortDescription: Prosperity
+    - Name: Pink
+      Description: Stands for energy.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 1, g: 0, b: 0.703887, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+    - Name: Orange
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 1, g: 0.4117647, b: 0, a: 1}
+      PrimaryDescription: Energy
+      SecondaryDescription: Endurance
+      TertiaryDescription: Curiosity
+      ShortDescription: Curiosity
+    - Name: Yellow
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 1, g: 1, b: 0, a: 1}
+      PrimaryDescription: Happiness
+      SecondaryDescription: Hope
+      TertiaryDescription: Clarity
+      ShortDescription: Clarity
+    - Name: Blue
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0, g: 0.45262766, b: 1, a: 1}
+      PrimaryDescription: Peace
+      SecondaryDescription: Harmony
+      TertiaryDescription: Trust
+      ShortDescription: Trust
+    - Name: Green
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0, g: 1, b: 0, a: 1}
+      PrimaryDescription: Nature
+      SecondaryDescription: Healing
+      TertiaryDescription: Growth
+      ShortDescription: Growth
+    - Name: Purple
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.8364296, g: 0, b: 1, a: 1}
+      PrimaryDescription: Royalty
+      SecondaryDescription: Nobility
+      TertiaryDescription: Inspiration
+      ShortDescription: Inspiration
+    - Name: White
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      PrimaryDescription: Purity
+      SecondaryDescription: Kindness
+      TertiaryDescription: Truth
+      ShortDescription: Truth
+    - Name: Black
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0, g: 0, b: 0, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+  - Name: Support
+    Description: 
+    ResourceType: 1
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Red
+      Description: Stands for love and passion.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.8867924, g: 0.012548926, b: 0.012548926, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Love
+    - Name: Pink
+      Description: Stands for energy.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.8490566, g: 0, b: 0.59600466, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Passion
+    - Name: Orange
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.7924528, g: 0.1779249, b: 0.018689923, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Fire
+    - Name: Yellow
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.7830189, g: 0.662563, b: 0, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Heat
+    - Name: Blue
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0, g: 0.39141697, b: 0.8679245, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+    - Name: Green
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0, g: 0.8584906, b: 0.5051161, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+    - Name: Purple
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.5626823, g: 0, b: 0.8207547, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+    - Name: White
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Truth
+    - Name: Black
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Dark
+  MandalaColorCategory:
+    Name: Color
+    Description: Audio based on color selection
+    ResourceType: 4
+    Preview: {fileID: 21300000, guid: dd2ecd1412d8f3e43bddb4963a1e7f8a, type: 3}
+    LargePreview: {fileID: 21300000, guid: dd2ecd1412d8f3e43bddb4963a1e7f8a, type: 3}
+    SpecialCommand: ColorBasedAudio
+    Resources: []
+    MusicGroupName: 
+  MusicGroups: []
+  NatureMusic:
+  - Name: Nature_A
+    Description: 
+    ResourceType: 0
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 0
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 1e5bce99cfbc7ea478435b3dbe8a9709, type: 3}
+  HomeMusic:
+  - Name: Zen
+    Description: 
+    ResourceType: 0
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Zen_3_YBC 3599
+      Description: 
+      ResourceType: 0
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 64a5e08c7ce49eb43aa3c1e97c80851c, type: 3}
+  MandalaMusic:
+  - Name: Relax
+    Description: 
+    ResourceType: 0
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Relaxing
+      Description: 
+      ResourceType: 0
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 1e5bce99cfbc7ea478435b3dbe8a9709, type: 3}
+  AbstractMusic:
+  - Name: Relax
+    Description: 
+    ResourceType: 0
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Relaxing_YBC
+      Description: 
+      ResourceType: 0
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 1e5bce99cfbc7ea478435b3dbe8a9709, type: 3}
+  AudioGroups:
+  - Name: Compassion
+    Description: Compassion meditation audio
+    ResourceType: 4
+    Preview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Gratitude
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+      LargePreview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 0992b6f167799214780640e9ab57db18, type: 3}
+    - Name: ReduceStress
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+      LargePreview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 01af7f921fe38d14aad60749cbcfb0d2, type: 3}
+    - Name: Relax
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+      LargePreview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 047070dea200f5e4b85355e720a9e116, type: 3}
+    MusicGroupName: 
+  - Name: Sample
+    Description: Compassion meditation audio
+    ResourceType: 4
+    Preview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+    LargePreview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+    SpecialCommand: 
+    Resources:
+    - Name: Intro
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 49db1bdd6edca4849b05647d8567de5f, type: 3}
+    MusicGroupName: 
+  SFXGroups:
+  - Name: UI
+    Description: 
+    ResourceType: 0
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: click
+      Description: 
+      ResourceType: 0
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: a39ea3fc6f11b0b4b8aa7c58c37f823e, type: 3}
+  - Name: Sample
+    Description: 
+    ResourceType: 7
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: click
+      Description: 
+      ResourceType: 7
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: a39ea3fc6f11b0b4b8aa7c58c37f823e, type: 3}
+  AmbienceAudioGroups:
+  - Name: Sample
+    Description: 
+    ResourceType: 8
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 8
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: d0350b94c2262634396aaaeafa68e454, type: 3}
+  ColorAudioGroups:
+  - Name: Red
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 39cf1303950434d438c4ad65ff267b28, type: 3}
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 5cfa88e4252cd704999152877402ee21, type: 3}
+  - Name: Pink
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: dc406829dc0ae964eb5fe0eadf315314, type: 3}
+  - Name: Orange
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: d8ec5d18817f94f4c8eb7c453dc30af3, type: 3}
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 92686cb2a6d3ee9418bbf264a8761902, type: 3}
+  - Name: Yellow
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 319dc1f9733a5f747a629cc8bf4dbcb1, type: 3}
+  - Name: Blue
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 8913884c30e2419488d71c458e417454, type: 3}
+  - Name: Green
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: da32e4bf438b1ea4e88cde378e4686f4, type: 3}
+  - Name: Purple
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 20452351c353db64199f8ca631547aa9, type: 3}
+  - Name: White
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 0077d6592e2a3334da1f22ee81e7291a, type: 3}
+  - Name: Black
+    Description: 
+    ResourceType: 9
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 9
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: a7e23da9a8b94d840a9ecd1a3eb065a2, type: 3}
+  GuideAudioGroups:
+  - Name: Main Guide VO
+    Description: 
+    ResourceType: 4
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Color
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 6a7013c8edcdc454c81df1f662cd7a1c, type: 3}
+      CommandType: 5
+    - Name: Location
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 45a68af5c5ab652499b18749e573ec6d, type: 3}
+      CommandType: 3
+    - Name: Settings
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 6787a6f406517f5489713590446f4328, type: 3}
+      CommandType: 11
+    - Name: Music
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 82192b8df30fc5745a3ae897002694a3, type: 3}
+      CommandType: 1
+    - Name: Audio
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: f56151079dbed1e4a94d93974fdd6c61, type: 3}
+      CommandType: 2
+    - Name: Mandala
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: e7867e458b301c546a6f5d9890320576, type: 3}
+      CommandType: 4
+    - Name: Experience
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 1e4442ecee1e5cc4ba8d481908cab1f8, type: 3}
+      CommandType: 0
+    - Name: Object
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 0}
+      CommandType: 15
+  - Name: Training Guide VO
+    Description: 
+    ResourceType: 4
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Color
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 6a7013c8edcdc454c81df1f662cd7a1c, type: 3}
+      CommandType: 5
+    - Name: Location
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 45a68af5c5ab652499b18749e573ec6d, type: 3}
+      CommandType: 3
+    - Name: Settings
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 6787a6f406517f5489713590446f4328, type: 3}
+      CommandType: 11
+    - Name: Music
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 82192b8df30fc5745a3ae897002694a3, type: 3}
+      CommandType: 1
+    - Name: Audio
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: f56151079dbed1e4a94d93974fdd6c61, type: 3}
+      CommandType: 2
+    - Name: Mandala
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: e7867e458b301c546a6f5d9890320576, type: 3}
+      CommandType: 4
+    - Name: Experience
+      Description: 
+      ResourceType: 4
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 1e4442ecee1e5cc4ba8d481908cab1f8, type: 3}
+      CommandType: 0
+  - Name: Sample
+    Description: 
+    ResourceType: 6
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Sample Voiceover
+      Description: 
+      ResourceType: 6
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 94f798bf8fb5c9a4dbf56e1400aebd8a, type: 3}
+      CommandType: 5
+  NatureLocationsGroups:
+  - Name: 
+    Description: 
+    ResourceType: 3
+    Preview: {fileID: 21300000, guid: 83bf338783443964bb239a68056854b6, type: 3}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Himalayas
+      Description: 
+      ResourceType: 3
+      Preview: {fileID: 21300000, guid: 30da4427ef1d4384e9d6c0380b3bbaf3, type: 3}
+      LargePreview: {fileID: 21300000, guid: 30da4427ef1d4384e9d6c0380b3bbaf3, type: 3}
+      SpecialCommand: 
+    - Name: Arctic
+      Description: 
+      ResourceType: 3
+      Preview: {fileID: 21300000, guid: 31843bfa9ef87dd48bc2d97c7ad191e0, type: 3}
+      LargePreview: {fileID: 21300000, guid: 31843bfa9ef87dd48bc2d97c7ad191e0, type: 3}
+      SpecialCommand: 
+    - Name: Beach
+      Description: 
+      ResourceType: 3
+      Preview: {fileID: 21300000, guid: 76a9e944971962d4c93aa00c1205bf82, type: 3}
+      LargePreview: {fileID: 21300000, guid: 76a9e944971962d4c93aa00c1205bf82, type: 3}
+      SpecialCommand: 
+  AbstractLocationsGroups:
+  - Name: 
+    Description: 
+    ResourceType: 3
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Abstract
+      Description: 
+      ResourceType: 3
+      Preview: {fileID: 21300000, guid: f6dc0e73464e69e41a404e0aeb7f1da1, type: 3}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+  ObjectGroups:
+  - Name: Props
+    Description: 
+    ResourceType: 10
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Cube
+      Description: Just a cube
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 188084798335229597, guid: eabdb7fd44ed9654887ba1d4127dca8f,
+        type: 3}
+      ObjectPrefab: {fileID: 188084798335229597, guid: 01ce24d4847875b41a5694806fee3e4e,
+        type: 3}
+    - Name: Candle
+      Description: Buring candle
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 126370, guid: 2e387f513a5409547958d3bf5e094b75, type: 3}
+      ObjectPrefab: {fileID: 126370, guid: 1890aa8635056c84196005929fb13eb3, type: 3}
+    - Name: Carpet
+      Description: Carpet for meditation
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 8721732424062689215, guid: 375eae62dc589fb45ab06a23c1926516,
+        type: 3}
+      ObjectPrefab: {fileID: 8721732424062689215, guid: a21078b95df8fdb4bb13f457c1f02573,
+        type: 3}
+  - Name: Flowers
+    Description: 
+    ResourceType: 10
+    Preview: {fileID: 21300000, guid: 83bf338783443964bb239a68056854b6, type: 3}
+    LargePreview: {fileID: 21300000, guid: 83bf338783443964bb239a68056854b6, type: 3}
+    SpecialCommand: 
+    Resources:
+    - Name: Chamomile
+      Description: Chamomile
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 5723104669572421603, guid: d1be7467e34451e49a8c7da7c81177f9,
+        type: 3}
+      ObjectPrefab: {fileID: 8864588160492707539, guid: 164f0a67b44534746b1212f4d1f36344,
+        type: 3}
+    - Name: Poppy
+      Description: Poppy
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 7283752441020981687, guid: 86a3fbbb31887744a97a05f85dd2a47f,
+        type: 3}
+      ObjectPrefab: {fileID: 7283752441020981687, guid: cd307b37e65fb5647af6e9a264fd3d6b,
+        type: 3}
+    - Name: Saint John's Wort
+      Description: Saint John's Wort
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 1106699990704685316, guid: a94620ac2020f2547b7b52fbfa75783d,
+        type: 3}
+      ObjectPrefab: {fileID: 1106699990704685316, guid: 8e499d73fb9b45443adb1cc41dce1659,
+        type: 3}
+    - Name: Cornflower
+      Description: Cornflower
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 4906962317367008515, guid: 511a98327acc251449ff47e333808023,
+        type: 3}
+      ObjectPrefab: {fileID: 4906962317367008515, guid: e292b5133ee65734ba8e99cb8fb360a8,
+        type: 3}
+  - Name: Mandalas
+    Description: 
+    ResourceType: 10
+    Preview: {fileID: 21300000, guid: cdda8323ca28e4c48a1844c1ffe14229, type: 3}
+    LargePreview: {fileID: 21300000, guid: cdda8323ca28e4c48a1844c1ffe14229, type: 3}
+    SpecialCommand: 
+    Resources:
+    - Name: Flower
+      Description: Flower
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 3355810902417254951, guid: 60c92bd41e096224fa63063cf5436913,
+        type: 3}
+      ObjectPrefab: {fileID: 3355810902417254951, guid: 02034a55f2aaa82489557b21e4f321b0,
+        type: 3}
+    - Name: Circular Mandala
+      Description: Circular Mandala
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 1761320872428382675, guid: 628cb045c016903439f1ecef33a91f90,
+        type: 3}
+      ObjectPrefab: {fileID: 1761320872428382675, guid: c6ca46f51b3d2bc4c803da2118bf6298,
+        type: 3}
+    - Name: Flower Second Version
+      Description: Flower Second Version
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 6782797338919242460, guid: ef0628109956dd949a26d4418c8ba68a,
+        type: 3}
+      ObjectPrefab: {fileID: 6782797338919242460, guid: 29af6d6b43a14e449b714af3890a9cd3,
+        type: 3}
+    - Name: Life Mandala
+      Description: Life Mandala
+      ResourceType: 10
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      ObjectUIPrefab: {fileID: 2609906122201593798, guid: 5fcf17bc00faa6747af2610d3f066715,
+        type: 3}
+      ObjectPrefab: {fileID: 2609906122201593798, guid: 5d2bc58ad987f2f42888834f4b668fc5,
+        type: 3}
+  Thoughts:
+  - All the powers in the universe are already ours. It is we who have put our hands
+    before our eyes and cry that it is dark.
+  - All differences in this world are of degree, and not of kind, because oneness
+    is the secret of everything.
+  - We are what our thoughts have made us; so take care about what you think. Words
+    are secondary. Thoughts live; they travel far.
+  - Happiness is when what you think, what you say, and what you do are in harmony.
+  - In a gentle way, you can shake the world.
+  - In a gentle way, you can shake the world.
+  Credits: '<b><u>DIRECTED, PRODUCED & EDITED BY</b></u> Jonathan Goodman Levitt   <b><u>MUSIC
+    BY</b></u> David Schweitzer Zack Martin   <b><u>STARRING</b></u> David Beauregard,
+    Jr. Nicholas Troiano Benjamin Trump  <b><u>FEATURING</b></u> Senator Ted Kennedy
+    Louis & Denise Troiano Diane Beauregard Kathryn Braisted  <b><u>GRAPHICS</b></u>
+    Producer: Emily Branham Facilities Provided By: Edgeworx Studios & The Mill  <b><u>SOUND
+    MIXING</b></u> De Lane Lea, Sound & Vision, London Head of Production: Michael
+    Hamilton Dubbing Mixer: Adam Severs Dubbing Fixer: Tony Curran  <b><u>ASSOCIATE
+    EDITOR</b></u> Emiliano Battista  <b><u>COLOR CORRECTION</b></u> Pedro Padilla  <b><u>SOUND
+    EDITING BY</b></u> Barbara Parks & Alex Noyes,  <b><u>ADDITIONAL CINEMATOGRAPHY</b></u>
+    Alex Stikich    <b><u>ADDITIONAL GRAPHICS</b></u> Gap Sangpattharamatee,  Mi-Sook
+    Cho  Tim Van Horn'

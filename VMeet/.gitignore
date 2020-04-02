@@ -1,0 +1,12 @@
+*.csproj
+*.sln
+.vs
+*.zip
+Library/
+Builds/
+obj/
+Temp/
+Logs/
+Assets/Photon/
+Assets/PUNVoice/
+VRLMS-*/

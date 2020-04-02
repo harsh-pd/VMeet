@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a696b7a8fe54f044866a0015f8f4174, type: 3}
+  m_Name: DefaultTheme
+  m_EditorClassIdentifier: 
+  panelInteractionOutline: {r: 0.77254903, g: 0.77254903, b: 0.77254903, a: 1}
+  baseColor: {r: 0, g: 0.32156864, b: 0.8, a: 1}
+  objectHighlightColor: {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
+  buttonHighlightTextColor: {r: 0, g: 0.36917162, b: 1, a: 1}
+  buttonNormalTextColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  toggleSelectionColor: {r: 0, g: 0.12270379, b: 1, a: 1}
+  toggleNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonDisabledTextColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  ErrorColor: {r: 1, g: 0, b: 0.16470589, a: 1}
+  InputFieldSelection: {r: 0, g: 0.02745098, b: 0.08627451, a: 1}
+  InputFieldNormalColor: {r: 0, g: 0, b: 0, a: 1}
