@@ -639,8 +639,8 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Path: Meditate
-    Text: Meditate
+  - Path: Home
+    Text: Home
     Icon: {fileID: 0}
     Command: 
     CommandType: 0
@@ -3003,7 +3003,17 @@ PrefabInstance:
     - target: {fileID: 2033914720504390253, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 120
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244808351339444923, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -450
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244808351339444923, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 215
       objectReference: {fileID: 0}
     - target: {fileID: 2029296398697864423, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
@@ -3090,26 +3100,57 @@ PrefabInstance:
       propertyPath: rayTransform
       value: 
       objectReference: {fileID: 8221756217095377121}
-    - target: {fileID: 2244808351339444923, guid: 0d51a5f2230a64044baeda83fb8fb864,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -450
-      objectReference: {fileID: 0}
-    - target: {fileID: 2244808351339444923, guid: 0d51a5f2230a64044baeda83fb8fb864,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 230
-      objectReference: {fileID: 0}
     - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_fontSize
-      value: 120
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 120
+      value: 24
       objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_text
+      value: Login in desktop to continue...
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_firstOverflowCharacterIndex
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138869233905436663, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c44a0f257089ba040826952966c220e4,
+        type: 2}
     - target: {fileID: 2139049158766966741, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_fontAsset
@@ -3135,6 +3176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: VMEET
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139049158766966741, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_textAlignment
+      value: 514
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d51a5f2230a64044baeda83fb8fb864, type: 3}
