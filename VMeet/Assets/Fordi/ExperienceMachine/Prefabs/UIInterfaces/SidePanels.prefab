@@ -317,9 +317,8 @@ MonoBehaviour:
     - Added these extra stuffs \n - Removed side panels\n\nVERSION 1.7.0\n - Added
     these extra stuffs \n - Removed side panels"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -489,9 +488,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: /mandalaStudios
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -869,9 +867,8 @@ MonoBehaviour:
   m_text: We are what our thoughts have made us; so take care about what you think.
     Words are secondary. Thoughts live; they travel far.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1027,9 +1024,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: BACK
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1384,8 +1380,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -80}
-  m_SizeDelta: {x: 135, y: 35}
+  m_AnchoredPosition: {x: -0.000030517578, y: -95}
+  m_SizeDelta: {x: 135, y: 40}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5118367145169356159
 CanvasRenderer:
@@ -1408,7 +1404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.40392157}
+  m_Color: {r: 0.15686275, g: 0.19607843, b: 0.23529412, a: 0.9411765}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1416,7 +1412,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1488,8 +1484,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -40}
-  m_SizeDelta: {x: 135, y: 35}
+  m_AnchoredPosition: {x: -0.000030517578, y: -45}
+  m_SizeDelta: {x: 135, y: 45}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5890589374565648862
 CanvasRenderer:
@@ -1512,7 +1508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.40392157}
+  m_Color: {r: 0.15686275, g: 0.19607843, b: 0.23529412, a: 0.9411765}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1520,7 +1516,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1752,9 +1748,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: CREDITS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2158,7 +2153,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 135, y: 55}
+  m_SizeDelta: {x: 135, y: 65}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &739773538775650492
 CanvasRenderer:
@@ -2181,7 +2176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.40392157}
+  m_Color: {r: 0.15686275, g: 0.19607843, b: 0.23529412, a: 0.9411765}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2189,7 +2184,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2259,7 +2254,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: 135, y: 35}
+  m_SizeDelta: {x: 135, y: 40}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &813387322161277679
 CanvasRenderer:
@@ -2282,7 +2277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.40392157}
+  m_Color: {r: 0.15686275, g: 0.19607843, b: 0.23529412, a: 0.9411765}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2290,7 +2285,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2391,9 +2386,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2687,6 +2681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_content: {fileID: 1747099104704412684}
+  m_textSpeed: 0.5
 --- !u!1 &5202835413012228561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2802,8 +2797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 135, y: 55}
+  m_AnchoredPosition: {x: 0, y: -70}
+  m_SizeDelta: {x: 135, y: 65}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &6059582136985626985
 CanvasRenderer:
@@ -2826,7 +2821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.40392157}
+  m_Color: {r: 0.15686275, g: 0.19607843, b: 0.23529412, a: 0.9411765}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2834,7 +2829,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3221,9 +3216,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: CREDITS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3468,9 +3462,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: /mandalaStudios
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3626,9 +3619,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: http://mandalastudios.co.in/
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3784,9 +3776,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: NEW
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4031,16 +4022,15 @@ MonoBehaviour:
     CINEMATOGRAPHY</b></u>\r\nAlex Stikich\r\n\r\n\r\n\r\n<b><u>ADDITIONAL GRAPHICS</b></u>\r\nGap
     Sangpattharamatee, \r\nMi-Sook Cho \r\nTim Van Horn"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1535c23565a12c140b19d01b6df05193, type: 2}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4291348680
-  m_fontColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+  m_fontColor: {r: 0.2392157, g: 0.24705884, b: 0.2392157, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4110,7 +4100,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -4203,9 +4193,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: /mandalaStudios
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4604,9 +4593,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: RELEASE NOTES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
-  m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
-    type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
