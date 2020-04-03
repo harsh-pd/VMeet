@@ -28,12 +28,15 @@ namespace VRExperience.Core
         [Range(0, 1)]
         public float AmbienceVolume = .3f;
 
-        [Header("Mandala")]
-        public bool MandalaAnimation = true;
-        public bool MandalaParticles = true;
+        [Header("Performance")]
+        public bool Animation = true;
+        public bool Particles = true;
 
         [Header("Others")]
         public Color FadeColor = Color.black;
         public bool ShowTooltip = true;
+
+        [Header("Mode")]
+        public bool DesktopMode = false;
     }
 }

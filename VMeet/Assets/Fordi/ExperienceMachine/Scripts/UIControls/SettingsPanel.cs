@@ -45,6 +45,8 @@ namespace VRExperience.UI.MenuControl
         private Toggle m_whiteTeleportToggle;
         [SerializeField]
         private Toggle m_blackTeleportToggle;
+        [SerializeField]
+        private Toggle m_desktopMode;
 
         private ISettings m_settings;
         private IAudio m_audio;
@@ -99,8 +101,8 @@ namespace VRExperience.UI.MenuControl
             changes = changes || m_settings.SelectedPreferences.SFXVolume != m_sfxVolume.value;
             changes = changes || m_settings.SelectedPreferences.AudioVolume != m_audioVolume.value;
 
-            changes = changes || m_settings.SelectedPreferences.MandalaAnimation != m_mandalaAnimation.isOn;
-            changes = changes || m_settings.SelectedPreferences.MandalaParticles != m_mandalaParticles.isOn;
+            changes = changes || m_settings.SelectedPreferences.Animation != m_mandalaAnimation.isOn;
+            changes = changes || m_settings.SelectedPreferences.Particles != m_mandalaParticles.isOn;
 
             if (m_highQuality.isOn)
                 changes = changes || m_settings.SelectedPreferences.GraphicsQuality != GraphicsQuality.HIGH;
@@ -116,13 +118,15 @@ namespace VRExperience.UI.MenuControl
 
             changes = changes || m_settings.SelectedPreferences.ShowTooltip != m_showTooltip.isOn;
 
+            changes = changes || m_settings.SelectedPreferences.DesktopMode != m_desktopMode.isOn;
+
             m_saveButton.transform.parent.gameObject.SetActive(changes);
         }
 
         private void ResetToPreviousSettings()
         {
-            m_mandalaAnimation.isOn = m_settings.SelectedPreferences.MandalaAnimation;
-            m_mandalaParticles.isOn = m_settings.SelectedPreferences.MandalaParticles;
+            m_mandalaAnimation.isOn = m_settings.SelectedPreferences.Animation;
+            m_mandalaParticles.isOn = m_settings.SelectedPreferences.Particles;
 
             m_highQuality.isOn = m_settings.SelectedPreferences.GraphicsQuality == GraphicsQuality.HIGH;
             m_mediumQuality.isOn = m_settings.SelectedPreferences.GraphicsQuality == GraphicsQuality.MEDIUM;
@@ -137,6 +141,8 @@ namespace VRExperience.UI.MenuControl
             m_blackTeleportToggle.isOn = m_settings.SelectedPreferences.FadeColor == Color.black;
 
             m_showTooltip.isOn = m_settings.SelectedPreferences.ShowTooltip;
+
+            m_desktopMode.isOn = m_settings.SelectedPreferences.DesktopMode;
         }
 
         public void CancelEdit()
@@ -155,8 +161,8 @@ namespace VRExperience.UI.MenuControl
             m_settings.SelectedPreferences.SFXVolume = m_sfxVolume.value;
             m_settings.SelectedPreferences.AudioVolume = m_audioVolume.value;
 
-            m_settings.SelectedPreferences.MandalaAnimation = m_mandalaAnimation.isOn;
-            m_settings.SelectedPreferences.MandalaParticles = m_mandalaParticles.isOn;
+            m_settings.SelectedPreferences.Animation = m_mandalaAnimation.isOn;
+            m_settings.SelectedPreferences.Particles = m_mandalaParticles.isOn;
 
             if (m_highQuality.isOn)
                 m_settings.SelectedPreferences.GraphicsQuality = GraphicsQuality.HIGH;
@@ -169,14 +175,16 @@ namespace VRExperience.UI.MenuControl
 
             m_settings.SelectedPreferences.ShowTooltip = m_showTooltip.isOn;
 
+            m_settings.SelectedPreferences.DesktopMode = m_desktopMode.isOn;
+
             ToggleEdit(false);
             m_settings.SaveSettings();
         }
 
         public void ResetToDefaultSettings()
         {
-            m_mandalaAnimation.isOn = m_settings.DefaultPreferences.MandalaAnimation;
-            m_mandalaParticles.isOn = m_settings.DefaultPreferences.MandalaParticles;
+            m_mandalaAnimation.isOn = m_settings.DefaultPreferences.Animation;
+            m_mandalaParticles.isOn = m_settings.DefaultPreferences.Particles;
 
             m_highQuality.isOn = m_settings.DefaultPreferences.GraphicsQuality == GraphicsQuality.HIGH;
             m_mediumQuality.isOn = m_settings.DefaultPreferences.GraphicsQuality == GraphicsQuality.MEDIUM;
@@ -191,6 +199,8 @@ namespace VRExperience.UI.MenuControl
             m_blackTeleportToggle.isOn = m_settings.DefaultPreferences.FadeColor == Color.black;
 
             m_showTooltip.isOn = m_settings.DefaultPreferences.ShowTooltip;
+
+            m_desktopMode.isOn = m_settings.DefaultPreferences.DesktopMode;
 
             Save();
         }

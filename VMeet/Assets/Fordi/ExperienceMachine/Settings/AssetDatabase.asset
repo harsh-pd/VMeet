@@ -63,40 +63,6 @@ MonoBehaviour:
         SecondaryDescription: Healing
         TertiaryDescription: Growth
         ShortDescription: Nature
-      CustomPreset:
-      - Name: Yellow
-        Description: Stands for peace.
-        ResourceType: 1
-        Preview: {fileID: 0}
-        LargePreview: {fileID: 0}
-        SpecialCommand: 
-        Color: {r: 1, g: 1, b: 0, a: 1}
-        PrimaryDescription: Happiness
-        SecondaryDescription: Hope
-        TertiaryDescription: Clarity
-        ShortDescription: Clarity
-      - Name: Orange
-        Description: Stands for peace.
-        ResourceType: 1
-        Preview: {fileID: 0}
-        LargePreview: {fileID: 0}
-        SpecialCommand: 
-        Color: {r: 1, g: 0.4117647, b: 0, a: 1}
-        PrimaryDescription: Energy
-        SecondaryDescription: Endurance
-        TertiaryDescription: Curiosity
-        ShortDescription: Curiosity
-      - Name: Orange
-        Description: Stands for peace.
-        ResourceType: 1
-        Preview: {fileID: 0}
-        LargePreview: {fileID: 0}
-        SpecialCommand: 
-        Color: {r: 1, g: 0.4117647, b: 0, a: 1}
-        PrimaryDescription: Energy
-        SecondaryDescription: Endurance
-        TertiaryDescription: Curiosity
-        ShortDescription: Curiosity
     - Name: Floral Life
       Description: This is a floral mandala
       ResourceType: 2
@@ -140,40 +106,6 @@ MonoBehaviour:
         SecondaryDescription: Healing
         TertiaryDescription: Growth
         ShortDescription: Nature
-      CustomPreset:
-      - Name: Red
-        Description: Stands for love and passion.
-        ResourceType: 1
-        Preview: {fileID: 0}
-        LargePreview: {fileID: 0}
-        SpecialCommand: 
-        Color: {r: 1, g: 0, b: 0, a: 1}
-        PrimaryDescription: Passion
-        SecondaryDescription: Courage
-        TertiaryDescription: Prosperity
-        ShortDescription: Prosperity
-      - Name: Yellow
-        Description: Stands for peace.
-        ResourceType: 1
-        Preview: {fileID: 0}
-        LargePreview: {fileID: 0}
-        SpecialCommand: 
-        Color: {r: 1, g: 1, b: 0, a: 1}
-        PrimaryDescription: Happiness
-        SecondaryDescription: Hope
-        TertiaryDescription: Clarity
-        ShortDescription: Clarity
-      - Name: Blue
-        Description: Stands for peace.
-        ResourceType: 1
-        Preview: {fileID: 0}
-        LargePreview: {fileID: 0}
-        SpecialCommand: 
-        Color: {r: 0, g: 0.45262766, b: 1, a: 1}
-        PrimaryDescription: Peace
-        SecondaryDescription: Harmony
-        TertiaryDescription: Trust
-        ShortDescription: Trust
     MusicGroupName: 
   ColorGroups:
   - Name: Main
@@ -1009,15 +941,7 @@ MonoBehaviour:
       ObjectPrefab: {fileID: 2609906122201593798, guid: 5d2bc58ad987f2f42888834f4b668fc5,
         type: 3}
   Thoughts:
-  - All the powers in the universe are already ours. It is we who have put our hands
-    before our eyes and cry that it is dark.
-  - All differences in this world are of degree, and not of kind, because oneness
-    is the secret of everything.
-  - We are what our thoughts have made us; so take care about what you think. Words
-    are secondary. Thoughts live; they travel far.
-  - Happiness is when what you think, what you say, and what you do are in harmony.
-  - In a gentle way, you can shake the world.
-  - In a gentle way, you can shake the world.
+  - "Copyright \xA9 2020 Telecomatics Pvt. Ltd., India. All rights reserved."
   Credits: '<b><u>DIRECTED, PRODUCED & EDITED BY</b></u> Jonathan Goodman Levitt   <b><u>MUSIC
     BY</b></u> David Schweitzer Zack Martin   <b><u>STARRING</b></u> David Beauregard,
     Jr. Nicholas Troiano Benjamin Trump  <b><u>FEATURING</b></u> Senator Ted Kennedy

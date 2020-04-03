@@ -28,6 +28,8 @@ namespace VRExperience.Core
         public bool MandalaAnimation;
         [ProtoMember(7)]
         public bool MandalaParticles;
+        [ProtoMember(8)]
+        public bool Desktop;
 
         private ISettings m_settings;
 
@@ -41,8 +43,9 @@ namespace VRExperience.Core
             m_settings.SelectedPreferences.MusicVolume = MusicVolume;
             m_settings.SelectedPreferences.SFXVolume = SFXVolume;
             m_settings.SelectedPreferences.AmbienceVolume = AmbienceVolume;
-            m_settings.SelectedPreferences.MandalaAnimation = MandalaAnimation;
-            m_settings.SelectedPreferences.MandalaParticles = MandalaParticles;
+            m_settings.SelectedPreferences.Animation = MandalaAnimation;
+            m_settings.SelectedPreferences.Particles = MandalaParticles;
+            m_settings.SelectedPreferences.DesktopMode = Desktop;
         }
 
         public void Download()
@@ -55,8 +58,9 @@ namespace VRExperience.Core
             MusicVolume = m_settings.SelectedPreferences.MusicVolume;
             SFXVolume = m_settings.SelectedPreferences.SFXVolume;
             AmbienceVolume = m_settings.SelectedPreferences.AmbienceVolume;
-            MandalaAnimation = m_settings.SelectedPreferences.MandalaAnimation;
-            MandalaParticles = m_settings.SelectedPreferences.MandalaParticles;
+            MandalaAnimation = m_settings.SelectedPreferences.Animation;
+            MandalaParticles = m_settings.SelectedPreferences.Particles;
+            Desktop = m_settings.SelectedPreferences.DesktopMode;
         }
     }
 
@@ -151,8 +155,8 @@ namespace VRExperience.Core
 
             m_experienceMachine.SetQualityLevel(selectedPreferences.GraphicsQuality);
             MandalaExperience mandalaExperience = (MandalaExperience)m_experienceMachine.GetExperience(ExperienceType.MANDALA).experience;
-            mandalaExperience.AllowAnimation = selectedPreferences.MandalaAnimation;
-            mandalaExperience.AllowParticles = selectedPreferences.MandalaParticles;
+            mandalaExperience.AllowAnimation = selectedPreferences.Animation;
+            mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             m_player.ApplyTooltipSettings();
         }

@@ -325,7 +325,7 @@ namespace VRExperience.Core
 
                 Animator animator = mandala1.GetComponent<Animator>();
                 if (animator != null)
-                    animator.enabled = m_settings.SelectedPreferences.MandalaAnimation;
+                    animator.enabled = m_settings.SelectedPreferences.Animation;
 
                 for (int i = 0; i < 3; i++)
                 {
@@ -458,7 +458,7 @@ namespace VRExperience.Core
             LoadMandalas();
 
             //Don't change the order
-            AllowParticles = m_settings.SelectedPreferences.MandalaParticles;
+            AllowParticles = m_settings.SelectedPreferences.Particles;
             ApplyColorOnParticles();
             PopulateColorGuideStack();
             if (m_menuSelection.VoiceOver == null && ExperienceMachine.AppMode == AppMode.APPLICATION)
