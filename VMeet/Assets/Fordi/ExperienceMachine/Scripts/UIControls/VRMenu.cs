@@ -72,10 +72,10 @@ namespace VRExperience.UI.MenuControl
         private Popup m_popup;
         #endregion
 
-        private const string YOUTUBE_PAGE = "https://www.youtube.com/channel/UCoHmkkst2rJnxFD6qZ1n3Dg";
-        private const string WEBSITE = "http://mandalastudios.co.in/";
-        private const string FACEBOOK_PAGE = "http://mandalastudios.co.in/";
-        private const string INSTAGRAM_PAGE = "http://mandalastudios.co.in/";
+        private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
+        private const string WEBSITE = "http://telecomatics.com/";
+        private const string FACEBOOK_PAGE = "http://telecomatics.com/";
+        private const string INSTAGRAM_PAGE = "http://telecomatics.com/";
 
         private bool m_isMenuOpen = false;
         public bool IsMenuOpen { get { return m_isMenuOpen; } }
