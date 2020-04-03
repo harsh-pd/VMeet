@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.13296545, g: 0.19145328, b: 0.33962262, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 5f9c983c26e75024a8443f8338c6cb5d, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a84354d2c337c1e47ace165d7303622c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.00696944, g: 0.009757995, b: 0.01393888, a: 1}
+  m_IndirectSpecularColor: {r: 0.4128427, g: 0.4482415, b: 0.46972618, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -585,6 +585,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -800
       objectReference: {fileID: 0}
+    - target: {fileID: 8221985880543937346, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
 --- !u!224 &1309535016 stripped
@@ -812,7 +817,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: OTHER OPTIONS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
     type: 2}
   m_fontSharedMaterials: []
@@ -1991,7 +1996,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: OTHER OPTIONS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b54bdc2cd12df2a488890e9d58981d20, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: -1539958989037618434, guid: b54bdc2cd12df2a488890e9d58981d20,
     type: 2}
   m_fontSharedMaterials: []
