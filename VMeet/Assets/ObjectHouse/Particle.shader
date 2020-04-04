@@ -41,7 +41,7 @@ Shader "Unlit/Transparent" {
 					{
 						v2f o;
 						float3 norm = normalize(v.normal); //Unity 5 fix
-						v.vertex.xyz += norm/5 * sin (_Time.y/5);
+						v.vertex.xyz += norm/5 * sin (_Time.y/2);
 						o.vertex = UnityObjectToClipPos(v.vertex);
 						//o.vertex = o.vertex + float4(v.normal / 10, 0);
 						o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
