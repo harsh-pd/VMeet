@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8d46ce4770ca8428153fa781c4b519, type: 3}
+  m_Name: DefaultTheme
+  m_EditorClassIdentifier: 
+  colorMix2: {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
+  colorMix3: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
+  panelInteractionOutline: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0.11764706}
+  objectHighlightColor: {r: 0.08018869, g: 0.7161285, b: 1, a: 1}
+  buttonHighlightTextColor: {r: 1, g: 1, b: 1, a: 1}
+  buttonNormalTextColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+  panelInteractionBackground: {r: 0.03137255, g: 0.03137255, b: 0.078431375, a: 1}
+  gradientTex: {fileID: 0}
+  vrControlDisabledColor: {r: 0, g: 0, b: 0, a: 0}
+  panelMat: {fileID: 0}
+  toolbarButtonBackgroundHighlight: {r: 0.14796191, g: 0.14796191, b: 0.1792453, a: 1}
+  ToolbarColor: {r: 0.14509805, g: 0.14509805, b: 0.16078432, a: 1}
+  background: {fileID: 0}
+  ErrorColor: {r: 1, g: 0, b: 0.16470589, a: 1}
+  InputFieldSelection: {r: 0.011764706, g: 0.011764706, b: 0.039215688, a: 1}
+  InputFieldNormalColor: {r: 0.019607844, g: 0.019607844, b: 0.05490196, a: 1}
+  PanelColor: {r: 0.078431375, g: 0.078431375, b: 0.101960786, a: 1}
+  ErrorPanelColor: {r: 1, g: 0, b: 0.16470589, a: 1}
+  RightPanelColor: {r: 0, g: 1, b: 0.11342959, a: 1}
+  WarningPanelColor: {r: 0.9411765, g: 0.8165481, b: 0, a: 1}
+  ResultPanelColor: {r: 0.08018869, g: 0.7161285, b: 1, a: 1}
+  InstructionPanelColor: {r: 0, g: 0.97310853, b: 1, a: 1}
+  ButtonTextHighlightColor: {r: 1, g: 1, b: 1, a: 1}
+  ButtonTextNormalColor: {r: 0.6, g: 0.6, b: 0.6, a: 0.6}

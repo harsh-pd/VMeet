@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: BackupSettings
   m_EditorClassIdentifier: 
   GraphicsQuality: 5
-  AudioVolume: 1
-  MusicVolume: 0.4
-  SFXVolume: 0.2
-  AmbienceVolume: 0.3
-  MandalaAnimation: 1
-  MandalaParticles: 1
+  AudioVolume: 0.5830012
+  MusicVolume: 0.15936619
+  SFXVolume: 0.45655686
+  AmbienceVolume: 1
+  Animation: 1
+  Particles: 1
   FadeColor: {r: 0, g: 0, b: 0, a: 1}
   ShowTooltip: 1
+  DesktopMode: 0

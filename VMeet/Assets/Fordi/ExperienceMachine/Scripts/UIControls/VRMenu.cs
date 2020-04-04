@@ -564,7 +564,6 @@ namespace VRExperience.UI.MenuControl
         #region DESKTOP_VR_COORDINATION
         public void SwitchToDesktop()
         {
-            return;
             if (m_laserPointer == null)
                 m_laserPointer = FindObjectOfType<LaserPointer>();
             DisplayMessage("Desktop mode is active.");
