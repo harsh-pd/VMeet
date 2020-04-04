@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelInteractionOutline: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0.11764706}
   baseColor: {r: 0, g: 0.32156864, b: 0.8, a: 1}
-  objectHighlightColor: {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
+  objectHighlightColor: {r: 0, g: 0.25423828, b: 0.735849, a: 1}
   buttonHighlightTextColor: {r: 0, g: 0.25423828, b: 0.735849, a: 1}
   buttonNormalTextColor: {r: 0.31764707, g: 0.3254902, b: 0.3529412, a: 1}
   toggleSelectionColor: {r: 0, g: 0.12270379, b: 1, a: 1}
@@ -23,5 +23,5 @@ MonoBehaviour:
   ErrorColor: {r: 1, g: 0, b: 0.16470589, a: 1}
   InputFieldSelection: {r: 0, g: 0.02745098, b: 0.08627451, a: 1}
   InputFieldNormalColor: {r: 0, g: 0, b: 0, a: 1}
-  colorMix2: {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
+  colorMix2: {r: 0, g: 0.3457446, b: 1, a: 1}
   panelInteractionBackground: {r: 0.03137255, g: 0.03137255, b: 0.078431375, a: 1}
