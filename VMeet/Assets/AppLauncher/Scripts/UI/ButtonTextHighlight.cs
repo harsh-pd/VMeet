@@ -5,31 +5,39 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
+using VRExperience.Core;
+using VRExperience.Common;
 
 namespace AL.UI
 {
     public class ButtonTextHighlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         TextMeshProUGUI text;
+        protected IAppTheme m_appTheme;
+
+        private void Awake()
+        {
+            m_appTheme = IOC.Resolve<IAppTheme>();
+        }
 
         void Start()
         {
             text = GetComponentInChildren<TextMeshProUGUI>();
-            text.color = Coordinator.instance.appTheme.SelectedTheme.buttonNormalTextColor;
+            text.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
-            text.color = Coordinator.instance.appTheme.SelectedTheme.buttonHighlightTextColor;
+            text.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
         }
 
         public void OnPointerExit(PointerEventData pointerEventData)
         {
-            text.color = Coordinator.instance.appTheme.SelectedTheme.buttonNormalTextColor;
+            text.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
         }
 
         public void OnPointerClick(PointerEventData pointerEventData)
         {
-            text.color = Coordinator.instance.appTheme.SelectedTheme.buttonNormalTextColor;
+            text.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
         }
     }
 }

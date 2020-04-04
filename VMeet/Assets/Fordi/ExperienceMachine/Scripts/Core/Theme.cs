@@ -19,6 +19,8 @@ namespace VRExperience.Core
         public Color ErrorColor = new Color32(255, 0, 42, 255);
         public Color InputFieldSelection = new Color32(5, 5, 10, 255);
         public Color InputFieldNormalColor = new Color32(12, 12, 18, 255);
+        public Color colorMix2;
+        public Color panelInteractionBackground;
         #endregion
     }
 }

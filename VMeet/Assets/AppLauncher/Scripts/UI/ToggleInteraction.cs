@@ -4,9 +4,9 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-namespace AL.UI
+namespace AL.UI  
 {
-    public class ButtonInteraction: UIInteractionBase
+    public class ToggleInteraction : UIInteractionBase
     {
         public override void ToggleBackgroundHighlight(bool val)
         {

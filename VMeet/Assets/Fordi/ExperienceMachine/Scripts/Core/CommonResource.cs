@@ -89,6 +89,9 @@ namespace VRExperience.Core
         private void Awake()
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+            if (m_assetDb == null)
+                return;
+
             m_voiceOvers = m_assetDb.AudioGroups;
             m_controlGuideVO = m_assetDb.GuideAudioGroups;
             m_objects = m_assetDb.ObjectGroups;

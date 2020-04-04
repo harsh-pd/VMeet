@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using VRExperience.Core;
+using VRExperience.Common;
 
 namespace AL.UI
 {
@@ -17,7 +19,14 @@ namespace AL.UI
         [SerializeField]
         protected Selectable selectable;
 
-        protected bool pointerHovering = false;
+        protected IAppTheme m_appTheme;
+
+        protected bool mouseHovering = false;
+
+        private void Awake()
+        {
+            m_appTheme = IOC.Resolve<IAppTheme>();
+        }
 
         private void Start()
         {
@@ -25,14 +34,11 @@ namespace AL.UI
         }
 
         public virtual void OnEnable() { }
-     
 
         public virtual void OnDisable()
         {
             ToggleOutlineHighlight(false);
             ToggleBackgroundHighlight(false);
-            if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == gameObject)
-                EventSystem.current.SetSelectedGameObject(null);
         }
 
         public virtual void Init()
@@ -43,13 +49,13 @@ namespace AL.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            pointerHovering = true;
+            mouseHovering = true;
             ToggleOutlineHighlight(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            pointerHovering = false;
+            mouseHovering = false;
             ToggleOutlineHighlight(false);
         }
 
@@ -65,10 +71,10 @@ namespace AL.UI
 
         public virtual void ToggleOutlineHighlight(bool val)
         {
-            if (val && shadow && selectable.interactable)
-                shadow.effectColor = Coordinator.instance.appTheme.SelectedTheme.colorMix2;
-            else if(shadow)
-                shadow.effectColor = Coordinator.instance.appTheme.SelectedTheme.panelInteractionOutline;
+            if (val && selectable.interactable)
+                shadow.effectColor = m_appTheme.SelectedTheme.colorMix2;
+            else
+                shadow.effectColor = m_appTheme.SelectedTheme.panelInteractionOutline;
         }
 
         public virtual void ToggleBackgroundHighlight(bool val) { }
@@ -77,8 +83,7 @@ namespace AL.UI
 
         public void HighlightOutline(Color col)
         {
-            if (shadow)
-                shadow.effectColor = col;
+            shadow.effectColor = col;
         }
 
         public void HardSelect()

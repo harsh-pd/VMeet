@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AL
+namespace AL.X
 {
     public class Coordinator : MonoBehaviour {
 

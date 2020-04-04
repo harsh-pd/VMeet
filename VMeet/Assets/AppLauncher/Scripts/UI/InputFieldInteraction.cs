@@ -8,19 +8,19 @@ namespace AL.UI
 
         public override void OnReset()
         {
-            if (pointerHovering)
-                shadow.effectColor = Coordinator.instance.appTheme.SelectedTheme.colorMix2;
+            if (mouseHovering)
+                shadow.effectColor = m_appTheme.SelectedTheme.colorMix2;
             else
-                shadow.effectColor = Coordinator.instance.appTheme.SelectedTheme.panelInteractionOutline;
-            image.color = Coordinator.instance.appTheme.SelectedTheme.InputFieldNormalColor;
+                shadow.effectColor = m_appTheme.SelectedTheme.panelInteractionOutline;
+            image.color = m_appTheme.SelectedTheme.InputFieldNormalColor;
         }
 
         public override void ToggleBackgroundHighlight(bool val)
         {
             if (val && selectable.interactable)
-                image.color = Coordinator.instance.appTheme.SelectedTheme.InputFieldSelection;
+                image.color = m_appTheme.SelectedTheme.InputFieldSelection;
             else if (!((TMPro.TMP_InputField)selectable).isFocused)
-                image.color = Coordinator.instance.appTheme.SelectedTheme.InputFieldNormalColor;
+                image.color = m_appTheme.SelectedTheme.InputFieldNormalColor;
         }
 
         // Disabled for now
@@ -33,9 +33,9 @@ namespace AL.UI
         {
             //UnityEngine. Debug.Log("ToggleOUtline");
             if (val && selectable.interactable)
-                shadow.effectColor = Coordinator.instance.appTheme.SelectedTheme.colorMix2;
+                shadow.effectColor = m_appTheme.SelectedTheme.colorMix2;
             else if (!((TMPro.TMP_InputField)selectable).isFocused)
-                shadow.effectColor = Coordinator.instance.appTheme.SelectedTheme.panelInteractionOutline;
+                shadow.effectColor = m_appTheme.SelectedTheme.panelInteractionOutline;
         }
 
         // Input field interaction flag disabled for now
