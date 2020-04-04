@@ -137,13 +137,24 @@ namespace VRExperience.Core
             {
                 Serializer.Serialize(stream, dynamicSettings);
             }
+        }
 
+        private IEnumerator Start()
+        {
+            yield return null;
             InitSettings();
         }
 
         private void InitSettings()
         {
-            
+            m_experienceMachine.SetQualityLevel(selectedPreferences.GraphicsQuality);
+            MandalaExperience mandalaExperience = (MandalaExperience)m_experienceMachine.GetExperience(ExperienceType.MANDALA).experience;
+            mandalaExperience.AllowAnimation = selectedPreferences.Animation;
+            mandalaExperience.AllowParticles = selectedPreferences.Particles;
+            m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
+            if (selectedPreferences.DesktopMode)
+                m_vrMenu.SwitchToDesktop();
+            m_player.ApplyTooltipSettings();
         }
 
         public void SaveSettings()

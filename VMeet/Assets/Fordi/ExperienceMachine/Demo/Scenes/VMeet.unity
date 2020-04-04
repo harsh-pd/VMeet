@@ -282,6 +282,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ToggleSidePanels
       objectReference: {fileID: 0}
+    - target: {fileID: 3065635000935109282, guid: ca1ca845e771b5a4594393af9235223b,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.a
+      value: 0.08627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 3065635000935109282, guid: ca1ca845e771b5a4594393af9235223b,
+        type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1372519382}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca1ca845e771b5a4594393af9235223b, type: 3}
 --- !u!1001 &1309535015
@@ -936,6 +946,11 @@ PrefabInstance:
       propertyPath: m_fontColor.b
       value: 0.2392157
       objectReference: {fileID: 0}
+    - target: {fileID: 8143663202957643630, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8489878352216427617, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
     - {fileID: 7636736946398187176, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
@@ -1054,6 +1069,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1372519382 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6750953855894462529, guid: ca1ca845e771b5a4594393af9235223b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1212437384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2138677391
 GameObject:
   m_ObjectHideFlags: 0

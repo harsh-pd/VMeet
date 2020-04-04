@@ -3020,6 +3020,12 @@ PrefabInstance:
       propertyPath: m_desktopInputModule
       value: 
       objectReference: {fileID: 3731949770437832662}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_textBoxPrefab
+      value: 
+      objectReference: {fileID: 7613397718039046533, guid: 10e62636dc8891943badaaf80d4c6488,
+        type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_Name

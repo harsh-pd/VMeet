@@ -48,7 +48,7 @@ namespace VRExperience.UI.MenuControl
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
-        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab;
+        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab;
         [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
         [SerializeField]
@@ -118,7 +118,8 @@ namespace VRExperience.UI.MenuControl
         private IEnumerator Start()
         {
             yield return null;
-            m_laserPointer = FindObjectOfType<LaserPointer>();
+            if (m_laserPointer == null)
+                m_laserPointer = FindObjectOfType<LaserPointer>();
             if (m_laserPointer != null)
                 m_laserPointer.laserBeamBehavior = m_laserBeamBehavior;
             //yield return new WaitForSeconds(3.0f);
@@ -427,6 +428,30 @@ namespace VRExperience.UI.MenuControl
             m_screenStack.Push(menu);
         }
 
+        public void DisplayMessage(string message, bool block = true, bool persist = false)
+        {
+            m_screensRoot.gameObject.SetActive(true);
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Peek();
+                if (screen.Persist)
+                    screen.Deactivate();
+                else
+                    m_screenStack.Pop().Close();
+            }
+
+            if (m_player == null)
+                m_player = IOC.Resolve<IPlayer>();
+
+            m_player.PrepareForSpawn();
+            var menu = Instantiate(m_textBoxPrefab, m_player.PlayerCanvas);
+            BringInFront(menu.transform);
+
+            menu.OpenMenu(message, block, persist);
+            m_screenStack.Push(menu);
+            m_menuOn = true;
+        }
+
         #region GUIDE_CONDITIONS
         private bool m_menuOn = false, m_menuOff = false, m_inventoryOpen = false;
 
@@ -539,8 +564,10 @@ namespace VRExperience.UI.MenuControl
         #region DESKTOP_VR_COORDINATION
         public void SwitchToDesktop()
         {
-            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME)
-                Close();
+            return;
+            if (m_laserPointer == null)
+                m_laserPointer = FindObjectOfType<LaserPointer>();
+            DisplayMessage("Desktop mode is active.");
             m_vrInputModule.enabled = false;
             m_desktopInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(false);

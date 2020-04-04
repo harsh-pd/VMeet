@@ -128,6 +128,23 @@ namespace VRExperience.UI.MenuControl
                 m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
         }
 
+        public virtual void OpenMenu(string text, bool blocked, bool persist)
+        {
+            Clear();
+            Blocked = blocked;
+            Persist = persist;
+            gameObject.SetActive(true);
+            m_description.text = text;
+
+            if (m_vrMenu == null)
+                m_vrMenu = IOC.Resolve<IVRMenu>();
+
+            if (m_okButton != null)
+                m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+            if (m_closeButton != null)
+                m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+        }
+
         public virtual void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true)
         {
             if (m_backButton != null)

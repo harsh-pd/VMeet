@@ -173,10 +173,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.9411765}
-    m_HighlightedColor: {r: 0, g: 0.85558105, b: 0.9056604, a: 1}
-    m_PressedColor: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
-    m_SelectedColor: {r: 0, g: 0.85558105, b: 0.9056604, a: 1}
+    m_NormalColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.047058824}
+    m_HighlightedColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.08627451}
+    m_PressedColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0.05882353}
+    m_SelectedColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -197,7 +197,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: OnTrainingClick
+        m_MethodName: ToggleSidePanels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -226,7 +226,7 @@ MonoBehaviour:
   selectable: {fileID: 6539433333056228007}
   m_text: {fileID: 6539433333375879905}
   m_image: {fileID: 0}
-  overriddenHighlight: {r: 1, g: 1, b: 1, a: 1}
+  overriddenHighlight: {r: 0.2392157, g: 0.24705884, b: 0.2392157, a: 1}
   overrideColor: 1
   m_icon: {fileID: 6539433333700080331}
   m_allowTextScroll: 0
