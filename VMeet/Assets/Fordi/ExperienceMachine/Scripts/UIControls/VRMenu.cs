@@ -6,6 +6,7 @@ using UnityEngine;
 using VRExperience.Common;
 using VRExperience.Core;
 using AudioType = VRExperience.Core.AudioType;
+using UnityEngine.EventSystems;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -28,6 +29,8 @@ namespace VRExperience.UI.MenuControl
         void ShowPreview(Sprite sprite);
         void DeactivateUI();
         void ShowUI();
+        void SwitchToDesktop();
+        void SwitchToVR();
     }
 
     public class Sound
@@ -70,6 +73,8 @@ namespace VRExperience.UI.MenuControl
         private VRUIInteraction m_leftSideDropDown, m_rightSideDropdown;
         [SerializeField]
         private Popup m_popup;
+        [SerializeField]
+        private BaseInputModule m_desktopInputModule, m_vrInputModule;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -93,6 +98,7 @@ namespace VRExperience.UI.MenuControl
         private ICommonResource m_commonResource;
 
         private Vector3 m_playerScreenOffset;
+        private LaserPointer m_laserPointer;
 
         private Sound m_lastVo = null;
 
@@ -112,9 +118,9 @@ namespace VRExperience.UI.MenuControl
         private IEnumerator Start()
         {
             yield return null;
-            var laserPointer = FindObjectOfType<LaserPointer>();
-            if (laserPointer != null)
-                laserPointer.laserBeamBehavior = m_laserBeamBehavior;
+            m_laserPointer = FindObjectOfType<LaserPointer>();
+            if (m_laserPointer != null)
+                m_laserPointer.laserBeamBehavior = m_laserBeamBehavior;
             //yield return new WaitForSeconds(3.0f);
             //OVRManager.display.RecenterPose();
         }
@@ -527,6 +533,24 @@ namespace VRExperience.UI.MenuControl
                 Content = "Open <#FF004D>" + link + "</color> in browser?"
             };
             popup.Show(popupInfo, () => System.Diagnostics.Process.Start(link));
+        }
+        #endregion
+
+        #region DESKTOP_VR_COORDINATION
+        public void SwitchToDesktop()
+        {
+            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME)
+                Close();
+            m_vrInputModule.enabled = false;
+            m_desktopInputModule.enabled = true;
+            m_laserPointer.gameObject.SetActive(false);
+        }
+
+        public void SwitchToVR()
+        {
+            m_desktopInputModule.enabled = false;
+            m_vrInputModule.enabled = true;
+            m_laserPointer.gameObject.SetActive(true);
         }
         #endregion
     }

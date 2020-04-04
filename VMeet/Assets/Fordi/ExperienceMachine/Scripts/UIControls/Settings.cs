@@ -78,6 +78,7 @@ namespace VRExperience.Core
 
         private IExperienceMachine m_experienceMachine;
         private IPlayer m_player;
+        private IVRMenu m_vrMenu;
 
         private const string ConfigFile = "ConfigFile.config";
 
@@ -101,6 +102,8 @@ namespace VRExperience.Core
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_player = IOC.Resolve<IPlayer>();
+            m_vrMenu = IOC.Resolve<IVRMenu>();
+
             DynamicSettings dynamicSettings = null;
             var configFilePath = Path.Combine(Application.persistentDataPath, ConfigFile);
             if (File.Exists(configFilePath))
@@ -158,6 +161,8 @@ namespace VRExperience.Core
             mandalaExperience.AllowAnimation = selectedPreferences.Animation;
             mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
+            if (selectedPreferences.DesktopMode)
+                m_vrMenu.SwitchToDesktop();
             m_player.ApplyTooltipSettings();
         }
     }
