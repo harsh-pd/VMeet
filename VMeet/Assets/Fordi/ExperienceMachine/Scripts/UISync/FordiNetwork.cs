@@ -4,7 +4,12 @@ using UnityEngine;
 
 namespace Fordi.Sync
 {
-    public class FordiNetwork : MonoBehaviour
+    public interface IFordiNetwork
+    {
+
+    }
+
+    public class FordiNetwork : MonoBehaviour, IFordiNetwork
     {
         //private static Dictionary<int, SyncView> m_syncViewList = new Dictionary<int, SyncView>();
 

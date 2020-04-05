@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Fordi.Sync;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using VRExperience.Common;
 using VRExperience.UI.MenuControl;
@@ -109,6 +110,24 @@ namespace VRExperience.Core
             }
         }
 
+        private IFordiNetwork m_fordiNetwork;
+
+        protected virtual IFordiNetwork FordiNetwork
+        {
+            get
+            {
+                FordiNetwork fordiNetwork = FindObjectOfType<FordiNetwork>();
+                if (fordiNetwork == null)
+                {
+                    var obj = new GameObject("FordiNetwork");
+                    fordiNetwork = obj.AddComponent<FordiNetwork>();
+                    fordiNetwork.transform.parent = transform;
+                    fordiNetwork.transform.localPosition = Vector3.zero;
+                }
+                return fordiNetwork;
+            }
+        }
+
         private void Awake()
         {
             if(m_instance != null)
@@ -129,6 +148,7 @@ namespace VRExperience.Core
             m_commonResource = CommonResource;
             m_player = Player;
             m_settings = Settings;
+            m_fordiNetwork = FordiNetwork;
         }
 
         private void OnDestroy()
@@ -193,6 +213,7 @@ namespace VRExperience.Core
             IOC.RegisterFallback(() => Instance.m_commonResource);
             IOC.RegisterFallback(() => Instance.m_player);
             IOC.RegisterFallback(() => Instance.m_settings);
+            IOC.RegisterFallback(() => Instance.m_fordiNetwork);
             if (IOC.Resolve<IMenuSelection>() == null)
                 IOC.Register<IMenuSelection>(new MenuSelection());
         }
