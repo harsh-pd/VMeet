@@ -2065,7 +2065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3585792720980941355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2077,12 +2077,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3585792721337055119}
-  m_RootOrder: 3
+  m_Father: {fileID: 4729353550352789378}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -33}
+  m_AnchoredPosition: {x: -16, y: 0}
   m_SizeDelta: {x: 1, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &3585792720980941357
@@ -2152,9 +2152,8 @@ RectTransform:
   m_Children:
   - {fileID: 3585792720728360752}
   - {fileID: 3585792720193413942}
-  - {fileID: 4729353550352789378}
-  - {fileID: 3585792720980941355}
   - {fileID: 4729353550476377508}
+  - {fileID: 4729353550352789378}
   - {fileID: 3600117033787938982}
   m_Father: {fileID: 3600117033988082632}
   m_RootOrder: 1
@@ -5074,7 +5073,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3585792721337055119}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -9490,7 +9489,7 @@ MonoBehaviour:
   m_sfxVolume: {fileID: 3600117034811914973}
   m_ambienceVolume: {fileID: 3600117033060098079}
   m_audioVolume: {fileID: 3600117034838207644}
-  m_saveButton: {fileID: 3246282590179684115}
+  m_saveButton: {fileID: 4729353550352789377}
   m_showTooltip: {fileID: 8930040947290745748}
   m_whiteTeleportToggle: {fileID: 8930040947236814885}
   m_blackTeleportToggle: {fileID: 8930040947754694147}
@@ -9525,7 +9524,7 @@ GameObject:
   - component: {fileID: 4729353550352789380}
   - component: {fileID: 4729353550352789379}
   m_Layer: 5
-  m_Name: Edit
+  m_Name: Save
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9541,13 +9540,14 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 3585792720980941355}
   m_Father: {fileID: 3585792721337055119}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 166, y: -33}
+  m_AnchoredPosition: {x: 216, y: -33}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &4729353550352789383
@@ -9578,7 +9578,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: db0fb84eda7ab71488cf96960023e70a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86e8b504bae2cf840b7e0947e0e8963a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9630,8 +9630,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: EnableEditing
+      - m_Target: {fileID: 3600117033163445469}
+        m_MethodName: Save
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9706,7 +9706,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3585792721337055119}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -12129,7 +12129,7 @@ PrefabInstance:
     - target: {fileID: 2553250769416282961, guid: cc9326ccb95358a438ef411fdb54a9a5,
         type: 3}
       propertyPath: m_text
-      value: GRAPHICS QUALITY
+      value: TELEPORT COLOR
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc9326ccb95358a438ef411fdb54a9a5, type: 3}

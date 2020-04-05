@@ -50,7 +50,7 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab;
         [SerializeField]
-        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab;
+        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace;
         [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
         [SerializeField]
@@ -58,7 +58,7 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private SettingsPanel m_settingsInterfacePrefab;
         [SerializeField]
-        private Transform m_screensRoot;
+        private Transform m_screensRoot, m_dScreenRoot;
         [SerializeField]
         private Popup m_popupPrefab;
         [SerializeField]
@@ -182,6 +182,13 @@ namespace VRExperience.UI.MenuControl
             menu.OpenMenu(items, block, persist);
             m_screenStack.Push(menu);
             m_menuOn = true;
+
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
+
+            var dMenu = Instantiate(m_dMainMenuPrefab, m_dScreenRoot);
+            dMenu.OpenMenu(items, block, persist);
+            menu.Pair = dMenu;
         }
 
         public void OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
@@ -202,6 +209,8 @@ namespace VRExperience.UI.MenuControl
             BringInFront(menu.transform);
             menu.OpenGridMenu(items, title, block, persist, backEnabled);
             m_screenStack.Push(menu);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
 
             if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
                 m_inventoryOpen = true;
@@ -225,6 +234,8 @@ namespace VRExperience.UI.MenuControl
             BringInFront(menu.transform);
             menu.OpenGridMenu(items, title, block, persist, backEnabled);
             m_screenStack.Push(menu);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
 
             if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
                 m_inventoryOpen = true;
@@ -249,6 +260,8 @@ namespace VRExperience.UI.MenuControl
             BringInFront(menu.transform);
             menu.OpenGridMenu(items, title, block, persist, backEnabled);
             m_screenStack.Push(menu);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
         }
 
         public void Popup(PopupInfo popupInfo)
@@ -265,6 +278,8 @@ namespace VRExperience.UI.MenuControl
             var popup = Instantiate(m_popupPrefab, m_screensRoot);
             popup.Show(popupInfo, null);
             m_screenStack.Push(popup);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                popup.Hide();
         }
 
         public void CloseLastScreen()
@@ -448,6 +463,12 @@ namespace VRExperience.UI.MenuControl
 
             menu.Init(block, persist);
             m_screenStack.Push(menu);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
+
+            var dMenu = Instantiate(m_dSettingsInterace, m_dScreenRoot);
+            dMenu.Init(block, persist);
+            menu.Pair = dMenu;
         }
 
         public void DisplayMessage(string message, bool block = true, bool persist = false)
@@ -474,6 +495,7 @@ namespace VRExperience.UI.MenuControl
             //m_screenStack.Push(menu);
             m_menuOn = true;
         }
+
         public void CloseVRBlocker()
         {
             if (m_vrBlocker != null)

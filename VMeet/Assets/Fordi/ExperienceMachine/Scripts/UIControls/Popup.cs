@@ -36,6 +36,8 @@ namespace VRExperience.UI
 
         public GameObject Gameobject { get { return gameObject; } }
 
+        private IScreen m_pair = null;
+        public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
 
         private Vector3 m_localScale = Vector3.zero;
         private void Awake()

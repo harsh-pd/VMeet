@@ -227,7 +227,7 @@ MonoBehaviour:
   m_text: {fileID: 6539433333375879905}
   m_image: {fileID: 0}
   overriddenHighlight: {r: 0.2392157, g: 0.24705884, b: 0.2392157, a: 1}
-  overrideColor: 1
+  overrideColor: 0
   m_icon: {fileID: 6539433333700080331}
   m_allowTextScroll: 0
   m_textScrollSpeed: 10

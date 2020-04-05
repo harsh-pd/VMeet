@@ -20,6 +20,7 @@ namespace VRExperience.UI.MenuControl
         void Hide();
         void UnHide();
         GameObject Gameobject { get; }
+        IScreen Pair { get; }
     }
 
     [DisallowMultipleComponent]
@@ -48,6 +49,7 @@ namespace VRExperience.UI.MenuControl
  
         protected IVRMenu m_vrMenu;
         protected IExperienceMachine m_experienceMachine;
+        protected ISettings m_settings;
 
         public bool Blocked { get; protected set; }
 
@@ -55,17 +57,20 @@ namespace VRExperience.UI.MenuControl
 
         public GameObject Gameobject { get { return gameObject; } }
 
+        private IScreen m_pair = null;
+        public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
+
         private Vector3 m_localScale = Vector3.zero;
 
         void Awake()
         {
+            m_settings = IOC.Resolve<ISettings>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
 
             AwakeOverride();
-            
         }
 
         private void OnDestroy()
@@ -93,11 +98,15 @@ namespace VRExperience.UI.MenuControl
         public void Deactivate()
         {
             gameObject.SetActive(false);
+            if (Pair != null)
+                Pair.Deactivate();
         }
 
         public void Reopen()
         {
             gameObject.SetActive(true);
+            if (Pair != null)
+                Pair.Reopen();
         }
 
 
@@ -164,6 +173,8 @@ namespace VRExperience.UI.MenuControl
 
         public void Close()
         {
+            if (Pair != null)
+                Pair.Close();
             Destroy(gameObject);
         }
 
@@ -187,6 +198,8 @@ namespace VRExperience.UI.MenuControl
 
         public void Hide()
         {
+            if (m_localScale == Vector3.zero)
+                m_localScale = transform.localScale;
             transform.localScale = Vector3.zero;
         }
 

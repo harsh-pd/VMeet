@@ -174,6 +174,8 @@ namespace VRExperience.Core
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
                 m_vrMenu.SwitchToDesktopOnlyMode();
+            else
+                m_vrMenu.DisableDesktopOnlyMode();
             m_player.ApplyTooltipSettings();
         }
     }
