@@ -26,12 +26,22 @@ namespace AL.UI
         private void Awake()
         {
             m_appTheme = IOC.Resolve<IAppTheme>();
+            AwakeOverride();
         }
 
+        protected virtual void AwakeOverride() { }
+       
         private void Start()
         {
             Init();
         }
+
+        private void OnDestroy()
+        {
+            OnDestroyOverride();
+        }
+
+        protected virtual void OnDestroyOverride() { }
 
         public virtual void OnEnable() { }
 
@@ -71,6 +81,9 @@ namespace AL.UI
 
         public virtual void ToggleOutlineHighlight(bool val)
         {
+            if (shadow == null)
+                return;
+
             if (val && selectable.interactable)
                 shadow.effectColor = m_appTheme.SelectedTheme.colorMix2;
             else
