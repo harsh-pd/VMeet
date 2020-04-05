@@ -53,7 +53,7 @@ namespace VRExperience.UI
             base.ToggleOutlineHighlight(val);
         }
 
-        private void OnValueChange(bool val)
+        protected virtual void OnValueChange(bool val)
         {
             ToggleBackgroundHighlight(val);
             ToggleOutlineHighlight(val);
