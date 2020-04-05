@@ -50,6 +50,8 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab;
         [SerializeField]
+        private MenuScreen m_desktopBlockerPrefab, m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab;
+        [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
         [SerializeField]
         private ObjectInterface m_objectInterfacePrefab;
@@ -126,6 +128,19 @@ namespace VRExperience.UI.MenuControl
             //OVRManager.display.RecenterPose();
         }
 
+        private void OnEnable()
+        {
+            OVRManager.HMDMounted += OnHMDMount;
+            OVRManager.HMDUnmounted += OnHMDUnmount;
+        }
+
+        private void OnDisable()
+        {
+            OVRManager.HMDMounted -= OnHMDUnmount;
+            OVRManager.HMDUnmounted -= OnHMDMount;
+        }
+
+        #region CORE
         private void BringInFront(Transform menuTransform)
         {
             Vector3 offset = menuTransform.localPosition / 100.0f;
@@ -451,6 +466,7 @@ namespace VRExperience.UI.MenuControl
             m_screenStack.Push(menu);
             m_menuOn = true;
         }
+        #endregion
 
         #region GUIDE_CONDITIONS
         private bool m_menuOn = false, m_menuOff = false, m_inventoryOpen = false;
@@ -479,7 +495,6 @@ namespace VRExperience.UI.MenuControl
             return val;
         }
         #endregion
-
 
         public void DeactivateUI()
         {
@@ -578,6 +593,18 @@ namespace VRExperience.UI.MenuControl
             m_desktopInputModule.enabled = false;
             m_vrInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(true);
+        }
+
+        void OnHMDUnmount()
+        {
+            //headsetInstructionPanel.SetActive(true);
+            //desktoCanvas.SetActive(true);
+        }
+
+        void OnHMDMount()
+        {
+            //headsetInstructionPanel.SetActive(false);
+            //desktoCanvas.SetActive(false);
         }
         #endregion
     }
