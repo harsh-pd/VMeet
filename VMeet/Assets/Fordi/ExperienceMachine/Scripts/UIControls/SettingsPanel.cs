@@ -38,7 +38,7 @@ namespace VRExperience.UI.MenuControl
 
         [Header("Others")]
         [SerializeField]
-        private Button m_saveButton;
+        private GameObject m_saveButton;
         [SerializeField]
         private Toggle m_showTooltip;
         [SerializeField]
@@ -120,7 +120,7 @@ namespace VRExperience.UI.MenuControl
 
             changes = changes || m_settings.SelectedPreferences.DesktopMode != m_desktopMode.isOn;
 
-            m_saveButton.transform.parent.gameObject.SetActive(changes);
+            m_saveButton.SetActive(changes);
         }
 
         private void ResetToPreviousSettings()
@@ -179,6 +179,7 @@ namespace VRExperience.UI.MenuControl
 
             ToggleEdit(false);
             m_settings.SaveSettings();
+            m_saveButton.SetActive(false);
         }
 
         public void ResetToDefaultSettings()
