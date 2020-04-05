@@ -390,4 +390,21 @@ namespace Fordi.Sync
             return string.Format("[FordiMessageInfo: Senttime={0}]", this.SentTime);
         }
     }
+
+    public class SyncViewPair
+    {
+        private SyncView m_first;
+        private SyncView m_second;
+
+        public SyncView First { get => m_first; set => m_first = value; }
+        public SyncView Second { get => m_second; set => m_second = value; }
+
+        public void Register(SyncView view)
+        {
+            if (view == First)
+                m_second = view;
+            else
+                m_first = view;
+        }
+    }
 }

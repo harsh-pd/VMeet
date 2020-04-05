@@ -153,7 +153,7 @@ namespace VRExperience.Core
             mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
-                m_vrMenu.SwitchToDesktop();
+                m_vrMenu.SwitchToDesktopOnlyMode();
             m_player.ApplyTooltipSettings();
         }
 
@@ -173,7 +173,7 @@ namespace VRExperience.Core
             mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
-                m_vrMenu.SwitchToDesktop();
+                m_vrMenu.SwitchToDesktopOnlyMode();
             m_player.ApplyTooltipSettings();
         }
     }

@@ -17,6 +17,8 @@ namespace VRExperience.UI.MenuControl
         bool Persist { get; }
         void ShowPreview(Sprite sprite);
         void ShowTooltip(string tooltip);
+        void Hide();
+        void UnHide();
         GameObject Gameobject { get; }
     }
 
@@ -53,12 +55,17 @@ namespace VRExperience.UI.MenuControl
 
         public GameObject Gameobject { get { return gameObject; } }
 
+        private Vector3 m_localScale = Vector3.zero;
+
         void Awake()
         {
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+            if (m_localScale == Vector3.zero)
+                m_localScale = transform.localScale;
 
             AwakeOverride();
+            
         }
 
         private void OnDestroy()
@@ -176,6 +183,16 @@ namespace VRExperience.UI.MenuControl
         public void ShowTooltip(string tooltip)
         {
             m_description.text = tooltip;
+        }
+
+        public void Hide()
+        {
+            transform.localScale = Vector3.zero;
+        }
+
+        public void UnHide()
+        {
+            transform.localScale = m_localScale;
         }
     }
 }

@@ -37,9 +37,12 @@ namespace VRExperience.UI
         public GameObject Gameobject { get { return gameObject; } }
 
 
+        private Vector3 m_localScale = Vector3.zero;
         private void Awake()
         {
             m_vrMenu = IOC.Resolve<IVRMenu>();
+            if (m_localScale == Vector3.zero)
+                m_localScale = transform.localScale;
         }
 
         public void Show(PopupInfo popupInfo, Action Ok  = null)
@@ -102,6 +105,16 @@ namespace VRExperience.UI
         {
             m_ok?.Invoke();
             Destroy(gameObject);
+        }
+
+        public void Hide()
+        {
+            transform.localScale = Vector3.zero;
+        }
+
+        public void UnHide()
+        {
+            transform.localScale = m_localScale;
         }
     }
 }

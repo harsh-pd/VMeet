@@ -29,8 +29,8 @@ namespace VRExperience.UI.MenuControl
         void ShowPreview(Sprite sprite);
         void DeactivateUI();
         void ShowUI();
-        void SwitchToDesktop();
-        void SwitchToVR();
+        void SwitchToDesktopOnlyMode();
+        void DisableDesktopOnlyMode();
     }
 
     public class Sound
@@ -50,7 +50,7 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab;
         [SerializeField]
-        private MenuScreen m_desktopBlockerPrefab, m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab;
+        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab;
         [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
         [SerializeField]
@@ -77,6 +77,8 @@ namespace VRExperience.UI.MenuControl
         private Popup m_popup;
         [SerializeField]
         private BaseInputModule m_desktopInputModule, m_vrInputModule;
+        [SerializeField]
+        private MenuScreen m_desktopBlocker;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -98,11 +100,15 @@ namespace VRExperience.UI.MenuControl
         private IMenuSelection m_menuSelection;
         private IExperienceMachine m_experienceMachine;
         private ICommonResource m_commonResource;
+        private ISettings m_settings;
 
         private Vector3 m_playerScreenOffset;
         private LaserPointer m_laserPointer;
 
         private Sound m_lastVo = null;
+
+        private MenuScreen m_vrBlocker = null;
+
 
         private void Awake()
         {
@@ -112,6 +118,7 @@ namespace VRExperience.UI.MenuControl
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_commonResource = IOC.Resolve<ICommonResource>();
+            m_settings = IOC.Resolve<ISettings>();
             if (m_experienceMachine.CurrentExperience == ExperienceType.HOME)
                 InitializeSidePanels();
             //Debug.LogError("Awake");
@@ -446,14 +453,14 @@ namespace VRExperience.UI.MenuControl
         public void DisplayMessage(string message, bool block = true, bool persist = false)
         {
             m_screensRoot.gameObject.SetActive(true);
-            if (m_screenStack.Count > 0)
-            {
-                var screen = m_screenStack.Peek();
-                if (screen.Persist)
-                    screen.Deactivate();
-                else
-                    m_screenStack.Pop().Close();
-            }
+            //if (m_screenStack.Count > 0)
+            //{
+            //    var screen = m_screenStack.Peek();
+            //    if (screen.Persist)
+            //        screen.Deactivate();
+            //    else
+            //        m_screenStack.Pop().Close();
+            //}
 
             if (m_player == null)
                 m_player = IOC.Resolve<IPlayer>();
@@ -463,8 +470,28 @@ namespace VRExperience.UI.MenuControl
             BringInFront(menu.transform);
 
             menu.OpenMenu(message, block, persist);
-            m_screenStack.Push(menu);
+            m_vrBlocker = menu;
+            //m_screenStack.Push(menu);
             m_menuOn = true;
+        }
+        public void CloseVRBlocker()
+        {
+            if (m_vrBlocker != null)
+                m_vrBlocker.Close();
+            if (m_screenStack.Count == 0)
+                m_menuOff = true;
+        }
+
+        public void BlockDesktop()
+        {
+            if (m_desktopBlocker != null)
+                m_desktopBlocker.Reopen();
+        }
+
+        public void UnblockDesktop()
+        {
+            if (m_desktopBlocker != null)
+                m_desktopBlocker.Deactivate();
         }
         #endregion
 
@@ -577,34 +604,55 @@ namespace VRExperience.UI.MenuControl
         #endregion
 
         #region DESKTOP_VR_COORDINATION
-        public void SwitchToDesktop()
+        public void SwitchToDesktopOnlyMode()
         {
-            return;
+            foreach (var item in m_screenStack)
+                item.Hide();
+
+            DisplayMessage("Desktop mode is active.");
+            UnblockDesktop();
+        }
+
+        public void DisableDesktopOnlyMode()
+        {
+            foreach (var item in m_screenStack)
+                item.UnHide();
+
+            CloseVRBlocker();
+            if (m_screenStack.Count > 0)
+                m_screenStack.Peek().Reopen();
+        }
+
+        void OnHMDUnmount()
+        {
+            if (!m_settings.SelectedPreferences.DesktopMode)
+                UnblockDesktop();
+            EnableDesktopModule();
+        }
+
+        void OnHMDMount()
+        {
+            if (!m_settings.SelectedPreferences.DesktopMode)
+                BlockDesktop();
+            EnableVRModule();
+        }
+
+        private void EnableDesktopModule()
+        {
             if (m_laserPointer == null)
                 m_laserPointer = FindObjectOfType<LaserPointer>();
-            DisplayMessage("Desktop mode is active.");
             m_vrInputModule.enabled = false;
             m_desktopInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(false);
         }
 
-        public void SwitchToVR()
+        private void EnableVRModule()
         {
+            if (m_laserPointer == null)
+                m_laserPointer = FindObjectOfType<LaserPointer>();
             m_desktopInputModule.enabled = false;
             m_vrInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(true);
-        }
-
-        void OnHMDUnmount()
-        {
-            //headsetInstructionPanel.SetActive(true);
-            //desktoCanvas.SetActive(true);
-        }
-
-        void OnHMDMount()
-        {
-            //headsetInstructionPanel.SetActive(false);
-            //desktoCanvas.SetActive(false);
         }
         #endregion
     }

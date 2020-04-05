@@ -27,6 +27,7 @@ namespace Fordi.Sync
     /// </summary>
     /// \ingroup publicApi
     [AddComponentMenu("Fordi Networking/Sync View")]
+    [ExecuteInEditMode]
     public class SyncView : MonoBehaviour
     {
         public List<Component> ObservedComponents;
@@ -37,16 +38,14 @@ namespace Fordi.Sync
 
         public int ViewID { get { return viewIdField; } }
 
-
         protected internal void Awake()
         {
-            if (this.ViewID != 0)
-            {
-                //FordiNetwork.RegisterPhotonView(this);
-            }
-        }
+            if (viewIdField == 0)
+                viewIdField = gameObject.GetInstanceID();
 
-      
+            if (this.ViewID != 0 && Application.isPlaying)
+                FordiNetwork.RegisterPhotonView(this);
+        }
 
         public void SerializeView(FordiStream stream, FordiMessageInfo info)
         {

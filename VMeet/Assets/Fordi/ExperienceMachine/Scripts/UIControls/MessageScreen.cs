@@ -22,6 +22,13 @@ namespace VRExperience.UI
 
         public GameObject Gameobject { get { return gameObject; } }
 
+        private Vector3 m_localScale;
+        private void Awake()
+        {
+            if (m_localScale == Vector3.zero)
+                m_localScale = transform.localScale;
+        }
+
         public void Close()
         {
             m_button.onClick.Invoke();
@@ -53,6 +60,16 @@ namespace VRExperience.UI
         public void ShowTooltip(string tooltip)
         {
             
+        }
+
+        public void Hide()
+        {
+            transform.localScale = Vector3.zero;
+        }
+
+        public void UnHide()
+        {
+            transform.localScale = m_localScale;
         }
     }
 }
