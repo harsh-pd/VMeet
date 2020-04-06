@@ -36,5 +36,10 @@ namespace VRExperience.Core
 
             return null;
         }
+
+        public override void ToggleMenu()
+        {
+            
+        }
     }
 }
