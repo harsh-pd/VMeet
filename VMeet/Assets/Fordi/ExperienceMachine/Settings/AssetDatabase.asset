@@ -345,6 +345,43 @@ MonoBehaviour:
       LargePreview: {fileID: 0}
       SpecialCommand: 
       Clip: {fileID: 8300000, guid: 1e5bce99cfbc7ea478435b3dbe8a9709, type: 3}
+  MeetingMusic:
+  - Name: Temp
+    Description: License not available for commercial use.
+    ResourceType: 0
+    Preview: {fileID: 21300000, guid: 146d4c58a0f42744090caf47d01914dc, type: 3}
+    LargePreview: {fileID: 21300000, guid: 146d4c58a0f42744090caf47d01914dc, type: 3}
+    SpecialCommand: 
+    Resources:
+    - Name: 
+      Description: 
+      ResourceType: 0
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: de3a47d20d528d7429fcc5fde2345e13, type: 3}
+  LobbyMusic:
+  - Name: Temp
+    Description: License not available for commercial use.
+    ResourceType: 0
+    Preview: {fileID: 21300000, guid: 87b1f50d963db974cbbc9e1177347d35, type: 3}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Elec1
+      Description: License not available for commercial use.
+      ResourceType: 0
+      Preview: {fileID: 21300000, guid: 146d4c58a0f42744090caf47d01914dc, type: 3}
+      LargePreview: {fileID: 21300000, guid: 146d4c58a0f42744090caf47d01914dc, type: 3}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 1cdc1ff94ae16934495a601167e2bc20, type: 3}
+    - Name: Elec 2
+      Description: License not available for commercial use.
+      ResourceType: 0
+      Preview: {fileID: 21300000, guid: 146d4c58a0f42744090caf47d01914dc, type: 3}
+      LargePreview: {fileID: 21300000, guid: 146d4c58a0f42744090caf47d01914dc, type: 3}
+      SpecialCommand: 
+      Clip: {fileID: 8300000, guid: 30aa30770dd7cd241981a2f95d17d7ab, type: 3}
   HomeMusic:
   - Name: Zen
     Description: 
@@ -359,7 +396,7 @@ MonoBehaviour:
       Preview: {fileID: 0}
       LargePreview: {fileID: 0}
       SpecialCommand: 
-      Clip: {fileID: 8300000, guid: 64a5e08c7ce49eb43aa3c1e97c80851c, type: 3}
+      Clip: {fileID: 8300000, guid: de3a47d20d528d7429fcc5fde2345e13, type: 3}
   MandalaMusic:
   - Name: Relax
     Description: 

@@ -287,6 +287,14 @@ namespace VRExperience.Core
                 m_experienceMachine.LoadExperience();
             }
 
+            if (args.CommandType == MenuCommandType.LOBBY)
+            {
+                m_menuSelection.Location = args.Path;
+                m_menuSelection.ExperienceType = ExperienceType.LOBBY;
+                ToggleMenu();
+                m_experienceMachine.LoadExperience();
+            }
+
             if (args.CommandType == MenuCommandType.SETTINGS)
             {
                 m_vrMenu.OpenSettingsInterface(m_commonResource.GetGuideClip(MenuCommandType.SETTINGS));

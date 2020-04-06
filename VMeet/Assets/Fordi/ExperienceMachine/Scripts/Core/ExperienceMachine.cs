@@ -21,7 +21,9 @@ namespace VRExperience.Core
         NATURE,
         MANDALA,
         ABSTRACT,
-        GLOBAL
+        GLOBAL,
+        MEETING,
+        LOBBY
     }
 
     public enum GameplayMode
@@ -79,7 +81,7 @@ namespace VRExperience.Core
         [SerializeField]
         private OvrAvatar m_avatar;
 
-        private IExperience m_home, m_nature, m_mandala, m_abstract, m_currentExperience;
+        private IExperience m_home, m_nature, m_mandala, m_abstract, m_lobby, m_meeting, m_currentExperience;
         private IMenuSelection m_menuSelection;
         private IAudio m_audio;
         private IVRMenu m_vrMenu;
@@ -102,6 +104,8 @@ namespace VRExperience.Core
             m_nature = GetComponentInChildren<NatureExperience>();
             m_mandala = GetComponentInChildren<MandalaExperience>();
             m_abstract = GetComponentInChildren<AbstractExperience>();
+            m_lobby = GetComponentInChildren<Lobby>();
+            m_meeting = GetComponentInChildren<MeetingExperience>();
            
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
@@ -157,6 +161,10 @@ namespace VRExperience.Core
                     return m_mandala;
                 case ExperienceType.ABSTRACT:
                     return m_abstract;
+                case ExperienceType.MEETING:
+                    return m_meeting;
+                case ExperienceType.LOBBY:
+                    return m_lobby;
                 default:
                     return null;
             }
@@ -173,6 +181,10 @@ namespace VRExperience.Core
                 m_currentExperienceType = ExperienceType.NATURE;
             if (m_currentExperience == m_abstract)
                 m_currentExperienceType = ExperienceType.ABSTRACT;
+            if (m_currentExperience == m_lobby)
+                m_currentExperienceType = ExperienceType.LOBBY;
+            if (m_currentExperience == m_meeting)
+                m_currentExperienceType = ExperienceType.MEETING;
         }
 
         #region EXPERIENCE_INTERFACE
@@ -228,6 +240,10 @@ namespace VRExperience.Core
                     return m_mandala;
                 case "abstract":
                     return m_abstract;
+                case "meeting":
+                    return m_meeting;
+                case "lobby":
+                    return m_lobby;
                 default:
                     return null;
             }

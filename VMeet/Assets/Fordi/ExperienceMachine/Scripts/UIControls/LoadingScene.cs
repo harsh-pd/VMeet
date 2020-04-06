@@ -36,7 +36,7 @@ namespace VRExperience.Core
             yield return new WaitForSeconds(1.5f);
             m_loadingText.gameObject.SetActive(true);
             yield return null;
-            var ao = SceneManager.LoadSceneAsync("VMeet", LoadSceneMode.Single);
+            var ao = SceneManager.LoadSceneAsync("Home", LoadSceneMode.Single);
             ao.allowSceneActivation = false;
             while (ao.progress < .9f)
                 yield return null;

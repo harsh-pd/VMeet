@@ -57,7 +57,8 @@ namespace VRExperience.UI.MenuControl
         QUIT,
         TRAINING,
         SAVE_PRESET,
-        INVENTORY
+        INVENTORY,
+        LOBBY
     }
 
     [Serializable]

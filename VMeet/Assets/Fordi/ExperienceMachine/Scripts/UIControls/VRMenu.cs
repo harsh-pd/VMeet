@@ -7,6 +7,7 @@ using VRExperience.Common;
 using VRExperience.Core;
 using AudioType = VRExperience.Core.AudioType;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -79,6 +80,8 @@ namespace VRExperience.UI.MenuControl
         private BaseInputModule m_desktopInputModule, m_vrInputModule;
         [SerializeField]
         private MenuScreen m_desktopBlocker;
+        [SerializeField]
+        private GameObject m_laserPointerObject;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -103,12 +106,12 @@ namespace VRExperience.UI.MenuControl
         private ISettings m_settings;
 
         private Vector3 m_playerScreenOffset;
-        private LaserPointer m_laserPointer;
 
         private Sound m_lastVo = null;
 
         private MenuScreen m_vrBlocker = null;
 
+        private LaserPointer m_laserPointer;
 
         private void Awake()
         {
@@ -121,6 +124,9 @@ namespace VRExperience.UI.MenuControl
             m_settings = IOC.Resolve<ISettings>();
             if (m_experienceMachine.CurrentExperience == ExperienceType.HOME)
                 InitializeSidePanels();
+
+            OVRManager.HMDMounted += OnHMDMount;
+            OVRManager.HMDUnmounted += OnHMDUnmount;
             //Debug.LogError("Awake");
         }
 
@@ -128,22 +134,20 @@ namespace VRExperience.UI.MenuControl
         {
             yield return null;
             if (m_laserPointer == null)
-                m_laserPointer = FindObjectOfType<LaserPointer>();
+                m_laserPointer = m_laserPointerObject.GetComponent<LaserPointer>();
             if (m_laserPointer != null)
                 m_laserPointer.laserBeamBehavior = m_laserBeamBehavior;
+
+            if (XRDevice.userPresence == UserPresenceState.Present)
+                EnableVRModule();
+            else
+                EnableDesktopModule();
             //yield return new WaitForSeconds(3.0f);
             //OVRManager.display.RecenterPose();
         }
 
-        private void OnEnable()
+        private void OnDestroy()
         {
-            OVRManager.HMDMounted += OnHMDMount;
-            OVRManager.HMDUnmounted += OnHMDUnmount;
-        }
-
-        private void OnDisable()
-        {
-            Debug.LogError("Mount event unsubscribed");
             OVRManager.HMDMounted -= OnHMDUnmount;
             OVRManager.HMDUnmounted -= OnHMDMount;
         }
@@ -633,12 +637,16 @@ namespace VRExperience.UI.MenuControl
         #region DESKTOP_VR_COORDINATION
         private void EnsureModuleIntegrity()
         {
+            if (gameObject == null)
+            {
+                Debug.LogError("Gameobject destroyed but still event called");
+            }
             if (m_desktopInputModule == null)
                 m_desktopInputModule = FindObjectOfType<StandaloneInputModule>();
             if (m_vrInputModule == null)
                 m_vrInputModule = FindObjectOfType<FordiInputModule>();
             if (m_laserPointer == null)
-                m_laserPointer = FindObjectOfType<LaserPointer>();
+                m_laserPointer = m_laserPointerObject.GetComponent<LaserPointer>();
         }
 
         public void SwitchToDesktopOnlyMode()
@@ -676,6 +684,12 @@ namespace VRExperience.UI.MenuControl
 
         private void EnableDesktopModule()
         {
+            if (IOC.Resolve<IVRMenu>() != this)
+            {
+                OVRManager.HMDMounted -= this.OnHMDMount;
+                OVRManager.HMDUnmounted -= this.OnHMDUnmount;
+                return;
+            }
             EnsureModuleIntegrity();
             m_vrInputModule.enabled = false;
             m_desktopInputModule.enabled = true;
@@ -684,6 +698,12 @@ namespace VRExperience.UI.MenuControl
 
         private void EnableVRModule()
         {
+            if (IOC.Resolve<IVRMenu>() != this)
+            {
+                OVRManager.HMDMounted -= this.OnHMDMount;
+                OVRManager.HMDUnmounted -= this.OnHMDUnmount;
+                return;
+            }
             EnsureModuleIntegrity();
             m_desktopInputModule.enabled = false;
             m_vrInputModule.enabled = true;

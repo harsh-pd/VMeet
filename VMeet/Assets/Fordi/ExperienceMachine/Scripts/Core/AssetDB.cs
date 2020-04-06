@@ -15,6 +15,8 @@ namespace VRExperience.Core
         [Header("Audio")]
         public AudioGroup[] MusicGroups;
         public AudioGroup[] NatureMusic;
+        public AudioGroup[] MeetingMusic;
+        public AudioGroup[] LobbyMusic;
         public AudioGroup[] HomeMusic;
         public AudioGroup[] MandalaMusic;
         public AudioGroup[] AbstractMusic;
