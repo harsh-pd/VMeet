@@ -214,6 +214,10 @@ namespace VRExperience.UI.MenuControl
 
             if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
                 m_inventoryOpen = true;
+
+            var dMenu = Instantiate(m_dGridMenuPrefab, m_dScreenRoot);
+            dMenu.OpenGridMenu(items, title, block, persist, backEnabled);
+            menu.Pair = dMenu;
         }
 
         public void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
