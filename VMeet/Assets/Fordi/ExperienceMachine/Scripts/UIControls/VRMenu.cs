@@ -8,6 +8,7 @@ using VRExperience.Core;
 using AudioType = VRExperience.Core.AudioType;
 using UnityEngine.EventSystems;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 namespace VRExperience.UI.MenuControl
 {

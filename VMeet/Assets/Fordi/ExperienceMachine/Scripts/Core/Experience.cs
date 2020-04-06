@@ -291,7 +291,7 @@ namespace VRExperience.Core
             {
                 m_menuSelection.Location = args.Path;
                 m_menuSelection.ExperienceType = ExperienceType.LOBBY;
-                ToggleMenu();
+                m_vrMenu.Close();
                 m_experienceMachine.LoadExperience();
             }
 

@@ -76,6 +76,7 @@ namespace VRExperience.Core
     /// Uses state design pattern.
     /// All Experience Classes are its states.
     /// </summary>
+    [DefaultExecutionOrder(-50)]
     public class ExperienceMachine : MonoBehaviour, IExperienceMachine
     {
         [SerializeField]
@@ -111,7 +112,6 @@ namespace VRExperience.Core
             m_audio = IOC.Resolve<IAudio>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
             SetExperience(GetExperience(m_menuSelection.ExperienceType));
-
             UIInteractionBase.OnClick += Click;
             ResetGuideConditions();
         }
@@ -273,7 +273,7 @@ namespace VRExperience.Core
 
         public void LoadExperience()
         {
-            //Debug.LogError("LoadExperience: " + m_menuSelection.Location);
+            //Debug.LogError("LoadExperience: " + m_menuSelection.Location + " " + m_menuSelection.ExperienceType.ToString());
             AudioArgs args = new AudioArgs(null, AudioType.MUSIC)
             {
                 FadeTime = 2,
