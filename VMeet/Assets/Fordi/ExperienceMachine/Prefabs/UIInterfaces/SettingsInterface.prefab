@@ -1853,7 +1853,7 @@ GameObject:
   - component: {fileID: 7137577323770682764}
   - component: {fileID: 4354346434719369406}
   - component: {fileID: 5928992044328918543}
-  - component: {fileID: 2422802215425530651}
+  - component: {fileID: 2802181856925307275}
   m_Layer: 5
   m_Name: VisualQualityPane
   m_TagString: Untagged
@@ -1960,7 +1960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &2422802215425530651
+--- !u!114 &2802181856925307275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7738,8 +7738,8 @@ GameObject:
   - component: {fileID: 6623001602782403950}
   - component: {fileID: 5354323916553142128}
   - component: {fileID: 4525940389653410065}
-  - component: {fileID: 8095012674340644327}
   - component: {fileID: 2519370335180350701}
+  - component: {fileID: 4584028122610124304}
   m_Layer: 5
   m_Name: Toggles
   m_TagString: Untagged
@@ -7790,19 +7790,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &8095012674340644327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8409578470709212820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1184210157, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 0
 --- !u!114 &2519370335180350701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7828,6 +7815,19 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &4584028122610124304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8409578470709212820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1184210157, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 0
 --- !u!1 &8791071207475198365
 GameObject:
   m_ObjectHideFlags: 0
@@ -8480,11 +8480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 2422802215425530651}
+      objectReference: {fileID: 2802181856925307275}
     - target: {fileID: 3305702729484097381, guid: 0bfa7cbf7d6565740ad7f3ed4e038ca9,
         type: 3}
       propertyPath: m_IsOn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6345772242458921747, guid: 0bfa7cbf7d6565740ad7f3ed4e038ca9,
         type: 3}
@@ -8679,7 +8679,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 2422802215425530651}
+      objectReference: {fileID: 2802181856925307275}
     - target: {fileID: 3305702729484097381, guid: 0bfa7cbf7d6565740ad7f3ed4e038ca9,
         type: 3}
       propertyPath: m_IsOn
@@ -8848,7 +8848,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 8095012674340644327}
+      objectReference: {fileID: 4584028122610124304}
     - target: {fileID: 3305702729484097381, guid: 0bfa7cbf7d6565740ad7f3ed4e038ca9,
         type: 3}
       propertyPath: m_IsOn
@@ -9480,7 +9480,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 2422802215425530651}
+      objectReference: {fileID: 2802181856925307275}
     - target: {fileID: 3305702729484097381, guid: 0bfa7cbf7d6565740ad7f3ed4e038ca9,
         type: 3}
       propertyPath: m_IsOn
@@ -10505,7 +10505,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 8095012674340644327}
+      objectReference: {fileID: 4584028122610124304}
     - target: {fileID: 3305702729484097381, guid: 0bfa7cbf7d6565740ad7f3ed4e038ca9,
         type: 3}
       propertyPath: m_IsOn
