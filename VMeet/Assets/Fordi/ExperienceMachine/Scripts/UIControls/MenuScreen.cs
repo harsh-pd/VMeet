@@ -189,11 +189,16 @@ namespace VRExperience.UI.MenuControl
                 return;
             m_preview.gameObject.SetActive(sprite != null);
             m_preview.sprite = sprite;
+
+            if (Pair != null)
+                Pair.ShowPreview(sprite);
         }
 
         public void ShowTooltip(string tooltip)
         {
             m_description.text = tooltip;
+            if (Pair != null)
+                Pair.ShowTooltip(tooltip);
         }
 
         public void Hide()
