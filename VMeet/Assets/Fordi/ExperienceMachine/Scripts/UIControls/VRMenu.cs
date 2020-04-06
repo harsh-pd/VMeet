@@ -140,9 +140,9 @@ namespace VRExperience.UI.MenuControl
                 m_laserPointer.laserBeamBehavior = m_laserBeamBehavior;
 
             if (XRDevice.userPresence == UserPresenceState.Present)
-                EnableVRModule();
+                OnHMDMount();
             else
-                EnableDesktopModule();
+                OnHMDUnmount();
             //yield return new WaitForSeconds(3.0f);
             //OVRManager.display.RecenterPose();
         }
