@@ -143,6 +143,7 @@ namespace VRExperience.UI.MenuControl
 
         private void OnDisable()
         {
+            Debug.LogError("Mount event unsubscribed");
             OVRManager.HMDMounted -= OnHMDUnmount;
             OVRManager.HMDUnmounted -= OnHMDMount;
         }
@@ -630,6 +631,16 @@ namespace VRExperience.UI.MenuControl
         #endregion
 
         #region DESKTOP_VR_COORDINATION
+        private void EnsureModuleIntegrity()
+        {
+            if (m_desktopInputModule == null)
+                m_desktopInputModule = FindObjectOfType<StandaloneInputModule>();
+            if (m_vrInputModule == null)
+                m_vrInputModule = FindObjectOfType<FordiInputModule>();
+            if (m_laserPointer == null)
+                m_laserPointer = FindObjectOfType<LaserPointer>();
+        }
+
         public void SwitchToDesktopOnlyMode()
         {
             foreach (var item in m_screenStack)
@@ -665,8 +676,7 @@ namespace VRExperience.UI.MenuControl
 
         private void EnableDesktopModule()
         {
-            if (m_laserPointer == null)
-                m_laserPointer = FindObjectOfType<LaserPointer>();
+            EnsureModuleIntegrity();
             m_vrInputModule.enabled = false;
             m_desktopInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(false);
@@ -674,8 +684,7 @@ namespace VRExperience.UI.MenuControl
 
         private void EnableVRModule()
         {
-            if (m_laserPointer == null)
-                m_laserPointer = FindObjectOfType<LaserPointer>();
+            EnsureModuleIntegrity();
             m_desktopInputModule.enabled = false;
             m_vrInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(true);

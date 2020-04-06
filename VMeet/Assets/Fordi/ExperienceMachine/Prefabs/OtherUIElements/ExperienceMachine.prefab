@@ -643,7 +643,7 @@ MonoBehaviour:
     Text: Home
     Icon: {fileID: 0}
     Command: 
-    CommandType: 0
+    CommandType: 7
     Action:
       m_PersistentCalls:
         m_Calls: []
