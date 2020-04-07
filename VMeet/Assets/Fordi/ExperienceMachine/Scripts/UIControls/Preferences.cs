@@ -38,5 +38,6 @@ namespace VRExperience.Core
 
         [Header("Mode")]
         public bool DesktopMode = false;
+        public bool ForcedDesktopMode = false;
     }
 }

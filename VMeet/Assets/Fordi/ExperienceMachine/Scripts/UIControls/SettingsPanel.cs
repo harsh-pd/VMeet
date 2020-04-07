@@ -82,6 +82,8 @@ namespace VRExperience.UI.MenuControl
             m_musicVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.MUSIC));
             m_sfxVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.SFX));
             m_audioVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.VO));
+
+            m_desktopMode.interactable = m_settings.SelectedPreferences.ForcedDesktopMode;
         }
 
         protected override void OnDestroyOverride()
@@ -275,6 +277,12 @@ namespace VRExperience.UI.MenuControl
             };
 
             m_audio.Stop(args);
+        }
+
+        public override void Reopen()
+        {
+            base.Reopen();
+            m_desktopMode.interactable = m_settings.SelectedPreferences.ForcedDesktopMode;
         }
     }
 }

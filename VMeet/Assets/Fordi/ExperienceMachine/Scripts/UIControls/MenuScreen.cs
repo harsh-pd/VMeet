@@ -103,7 +103,7 @@ namespace VRExperience.UI.MenuControl
                 Pair.Deactivate();
         }
 
-        public void Reopen()
+        public virtual void Reopen()
         {
             gameObject.SetActive(true);
             if (Pair != null)

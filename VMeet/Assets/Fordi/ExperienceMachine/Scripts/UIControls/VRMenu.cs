@@ -665,12 +665,13 @@ namespace VRExperience.UI.MenuControl
             foreach (var item in m_screenStack)
                 item.Hide();
 
-            DisplayMessage("Desktop mode is active.");
+            DisplayMessage("Desktop only mode is active.");
             UnblockDesktop();
         }
 
         public void DisableDesktopOnlyMode()
         {
+            m_settings.SelectedPreferences.ForcedDesktopMode = false;
             foreach (var item in m_screenStack)
                 item.UnHide();
 
@@ -755,6 +756,10 @@ namespace VRExperience.UI.MenuControl
                 throw new InvalidOperationException();
             ((Form)dMenu).OpenForm(args, block, persist);
             menu.Pair = dMenu;
+
+            m_settings.SelectedPreferences.DesktopMode = true;
+            m_settings.SelectedPreferences.ForcedDesktopMode = true;
+            SwitchToDesktopOnlyMode();
         }
 
         public void DisplayResult(Error error, bool freshScreen = false)
