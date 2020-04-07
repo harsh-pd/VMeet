@@ -114,6 +114,8 @@ namespace VRExperience.UI.MenuControl
 
         private LaserPointer m_laserPointer;
 
+        private bool m_recenterFlag = false;
+
         private void Awake()
         {
             m_player = IOC.Resolve<IPlayer>();
@@ -167,6 +169,11 @@ namespace VRExperience.UI.MenuControl
 
         public void OpenMenu(MenuItemInfo[] items, bool block = true, bool persist = false)
         {
+            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && !m_recenterFlag)
+            {
+                UnityEngine.XR.InputTracking.Recenter();
+                m_recenterFlag = true;
+            }
             //Debug.LogError("OpenMenu");
             m_screensRoot.gameObject.SetActive(true);
             if (m_screenStack.Count > 0)
