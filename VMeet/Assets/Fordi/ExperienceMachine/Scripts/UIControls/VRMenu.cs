@@ -23,6 +23,8 @@ namespace VRExperience.UI.MenuControl
         void OpenSettingsInterface(AudioClip clip);
         void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
         void Popup(PopupInfo popupInfo);
+        void OpenForm(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
+        void DisplayError(Error error, bool freshScreen = false);
         void CloseLastScreen();
         void Close();
         void Open(IScreen screen);
@@ -716,6 +718,16 @@ namespace VRExperience.UI.MenuControl
             m_desktopInputModule.enabled = false;
             m_vrInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(true);
+        }
+
+        public void OpenForm(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DisplayError(Error error, bool freshScreen = false)
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
