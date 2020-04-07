@@ -23,7 +23,7 @@ namespace VRExperience.UI.MenuControl
         void OpenSettingsInterface(AudioClip clip);
         void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
         void Popup(PopupInfo popupInfo);
-        void OpenForm(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
+        void OpenForm(FormArgs args, bool block = true, bool persist = true);
         void DisplayError(Error error, bool freshScreen = false);
         void CloseLastScreen();
         void Close();
@@ -52,9 +52,9 @@ namespace VRExperience.UI.MenuControl
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
-        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab;
+        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab;
         [SerializeField]
-        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace;
+        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab;
         [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
         [SerializeField]
@@ -720,9 +720,41 @@ namespace VRExperience.UI.MenuControl
             m_laserPointer.gameObject.SetActive(true);
         }
 
-        public void OpenForm(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true)
+        public void OpenForm(FormArgs args, bool block = true, bool persist = true)
         {
-            throw new NotImplementedException();
+            Debug.LogError("OpenForm");
+            m_screensRoot.gameObject.SetActive(true);
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Peek();
+                if (screen.Persist)
+                    screen.Deactivate();
+                else
+                    m_screenStack.Pop().Close();
+            }
+
+            if (m_player == null)
+                m_player = IOC.Resolve<IPlayer>();
+
+            m_player.PrepareForSpawn();
+            var menu = Instantiate(m_formPrefab, m_player.PlayerCanvas);
+            if (!(menu is Form))
+                throw new InvalidOperationException();
+            
+            BringInFront(menu.transform);
+
+            ((Form)menu).OpenForm(args, block, persist);
+            m_screenStack.Push(menu);
+            m_menuOn = true;
+
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
+
+            var dMenu = Instantiate(m_dFromPrefab, m_dScreenRoot);
+            if (!(dMenu is Form))
+                throw new InvalidOperationException();
+            ((Form)dMenu).OpenForm(args, block, persist);
+            menu.Pair = dMenu;
         }
 
         public void DisplayError(Error error, bool freshScreen = false)

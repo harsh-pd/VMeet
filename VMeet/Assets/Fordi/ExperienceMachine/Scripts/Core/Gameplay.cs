@@ -4,6 +4,7 @@ using UnityEngine;
 using VRExperience.Common;
 using VRExperience.UI.MenuControl;
 using System;
+using TMPro;
 
 namespace VRExperience.Core
 {

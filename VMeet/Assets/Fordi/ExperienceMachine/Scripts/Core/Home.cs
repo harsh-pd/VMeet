@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using VRExperience.Common;
 using VRExperience.UI.MenuControl;
@@ -265,8 +266,46 @@ namespace VRExperience.Core
         {
             m_menuSelection.VoiceOver = null;
             base.OnLoad();
-            Invoke("ToggleMenu", .1f);
+            Invoke("OpenLoginPage", .1f);
             m_player.RequestHaltMovement(true);
+        }
+
+
+        private void OpenLoginPage()
+        {
+            var organizationInput = new MenuItemInfo
+            {
+                Path = "Organization",
+                Text = "Organization",
+                Command = "Organization",
+                Icon = null,
+                Data = TMP_InputField.ContentType.Standard,
+                CommandType = MenuCommandType.FORM_INPUT
+            };
+
+            var usernameInput = new MenuItemInfo
+            {
+                Path = "Username",
+                Text = "Username",
+                Command = "Username",
+                Icon = null,
+                Data = TMP_InputField.ContentType.Standard,
+                CommandType = MenuCommandType.FORM_INPUT
+            };
+
+            var passwordInput = new MenuItemInfo
+            {
+                Path = "Password",
+                Text = "Password",
+                Command = "Password",
+                Icon = null,
+                Data = TMP_InputField.ContentType.Password,
+                CommandType = MenuCommandType.FORM_INPUT
+            };
+
+            MenuItemInfo[] formItems = new MenuItemInfo[] {organizationInput, usernameInput, passwordInput };
+            FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => { Debug.LogError("Form button click"); });
+            m_vrMenu.OpenForm(args);
         }
     }
 }

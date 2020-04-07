@@ -360,7 +360,29 @@ namespace Cornea.Web
 
         private void OpenLicensePage()
         {
-            throw new NotImplementedException();
+            var organizationInput = new MenuItemInfo
+            {
+                Path = "Organization",
+                Text = "Organization",
+                Command = "Organization",
+                Icon = null,
+                Data = TMP_InputField.ContentType.Standard,
+                CommandType = MenuCommandType.FORM_INPUT
+            };
+
+            var keyInput = new MenuItemInfo
+            {
+                Path = "License key",
+                Text = "License key",
+                Command = "License key",
+                Icon = null,
+                Data = TMP_InputField.ContentType.Standard,
+                CommandType = MenuCommandType.FORM_INPUT
+            };
+
+            MenuItemInfo[] formItems = new MenuItemInfo[] { organizationInput, keyInput };
+            FormArgs args = new FormArgs(formItems, "ACTIVATE LICENSE", "Activate", (inputs) => { Debug.LogError("Form button click"); });
+            m_vrMenu.OpenForm(args);
         }
 
         public void ValidateUserLogin()

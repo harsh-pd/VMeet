@@ -58,7 +58,8 @@ namespace VRExperience.UI.MenuControl
         TRAINING,
         SAVE_PRESET,
         INVENTORY,
-        LOBBY
+        LOBBY,
+        FORM_INPUT
     }
 
     [Serializable]
