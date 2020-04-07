@@ -23,6 +23,7 @@ namespace Cornea.Web
     {
         string AccessToken { get; }
         VESNetworkInterface NetworkInterface { get; }
+        void ValidateUserLogin(string organization, string username, string password);
     }
 
     public enum APIRequestType
@@ -272,7 +273,10 @@ namespace Cornea.Web
         [HideInInspector]
         public string access_token = "";
 
-        private string MacAddress { get { return SystemInfo.deviceUniqueIdentifier; } }
+        private string MacAddress { get {
+                //Debug.LogError(SystemInfo.deviceUniqueIdentifier);
+                return SystemInfo.deviceUniqueIdentifier;
+            } }
 
         public string AccessToken { get { return access_token; } }
 
@@ -312,9 +316,9 @@ namespace Cornea.Web
 
 #region API_REQUESTS
 
-        public void TokenAuthenticate()
+        public void TokenAuthenticate(string organization, string username, string password)
         {
-            var jsonString = "{\"UserNameOrEmailAddress\":\"" + userName.text + "\",\"Password\":\"" + password.text + "\",\"TenancyName\":\"" + organizationCode.text + "\"}";
+            var jsonString = "{\"UserNameOrEmailAddress\":\"" + username + "\",\"Password\":\"" + password + "\",\"TenancyName\":\"" + organization + "\"}";
             APIRequest loginReq = new APIRequest(vesApiBaseUrl + tokenAuth, UnityWebRequest.kHttpVerbPOST)
             {
                 requestType = APIRequestType.Authenticate,
@@ -322,10 +326,11 @@ namespace Cornea.Web
                 downloadHandler = new DownloadHandlerBuffer()
             };
             loginReq.SetRequestHeader("Content-Type", "application/json");
+            m_vrMenu.DisplayProgress("Connecting to VMeet server...");
             loginReq.Run(this).OnRequestComplete(
                     (isNetworkError, message) =>
                     {
-                        //Debug.Log(message);
+                        //Debug.LogError(message);
                         JsonData tokenAuthResult = JsonMapper.ToObject(message);
                         if (tokenAuthResult["success"].ToString() == "True")
                         {
@@ -334,12 +339,12 @@ namespace Cornea.Web
                             {
                                 Error error = new Error(Error.E_Exception);
                                 error.ErrorText = "Login failed. Please change your password in web console first.";
-                                m_vrMenu.DisplayError(error);
+                                m_vrMenu.DisplayResult(error);
                                 //Coordinator.instance.screenManager.OnLoginFailure("Login failed. Please change your password in web console first.");
                                 return;
                             }
                             access_token = token.ToString();
-                            ValidateUserLogin();
+                            ValidateUserLogin(organization, username, password);
                         }
                         else
                         {
@@ -349,7 +354,7 @@ namespace Cornea.Web
 
                             Error error = new Error(Error.E_Exception);
                             error.ErrorText = loginFailureMessage;
-                            m_vrMenu.DisplayError(error);
+                            m_vrMenu.DisplayResult(error);
 
                             //Coordinator.instance.screenManager.OnLoginFailure(loginFailureMessage);
                             Debug.Log("Error " + tokenAuthResult["error"]["message"].ToString() + "Ok");
@@ -385,15 +390,15 @@ namespace Cornea.Web
             m_vrMenu.OpenForm(args);
         }
 
-        public void ValidateUserLogin()
+        public void ValidateUserLogin(string organization, string username, string password)
         {
             if (access_token.Equals(""))
             {
-                TokenAuthenticate();
+                TokenAuthenticate(organization, username, password);
                 return;
             }
 
-            var jsonString = "{\"UserNameOrEmailAddress\":\"" + userName.text + "\",\"Password\":\"" + password.text + "\",\"MacAddress\":\"" + MacAddress + "\",\"TenancyName\":\"" + organizationCode.text + "\"}";
+            var jsonString = "{\"UserNameOrEmailAddress\":\"" + username + "\",\"Password\":\"" + password + "\",\"MacAddress\":\"" + MacAddress + "\",\"TenancyName\":\"" + organization + "\"}";
 
             APIRequest validateUserLoginRequest = new APIRequest(vesApiBaseUrl + validateUserLogin, UnityWebRequest.kHttpVerbPOST)
             {
@@ -403,9 +408,11 @@ namespace Cornea.Web
             };
             validateUserLoginRequest.SetRequestHeader("Content-Type", "application/json");
             validateUserLoginRequest.SetRequestHeader("Authorization", "Bearer " + access_token);
+            m_vrMenu.DisplayProgress("Validating user...");
             validateUserLoginRequest.Run(this).OnRequestComplete(
                 (isNetworkError, message) =>
                 {
+                    //Debug.LogError(message);
                     JsonData validateUserLoginResult = JsonMapper.ToObject(message);
                     if (validateUserLoginResult["success"].ToString() == "True")
                     {
@@ -428,7 +435,7 @@ namespace Cornea.Web
 
                             Error error = new Error(Error.E_Exception);
                             error.ErrorText = loginFailureMessage;
-                            m_vrMenu.DisplayError(error);
+                            m_vrMenu.DisplayResult(error);
 
                             //Coordinator.instance.screenManager.OnLoginFailure(loginFailureMessage);
                         }
@@ -466,7 +473,7 @@ namespace Cornea.Web
 
                         Error error = new Error();
                         error.ErrorText = "License has been successfully activated.";
-                        m_vrMenu.DisplayError(error);
+                        m_vrMenu.DisplayResult(error);
 
                         //Coordinator.instance.screenManager.LicenseValidation(true, "License has been successfully activated.");
                     }
@@ -474,7 +481,7 @@ namespace Cornea.Web
                     {
                         Error error = new Error(Error.E_NotFound);
                         error.ErrorText = activateLicenseResult["error"]["message"].ToString();
-                        m_vrMenu.DisplayError(error);
+                        m_vrMenu.DisplayResult(error);
 
                         Debug.LogFormat("Error", activateLicenseResult["error"]["message"].ToString(), "Ok");
 
@@ -694,18 +701,13 @@ namespace Cornea.Web
             ZPlayerPrefs.SetString("emailAddress", userInfo.emailAddress);
             //ZPlayerPrefs.SetInt("UserRoleType", userInfo.UserRoletype);
 
-            Name.text = userInfo.name;
-            Email.text = userInfo.emailAddress;
-            OrganisationId.text = organizationCode.text.ToUpper();
-
-            meetingButton.interactable = true;
-            List<string> allowedFeatures = new List<string>();
-            for (int i=0; i<loginValidationData["permissions"].Count; i++)  
-            {
-                var permission = loginValidationData["permissions"][i];
-                allowedFeatures.Add(Convert.ToString(permission["displayName"]));
-                //Debug.LogError(Convert.ToString(permission["displayName"]));
-            }
+            //List<string> allowedFeatures = new List<string>();
+            //for (int i=0; i<loginValidationData["permissions"].Count; i++)  
+            //{
+            //    var permission = loginValidationData["permissions"][i];
+            //    allowedFeatures.Add(Convert.ToString(permission["displayName"]));
+            //    //Debug.LogError(Convert.ToString(permission["displayName"]));
+            //}
             //Coordinator.instance.permissionHandler.RefreshPermissions(allowedFeatures);
         }
 

@@ -24,7 +24,8 @@ namespace VRExperience.UI.MenuControl
         void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
         void Popup(PopupInfo popupInfo);
         void OpenForm(FormArgs args, bool block = true, bool persist = true);
-        void DisplayError(Error error, bool freshScreen = false);
+        void DisplayResult(Error error, bool freshScreen = false);
+        void DisplayProgress(string text, bool freshScreen = false);
         void CloseLastScreen();
         void Close();
         void Open(IScreen screen);
@@ -722,7 +723,6 @@ namespace VRExperience.UI.MenuControl
 
         public void OpenForm(FormArgs args, bool block = true, bool persist = true)
         {
-            Debug.LogError("OpenForm");
             m_screensRoot.gameObject.SetActive(true);
             if (m_screenStack.Count > 0)
             {
@@ -757,9 +757,20 @@ namespace VRExperience.UI.MenuControl
             menu.Pair = dMenu;
         }
 
-        public void DisplayError(Error error, bool freshScreen = false)
+        public void DisplayResult(Error error, bool freshScreen = false)
         {
-            throw new NotImplementedException();
+            if (!freshScreen && m_screenStack.Count > 0 && m_screenStack.Peek() is IForm form)
+            {
+                form.DisplayResult(error);
+            }
+        }
+
+        public void DisplayProgress(string text, bool freshScreen = false)
+        {
+            if (!freshScreen && m_screenStack.Count > 0 && m_screenStack.Peek() is IForm form)
+            {
+                form.DisplayProgress(text);
+            }
         }
         #endregion
     }

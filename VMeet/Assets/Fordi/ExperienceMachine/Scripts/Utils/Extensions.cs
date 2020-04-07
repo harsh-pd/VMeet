@@ -53,5 +53,10 @@ namespace VRExperience.Common
         {
             return Vector3.Magnitude(new Vector3(color.r, color.g, color.b));
         }
+
+        public static string Style(this string str, string style)
+        {
+            return "<style=" + style + ">" + str + "</style>";
+        }
     }
 }

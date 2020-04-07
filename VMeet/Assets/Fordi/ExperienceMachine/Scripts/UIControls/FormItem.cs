@@ -10,6 +10,8 @@ namespace VRExperience.UI.MenuControl
 {
     public class FormItem : MenuItem
     {
+        public TMP_InputField InputField { get { return (TMP_InputField)selectable; } }
+
         public override void ToggleOutlineHighlight(bool val) { }
 
         public override void OnReset() { }

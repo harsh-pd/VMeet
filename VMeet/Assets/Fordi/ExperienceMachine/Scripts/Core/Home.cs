@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cornea.Web;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -304,7 +305,7 @@ namespace VRExperience.Core
             };
 
             MenuItemInfo[] formItems = new MenuItemInfo[] {organizationInput, usernameInput, passwordInput };
-            FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => { Debug.LogError("Form button click"); });
+            FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => { m_webInterace.ValidateUserLogin(inputs[0], inputs[1], inputs[2]); });
             m_vrMenu.OpenForm(args);
         }
     }

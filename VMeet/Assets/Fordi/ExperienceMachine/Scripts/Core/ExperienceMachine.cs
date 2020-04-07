@@ -123,6 +123,9 @@ namespace VRExperience.Core
         private IVRMenu m_vrMenu;
 
         public const string DynamicAmbienceTag = "DynamicAmbience";
+        public const string CorrectTextColorStyle = "Correct";
+        public const string ErrorTextColorStyle = "Error";
+        public const string ProgressTextColorStyle = "Progress";
 
         #region GUIDE_CONDITIONS
         private bool m_clicked = false;
@@ -394,7 +397,8 @@ namespace VRExperience.Core
 
         public void OpenSceneMenu()
         {
-            throw new System.NotImplementedException();
+            m_vrMenu.Close();
+            ToggleMenu();
         }
     }
 }

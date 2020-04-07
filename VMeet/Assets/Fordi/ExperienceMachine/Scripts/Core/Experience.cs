@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cornea.Web;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -131,6 +132,7 @@ namespace VRExperience.Core
         protected IAudio m_audio;
         protected ICommonResource m_commonResource;
         protected IPlayer m_player;
+        protected IWebInterface m_webInterace;
 
         [SerializeField]
         protected Menu m_menu;
@@ -157,6 +159,7 @@ namespace VRExperience.Core
             m_commonResource = IOC.Resolve<ICommonResource>();
             m_player = IOC.Resolve<IPlayer>();
             m_settings = IOC.Resolve<ISettings>();
+            m_webInterace = IOC.Resolve<IWebInterface>();
             AwakeOverride();
         }
 

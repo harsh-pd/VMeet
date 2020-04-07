@@ -92,7 +92,7 @@ namespace Cornea.Web
             }
             else
             {
-                IOC.Resolve<IWebInterface>().NetworkInterface.RemoveRequest(this);
+                //IOC.Resolve<IWebInterface>().NetworkInterface.RemoveRequest(this);
                 if (OnRequestCompleteAction != null)
                     OnRequestCompleteAction(false, downloadHandler.text.ToString());
             }
@@ -126,7 +126,7 @@ namespace Cornea.Web
                 {
                     Error errorHandler = new Error(Error.E_NetworkIssue);
                     errorHandler.ErrorText = error;
-                    IOC.Resolve<IVRMenu>().DisplayError(errorHandler, true);
+                    IOC.Resolve<IVRMenu>().DisplayResult(errorHandler, true);
                     //Coordinator.instance.webInterface.networkInterface.ActivateErrorScreen(error, this);
                 }
             }

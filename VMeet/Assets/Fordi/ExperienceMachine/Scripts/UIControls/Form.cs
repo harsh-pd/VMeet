@@ -11,7 +11,8 @@ namespace VRExperience.UI.MenuControl
 {
     public interface IForm : IScreen
     {
-        void DisplayError(Error error);
+        void DisplayResult(Error error);
+        void DisplayProgress(string text);
         void OpenForm(FormArgs args, bool blocked, bool persist);
     }
 
@@ -39,13 +40,42 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private TextMeshProUGUI m_resultTextPrefab;
 
-        public void DisplayError(Error error)
-        {
-            throw new System.NotImplementedException();
-        }
-
         private Button m_actionButton;
         private TextMeshProUGUI m_resultText;
+
+        private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
+
+        public void DisplayResult(Error error)
+        {
+            if (error.HasError)
+                m_resultText.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
+            else
+                m_resultText.text = error.ErrorText.Style(ExperienceMachine.CorrectTextColorStyle);
+
+            if (Pair != null && !(Pair is IForm))
+                throw new InvalidCastException();
+
+            if (Pair != null)
+                ((IForm)Pair).DisplayResult(error);
+        }
+
+        public void DisplayProgress(string text)
+        {
+            m_resultText.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
+            if (Pair != null && !(Pair is IForm))
+                throw new InvalidCastException();
+
+            if (Pair != null)
+                ((IForm)Pair).DisplayProgress(text);
+        }
+
+        public override void SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
+        {
+            MenuItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<MenuItem>();
+            //menuItem.name = "MenuItem";
+            menuItem.Item = menuItemInfo;
+            m_inputs.Add(((FormItem)menuItem).InputField);
+        }
 
         public virtual void OpenForm(FormArgs args, bool blocked, bool persist)
         {
@@ -60,7 +90,15 @@ namespace VRExperience.UI.MenuControl
 
             m_actionButton = Instantiate(m_actionButtonPrefab, m_contentRoot);
             if (args.OnClickAction != null)
-                m_actionButton.onClick.AddListener(() => args.OnClickAction.Invoke(new string[] { }));
+            {
+                m_actionButton.onClick.AddListener(() =>
+                {
+                    string[] inputs = new string[m_inputs.Count];
+                    for (int i = 0; i < m_inputs.Count; i++)
+                        inputs[i] = m_inputs[i].text;
+                    args.OnClickAction.Invoke(inputs);
+                });
+            }
 
             m_actionButton.GetComponentInChildren<TextMeshProUGUI>().text = args.ActionName;
 
