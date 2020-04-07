@@ -2455,6 +2455,21 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Path: Exit
+    Text: Exit
+    Icon: {fileID: 0}
+    Command: Exit
+    CommandType: 12
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &5969444268832936597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +2551,21 @@ MonoBehaviour:
     Icon: {fileID: 0}
     Command: 
     CommandType: 11
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Path: Exit
+    Text: Exit
+    Icon: {fileID: 0}
+    Command: Exit
+    CommandType: 12
     Action:
       m_PersistentCalls:
         m_Calls: []
