@@ -72,6 +72,8 @@ MonoBehaviour:
     type: 3}
   m_resultTextPrefab: {fileID: 6272608426324066513, guid: 644b97b7d1528db4d93b8359620049ac,
     type: 3}
+  m_loaderPrefab: {fileID: 3589555880331788414, guid: 55706e69a768a854c8fa09d8640371f9,
+    type: 3}
 --- !u!1 &1994518671011586758
 GameObject:
   m_ObjectHideFlags: 0

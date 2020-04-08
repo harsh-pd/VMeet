@@ -40,13 +40,20 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private TextMeshProUGUI m_resultTextPrefab;
 
+        [SerializeField]
+        private GameObject m_loaderPrefab;
+
         private Button m_actionButton;
         private TextMeshProUGUI m_resultText;
+        private GameObject m_loader;
 
         private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
 
         public void DisplayResult(Error error)
         {
+            if (m_loader != null)
+                Destroy(m_loader);
+            
             if (error.HasError)
                 m_resultText.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
             else
@@ -61,6 +68,12 @@ namespace VRExperience.UI.MenuControl
 
         public void DisplayProgress(string text)
         {
+            if (m_loader != null)
+                Destroy(m_loader);
+
+            if (m_loaderPrefab != null)
+                m_loader = Instantiate(m_loaderPrefab, m_actionButton.transform);
+
             m_resultText.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
             if (Pair != null && !(Pair is IForm))
                 throw new InvalidCastException();
