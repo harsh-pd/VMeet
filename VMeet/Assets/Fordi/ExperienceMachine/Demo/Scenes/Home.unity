@@ -495,6 +495,11 @@ PrefabInstance:
       propertyPath: m_rightSideDropdown
       value: 
       objectReference: {fileID: 8167669645445504714}
+    - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_sidePanelButton
+      value: 
+      objectReference: {fileID: 1473252082}
     - target: {fileID: 8221756216845216751, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: oculusUserID
@@ -1644,6 +1649,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1473252082 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3065635000935109282, guid: ca1ca845e771b5a4594393af9235223b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1212437384}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2138677391

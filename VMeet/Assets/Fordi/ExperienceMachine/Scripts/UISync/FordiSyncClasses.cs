@@ -2,11 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Fordi.Sync
 {
     public interface IFordiObservable
     {
+        int ViewId { get; set; }
+        Selectable Selectable { get; }
+        void OnValueChanged<T>(int viewId, T val);
+        void Select(int viewId);
         /// <summary>
         /// Called by PUN several times per second, so that your script can write and read synchronization data for the PhotonView.
         /// </summary>
@@ -401,10 +406,37 @@ namespace Fordi.Sync
 
         public void Register(SyncView view)
         {
-            if (view == First)
-                m_second = view;
-            else
+
+            if (view == null)
+            {
+                Debug.LogError("view null");
+                return;
+            }
+
+            if (m_first == null)
+            {
                 m_first = view;
+                return;
+            }
+
+            if (m_second == null)
+            {
+                m_second = view;
+            }
+        }
+
+        public SyncView GetPair(SyncView view)
+        {
+            //Debug.LogError(First.name);
+            //Debug.LogError(view.name);
+            //Debug.LogError(Second.name);
+            if (view == null)
+                return null;
+            if (view == First)
+                return Second;
+            if (view == Second)
+                return First;
+            return null;
         }
     }
 }

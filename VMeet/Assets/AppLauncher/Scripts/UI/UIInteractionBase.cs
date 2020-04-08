@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using VRExperience.Core;
 using VRExperience.Common;
+using Fordi.Sync;
 
 namespace AL.UI
 {
-    public class UIInteractionBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+    public class UIInteractionBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IFordiObservable
     {
         [SerializeField]
         protected Shadow shadow;
@@ -104,5 +105,53 @@ namespace AL.UI
             ToggleBackgroundHighlight(true);
             ToggleOutlineHighlight(true);
         }
+
+        #region DESKTOP_VR_SYNC
+        private SyncView m_syncView = null;
+
+        public int ViewId
+        {
+            get
+            {
+                if (m_syncView != null)
+                    return m_syncView.ViewId;
+                m_syncView = GetComponent<SyncView>();
+                if (m_syncView != null)
+                    return m_syncView.ViewId;
+                return 0;
+            }
+
+            set
+            {
+
+            }
+        }
+
+        public Selectable Selectable { get { return selectable; } }
+
+        public void OnFordiSerializeView(FordiStream stream, FordiMessageInfo info)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Select(int viewId)
+        {
+            if (selectable is TMP_InputField inputField)
+                inputField.Select();
+        }
+
+        public void OnValueChanged<T>(int viewId, T val)
+        {
+            Debug.LogError(name + " " + viewId);
+            if (typeof(string) == typeof(T) && selectable is TMP_InputField inputField)
+                inputField.SetValue((string)(object)val);
+
+            if (typeof(bool) == typeof(T) && selectable is Toggle toggle)
+                toggle.SetValue((bool)(object)val);
+
+            if (typeof(float) == typeof(T) && selectable is Slider slider)
+                slider.SetValue((float)(object)val);
+        }
+        #endregion
     }
 }

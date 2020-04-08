@@ -18,6 +18,9 @@ namespace Fordi.Sync
 
 #if UNITY_EDITOR
     using UnityEditor;
+    using UnityEngine.UI;
+    using TMPro;
+    using VRExperience.Common;
 #endif
 
 
@@ -27,24 +30,52 @@ namespace Fordi.Sync
     /// </summary>
     /// \ingroup publicApi
     [AddComponentMenu("Fordi Networking/Sync View")]
-    [ExecuteInEditMode]
-    public class SyncView : MonoBehaviour
+    public class SyncView : MonoBehaviour, IFordiObservable
     {
-        public List<Component> ObservedComponents;
+        [SerializeField]
+        private List<Component> ObservedComponents;
 
 
         [SerializeField]
         private int viewIdField = 0;
 
-        public int ViewID { get { return viewIdField; } }
+        public int ViewId { get { return viewIdField; } set { viewIdField = value; } }
+
+        public Selectable Selectable { get { return null; } }
+
+        private IFordiNetwork m_fordiNetwork;
 
         protected internal void Awake()
         {
+            m_fordiNetwork = IOC.Resolve<IFordiNetwork>();
             if (viewIdField == 0)
                 viewIdField = gameObject.GetInstanceID();
 
-            if (this.ViewID != 0 && Application.isPlaying)
+            if (this.ViewId != 0 && Application.isPlaying)
                 FordiNetwork.RegisterPhotonView(this);
+
+            foreach (var item in ObservedComponents)
+            {
+                if (((IFordiObservable)item).Selectable is TMP_InputField inputField)
+                    inputField.onValueChanged.AddListener(OnValueChanged);
+                if (((IFordiObservable)item).Selectable is Toggle toggle)
+                    toggle.onValueChanged.AddListener(OnValueChanged);
+                if (((IFordiObservable)item).Selectable is Slider slider)
+                    slider.onValueChanged.AddListener(OnValueChanged);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            foreach (var item in ObservedComponents)
+            {
+                if (((IFordiObservable)item).Selectable is TMP_InputField inputField)
+                    inputField.onValueChanged.RemoveAllListeners();
+                if (((IFordiObservable)item).Selectable is Toggle toggle)
+                    toggle.onValueChanged.RemoveAllListeners();
+                if (((IFordiObservable)item).Selectable is Slider slider)
+                    slider.onValueChanged.RemoveAllListeners();
+            }
         }
 
         public void SerializeView(FordiStream stream, FordiMessageInfo info)
@@ -71,8 +102,7 @@ namespace Fordi.Sync
 
         protected internal void DeserializeComponent(Component component, FordiStream stream, FordiMessageInfo info)
         {
-            IFordiObservable observable = component as IFordiObservable;
-            if (observable != null)
+            if (component is IFordiObservable observable)
             {
                 observable.OnFordiSerializeView(stream, info);
             }
@@ -112,7 +142,51 @@ namespace Fordi.Sync
 
         public override string ToString()
         {
-            return string.Format("View {0} on {1}", this.ViewID, (this.gameObject != null) ? this.gameObject.name : "GO==null");
+            return string.Format("View {0} on {1}", this.ViewId, (this.gameObject != null) ? this.gameObject.name : "GO==null");
         }
+
+        #region SYNC_EVENT_RECEIVERS
+        public void Select(int viewId)
+        {
+            var observable = (IFordiObservable)ObservedComponents.Find(item => (IFordiObservable)item != null && ((IFordiObservable)item).ViewId == viewId);
+            observable?.Select(viewId);
+        }
+
+        public void OnValueChanged<T>(int viewId, T val)
+        {
+            var observable = (IFordiObservable)ObservedComponents.Find(item => (IFordiObservable)item != null && ((IFordiObservable)item).ViewId == viewId);
+            observable?.OnValueChanged(ViewId, val);
+            if (observable != null)
+            {
+                Debug.LogError(viewId + " ");
+            }
+            else
+                Debug.LogError("obsrvr null ");
+
+        }
+
+        public void OnFordiSerializeView(FordiStream stream, FordiMessageInfo info)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region SYNC_EVENT_SENDERS
+        private void OnValueChanged(string value)
+        {
+            m_fordiNetwork.OnValueChanged(this, ViewId, value);
+        }
+
+        private void OnValueChanged(bool value)
+        {
+            Debug.LogError(name + " " + value);
+            m_fordiNetwork.OnValueChanged(this, ViewId, value);
+        }
+
+        private void OnValueChanged(float value)
+        {
+            m_fordiNetwork.OnValueChanged(this, ViewId, value);
+        }
+        #endregion
     }
 }
