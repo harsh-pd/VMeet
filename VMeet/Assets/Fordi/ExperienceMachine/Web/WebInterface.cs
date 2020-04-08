@@ -123,113 +123,113 @@ namespace Cornea.Web
         ERROR
     }
 
-    [Serializable]
-    public class VESNetworkInterface
-    {
-        public Action postMacAddressAction;
-        public TextMeshProUGUI networkErrorText;
+    //[Serializable]
+    //public class VESNetworkInterface
+    //{
+    //    public Action postMacAddressAction;
+    //    public TextMeshProUGUI networkErrorText;
 
-        private NetworkState state = NetworkState.IDLE;
-        private List<APIRequest> failedRequestsStack = new List<APIRequest>();
-        private List<Intermediates> intermediatesStack = new List<Intermediates>();
+    //    private NetworkState state = NetworkState.IDLE;
+    //    private List<APIRequest> failedRequestsStack = new List<APIRequest>();
+    //    private List<Intermediates> intermediatesStack = new List<Intermediates>();
 
-        public void SetIntermediatePanels(Intermediates _intermediates)
-        {
-            if (intermediatesStack.Contains(_intermediates))
-                intermediatesStack.Remove(_intermediates);
-            intermediatesStack.Add(_intermediates);
-        }
+    //    public void SetIntermediatePanels(Intermediates _intermediates)
+    //    {
+    //        if (intermediatesStack.Contains(_intermediates))
+    //            intermediatesStack.Remove(_intermediates);
+    //        intermediatesStack.Add(_intermediates);
+    //    }
 
-        public void ResetIntermediatePanels(Intermediates _intermediates)
-        {
-            if (intermediatesStack.Contains(_intermediates))
-                intermediatesStack.Remove(_intermediates);
-        }
+    //    public void ResetIntermediatePanels(Intermediates _intermediates)
+    //    {
+    //        if (intermediatesStack.Contains(_intermediates))
+    //            intermediatesStack.Remove(_intermediates);
+    //    }
 
-        public void DeactivateErrorScreen()
-        {
-            state = NetworkState.IDLE;
-            postMacAddressAction = null;
-            if (intermediatesStack.Count > 0)
-            {
-                intermediatesStack[intermediatesStack.Count - 1].Deactivate();
-            }
-        }
+    //    public void DeactivateErrorScreen()
+    //    {
+    //        state = NetworkState.IDLE;
+    //        postMacAddressAction = null;
+    //        if (intermediatesStack.Count > 0)
+    //        {
+    //            intermediatesStack[intermediatesStack.Count - 1].Deactivate();
+    //        }
+    //    }
 
-        public void RemoveRequest(APIRequest req)
-        {
-            if (failedRequestsStack.Contains(req))
-            {
-                failedRequestsStack.Remove(req);
-                if (failedRequestsStack.Count == 0)
-                    DeactivateErrorScreen();
-            }
-            else if (state != NetworkState.IDLE)
-            {
-                DeactivateErrorScreen();
-            }
-        }
+    //    public void RemoveRequest(APIRequest req)
+    //    {
+    //        if (failedRequestsStack.Contains(req))
+    //        {
+    //            failedRequestsStack.Remove(req);
+    //            if (failedRequestsStack.Count == 0)
+    //                DeactivateErrorScreen();
+    //        }
+    //        else if (state != NetworkState.IDLE)
+    //        {
+    //            DeactivateErrorScreen();
+    //        }
+    //    }
 
-        //public void ActivateErrorScreen(string errorMessage, APIRequest req)
-        //{
-        //    int reqIndex = failedRequestsStack.FindIndex(item => item.requestType == req.requestType);
+    //    //public void ActivateErrorScreen(string errorMessage, APIRequest req)
+    //    //{
+    //    //    int reqIndex = failedRequestsStack.FindIndex(item => item.requestType == req.requestType);
 
-        //    if (reqIndex != -1)
-        //        failedRequestsStack[reqIndex] = req;
-        //    else
-        //        failedRequestsStack.Add(req);
+    //    //    if (reqIndex != -1)
+    //    //        failedRequestsStack[reqIndex] = req;
+    //    //    else
+    //    //        failedRequestsStack.Add(req);
 
-        //    if (intermediatesStack.Count > 0)
-        //    {
-        //        state = NetworkState.ERROR;
-        //        intermediatesStack[intermediatesStack.Count - 1].SwtichToError(() => req.Kill(), errorMessage);
-        //    }
+    //    //    if (intermediatesStack.Count > 0)
+    //    //    {
+    //    //        state = NetworkState.ERROR;
+    //    //        intermediatesStack[intermediatesStack.Count - 1].SwtichToError(() => req.Kill(), errorMessage);
+    //    //    }
               
-        //}
+    //    //}
 
-        /// <summary>
-        /// Only to be used in case of mac address fetch failure
-        /// </summary>
-        /// <param name="postMacAddressAction"></param>
-        public void ActivateErrorScreen(Action _postMacAddressAction)
-        {
-            Debug.Log("ActivateErrorScreen");
-            postMacAddressAction = _postMacAddressAction;
-            if (intermediatesStack.Count > 0)
-            {
-                state = NetworkState.ERROR;
-                intermediatesStack[intermediatesStack.Count - 1].SwtichToError(null);
-            }
-        }
+    //    /// <summary>
+    //    /// Only to be used in case of mac address fetch failure
+    //    /// </summary>
+    //    /// <param name="postMacAddressAction"></param>
+    //    public void ActivateErrorScreen(Action _postMacAddressAction)
+    //    {
+    //        Debug.Log("ActivateErrorScreen");
+    //        postMacAddressAction = _postMacAddressAction;
+    //        if (intermediatesStack.Count > 0)
+    //        {
+    //            state = NetworkState.ERROR;
+    //            intermediatesStack[intermediatesStack.Count - 1].SwtichToError(null);
+    //        }
+    //    }
 
-        public void ShowUnderProgress(Action action)
-        {
-            state = NetworkState.PROGRESS;
-            intermediatesStack[intermediatesStack.Count - 1].SwtichToLoader(action);
-        }
+    //    public void ShowUnderProgress(Action action)
+    //    {
+    //        state = NetworkState.PROGRESS;
+    //        intermediatesStack[intermediatesStack.Count - 1].SwtichToLoader(action);
+    //    }
 
-        public void  MacAddressFetched()
-        {
-            if (postMacAddressAction != null)
-                postMacAddressAction.Invoke();
-        }
+    //    public void  MacAddressFetched()
+    //    {
+    //        if (postMacAddressAction != null)
+    //            postMacAddressAction.Invoke();
+    //    }
 
-        public void Refresh()
-        {
-            for (int i = 0; i < failedRequestsStack.Count; i++)
-            {
-                Debug.Log("Refreshing: " + failedRequestsStack[i].requestType.ToString());
-                var req = failedRequestsStack[i].Refresh();
-                failedRequestsStack[i] = req;
-            }
-        }
+    //    public void Refresh()
+    //    {
+    //        for (int i = 0; i < failedRequestsStack.Count; i++)
+    //        {
+    //            Debug.Log("Refreshing: " + failedRequestsStack[i].requestType.ToString());
+    //            var req = failedRequestsStack[i].Refresh();
+    //            failedRequestsStack[i] = req;
+    //        }
+    //    }
 
-        public void AbortAll()
-        {
-            for (int i = 0; i < failedRequestsStack.Count; i++)
-                failedRequestsStack[i].Kill();
-        }
-    }
+    //    public void AbortAll()
+    //    {
+    //        for (int i = 0; i < failedRequestsStack.Count; i++)
+    //            failedRequestsStack[i].Kill();
+    //    }
+    //}
 
     public class WebInterface : MonoBehaviour, IWebInterface
     {

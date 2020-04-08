@@ -77,8 +77,6 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private GameObject m_creditsButton, m_backCreditButton;
         [SerializeField]
-        private VRUIInteraction m_leftSideDropDown, m_rightSideDropdown;
-        [SerializeField]
         private Popup m_popup;
         [SerializeField]
         private BaseInputModule m_desktopInputModule, m_vrInputModule;
@@ -317,8 +315,8 @@ namespace VRExperience.UI.MenuControl
             {
                 var screen = m_screenStack.Peek();
                 screen.Reopen();
-                if (!(screen is IForm) && m_settings.SelectedPreferences.ForcedDesktopMode)
-                    DisableDesktopOnlyMode();
+                if (!(screen is IForm))
+                    RefreshDesktopMode();
                 //Debug.LogError("opening: " + screen.Gameobject.name);
             }
             else
@@ -390,8 +388,7 @@ namespace VRExperience.UI.MenuControl
             if (m_experienceMachine.CurrentExperience == ExperienceType.HOME)
                 m_screensRoot.gameObject.SetActive(false);
 
-            if (m_settings.SelectedPreferences.ForcedDesktopMode)
-                DisableDesktopOnlyMode();
+            RefreshDesktopMode();
         }
 
         public void GoBack()
@@ -591,8 +588,6 @@ namespace VRExperience.UI.MenuControl
         public void ToggleSidePanels()
         {
             m_sidePanelsRoot.SetActive(!m_sidePanelsRoot.activeSelf);
-            m_leftSideDropDown.ToggleIcon();
-            m_rightSideDropdown.ToggleIcon();
         }
 
         public void ToggleCredits()
@@ -671,11 +666,25 @@ namespace VRExperience.UI.MenuControl
 
         public void SwitchToDesktopOnlyMode()
         {
+            Debug.LogError("Switch to donly");
             foreach (var item in m_screenStack)
                 item.Hide();
 
             DisplayMessage("Desktop only mode is active.");
             UnblockDesktop();
+            m_sidePanelsRoot.SetActive(false);
+        }
+
+        public void RefreshDesktopMode()
+        {
+            m_settings.SelectedPreferences.ForcedDesktopMode = false;
+            m_settings.SyncSettingsWithDisk(() =>
+            {
+                if (m_settings.SelectedPreferences.DesktopMode)
+                    SwitchToDesktopOnlyMode();
+                else
+                    DisableDesktopOnlyMode();
+            });
         }
 
         public void DisableDesktopOnlyMode()

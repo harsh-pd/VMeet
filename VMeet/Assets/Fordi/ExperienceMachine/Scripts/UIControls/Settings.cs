@@ -69,6 +69,7 @@ namespace VRExperience.Core
         Preferences SelectedPreferences { get; }
         Preferences DefaultPreferences { get; }
         void SaveSettings();
+        void SyncSettingsWithDisk(Action done);
     }
 
     public class Settings : MonoBehaviour, ISettings
@@ -176,6 +177,39 @@ namespace VRExperience.Core
             else
                 m_vrMenu.DisableDesktopOnlyMode();
             m_player.ApplyTooltipSettings();
+        }
+
+        public void SyncSettingsWithDisk(Action done)
+        {
+            DynamicSettings dynamicSettings = null;
+            var configFilePath = Path.Combine(Application.persistentDataPath, ConfigFile);
+            if (File.Exists(configFilePath))
+            {
+                File.ReadAllText(configFilePath);
+                try
+                {
+                    //using (FileStream stream = new FileStream(configFilePath, FileMode.Create, FileAccess.Write))
+                    //{
+                    //    Serializer.Serialize(stream, dynamicSettings);
+                    //}
+
+                    using (FileStream stream = new FileStream(configFilePath, FileMode.Open, FileAccess.Read))
+                    {
+                        dynamicSettings = Serializer.Deserialize<DynamicSettings>(stream);
+                    }
+
+                    dynamicSettings.Load();
+                    done?.Invoke();
+                    return;
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            dynamicSettings = new DynamicSettings();
+            dynamicSettings.Download();
+            done?.Invoke();
         }
     }
 }

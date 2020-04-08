@@ -37,7 +37,8 @@ namespace VRExperience.Core
         public bool ShowTooltip = true;
 
         [Header("Mode")]
-        public bool DesktopMode = false;
+        public bool DesktopMode;
+        [HideInInspector]
         public bool ForcedDesktopMode = false;
     }
 }
