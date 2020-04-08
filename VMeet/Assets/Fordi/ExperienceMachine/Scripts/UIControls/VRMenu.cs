@@ -174,7 +174,7 @@ namespace VRExperience.UI.MenuControl
         {
             if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && !m_recenterFlag)
             {
-                //Debug.LogError("Recentering");
+                Debug.LogError("Recentering");
                 UnityEngine.XR.InputTracking.Recenter();
                 m_recenterFlag = true;
             }
@@ -317,6 +317,8 @@ namespace VRExperience.UI.MenuControl
             {
                 var screen = m_screenStack.Peek();
                 screen.Reopen();
+                if (!(screen is IForm) && m_settings.SelectedPreferences.ForcedDesktopMode)
+                    DisableDesktopOnlyMode();
                 //Debug.LogError("opening: " + screen.Gameobject.name);
             }
             else
@@ -387,6 +389,9 @@ namespace VRExperience.UI.MenuControl
             }
             if (m_experienceMachine.CurrentExperience == ExperienceType.HOME)
                 m_screensRoot.gameObject.SetActive(false);
+
+            if (m_settings.SelectedPreferences.ForcedDesktopMode)
+                DisableDesktopOnlyMode();
         }
 
         public void GoBack()
@@ -676,6 +681,7 @@ namespace VRExperience.UI.MenuControl
         public void DisableDesktopOnlyMode()
         {
             m_settings.SelectedPreferences.ForcedDesktopMode = false;
+            m_settings.SelectedPreferences.DesktopMode = false;
             foreach (var item in m_screenStack)
                 item.UnHide();
 

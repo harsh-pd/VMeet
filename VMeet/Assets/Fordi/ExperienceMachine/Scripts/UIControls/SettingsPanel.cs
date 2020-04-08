@@ -83,7 +83,7 @@ namespace VRExperience.UI.MenuControl
             m_sfxVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.SFX));
             m_audioVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.VO));
 
-            m_desktopMode.interactable = m_settings.SelectedPreferences.ForcedDesktopMode;
+            m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
         }
 
         protected override void OnDestroyOverride()
@@ -145,6 +145,7 @@ namespace VRExperience.UI.MenuControl
             m_showTooltip.isOn = m_settings.SelectedPreferences.ShowTooltip;
 
             m_desktopMode.isOn = m_settings.SelectedPreferences.DesktopMode;
+            m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
         }
 
         public void CancelEdit()
@@ -204,6 +205,7 @@ namespace VRExperience.UI.MenuControl
             m_showTooltip.isOn = m_settings.DefaultPreferences.ShowTooltip;
 
             m_desktopMode.isOn = m_settings.DefaultPreferences.DesktopMode;
+            m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
 
             Save();
         }
@@ -282,7 +284,7 @@ namespace VRExperience.UI.MenuControl
         public override void Reopen()
         {
             base.Reopen();
-            m_desktopMode.interactable = m_settings.SelectedPreferences.ForcedDesktopMode;
+            m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
         }
     }
 }
