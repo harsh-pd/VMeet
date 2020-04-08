@@ -9,6 +9,7 @@ using AudioType = VRExperience.Core.AudioType;
 using UnityEngine.EventSystems;
 using UnityEngine.XR;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -70,6 +71,8 @@ namespace VRExperience.UI.MenuControl
         private LaserPointer.LaserBeamBehavior m_laserBeamBehavior;
         [SerializeField]
         private GameObject m_sidePanelsRoot;
+        [SerializeField]
+        private Button m_sidePanelButton;
         [SerializeField]
         private TextMeshProUGUI m_thoughtOfTheDay, m_creditsText;
         [SerializeField]
@@ -673,6 +676,8 @@ namespace VRExperience.UI.MenuControl
             DisplayMessage("Desktop only mode is active.");
             UnblockDesktop();
             m_sidePanelsRoot.SetActive(false);
+            m_sidePanelButton.interactable = false;
+           
         }
 
         public void RefreshDesktopMode()
@@ -691,6 +696,7 @@ namespace VRExperience.UI.MenuControl
         {
             m_settings.SelectedPreferences.ForcedDesktopMode = false;
             m_settings.SelectedPreferences.DesktopMode = false;
+            m_sidePanelButton.interactable = true;
             foreach (var item in m_screenStack)
                 item.UnHide();
 
