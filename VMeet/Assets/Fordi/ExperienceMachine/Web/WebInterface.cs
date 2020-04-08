@@ -330,7 +330,9 @@ namespace Cornea.Web
             loginReq.Run(this).OnRequestComplete(
                     (isNetworkError, message) =>
                     {
-                        //Debug.LogError(message);
+                        Debug.LogError(message);
+                        m_experienceMachine.OpenSceneMenu();
+                        return;
                         JsonData tokenAuthResult = JsonMapper.ToObject(message);
                         if (tokenAuthResult["success"].ToString() == "True")
                         {

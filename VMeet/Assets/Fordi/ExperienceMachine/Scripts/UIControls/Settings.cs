@@ -122,7 +122,6 @@ namespace VRExperience.Core
                     }
 
                     dynamicSettings.Load();
-                    InitSettings();
                     return;
                 }
                 catch(Exception)

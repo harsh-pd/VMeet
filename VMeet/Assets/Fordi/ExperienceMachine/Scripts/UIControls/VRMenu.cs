@@ -174,6 +174,7 @@ namespace VRExperience.UI.MenuControl
         {
             if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && !m_recenterFlag)
             {
+                //Debug.LogError("Recentering");
                 UnityEngine.XR.InputTracking.Recenter();
                 m_recenterFlag = true;
             }
@@ -493,6 +494,9 @@ namespace VRExperience.UI.MenuControl
 
         public void DisplayMessage(string message, bool block = true, bool persist = false)
         {
+            if (m_vrBlocker != null)
+                m_vrBlocker.Close();
+
             m_screensRoot.gameObject.SetActive(true);
             //if (m_screenStack.Count > 0)
             //{
