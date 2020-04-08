@@ -88,7 +88,7 @@ namespace Cornea.Web
             if (isNetworkError)
             {
                 if (!error.Contains("abort"))
-                    IOC.Resolve<IWebInterface>().NetworkInterface.ActivateErrorScreen(error, this);
+                    IOC.Resolve<IWebInterface>().RegisterRequestFailure(error, this);
             }
             else
             {
@@ -133,7 +133,7 @@ namespace Cornea.Web
             else
             {
                 //Debug.Log("Request success: " + requestType.ToString());
-                IOC.Resolve<IWebInterface>().NetworkInterface.RemoveRequest(this);
+                IOC.Resolve<IWebInterface>().RemoveRequest(this);
                 if (OnRequestCompleteAction != null)
                     OnRequestCompleteAction(false, downloadHandler.text.ToString());
             }

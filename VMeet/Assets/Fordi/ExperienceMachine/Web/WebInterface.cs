@@ -22,8 +22,9 @@ namespace Cornea.Web
     public interface IWebInterface
     {
         string AccessToken { get; }
-        VESNetworkInterface NetworkInterface { get; }
         void ValidateUserLogin(string organization, string username, string password);
+        void RegisterRequestFailure(string errorMessage, APIRequest req);
+        void RemoveRequest(APIRequest req);
     }
 
     public enum APIRequestType
@@ -169,22 +170,22 @@ namespace Cornea.Web
             }
         }
 
-        public void ActivateErrorScreen(string errorMessage, APIRequest req)
-        {
-            int reqIndex = failedRequestsStack.FindIndex(item => item.requestType == req.requestType);
+        //public void ActivateErrorScreen(string errorMessage, APIRequest req)
+        //{
+        //    int reqIndex = failedRequestsStack.FindIndex(item => item.requestType == req.requestType);
 
-            if (reqIndex != -1)
-                failedRequestsStack[reqIndex] = req;
-            else
-                failedRequestsStack.Add(req);
+        //    if (reqIndex != -1)
+        //        failedRequestsStack[reqIndex] = req;
+        //    else
+        //        failedRequestsStack.Add(req);
 
-            if (intermediatesStack.Count > 0)
-            {
-                state = NetworkState.ERROR;
-                intermediatesStack[intermediatesStack.Count - 1].SwtichToError(() => req.Kill(), errorMessage);
-            }
+        //    if (intermediatesStack.Count > 0)
+        //    {
+        //        state = NetworkState.ERROR;
+        //        intermediatesStack[intermediatesStack.Count - 1].SwtichToError(() => req.Kill(), errorMessage);
+        //    }
               
-        }
+        //}
 
         /// <summary>
         /// Only to be used in case of mac address fetch failure
@@ -267,9 +268,6 @@ namespace Cornea.Web
         public TMP_InputField OrganisationId;
         public UserInfo userInfo = new UserInfo();
 
-        public VESNetworkInterface networkInterface;
-        public VESNetworkInterface NetworkInterface { get { return networkInterface; } }
-
         [HideInInspector]
         public string access_token = "";
 
@@ -284,6 +282,8 @@ namespace Cornea.Web
 
         private IExperienceMachine m_experienceMachine;
 
+        private List<APIRequest> m_failedRequestStack = new List<APIRequest>();
+
         private void Awake()
         {
             m_vrMenu = IOC.Resolve<IVRMenu>();
@@ -297,8 +297,9 @@ namespace Cornea.Web
 
         public void NetworkRefresh()
         {
-            networkInterface.ShowUnderProgress(() => networkInterface.AbortAll());
-            networkInterface.Refresh();
+            throw new NotImplementedException();
+            //networkInterface.ShowUnderProgress(() => networkInterface.AbortAll());
+            //networkInterface.Refresh();
         }
 
         private string TruncateString(string input)
@@ -765,6 +766,32 @@ namespace Cornea.Web
                 return true;
             }
         }
+
+        #region NETWORK_HANDLING
+        public void RegisterRequestFailure(string errorMessage, APIRequest req)
+        {
+            int reqIndex = m_failedRequestStack.FindIndex(item => item.requestType == req.requestType);
+
+            if (reqIndex != -1)
+                m_failedRequestStack[reqIndex] = req;
+            else
+                m_failedRequestStack.Add(req);
+
+            Error error = new Error(Error.E_NetworkIssue)
+            {
+                ErrorText = errorMessage
+            };
+            m_vrMenu.DisplayResult(error);
+        }
+
+        public void RemoveRequest(APIRequest req)
+        {
+            if (m_failedRequestStack.Contains(req))
+            {
+                m_failedRequestStack.Remove(req);
+            }
+        }
+        #endregion
     }
 
     public class ErrorResult
