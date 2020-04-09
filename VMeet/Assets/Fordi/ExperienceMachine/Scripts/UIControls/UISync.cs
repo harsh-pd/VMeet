@@ -77,7 +77,7 @@ namespace Fordi.Sync.UI
 
         public void OnValueChanged<T>(int viewId, T val)
         {
-            Debug.LogError(viewId);
+            //Debug.LogError(viewId);
             if (typeof(string) == typeof(T) && m_selectable is TMP_InputField inputField)
                 inputField.SetValue((string)(object)val);
 

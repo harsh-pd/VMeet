@@ -55,6 +55,7 @@ namespace Fordi.Sync
         protected internal void Awake()
         {
             m_fordiNetwork = IOC.Resolve<IFordiNetwork>();
+            
 
             foreach (var item in ObservedComponents)
             {
@@ -236,6 +237,7 @@ namespace Fordi.Sync
 
         private void OnValueChanged(bool value)
         {
+            Debug.LogError(name + " value change: " + value);
             if (m_remoteValueChange)
             {
                 m_remoteValueChange = false;
