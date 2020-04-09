@@ -120,11 +120,6 @@ namespace AL.UI
                     return m_syncView.ViewId;
                 return 0;
             }
-
-            set
-            {
-
-            }
         }
 
         public Selectable Selectable { get { return selectable; } }
@@ -142,15 +137,21 @@ namespace AL.UI
 
         public void OnValueChanged<T>(int viewId, T val)
         {
-            Debug.LogError(name + " " + viewId);
+            //Debug.LogError(name + " " + viewId);
             if (typeof(string) == typeof(T) && selectable is TMP_InputField inputField)
-                inputField.SetValue((string)(object)val);
+                inputField.text = (string)(object)val;
 
             if (typeof(bool) == typeof(T) && selectable is Toggle toggle)
-                toggle.SetValue((bool)(object)val);
+                toggle.isOn = (bool)(object)val;
 
             if (typeof(float) == typeof(T) && selectable is Slider slider)
-                slider.SetValue((float)(object)val);
+                slider.value = (float)(object)val;
+        }
+
+        public void PointerClickEvent(int viewId)
+        {
+            Button button = (Button)selectable;
+            button?.onClick.Invoke();
         }
         #endregion
     }

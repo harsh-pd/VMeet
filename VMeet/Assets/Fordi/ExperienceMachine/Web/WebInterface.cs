@@ -333,7 +333,6 @@ namespace Cornea.Web
                     {
                         Debug.LogError(message);
                         m_experienceMachine.OpenSceneMenu();
-                        return;
                         JsonData tokenAuthResult = JsonMapper.ToObject(message);
                         if (tokenAuthResult["success"].ToString() == "True")
                         {

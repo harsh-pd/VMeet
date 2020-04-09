@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fordi.Sync;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,6 +17,10 @@ namespace VRExperience.UI
         [SerializeField]
         private Button m_button;
 
+        [SerializeField]
+        private List<SyncView> m_synchronizedElements = new List<SyncView>();
+
+
         public bool Blocked { get; private set; }
 
         public bool Persist { get; private set; }
@@ -30,6 +35,11 @@ namespace VRExperience.UI
         {
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
+
+            foreach (var item in m_synchronizedElements)
+            {
+                FordiNetwork.RegisterPhotonView(item);
+            }
         }
 
         public void Close()
@@ -73,6 +83,12 @@ namespace VRExperience.UI
         public void UnHide()
         {
             transform.localScale = m_localScale;
+        }
+
+        public void AttachSyncView(SyncView syncView)
+        {
+            if (m_synchronizedElements.Contains(syncView))
+                m_synchronizedElements.Add(syncView);
         }
     }
 }

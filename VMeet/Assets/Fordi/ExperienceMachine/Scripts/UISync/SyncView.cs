@@ -21,6 +21,9 @@ namespace Fordi.Sync
     using UnityEngine.UI;
     using TMPro;
     using VRExperience.Common;
+    using Fordi.Sync.UI;
+    using VRExperience.Core;
+    using VRExperience.UI.MenuControl;
 #endif
 
 
@@ -30,32 +33,37 @@ namespace Fordi.Sync
     /// </summary>
     /// \ingroup publicApi
     [AddComponentMenu("Fordi Networking/Sync View")]
+    [DisallowMultipleComponent]
     public class SyncView : MonoBehaviour, IFordiObservable
     {
         [SerializeField]
-        private List<Component> ObservedComponents;
+        private List<Component> ObservedComponents = new List<Component>();
 
 
         [SerializeField]
         private int viewIdField = 0;
 
-        public int ViewId { get { return viewIdField; } set { viewIdField = value; } }
+        public int ViewId { get { return viewIdField; } }
 
         public Selectable Selectable { get { return null; } }
 
         private IFordiNetwork m_fordiNetwork;
 
+        private IExperienceMachine m_experienceMachine;
+
+
         protected internal void Awake()
         {
             m_fordiNetwork = IOC.Resolve<IFordiNetwork>();
-            if (viewIdField == 0)
-                viewIdField = gameObject.GetInstanceID();
-
-            if (this.ViewId != 0 && Application.isPlaying)
-                FordiNetwork.RegisterPhotonView(this);
 
             foreach (var item in ObservedComponents)
             {
+                if (((IFordiObservable)item) is UISync uiSync)
+                {
+                    //uiSync.ActiveStateToggleEvent += ActiveStateToggle;
+                    uiSync.ClickEvent += ClickEvent;
+                }
+
                 if (((IFordiObservable)item).Selectable is TMP_InputField inputField)
                     inputField.onValueChanged.AddListener(OnValueChanged);
                 if (((IFordiObservable)item).Selectable is Toggle toggle)
@@ -69,6 +77,12 @@ namespace Fordi.Sync
         {
             foreach (var item in ObservedComponents)
             {
+                if (((IFordiObservable)item) is UISync uiSync)
+                {
+                    //uiSync.ActiveStateToggleEvent -= ActiveStateToggle;
+                    uiSync.ClickEvent -= ClickEvent;
+                }
+
                 if (((IFordiObservable)item).Selectable is TMP_InputField inputField)
                     inputField.onValueChanged.RemoveAllListeners();
                 if (((IFordiObservable)item).Selectable is Toggle toggle)
@@ -76,6 +90,37 @@ namespace Fordi.Sync
                 if (((IFordiObservable)item).Selectable is Slider slider)
                     slider.onValueChanged.RemoveAllListeners();
             }
+        }
+
+        private bool m_remoteValueChange = false;
+        //private void OnEnable()
+        //{
+        //    if (m_remoteValueChange)
+        //    {
+        //        m_remoteValueChange = false;
+        //        return;
+        //    }
+        //    m_fordiNetwork.ActiveStateToggle(this, ViewId, true);
+        //}
+
+        //private void OnDisable()
+        //{
+        //    if (m_remoteValueChange)
+        //    {
+        //        m_remoteValueChange = false;
+        //        return;
+        //    }
+        //    m_fordiNetwork.ActiveStateToggle(this, ViewId, false);
+        //}
+
+        /// <summary>
+        /// Temporary code used for listing the SyncView on FordiNetwork.
+        /// </summary>
+        private void Reset()
+        {
+            IScreen menu = transform.root.GetComponentInChildren<IScreen>();
+            if (menu != null)
+                menu.AttachSyncView(this);
         }
 
         public void SerializeView(FordiStream stream, FordiMessageInfo info)
@@ -154,38 +199,67 @@ namespace Fordi.Sync
 
         public void OnValueChanged<T>(int viewId, T val)
         {
+            m_remoteValueChange = true;
             var observable = (IFordiObservable)ObservedComponents.Find(item => (IFordiObservable)item != null && ((IFordiObservable)item).ViewId == viewId);
             observable?.OnValueChanged(ViewId, val);
-            if (observable != null)
-            {
-                Debug.LogError(viewId + " ");
-            }
-            else
-                Debug.LogError("obsrvr null ");
-
         }
 
         public void OnFordiSerializeView(FordiStream stream, FordiMessageInfo info)
         {
             throw new NotImplementedException();
         }
+
+        public void ActiveStateToggle(int viewId, bool e)
+        {
+            m_remoteValueChange = true;
+            Debug.LogError(name +  " ActiveStateToggle: " + viewId + " " + e);
+            gameObject.SetActive(e);
+        }
+
+        public void PointerClickEvent(int viewId)
+        {
+            Button button = (Button)Selectable;
+            button?.onClick.Invoke();
+        }
         #endregion
 
         #region SYNC_EVENT_SENDERS
         private void OnValueChanged(string value)
         {
+            if (m_remoteValueChange)
+            {
+                m_remoteValueChange = false;
+                return;
+            }
             m_fordiNetwork.OnValueChanged(this, ViewId, value);
         }
 
         private void OnValueChanged(bool value)
         {
-            Debug.LogError(name + " " + value);
+            if (m_remoteValueChange)
+            {
+                m_remoteValueChange = false;
+                return;
+            }
+            Debug.LogError(name + " " + ViewId + " " + value);
             m_fordiNetwork.OnValueChanged(this, ViewId, value);
         }
 
         private void OnValueChanged(float value)
         {
+            if (m_remoteValueChange)
+            {
+                m_remoteValueChange = false;
+                return;
+            }
             m_fordiNetwork.OnValueChanged(this, ViewId, value);
+        }
+
+        //Click sync disabled for now.
+        private void ClickEvent(object sender, EventArgs e)
+        {
+            //Button button = (Button)Selectable;
+            //button?.onClick.Invoke();
         }
         #endregion
     }

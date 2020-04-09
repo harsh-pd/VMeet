@@ -8,10 +8,11 @@ namespace Fordi.Sync
 {
     public interface IFordiObservable
     {
-        int ViewId { get; set; }
+        int ViewId { get; }
         Selectable Selectable { get; }
         void OnValueChanged<T>(int viewId, T val);
         void Select(int viewId);
+        void PointerClickEvent(int viewId);
         /// <summary>
         /// Called by PUN several times per second, so that your script can write and read synchronization data for the PhotonView.
         /// </summary>

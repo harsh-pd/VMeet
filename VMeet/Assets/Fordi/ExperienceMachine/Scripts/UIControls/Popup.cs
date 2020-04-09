@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using VRExperience.Common;
 using VRExperience.UI.MenuControl;
+using Fordi.Sync;
 
 namespace VRExperience.UI
 {
@@ -40,11 +41,20 @@ namespace VRExperience.UI
         public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
 
         private Vector3 m_localScale = Vector3.zero;
+
+        [SerializeField]
+        private List<SyncView> m_synchronizedElements = new List<SyncView>();
+
         private void Awake()
         {
             m_vrMenu = IOC.Resolve<IVRMenu>();
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
+
+            foreach (var item in m_synchronizedElements)
+            {
+                FordiNetwork.RegisterPhotonView(item);
+            }
         }
 
         public void Show(PopupInfo popupInfo, Action Ok  = null)
@@ -117,6 +127,12 @@ namespace VRExperience.UI
         public void UnHide()
         {
             transform.localScale = m_localScale;
+        }
+
+        public void AttachSyncView(SyncView syncView)
+        {
+            if (m_synchronizedElements.Contains(syncView))
+                m_synchronizedElements.Add(syncView);
         }
     }
 }

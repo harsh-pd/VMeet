@@ -105,6 +105,7 @@ namespace VRExperience.Core
         void SetAmbienceAudioVolume(float volume);
         void OpenSceneMenu();
         ExperienceType CurrentExperience { get; }
+        bool IsRunning { get; }
     }
 
     /// <summary>
@@ -135,10 +136,13 @@ namespace VRExperience.Core
 
         private ExperienceType m_currentExperienceType;
         public ExperienceType CurrentExperience { get { return m_currentExperienceType; } }
-       
+
+        private bool m_isRunning = false;
+        public bool IsRunning { get { return m_isRunning; } }
 
         private void Awake()
         {
+            m_isRunning = true;
             m_home = GetComponentInChildren<Home>();
             m_nature = GetComponentInChildren<NatureExperience>();
             m_mandala = GetComponentInChildren<MandalaExperience>();

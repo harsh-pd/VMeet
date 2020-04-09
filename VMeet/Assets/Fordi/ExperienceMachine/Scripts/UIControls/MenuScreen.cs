@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fordi.Sync;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,6 +23,7 @@ namespace VRExperience.UI.MenuControl
         void UnHide();
         GameObject Gameobject { get; }
         IScreen Pair { get; }
+        void AttachSyncView(SyncView syncView);
     }
 
     [DisallowMultipleComponent]
@@ -47,6 +49,9 @@ namespace VRExperience.UI.MenuControl
 
         [SerializeField]
         private TextMeshProUGUI m_description;
+
+        [SerializeField]
+        private List<SyncView> m_synchronizedElements = new List<SyncView>();
  
         protected IVRMenu m_vrMenu;
         protected IExperienceMachine m_experienceMachine;
@@ -70,6 +75,11 @@ namespace VRExperience.UI.MenuControl
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
+
+            foreach (var item in m_synchronizedElements)
+            {
+                FordiNetwork.RegisterPhotonView(item);
+            }
 
             AwakeOverride();
         }
@@ -212,6 +222,12 @@ namespace VRExperience.UI.MenuControl
         public void UnHide()
         {
             transform.localScale = m_localScale;
+        }
+
+        public void AttachSyncView(SyncView syncView)
+        {
+            if (!m_synchronizedElements.Contains(syncView))
+                m_synchronizedElements.Add(syncView);
         }
     }
 }
