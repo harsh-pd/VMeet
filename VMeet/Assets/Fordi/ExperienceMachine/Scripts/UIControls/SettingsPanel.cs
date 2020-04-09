@@ -84,11 +84,13 @@ namespace VRExperience.UI.MenuControl
                 item.onValueChanged.AddListener((val) => ValueChange());
             foreach (var item in m_sliders)
                 item.onValueChanged.AddListener((val) => ValueChange());
-
-            m_ambienceVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.AMBIENCE));
-            m_musicVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.MUSIC));
-            m_sfxVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.SFX));
-            m_audioVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.VO));
+            if (Pair != null)
+            {
+                m_ambienceVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.AMBIENCE));
+                m_musicVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.MUSIC));
+                m_sfxVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.SFX));
+                m_audioVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.VO));
+            }
 
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
             m_accountTab.isOn = true;
