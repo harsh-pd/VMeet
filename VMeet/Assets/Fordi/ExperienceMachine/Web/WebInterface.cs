@@ -267,7 +267,7 @@ namespace Cornea.Web
         public TMP_InputField Name;
         public TMP_InputField Email;
         public TMP_InputField OrganisationId;
-        private UserInfo m_userInfo = new UserInfo();
+        private static UserInfo m_userInfo = new UserInfo();
 
         [HideInInspector]
         public string access_token = "";
@@ -334,7 +334,7 @@ namespace Cornea.Web
             loginReq.Run(this).OnRequestComplete(
                     (isNetworkError, message) =>
                     {
-                        Debug.LogError(message);
+                        //Debug.LogError(message);
                         m_experienceMachine.OpenSceneMenu();
                         JsonData tokenAuthResult = JsonMapper.ToObject(message);
                         if (tokenAuthResult["success"].ToString() == "True")

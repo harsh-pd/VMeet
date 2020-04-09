@@ -237,13 +237,13 @@ namespace Fordi.Sync
 
         private void OnValueChanged(bool value)
         {
-            Debug.LogError(name + " value change: " + value);
+            //Debug.LogError(name + " value change: " + value);
             if (m_remoteValueChange)
             {
                 m_remoteValueChange = false;
                 return;
             }
-            Debug.LogError(name + " " + ViewId + " " + value);
+            //Debug.LogError(name + " " + ViewId + " " + value);
             m_fordiNetwork.OnValueChanged(this, ViewId, value);
         }
 

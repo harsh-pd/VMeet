@@ -676,8 +676,9 @@ namespace VRExperience.UI.MenuControl
             DisplayMessage("Desktop only mode is active.");
             UnblockDesktop();
             m_sidePanelsRoot.SetActive(false);
-            m_sidePanelButton.interactable = false;
-           
+            if (m_sidePanelButton)
+                m_sidePanelButton.interactable = false;
+
         }
 
         public void RefreshDesktopMode()
@@ -696,7 +697,8 @@ namespace VRExperience.UI.MenuControl
         {
             m_settings.SelectedPreferences.ForcedDesktopMode = false;
             m_settings.SelectedPreferences.DesktopMode = false;
-            m_sidePanelButton.interactable = true;
+            if (m_sidePanelButton)
+                m_sidePanelButton.interactable = true;
             foreach (var item in m_screenStack)
                 item.UnHide();
 
