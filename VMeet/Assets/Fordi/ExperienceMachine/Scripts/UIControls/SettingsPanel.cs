@@ -7,6 +7,7 @@ using System;
 using VRExperience.Core;
 using VRExperience.Common;
 using AudioType = VRExperience.Core.AudioType;
+using Cornea.Web;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -48,14 +49,19 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private Toggle m_desktopMode;
 
-        private ISettings m_settings;
+        [SerializeField]
+        private TMP_InputField m_organization, m_name;
+
         private IAudio m_audio;
         private ICommonResource m_commonResource;
+        private IWebInterface m_webInterace;
 
         [SerializeField]
         private List<Toggle> m_toggles;
         [SerializeField]
         private List<Slider> m_sliders;
+        [SerializeField]
+        private Toggle m_accountTab;
 
         private const string SampleSound = "Sample";
 
@@ -67,6 +73,7 @@ namespace VRExperience.UI.MenuControl
             m_settings = IOC.Resolve<ISettings>();
             m_audio = IOC.Resolve<IAudio>();
             m_commonResource = IOC.Resolve<ICommonResource>();
+            m_webInterace = IOC.Resolve<IWebInterface>();
             Init();
         }
 
@@ -84,6 +91,7 @@ namespace VRExperience.UI.MenuControl
             m_audioVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.VO));
 
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
+            m_accountTab.isOn = true;
         }
 
         protected override void OnDestroyOverride()
@@ -146,6 +154,9 @@ namespace VRExperience.UI.MenuControl
 
             m_desktopMode.isOn = m_settings.SelectedPreferences.DesktopMode;
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
+
+            m_organization.text = "Organization: " + m_webInterace.UserInfo.organizationId.ToString();
+            m_name.text = "Name: " + m_webInterace.UserInfo.name;
         }
 
         public void CancelEdit()
@@ -206,6 +217,9 @@ namespace VRExperience.UI.MenuControl
 
             m_desktopMode.isOn = m_settings.DefaultPreferences.DesktopMode;
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
+
+            m_organization.text = "Organization: " + m_webInterace.UserInfo.organizationId.ToString();
+            m_name.text = "Name: " + m_webInterace.UserInfo.name;
 
             Save();
         }

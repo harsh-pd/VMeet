@@ -38,6 +38,15 @@ namespace VRExperience.UI
 
         private void OnDestroy()
         {
+            if (selectable is Toggle toggle)
+                toggle.onValueChanged.RemoveAllListeners();
+            if (selectable is Button button)
+                button.onClick.RemoveAllListeners();
+            if (selectable is Slider slider)
+                slider.onValueChanged.RemoveAllListeners();
+            if (selectable is TMP_InputField inputField)
+                inputField.onValueChanged.RemoveAllListeners();
+
             OnDestroyOverride();
         }
 

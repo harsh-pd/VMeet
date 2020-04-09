@@ -25,6 +25,7 @@ namespace Cornea.Web
         void ValidateUserLogin(string organization, string username, string password);
         void RegisterRequestFailure(string errorMessage, APIRequest req);
         void RemoveRequest(APIRequest req);
+        UserInfo UserInfo { get; }
     }
 
     public enum APIRequestType
@@ -266,7 +267,7 @@ namespace Cornea.Web
         public TMP_InputField Name;
         public TMP_InputField Email;
         public TMP_InputField OrganisationId;
-        public UserInfo userInfo = new UserInfo();
+        private UserInfo m_userInfo = new UserInfo();
 
         [HideInInspector]
         public string access_token = "";
@@ -277,6 +278,8 @@ namespace Cornea.Web
             } }
 
         public string AccessToken { get { return access_token; } }
+
+        public UserInfo UserInfo { get { return m_userInfo; } }
 
         private IVRMenu m_vrMenu;
 
@@ -497,7 +500,7 @@ namespace Cornea.Web
         {
             var parameters = new Dictionary<string, int>
             {
-                { "tenantId", userInfo.organizationId }
+                { "tenantId", m_userInfo.organizationId }
             };
             var url = vesApiBaseUrl + getUsersByOrganization;
             url = url.AppendParameters(parameters);
@@ -581,7 +584,7 @@ namespace Cornea.Web
         {
             var parameters = new Dictionary<string, string>
             {
-                { "userId", userInfo.id.ToString() },
+                { "userId", m_userInfo.id.ToString() },
                 { "status", meetingFilter.ToString() }
             };
             var url = vesApiBaseUrl + listAllMeetingDetails;
@@ -603,7 +606,7 @@ namespace Cornea.Web
             var parameters = new Dictionary<string, int>
             {
                 { "meetingId", meetingId },
-                { "userId", userInfo.id }
+                { "userId", m_userInfo.id }
             };
 
             var url = vesApiBaseUrl + acceptMeeting;
@@ -624,7 +627,7 @@ namespace Cornea.Web
             var parameters = new Dictionary<string, int>
             {
                 { "meetingId", meetingId },
-                { "userId", userInfo.id }
+                { "userId", m_userInfo.id }
             };
 
             var url = vesApiBaseUrl + rejectMeeting;
@@ -646,7 +649,7 @@ namespace Cornea.Web
             var parameters = new Dictionary<string, int>
             {
                 { "meetingId", meetingId },
-                { "userId", userInfo.id }
+                { "userId", m_userInfo.id }
             };
 
             var url = vesApiBaseUrl + cancelMeeting;
@@ -690,17 +693,17 @@ namespace Cornea.Web
         {
             //Coordinator.instance.authoringManager.ToggleAuthoring(true);
             //print(loginValidationData["name"] + " " + loginValidationData["emailAddress"]);
-            userInfo.emailAddress = Convert.ToString(loginValidationData["emailAddress"]);
-            userInfo.id = Convert.ToInt32(Convert.ToString(loginValidationData["id"]));
-            userInfo.organizationId = Convert.ToInt32(Convert.ToString(loginValidationData["tenantId"]));
-            userInfo.name = Convert.ToString(loginValidationData["name"]);
-            userInfo.phoneNumber = Convert.ToString(loginValidationData["phoneNumber"]);
+            m_userInfo.emailAddress = Convert.ToString(loginValidationData["emailAddress"]);
+            m_userInfo.id = Convert.ToInt32(Convert.ToString(loginValidationData["id"]));
+            m_userInfo.organizationId = Convert.ToInt32(Convert.ToString(loginValidationData["tenantId"]));
+            m_userInfo.name = Convert.ToString(loginValidationData["name"]);
+            m_userInfo.phoneNumber = Convert.ToString(loginValidationData["phoneNumber"]);
             //userInfo.UserRoletype = (int)loginValidationData["UserRoletype"];
 
-            ZPlayerPrefs.SetString("name", userInfo.name);
-            ZPlayerPrefs.SetInt("id", userInfo.id);
-            ZPlayerPrefs.SetInt("organizationId", userInfo.organizationId);
-            ZPlayerPrefs.SetString("emailAddress", userInfo.emailAddress);
+            ZPlayerPrefs.SetString("name", m_userInfo.name);
+            ZPlayerPrefs.SetInt("id", m_userInfo.id);
+            ZPlayerPrefs.SetInt("organizationId", m_userInfo.organizationId);
+            ZPlayerPrefs.SetString("emailAddress", m_userInfo.emailAddress);
             //ZPlayerPrefs.SetInt("UserRoleType", userInfo.UserRoletype);
 
             //List<string> allowedFeatures = new List<string>();

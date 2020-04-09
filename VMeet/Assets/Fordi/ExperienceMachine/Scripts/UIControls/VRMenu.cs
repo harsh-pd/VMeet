@@ -669,7 +669,7 @@ namespace VRExperience.UI.MenuControl
 
         public void SwitchToDesktopOnlyMode()
         {
-            Debug.LogError("Switch to donly");
+            //Debug.LogError("Switch to donly");
             foreach (var item in m_screenStack)
                 item.Hide();
 
