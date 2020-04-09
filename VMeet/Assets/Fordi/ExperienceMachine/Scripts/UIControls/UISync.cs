@@ -46,6 +46,14 @@ namespace Fordi.Sync.UI
 
         private void OnDestroy()
         {
+            if (m_selectable != null && m_selectable is Toggle toggle)
+                toggle.onValueChanged.RemoveAllListeners();
+            if (m_selectable != null && m_selectable is Button button)
+                button.onClick.RemoveAllListeners();
+            if (m_selectable != null && m_selectable is Slider slider)
+                slider.onValueChanged.RemoveAllListeners();
+            if (m_selectable != null && m_selectable is TMP_InputField inputField)
+                inputField.onValueChanged.RemoveAllListeners();
             DestroyOverride();
         }
 
