@@ -25,6 +25,11 @@ namespace Cornea.Web
         void ValidateUserLogin(string organization, string username, string password);
         void RegisterRequestFailure(string errorMessage, APIRequest req);
         void RemoveRequest(APIRequest req);
+        APIRequest ListAllMeetingDetails(MeetingFilter meetingFilter);
+        List<UserInfo> ParseUserListJson(string userListJson);
+        List<MeetingInfo> ParseMeetingListJson(string meetingListJson, MeetingCategory category);
+        ExperienceResource[] GetResource(ResourceType resourceType, string category);
+        ResourceComponent[] GetCategories(ResourceType type);
         UserInfo UserInfo { get; }
     }
 
@@ -267,7 +272,11 @@ namespace Cornea.Web
         public TMP_InputField Name;
         public TMP_InputField Email;
         public TMP_InputField OrganisationId;
+
         private static UserInfo m_userInfo = new UserInfo();
+
+        private MeetingGroup[] m_meetings = new MeetingGroup[] { };
+        public MeetingGroup[] Meetings { get { return m_meetings; } }
 
         [HideInInspector]
         public string access_token = "";
@@ -516,7 +525,7 @@ namespace Cornea.Web
             return getUserListReq;
         }
 
-        private List<UserInfo> ParseUserListJson(string userListJson)
+        public List<UserInfo> ParseUserListJson(string userListJson)
         {
             //Debug.Log(userListJson);
             var userData = JsonMapper.ToObject(userListJson);
@@ -793,6 +802,93 @@ namespace Cornea.Web
                 m_failedRequestStack.Remove(req);
             }
         }
+        #endregion
+
+        #region PARSING
+        public List<MeetingInfo> ParseMeetingListJson(string meetingListJson, MeetingCategory category)
+        {
+            Debug.LogError(meetingListJson);
+            JsonData meetingListData = JsonMapper.ToObject(meetingListJson);
+
+            List<MeetingInfo> _meetingInfoList = new List<MeetingInfo>();
+
+            bool arrayTraverseFinished = false;
+
+            for (int i = 0; !arrayTraverseFinished; i++)
+            {
+                try
+                {
+                    MeetingInfo meetingInfo = null;
+
+                    meetingInfo = new MeetingInfo
+                    {
+                        Id = (int)meetingListData["result"][i]["meetingParticipant"]["meetingId"],
+                        //MeetingGUID = (string)meetingListData["MeetingDetailsByCreatedUser"][i]["MeetingGUID"],
+                        MeetingNumber = (string)meetingListData["result"][i]["meetingMeetingNumber"],
+                        //MeetingPassword = (string)meetingListData["MeetingDetailsByCreatedUser"][i]["MeetingPassword"],
+                        FileToBeReviewed = (string)meetingListData["result"][i]["fileToBeReviewed"],
+                        FileLocation = (string)meetingListData["result"][i]["fileLocation"],
+                        MeetingTime = Convert.ToDateTime((string)meetingListData["result"][i]["meetingTime"]).ToLocalTime(),
+                        MeetingDurationInMinutes = (int)meetingListData["result"][i]["meetingDuration"],
+                        //ModelUploadTimeInSeconds = (int)meetingListData["MeetingDetailsByCreatedUser"][i]["ModelUploadTimeInSeconds"],
+                        //Status = (bool)meetingListData["MeetingDetailsByCreatedUser"][i]["Status"],
+                        //CreatedUserId = (int)meetingListData["MeetingDetailsByCreatedUser"][i]["CreatedUserId"],
+                        //CreatedDateTime = (string)meetingListData["MeetingDetailsByCreatedUser"][i]["CreatedDateTime"],
+                        //ModifiedUserId = (int)meetingListData["MeetingDetailsByCreatedUser"][i]["ModifiedUserId"],
+                        //ModifiedDateTime = (string)meetingListData["MeetingDetailsByCreatedUser"][i]["ModifiedDateTime"],
+                        meetingType = category
+                    };
+                    //meetingInfo.Description = "Temp description.";
+                    _meetingInfoList.Add(meetingInfo);
+                    meetingInfo.Description = (string)meetingListData["result"][i]["description"];
+                }
+                catch (NullReferenceException)
+                {
+                    Debug.LogError("description null");
+                }
+                catch (KeyNotFoundException e)
+                {
+                    Debug.LogError(e.Message);
+                    continue;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    arrayTraverseFinished = true;
+                }
+            }
+
+            return _meetingInfoList;
+        }
+
+        public ExperienceResource[] GetResource(ResourceType resourceType, string category)
+        {
+            try
+            {
+                switch (resourceType)
+                {
+                    case ResourceType.MEETING:
+                        return Array.Find(m_meetings, item => item.Name.Equals(category)).Resources;
+                    default:
+                        return null;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+        }
+
+        public ResourceComponent[] GetCategories(ResourceType type)
+        {
+            switch (type)
+            {
+                case ResourceType.MEETING:
+                    return m_meetings;
+                default:
+                    return null;
+            }
+        }
+
         #endregion
     }
 

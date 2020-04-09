@@ -26,7 +26,9 @@ namespace VRExperience.Core
         SFX,
         AMBIENCE_MUSIC,
         COLOR_AUDIO,
-        OBJECT
+        OBJECT,
+        MEETING,
+        USER
     }
 
     [Serializable]
@@ -207,6 +209,10 @@ namespace VRExperience.Core
                         MenuSequence.Add(ResourceType.EXPERIENCE);
                         LearnMenuSequence.Add(ResourceType.EXPERIENCE);
                         break;
+                    case MenuCommandType.MEETING:
+                        MenuSequence.Add(ResourceType.MEETING);
+                        LearnMenuSequence.Add(ResourceType.MEETING);
+                        break;
                 }
             }
         }
@@ -232,6 +238,32 @@ namespace VRExperience.Core
             }
 
             return MenuCommandType.EXPERIENCE;
+        }
+
+        protected ResourceType GetResourceType(MenuCommandType commandType)
+        {
+            switch (commandType)
+            {
+                case MenuCommandType.MUSIC:
+                    return ResourceType.MUSIC;
+                case MenuCommandType.COLOR:
+                    return ResourceType.COLOR;
+                case MenuCommandType.MANDALA:
+                    return ResourceType.MANDALA;
+                case MenuCommandType.LOCATION:
+                    return ResourceType.LOCATION;
+                case MenuCommandType.VO:
+                    return ResourceType.AUDIO;
+                case MenuCommandType.EXPERIENCE:
+                    return ResourceType.EXPERIENCE;
+                case MenuCommandType.INVENTORY:
+                    return ResourceType.OBJECT;
+                case MenuCommandType.MEETING:
+                    return ResourceType.MEETING;
+            }
+
+            Debug.LogError("Failed conversion");
+            return ResourceType.MEETING;
         }
 
 

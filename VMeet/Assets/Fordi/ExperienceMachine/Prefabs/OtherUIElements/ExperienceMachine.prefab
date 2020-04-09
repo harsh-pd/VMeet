@@ -2514,7 +2514,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a13baa5024169499691048927374ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_items: []
+  m_items:
+  - Path: Meeting
+    Text: Meeting
+    Icon: {fileID: 0}
+    Command: Meeting
+    CommandType: 18
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!114 &8311825173764635620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2561,6 +2576,21 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Path: Meeting
+    Text: Meeting
+    Icon: {fileID: 0}
+    Command: Meeting
+    CommandType: 18
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Exit
     Text: Exit
     Icon: {fileID: 0}
@@ -2596,6 +2626,7 @@ MonoBehaviour:
   m_backButton: {fileID: 0}
   m_preview: {fileID: 0}
   m_description: {fileID: 0}
+  m_synchronizedElements: []
 --- !u!1 &8221756215651059790
 GameObject:
   m_ObjectHideFlags: 0

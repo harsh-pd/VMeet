@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRExperience.Core;
 
 namespace VRExperience.Meeting
 {
@@ -47,5 +48,18 @@ namespace VRExperience.Meeting
         //public int ModifiedUserId = 1;
         //public string ModifiedDateTime = "2018-12-22T14:39:55.763";
         public MeetingCategory meetingType = MeetingCategory.INVITED;
+    }
+
+    [Serializable]
+    public class MeetingResource : ExperienceResource
+    {
+        public string SceneName;
+        public MeetingInfo MeetingInfo;
+    }
+
+    [Serializable]
+    public class MeetingGroup : ResourceComponent
+    {
+        public MeetingResource[] Resources;
     }
 }
