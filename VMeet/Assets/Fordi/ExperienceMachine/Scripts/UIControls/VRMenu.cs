@@ -22,6 +22,7 @@ namespace VRExperience.UI.MenuControl
         void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
+        void OpenCalendar();
         void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
         void Popup(PopupInfo popupInfo);
         void OpenForm(FormArgs args, bool block = true, bool persist = true);
@@ -64,6 +65,8 @@ namespace VRExperience.UI.MenuControl
         private ObjectInterface m_objectInterfacePrefab;
         [SerializeField]
         private SettingsPanel m_settingsInterfacePrefab;
+        [SerializeField]
+        private CalendarController m_calendarPrefab;
         [SerializeField]
         private Transform m_screensRoot, m_dScreenRoot;
         [SerializeField]
@@ -452,9 +455,37 @@ namespace VRExperience.UI.MenuControl
         
         public void OpenSettingsInterface(AudioClip clip)
         {
-            OpenInterface(m_settingsInterfacePrefab);
+            OpenInterface(m_settingsInterfacePrefab, m_dSettingsInterace);
             PlayGuide(clip);
         }
+
+        public void OpenCalendar()
+        {
+            m_screensRoot.gameObject.SetActive(true);
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Peek();
+                if (screen.Persist)
+                    screen.Deactivate();
+                else
+                    m_screenStack.Pop().Close();
+            }
+
+            m_player.PrepareForSpawn();
+            var menu = Instantiate(m_calendarPrefab, m_player.PlayerCanvas);
+            BringInFront(menu.transform);
+
+            menu.Init(true, false);
+            m_screenStack.Push(menu);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
+
+            var dMenu = Instantiate(m_calendarPrefab, m_dScreenRoot);
+            dMenu.Init(true, false);
+            menu.Pair = dMenu;
+            //PlayGuide(clip);
+        }
+
 
         private void PlayGuide(AudioClip clip)
         {
@@ -482,7 +513,7 @@ namespace VRExperience.UI.MenuControl
             }
         }
 
-        private void OpenInterface(MenuScreen screenPrefab, bool block = true, bool persist = false)
+        private void OpenInterface(MenuScreen screenPrefab, MenuScreen dScreenPrefab, bool block = true, bool persist = false)
         {
             m_screensRoot.gameObject.SetActive(true);
             if (m_screenStack.Count > 0)

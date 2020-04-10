@@ -13,6 +13,7 @@ namespace VRExperience.Core
         AudioClip VoiceOver { get; set; }
         ExperienceType  ExperienceType { get; set; }
         string MusicGroup { get; set; }
+        string MeetingDate { get; set; }
     }
 
     /// <summary>
@@ -27,5 +28,6 @@ namespace VRExperience.Core
         public AudioClip VoiceOver { get; set; }
         public ExperienceType ExperienceType { get; set; } = ExperienceType.HOME;
         public string MusicGroup { get; set; }
+        public string MeetingDate { get; set; }
     }
 }

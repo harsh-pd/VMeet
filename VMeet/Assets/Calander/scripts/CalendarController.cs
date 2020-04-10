@@ -8,6 +8,9 @@ using VRExperience.UI.MenuControl;
 
 public class CalendarController : MenuScreen
 {
+    [SerializeField]
+    private GameObject m_blocker = null;
+
     public GameObject _calendarPanel;
     public Text _yearNumText;
     public Text _monthNumText;
@@ -122,7 +125,23 @@ public class CalendarController : MenuScreen
     Text _target;
     public void OnDateItemClick(string day)
     {
-        _target.text = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day+"Day";
-        _calendarPanel.SetActive(false);
+        Debug.LogError("Click");
+        m_onClick?.Invoke(_yearNumText.text + "Year" + _monthNumText.text + "Month" + day + "Day");
+        m_menuSelection.MeetingDate = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day + "Day";
+        //Debug.LogError(_yearNumText.text + "Year" + _monthNumText.text + "Month" + day + "Day");
+        m_vrMenu.CloseLastScreen();
+    }
+
+    public override void Init(bool block, bool persist)
+    {
+        base.Init(block, persist);
+        if (block && m_blocker != null)
+            m_blocker.SetActive(true);
+    }
+
+    private Action<string> m_onClick = null;
+    public void OpenCalendar(Action<string> OnClick)
+    {
+        m_onClick = OnClick;
     }
 }

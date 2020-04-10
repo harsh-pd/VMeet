@@ -64,6 +64,7 @@ namespace VRExperience.UI.MenuControl
         protected IVRMenu m_vrMenu;
         protected IExperienceMachine m_experienceMachine;
         protected ISettings m_settings;
+        protected IMenuSelection m_menuSelection;
 
         public bool Blocked { get; protected set; }
 
@@ -81,6 +82,7 @@ namespace VRExperience.UI.MenuControl
             m_settings = IOC.Resolve<ISettings>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+            m_menuSelection = IOC.Resolve<IMenuSelection>();
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
 
