@@ -68,6 +68,7 @@ MonoBehaviour:
   m_backButton: {fileID: 0}
   m_preview: {fileID: 0}
   m_description: {fileID: 0}
+  m_synchronizedElements: []
   m_actionButtonPrefab: {fileID: 452850195161837799, guid: 8b6234676217e3d4cbd528ffad7a9632,
     type: 3}
   m_resultTextPrefab: {fileID: 6272608426324066513, guid: 644b97b7d1528db4d93b8359620049ac,
@@ -609,7 +610,7 @@ MonoBehaviour:
     m_Top: 15
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 8
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
