@@ -53,13 +53,24 @@ namespace VRExperience.Meeting
     [Serializable]
     public class MeetingResource : ExperienceResource
     {
-        public string SceneName;
         public MeetingInfo MeetingInfo;
+    }
+
+    [Serializable]
+    public class UserResource : ExperienceResource
+    {
+        public UserInfo UserInfo;
     }
 
     [Serializable]
     public class MeetingGroup : ResourceComponent
     {
         public MeetingResource[] Resources;
+    }
+
+    [Serializable]
+    public class UserGroup : ResourceComponent
+    {
+        public UserResource[] Resources;
     }
 }

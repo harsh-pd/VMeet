@@ -260,6 +260,8 @@ namespace VRExperience.Core
                     return ResourceType.OBJECT;
                 case MenuCommandType.MEETING:
                     return ResourceType.MEETING;
+                case MenuCommandType.USER:
+                    return ResourceType.USER;
             }
 
             Debug.LogError("Failed conversion");

@@ -278,6 +278,11 @@ namespace Cornea.Web
         private List<MeetingGroup> m_meetings = new List<MeetingGroup>();
         public MeetingGroup[] Meetings { get { return m_meetings.ToArray(); } }
 
+
+        private List<UserGroup> m_users = new List<UserGroup>();
+        public UserGroup[] Users { get { return m_users.ToArray(); } }
+
+
         [HideInInspector]
         private static string access_token = "";
 
@@ -519,7 +524,7 @@ namespace Cornea.Web
                 (isNetworkError, message) =>
                 {
                     //Debug.LogError(message);
-                    ParseUserListJson(message);
+                    //ParseUserListJson(message);
                 }
             );
             return getUserListReq;
@@ -865,6 +870,8 @@ namespace Cornea.Web
                 {
                     case ResourceType.MEETING:
                         return m_meetings.Find(item => item.Name.Equals(category)).Resources;
+                    case ResourceType.USER:
+                        return m_users.Find(item => item.Name.Equals(category)).Resources;
                     default:
                         return null;
                 }
@@ -941,6 +948,21 @@ namespace Cornea.Web
                         }
                     });
                     break;
+                case ResourceType.USER:
+                    if (m_users.Count > 0)
+                    {
+                        done?.Invoke(Users);
+                        return;
+                    }
+                    m_users.Clear();
+                    GetUsersByOrganization().OnRequestComplete(
+                    (isNetworkError, message) =>
+                    {
+                        var userGroup = GetUserGroup(ParseUserListJson(message));
+                        UserGroup[] userGroups = new UserGroup[] { userGroup };
+                        done?.Invoke(userGroups);
+                    });
+                    break;
                 default:
                     break;
             }
@@ -966,6 +988,30 @@ namespace Cornea.Web
                 Description = "",
                 ResourceType = ResourceType.MEETING,
                 Resources = meetingResources.Length == 0 ? new MeetingResource[] { } : meetingResources
+            };
+            return group;
+        }
+
+        private UserGroup GetUserGroup(List<UserInfo> users)
+        {
+            UserResource[] userResources = new UserResource[users.Count];
+            for (int i = 0; i < users.Count; i++)
+            {
+                userResources[i] = new UserResource
+                {
+                    Name = users[i].name,
+                    Description = users[i].emailAddress,
+                    UserInfo = users[i],
+                    ResourceType = ResourceType.USER
+                };
+            }
+
+            UserGroup group = new UserGroup
+            {
+                Name = "",
+                Description = "",
+                ResourceType = ResourceType.USER,
+                Resources = userResources.Length == 0 ? new UserResource[] { } : userResources
             };
             return group;
         }
