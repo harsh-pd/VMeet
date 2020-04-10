@@ -18,9 +18,11 @@ namespace VRExperience.Core
 
         public override void ExecuteMenuCommand(MenuClickArgs args)
         {
-            base.ExecuteMenuCommand(args);
             if (args.CommandType == MenuCommandType.QUIT || args.CommandType == MenuCommandType.MAIN || args.CommandType == MenuCommandType.SETTINGS || args.CommandType == MenuCommandType.SAVE_PRESET || args.CommandType == MenuCommandType.LOBBY)
+            {
+                base.ExecuteMenuCommand(args);
                 return;
+            }
 
             if (args.CommandType == MenuCommandType.MEETING || args.CommandType == MenuCommandType.TRAINING)
             {
@@ -77,7 +79,7 @@ namespace VRExperience.Core
                     if (resourceComponent.ResourceType == ResourceType.AUDIO)
                         m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
                     var resourceType = resourceComponent.ResourceType;
-                    m_menu.OpenGridMenu(null, ResourceToMenuItems(experience.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper());
+                    m_menu.OpenGridMenu(null, ResourceToMenuItems(m_webInterace.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper());
                     return;
                 }
             }
@@ -175,6 +177,7 @@ namespace VRExperience.Core
                 return;
             }
         }
+
 
 
         public override ExperienceResource[] GetResource(ResourceType resourceType, string category)

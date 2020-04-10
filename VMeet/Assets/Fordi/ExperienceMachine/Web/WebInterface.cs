@@ -895,31 +895,8 @@ namespace Cornea.Web
                         if (result["success"].ToString() == "True")
                         {
                             //Debug.LogError(message);
-
                             var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
-
-                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
-                            for (int i = 0; i < allCreatedMeetings.Count; i++)
-                            {
-                                createdMeetingsResources[i] = new MeetingResource
-                                {
-                                    Name = allCreatedMeetings[i].MeetingNumber,
-                                    Description = allCreatedMeetings[i].Description,
-                                    MeetingInfo = allCreatedMeetings[i],
-                                    ResourceType = ResourceType.MEETING
-                                };
-                            }
-
-                            MeetingGroup createdMeetings = new MeetingGroup
-                            {
-                                Name = "Created",
-                                Description = "",
-                                ResourceType = ResourceType.MEETING,
-                                Resources = createdMeetingsResources
-                            };
-
-                            m_meetings.Add(createdMeetings);
-
+                            m_meetings.Add(GetMeetingGroup(MeetingFilter.Created, allCreatedMeetings));
                             if (m_meetings.Count == 4)
                                 done?.Invoke(Meetings);
                             //Coordinator.instance.meetingInterface.CleanupCache();
@@ -930,30 +907,9 @@ namespace Cornea.Web
                         JsonData result = JsonMapper.ToObject(message);
                         if (result["success"].ToString() == "True")
                         {
-                            var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
-
-                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
-                            for (int i = 0; i < allCreatedMeetings.Count; i++)
-                            {
-                                createdMeetingsResources[i] = new MeetingResource
-                                {
-                                    Name = allCreatedMeetings[i].MeetingNumber,
-                                    Description = allCreatedMeetings[i].Description,
-                                    MeetingInfo = allCreatedMeetings[i],
-                                    ResourceType = ResourceType.MEETING
-                                };
-                            }
-
-                            MeetingGroup createdMeetings = new MeetingGroup
-                            {
-                                Name = "Accepted",
-                                Description = "",
-                                ResourceType = ResourceType.MEETING,
-                                Resources = createdMeetingsResources
-                            };
-
-                            m_meetings.Add(createdMeetings);
-
+                            //Debug.LogError(message);
+                            var meetings = ParseMeetingListJson(message, MeetingCategory.ACCEPTED);
+                            m_meetings.Add(GetMeetingGroup(MeetingFilter.Accepted, meetings));
                             if (m_meetings.Count == 4)
                                 done?.Invoke(Meetings);
                             //Coordinator.instance.meetingInterface.CleanupCache();
@@ -964,30 +920,9 @@ namespace Cornea.Web
                         JsonData result = JsonMapper.ToObject(message);
                         if (result["success"].ToString() == "True")
                         {
-                            var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
-
-                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
-                            for (int i = 0; i < allCreatedMeetings.Count; i++)
-                            {
-                                createdMeetingsResources[i] = new MeetingResource
-                                {
-                                    Name = allCreatedMeetings[i].MeetingNumber,
-                                    Description = allCreatedMeetings[i].Description,
-                                    MeetingInfo = allCreatedMeetings[i],
-                                    ResourceType = ResourceType.MEETING
-                                };
-                            }
-
-                            MeetingGroup createdMeetings = new MeetingGroup
-                            {
-                                Name = "Invited",
-                                Description = "",
-                                ResourceType = ResourceType.MEETING,
-                                Resources = createdMeetingsResources
-                            };
-
-                            m_meetings.Add(createdMeetings);
-
+                            //Debug.LogError(message);
+                            var meetings = ParseMeetingListJson(message, MeetingCategory.INVITED);
+                            m_meetings.Add(GetMeetingGroup(MeetingFilter.Invited, meetings));
                             if (m_meetings.Count == 4)
                                 done?.Invoke(Meetings);
                             //Coordinator.instance.meetingInterface.CleanupCache();
@@ -998,30 +933,9 @@ namespace Cornea.Web
                         JsonData result = JsonMapper.ToObject(message);
                         if (result["success"].ToString() == "True")
                         {
-                            var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
-
-                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
-                            for (int i = 0; i < allCreatedMeetings.Count; i++)
-                            {
-                                createdMeetingsResources[i] = new MeetingResource
-                                {
-                                    Name = allCreatedMeetings[i].MeetingNumber,
-                                    Description = allCreatedMeetings[i].Description,
-                                    MeetingInfo = allCreatedMeetings[i],
-                                    ResourceType = ResourceType.MEETING
-                                };
-                            }
-
-                            MeetingGroup createdMeetings = new MeetingGroup
-                            {
-                                Name = "Rejected",
-                                Description = "",
-                                ResourceType = ResourceType.MEETING,
-                                Resources = createdMeetingsResources
-                            };
-
-                            m_meetings.Add(createdMeetings);
-
+                            //Debug.LogError(message);
+                            var meetings = ParseMeetingListJson(message, MeetingCategory.REJECTED);
+                            m_meetings.Add(GetMeetingGroup(MeetingFilter.Rejected, meetings));
                             if (m_meetings.Count == 4)
                                 done?.Invoke(Meetings);
                             //Coordinator.instance.meetingInterface.CleanupCache();
@@ -1031,6 +945,30 @@ namespace Cornea.Web
                 default:
                     break;
             }
+        }
+
+        private MeetingGroup GetMeetingGroup(MeetingFilter filter, List<MeetingInfo> meetings)
+        {
+            MeetingResource[] meetingResources = new MeetingResource[meetings.Count];
+            for (int i = 0; i < meetings.Count; i++)
+            {
+                meetingResources[i] = new MeetingResource
+                {
+                    Name = meetings[i].MeetingNumber,
+                    Description = meetings[i].Description,
+                    MeetingInfo = meetings[i],
+                    ResourceType = ResourceType.MEETING
+                };
+            }
+
+            MeetingGroup group = new MeetingGroup
+            {
+                Name = filter.ToString(),
+                Description = "",
+                ResourceType = ResourceType.MEETING,
+                Resources = meetingResources.Length == 0 ? new MeetingResource[] { } : meetingResources
+            };
+            return group;
         }
 
         #endregion
