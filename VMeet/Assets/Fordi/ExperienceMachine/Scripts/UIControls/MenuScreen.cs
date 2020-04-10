@@ -24,6 +24,8 @@ namespace VRExperience.UI.MenuControl
         GameObject Gameobject { get; }
         IScreen Pair { get; }
         void AttachSyncView(SyncView syncView);
+        void DisplayResult(Error error);
+        void DisplayProgress(string text);
     }
 
     [DisallowMultipleComponent]
@@ -52,6 +54,9 @@ namespace VRExperience.UI.MenuControl
 
         [SerializeField]
         private List<SyncView> m_synchronizedElements = new List<SyncView>();
+
+        [SerializeField]
+        protected GameObject m_loader = null;
  
         protected IVRMenu m_vrMenu;
         protected IExperienceMachine m_experienceMachine;
@@ -106,8 +111,12 @@ namespace VRExperience.UI.MenuControl
         }
 
 
-        public void Deactivate()
+        public virtual void Deactivate()
         {
+            if (m_loader != null)
+                m_loader.SetActive(false);
+            if (m_description != null)
+                m_description.text = "";
             gameObject.SetActive(false);
             if (Pair != null)
                 Pair.Deactivate();
@@ -229,5 +238,38 @@ namespace VRExperience.UI.MenuControl
             if (!m_synchronizedElements.Contains(syncView))
                 m_synchronizedElements.Add(syncView);
         }
+
+        public virtual void DisplayResult(Error error)
+        {
+            if (m_preview != null && m_preview.sprite != null)
+                m_preview.gameObject.SetActive(true);
+            m_loader.SetActive(false);
+
+            if (error.HasError)
+                m_description.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
+            else
+                m_description.text = error.ErrorText.Style(ExperienceMachine.CorrectTextColorStyle);
+
+            if (Pair != null)
+                Pair.DisplayResult(error);
+        }
+
+        public virtual void DisplayProgress(string text)
+        {
+            if (m_preview)
+                m_preview.gameObject.SetActive(false);
+            if (m_loader == null)
+            {
+                Debug.LogError(this.name);
+                return;
+            }
+            Debug.LogError("Loadr activating: " + name);
+            m_loader.SetActive(true);
+            m_description.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
+
+            if (Pair != null)
+                Pair.DisplayProgress(text);
+        }
+
     }
 }

@@ -306,7 +306,7 @@ namespace VRExperience.UI.MenuControl
 
         public void CloseLastScreen()
         {
-            //Debug.LogError("Close last screen");
+            Debug.LogError("Close last screen");
 
             if (m_screenStack.Count > 0)
             {
@@ -343,6 +343,7 @@ namespace VRExperience.UI.MenuControl
 
         public void Close()
         {
+            Debug.LogError("Close");
             foreach (var item in m_screenStack)
                 item.Close();
             if (m_menuSelection == null)
@@ -799,9 +800,9 @@ namespace VRExperience.UI.MenuControl
 
         public void DisplayProgress(string text, bool freshScreen = false)
         {
-            if (!freshScreen && m_screenStack.Count > 0 && m_screenStack.Peek() is IForm form)
+            if (!freshScreen && m_screenStack.Count > 0)
             {
-                form.DisplayProgress(text);
+                m_screenStack.Peek().DisplayProgress(text);
             }
         }
         #endregion

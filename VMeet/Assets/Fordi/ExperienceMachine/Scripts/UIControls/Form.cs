@@ -11,8 +11,6 @@ namespace VRExperience.UI.MenuControl
 {
     public interface IForm : IScreen
     {
-        void DisplayResult(Error error);
-        void DisplayProgress(string text);
         void OpenForm(FormArgs args, bool blocked, bool persist);
     }
 
@@ -45,11 +43,10 @@ namespace VRExperience.UI.MenuControl
 
         private Button m_actionButton;
         private TextMeshProUGUI m_resultText;
-        private GameObject m_loader;
 
         private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
 
-        public void DisplayResult(Error error)
+        public override void DisplayResult(Error error)
         {
             if (m_loader != null)
                 Destroy(m_loader);
@@ -66,7 +63,7 @@ namespace VRExperience.UI.MenuControl
                 ((IForm)Pair).DisplayResult(error);
         }
 
-        public void DisplayProgress(string text)
+        public override void DisplayProgress(string text)
         {
             if (m_loader != null)
                 Destroy(m_loader);

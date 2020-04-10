@@ -1,10 +1,12 @@
-﻿using Fordi.Sync;
+﻿using AL;
+using Fordi.Sync;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VRExperience.Core;
 using VRExperience.UI.MenuControl;
 
 namespace VRExperience.UI
@@ -20,6 +22,8 @@ namespace VRExperience.UI
         [SerializeField]
         private List<SyncView> m_synchronizedElements = new List<SyncView>();
 
+        [SerializeField]
+        private GameObject m_loader = null;
 
         public bool Blocked { get; private set; }
 
@@ -50,6 +54,7 @@ namespace VRExperience.UI
 
         public void Deactivate()
         {
+            m_loader.SetActive(false);
             gameObject.SetActive(false);
         }
 
@@ -89,6 +94,28 @@ namespace VRExperience.UI
         {
             if (m_synchronizedElements.Contains(syncView))
                 m_synchronizedElements.Add(syncView);
+        }
+
+        public void DisplayResult(Error error)
+        {
+            m_loader.SetActive(false);
+
+            if (error.HasError)
+                m_text.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
+            else
+                m_text.text = error.ErrorText.Style(ExperienceMachine.CorrectTextColorStyle);
+
+            if (Pair != null)
+                Pair.DisplayResult(error);
+        }
+
+        public void DisplayProgress(string text)
+        {
+            m_loader.SetActive(true);
+            m_text.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
+
+            if (Pair != null)
+                Pair.DisplayProgress(text);
         }
     }
 }

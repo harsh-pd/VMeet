@@ -7,6 +7,7 @@ using System;
 using VRExperience.Common;
 using VRExperience.UI.MenuControl;
 using Fordi.Sync;
+using VRExperience.Core;
 
 namespace VRExperience.UI
 {
@@ -27,6 +28,8 @@ namespace VRExperience.UI
         private Image m_icon;
         [SerializeField]
         private Button m_okButton, m_closeButton;
+        [SerializeField]
+        private GameObject m_loader = null;
 
         public bool Blocked { get; private set; }
         public bool Persist { get; private set; }
@@ -100,6 +103,7 @@ namespace VRExperience.UI
 
         public void Deactivate()
         {
+            m_loader.SetActive(false);
             gameObject.SetActive(false);
         }
 
@@ -133,6 +137,28 @@ namespace VRExperience.UI
         {
             if (m_synchronizedElements.Contains(syncView))
                 m_synchronizedElements.Add(syncView);
+        }
+
+        public void DisplayResult(Error error)
+        {
+            m_loader.SetActive(false);
+
+            if (error.HasError)
+                m_text.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
+            else
+                m_text.text = error.ErrorText.Style(ExperienceMachine.CorrectTextColorStyle);
+
+            if (Pair != null)
+                Pair.DisplayResult(error);
+        }
+
+        public void DisplayProgress(string text)
+        {
+            m_loader.SetActive(true);
+            m_text.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
+
+            if (Pair != null)
+                Pair.DisplayProgress(text);
         }
     }
 }

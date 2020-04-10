@@ -344,7 +344,6 @@ namespace Cornea.Web
                     (isNetworkError, message) =>
                     {
                         //Debug.LogError(message);
-                        m_experienceMachine.OpenSceneMenu();
                         JsonData tokenAuthResult = JsonMapper.ToObject(message);
                         if (tokenAuthResult["success"].ToString() == "True")
                         {
@@ -430,6 +429,7 @@ namespace Cornea.Web
                     JsonData validateUserLoginResult = JsonMapper.ToObject(message);
                     if (validateUserLoginResult["success"].ToString() == "True")
                     {
+                        m_experienceMachine.OpenSceneMenu();
                         ZPlayerPrefs.SetInt("LoggedIn", 1);
                         SetUserData(validateUserLoginResult["result"]);
                         m_experienceMachine.OpenSceneMenu();
@@ -877,7 +877,6 @@ namespace Cornea.Web
 
         public void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done)
         {
-            Debug.LogError(AccessToken);
             m_vrMenu.DisplayProgress("Hold on. Fetching meetings...");
             bool loaderCancelled = false;
             switch (type)
