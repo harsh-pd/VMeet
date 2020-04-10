@@ -57,6 +57,9 @@ namespace VRExperience.UI.MenuControl
 
         [SerializeField]
         protected GameObject m_loader = null;
+
+        [SerializeField]
+        private GameObject m_standaloneMenu = null;
  
         protected IVRMenu m_vrMenu;
         protected IExperienceMachine m_experienceMachine;
@@ -148,6 +151,8 @@ namespace VRExperience.UI.MenuControl
 
         public virtual void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
         {
+            if (m_experienceMachine.CurrentExperience == ExperienceType.HOME && m_standaloneMenu != null)
+                m_standaloneMenu.SetActive(false);
             Clear();
             Blocked = blocked;
             Persist = persist;
@@ -196,6 +201,11 @@ namespace VRExperience.UI.MenuControl
             if (Pair != null)
                 Pair.Close();
             Destroy(gameObject);
+        }
+
+        public void CloseAllScreen()
+        {
+            m_vrMenu.Close();
         }
 
         public virtual void BackClick()

@@ -37,6 +37,7 @@ namespace VRExperience.UI.MenuControl
         void ShowUI();
         void SwitchToDesktopOnlyMode();
         void DisableDesktopOnlyMode();
+        void SwitchStandaloneMenu();
     }
 
     public class Sound
@@ -87,6 +88,8 @@ namespace VRExperience.UI.MenuControl
         private MenuScreen m_desktopBlocker;
         [SerializeField]
         private GameObject m_laserPointerObject;
+        [SerializeField]
+        private StandaloneMenu m_standaloneMenuPrefab;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -119,6 +122,8 @@ namespace VRExperience.UI.MenuControl
         private LaserPointer m_laserPointer;
 
         private bool m_recenterFlag = false;
+
+        private StandaloneMenu m_standAloneMenu = null;
 
         private void Awake()
         {
@@ -306,7 +311,7 @@ namespace VRExperience.UI.MenuControl
 
         public void CloseLastScreen()
         {
-            Debug.LogError("Close last screen");
+            //Debug.LogError("Close last screen");
 
             if (m_screenStack.Count > 0)
             {
@@ -323,7 +328,10 @@ namespace VRExperience.UI.MenuControl
                 //Debug.LogError("opening: " + screen.Gameobject.name);
             }
             else
+            {
                 m_screensRoot.gameObject.SetActive(false);
+                SwitchStandaloneMenu();
+            }
         }
 
         public void Open(IScreen screen)
@@ -343,7 +351,7 @@ namespace VRExperience.UI.MenuControl
 
         public void Close()
         {
-            Debug.LogError("Close");
+            //Debug.LogError("Close");
             foreach (var item in m_screenStack)
                 item.Close();
             if (m_menuSelection == null)
@@ -393,6 +401,8 @@ namespace VRExperience.UI.MenuControl
                 m_screensRoot.gameObject.SetActive(false);
 
             RefreshDesktopMode();
+            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME)
+                SwitchStandaloneMenu();
         }
 
         public void GoBack()
@@ -676,7 +686,8 @@ namespace VRExperience.UI.MenuControl
 
             DisplayMessage("Desktop only mode is active.");
             UnblockDesktop();
-            m_sidePanelsRoot.SetActive(false);
+            if (m_sidePanelsRoot)
+                m_sidePanelsRoot.SetActive(false);
             if (m_sidePanelButton)
                 m_sidePanelButton.interactable = false;
 
@@ -804,6 +815,14 @@ namespace VRExperience.UI.MenuControl
             {
                 m_screenStack.Peek().DisplayProgress(text);
             }
+        }
+
+        public void SwitchStandaloneMenu()
+        {
+            if (m_standAloneMenu != null)
+                m_standAloneMenu.gameObject.SetActive(true);
+            else
+                m_standAloneMenu =  Instantiate(m_standaloneMenuPrefab, m_dScreenRoot);
         }
         #endregion
     }

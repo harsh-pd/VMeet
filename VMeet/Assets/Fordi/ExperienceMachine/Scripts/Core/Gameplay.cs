@@ -82,6 +82,8 @@ namespace VRExperience.Core
         {
             base.OnLoad();
 
+            m_vrMenu.SwitchStandaloneMenu();
+
             if (m_menuSelection.VoiceOver == null || ExperienceMachine.AppMode == AppMode.TRAINING)
                 return;
             AudioArgs voArgs = new AudioArgs(m_menuSelection.VoiceOver, AudioType.VO);

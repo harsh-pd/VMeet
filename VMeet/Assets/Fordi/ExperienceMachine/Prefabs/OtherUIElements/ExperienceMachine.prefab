@@ -2627,6 +2627,7 @@ MonoBehaviour:
   m_preview: {fileID: 0}
   m_description: {fileID: 0}
   m_synchronizedElements: []
+  m_loader: {fileID: 0}
 --- !u!1 &8221756215651059790
 GameObject:
   m_ObjectHideFlags: 0
@@ -3786,6 +3787,12 @@ PrefabInstance:
       propertyPath: m_dFromPrefab
       value: 
       objectReference: {fileID: 5438123086336597284, guid: 09fbce94342df6f4c9a477c35f00f9bc,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_standaloneMenuPrefab
+      value: 
+      objectReference: {fileID: -1492733784173120003, guid: 15b3320f2e7410e43b71334a7f19ac7e,
         type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
