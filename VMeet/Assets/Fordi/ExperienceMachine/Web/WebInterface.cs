@@ -29,7 +29,7 @@ namespace Cornea.Web
         List<UserInfo> ParseUserListJson(string userListJson);
         List<MeetingInfo> ParseMeetingListJson(string meetingListJson, MeetingCategory category);
         ExperienceResource[] GetResource(ResourceType resourceType, string category);
-        ResourceComponent[] GetCategories(ResourceType type);
+        void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done);
         UserInfo UserInfo { get; }
     }
 
@@ -275,11 +275,11 @@ namespace Cornea.Web
 
         private static UserInfo m_userInfo = new UserInfo();
 
-        private MeetingGroup[] m_meetings = new MeetingGroup[] { };
-        public MeetingGroup[] Meetings { get { return m_meetings; } }
+        private List<MeetingGroup> m_meetings = new List<MeetingGroup>();
+        public MeetingGroup[] Meetings { get { return m_meetings.ToArray(); } }
 
         [HideInInspector]
-        public string access_token = "";
+        private static string access_token = "";
 
         private string MacAddress { get {
                 //Debug.LogError(SystemInfo.deviceUniqueIdentifier);
@@ -598,14 +598,11 @@ namespace Cornea.Web
             };
             var url = vesApiBaseUrl + listAllMeetingDetails;
             url = url.AppendParameters(parameters);
-
             APIRequest getMeetingListReq = APIRequest.Prepare(url, APIRequestType.List_All_Meeting_Details);
-            getMeetingListReq.Run(this).OnRequestComplete(
-                (isNetworkError, message) =>
-                {
-                    //Debug.Log(message);
-                }
-            );
+            getMeetingListReq.Run(this).OnRequestComplete((networkIssue, message) =>
+            {
+                //Debug.LogError(message);
+            });
 
             return getMeetingListReq;
         }
@@ -807,7 +804,7 @@ namespace Cornea.Web
         #region PARSING
         public List<MeetingInfo> ParseMeetingListJson(string meetingListJson, MeetingCategory category)
         {
-            Debug.LogError(meetingListJson);
+            //Debug.LogError(meetingListJson);
             JsonData meetingListData = JsonMapper.ToObject(meetingListJson);
 
             List<MeetingInfo> _meetingInfoList = new List<MeetingInfo>();
@@ -867,7 +864,7 @@ namespace Cornea.Web
                 switch (resourceType)
                 {
                     case ResourceType.MEETING:
-                        return Array.Find(m_meetings, item => item.Name.Equals(category)).Resources;
+                        return m_meetings.Find(item => item.Name.Equals(category)).Resources;
                     default:
                         return null;
                 }
@@ -878,14 +875,161 @@ namespace Cornea.Web
             }
         }
 
-        public ResourceComponent[] GetCategories(ResourceType type)
+        public void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done)
         {
+            Debug.LogError(AccessToken);
+            m_vrMenu.DisplayProgress("Hold on. Fetching meetings...");
+            bool loaderCancelled = false;
             switch (type)
             {
                 case ResourceType.MEETING:
-                    return m_meetings;
+                    if (m_meetings.Count == 4)
+                    {
+                        done?.Invoke(Meetings);
+                        break;
+                    }
+                    m_meetings.Clear();
+                    ListAllMeetingDetails(MeetingFilter.Created).OnRequestComplete((isNetworkError, message) =>
+                    {
+                        JsonData result = JsonMapper.ToObject(message);
+                        if (result["success"].ToString() == "True")
+                        {
+                            //Debug.LogError(message);
+
+                            var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
+
+                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
+                            for (int i = 0; i < allCreatedMeetings.Count; i++)
+                            {
+                                createdMeetingsResources[i] = new MeetingResource
+                                {
+                                    Name = allCreatedMeetings[i].MeetingNumber,
+                                    Description = allCreatedMeetings[i].Description,
+                                    MeetingInfo = allCreatedMeetings[i],
+                                    ResourceType = ResourceType.MEETING
+                                };
+                            }
+
+                            MeetingGroup createdMeetings = new MeetingGroup
+                            {
+                                Name = "Created",
+                                Description = "",
+                                ResourceType = ResourceType.MEETING,
+                                Resources = createdMeetingsResources
+                            };
+
+                            m_meetings.Add(createdMeetings);
+
+                            if (m_meetings.Count == 4)
+                                done?.Invoke(Meetings);
+                            //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                    });
+                    ListAllMeetingDetails(MeetingFilter.Accepted).OnRequestComplete((isNetworkError, message) =>
+                    {
+                        JsonData result = JsonMapper.ToObject(message);
+                        if (result["success"].ToString() == "True")
+                        {
+                            var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
+
+                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
+                            for (int i = 0; i < allCreatedMeetings.Count; i++)
+                            {
+                                createdMeetingsResources[i] = new MeetingResource
+                                {
+                                    Name = allCreatedMeetings[i].MeetingNumber,
+                                    Description = allCreatedMeetings[i].Description,
+                                    MeetingInfo = allCreatedMeetings[i],
+                                    ResourceType = ResourceType.MEETING
+                                };
+                            }
+
+                            MeetingGroup createdMeetings = new MeetingGroup
+                            {
+                                Name = "Accepted",
+                                Description = "",
+                                ResourceType = ResourceType.MEETING,
+                                Resources = createdMeetingsResources
+                            };
+
+                            m_meetings.Add(createdMeetings);
+
+                            if (m_meetings.Count == 4)
+                                done?.Invoke(Meetings);
+                            //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                    });
+                    ListAllMeetingDetails(MeetingFilter.Invited).OnRequestComplete((isNetworkError, message) =>
+                    {
+                        JsonData result = JsonMapper.ToObject(message);
+                        if (result["success"].ToString() == "True")
+                        {
+                            var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
+
+                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
+                            for (int i = 0; i < allCreatedMeetings.Count; i++)
+                            {
+                                createdMeetingsResources[i] = new MeetingResource
+                                {
+                                    Name = allCreatedMeetings[i].MeetingNumber,
+                                    Description = allCreatedMeetings[i].Description,
+                                    MeetingInfo = allCreatedMeetings[i],
+                                    ResourceType = ResourceType.MEETING
+                                };
+                            }
+
+                            MeetingGroup createdMeetings = new MeetingGroup
+                            {
+                                Name = "Invited",
+                                Description = "",
+                                ResourceType = ResourceType.MEETING,
+                                Resources = createdMeetingsResources
+                            };
+
+                            m_meetings.Add(createdMeetings);
+
+                            if (m_meetings.Count == 4)
+                                done?.Invoke(Meetings);
+                            //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                    });
+                    ListAllMeetingDetails(MeetingFilter.Rejected).OnRequestComplete((isNetworkError, message) =>
+                    {
+                        JsonData result = JsonMapper.ToObject(message);
+                        if (result["success"].ToString() == "True")
+                        {
+                            var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
+
+                            MeetingResource[] createdMeetingsResources = new MeetingResource[allCreatedMeetings.Count];
+                            for (int i = 0; i < allCreatedMeetings.Count; i++)
+                            {
+                                createdMeetingsResources[i] = new MeetingResource
+                                {
+                                    Name = allCreatedMeetings[i].MeetingNumber,
+                                    Description = allCreatedMeetings[i].Description,
+                                    MeetingInfo = allCreatedMeetings[i],
+                                    ResourceType = ResourceType.MEETING
+                                };
+                            }
+
+                            MeetingGroup createdMeetings = new MeetingGroup
+                            {
+                                Name = "Rejected",
+                                Description = "",
+                                ResourceType = ResourceType.MEETING,
+                                Resources = createdMeetingsResources
+                            };
+
+                            m_meetings.Add(createdMeetings);
+
+                            if (m_meetings.Count == 4)
+                                done?.Invoke(Meetings);
+                            //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                    });
+                    break;
                 default:
-                    return null;
+                    break;
             }
         }
 

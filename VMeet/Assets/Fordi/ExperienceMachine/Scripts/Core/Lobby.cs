@@ -95,77 +95,77 @@ namespace VRExperience.Core
 
             if (sequenceIndex < sequence.Count)
             {
-                var categories = m_webInterace.GetCategories(sequence[sequenceIndex]);
                 var resourceType = sequence[sequenceIndex];
-
-                if (resourceType == ResourceType.COLOR || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
+                m_webInterace.GetCategories(resourceType, (categories) =>
                 {
-                    if (resourceType != ResourceType.COLOR)
+                    if (resourceType == ResourceType.COLOR || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
                     {
-                        m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_webInterace.GetResource(sequence[sequenceIndex], "")), "SELECT " + sequence[sequenceIndex].ToString());
+                        if (resourceType != ResourceType.COLOR)
+                        {
+                            m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_webInterace.GetResource(sequence[sequenceIndex], "")), "SELECT " + sequence[sequenceIndex].ToString());
+                        }
+                        else
+                        {
+                            ColorInterfaceArgs colorInterfaceArgs = new ColorInterfaceArgs
+                            {
+                                Blocked = false,
+                                Persist = true,
+                                ColorGroup = new ColorGroup
+                                {
+                                    ResourceType = ResourceType.COLOR,
+                                    Preview = null,
+                                    Resources = (ColorResource[])m_experienceMachine.GetExperience(ExperienceType.MANDALA).GetResource(ResourceType.COLOR, MandalaExperience.MainColor)
+                                },
+                                Preset1 = new ColorGroup
+                                {
+                                    ResourceType = ResourceType.COLOR,
+                                    Preview = null,
+                                    Resources = m_menuSelection.MandalaResource.Preset1
+                                },
+                                CustomPreset = new ColorGroup
+                                {
+                                    ResourceType = ResourceType.COLOR,
+                                    Preview = null,
+                                    Resources = m_menuSelection.MandalaResource.CustomPreset
+                                },
+                                Title = "CHOOSE YOUR COLOR COMBINATION",
+                                GuideClip = m_commonResource.GetGuideClip(MenuCommandType.COLOR)
+                            };
+                            m_vrMenu.OpenColorInterface(colorInterfaceArgs);
+                        }
                     }
                     else
                     {
-                        ColorInterfaceArgs colorInterfaceArgs = new ColorInterfaceArgs
+                        string categoryDescription = "";
+
+                        switch (resourceType)
                         {
-                            Blocked = false,
-                            Persist = true,
-                            ColorGroup = new ColorGroup
-                            {
-                                ResourceType = ResourceType.COLOR,
-                                Preview = null,
-                                Resources = (ColorResource[])m_experienceMachine.GetExperience(ExperienceType.MANDALA).GetResource(ResourceType.COLOR, MandalaExperience.MainColor)
-                            },
-                            Preset1 = new ColorGroup
-                            {
-                                ResourceType = ResourceType.COLOR,
-                                Preview = null,
-                                Resources = m_menuSelection.MandalaResource.Preset1
-                            },
-                            CustomPreset = new ColorGroup
-                            {
-                                ResourceType = ResourceType.COLOR,
-                                Preview = null,
-                                Resources = m_menuSelection.MandalaResource.CustomPreset
-                            },
-                            Title = "CHOOSE YOUR COLOR COMBINATION",
-                            GuideClip = m_commonResource.GetGuideClip(MenuCommandType.COLOR)
-                        };
-                        m_vrMenu.OpenColorInterface(colorInterfaceArgs);
-                    }
-                }
-                else
-                {
-                    string categoryDescription = "";
+                            case ResourceType.MUSIC:
+                                categoryDescription = "WHAT MUSIC IS THE RIGHT FIT?";
+                                break;
+                            case ResourceType.COLOR:
+                                categoryDescription = "WHAT COLOR SUITS YOUR MOOD?";
+                                break;
+                            case ResourceType.MANDALA:
+                                categoryDescription = "WHICH MANDALA SHOULD BE GOOD?";
+                                break;
+                            case ResourceType.LOCATION:
+                                categoryDescription = "WHERE WOULD YOU LIKE TO RELAX?";
+                                break;
+                            case ResourceType.AUDIO:
+                                categoryDescription = "WHICH MEDITATION SUITS YOUR MOOD?";
+                                break;
+                            case ResourceType.MEETING:
+                                categoryDescription = "SELECT MEETING TYPE TO PROCEED";
+                                break;
+                            default:
+                                break;
+                        }
 
-                    switch (resourceType)
-                    {
-                        case ResourceType.MUSIC:
-                            categoryDescription = "WHAT MUSIC IS THE RIGHT FIT?";
-                            break;
-                        case ResourceType.COLOR:
-                            categoryDescription = "WHAT COLOR SUITS YOUR MOOD?";
-                            break;
-                        case ResourceType.MANDALA:
-                            categoryDescription = "WHICH MANDALA SHOULD BE GOOD?";
-                            break;
-                        case ResourceType.LOCATION:
-                            categoryDescription = "WHERE WOULD YOU LIKE TO RELAX?";
-                            break;
-                        case ResourceType.AUDIO:
-                            categoryDescription = "WHICH MEDITATION SUITS YOUR MOOD?";
-                            break;
-                        case ResourceType.MEETING:
-                            categoryDescription = "SELECT MEETING TYPE TO PROCEED";
-                            break;
-                        default:
-                            break;
+                        MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
+                        m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, categoryDescription);
                     }
-
-                    MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, categoryDescription);
-                }
-                //m_menu.OpenGridMenu(sequence[++m_sequenceIterator], sequence[0][m_sequenceIterator - 1].Text);
+                });//m_menu.OpenGridMenu(sequence[++m_sequenceIterator], sequence[0][m_sequenceIterator - 1].Text);
             }
             else
             {
