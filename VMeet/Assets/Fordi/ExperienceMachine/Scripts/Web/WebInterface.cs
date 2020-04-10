@@ -873,6 +873,7 @@ namespace Cornea.Web
                     case ResourceType.USER:
                         return m_users.Find(item => item.Name.Equals(category)).Resources;
                     default:
+                        Debug.LogError("Returning null as resource list: " + resourceType.ToString());
                         return null;
                 }
             }
@@ -884,7 +885,9 @@ namespace Cornea.Web
 
         public void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done)
         {
-            m_vrMenu.DisplayProgress("Hold on. Fetching meetings...");
+            //Debug.LogError("GetCategories: " + type.ToString());
+
+            m_vrMenu.DisplayProgress("Hold on, fetching details...");
             bool loaderCancelled = false;
             switch (type)
             {
@@ -958,9 +961,10 @@ namespace Cornea.Web
                     GetUsersByOrganization().OnRequestComplete(
                     (isNetworkError, message) =>
                     {
+                        Debug.LogError(message);
                         var userGroup = GetUserGroup(ParseUserListJson(message));
-                        UserGroup[] userGroups = new UserGroup[] { userGroup };
-                        done?.Invoke(userGroups);
+                        m_users.Add(userGroup);
+                        done?.Invoke(Users);
                     });
                     break;
                 default:

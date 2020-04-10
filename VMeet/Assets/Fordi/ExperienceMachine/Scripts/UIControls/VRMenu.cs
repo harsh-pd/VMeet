@@ -183,7 +183,7 @@ namespace VRExperience.UI.MenuControl
         {
             if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && !m_recenterFlag)
             {
-                Debug.LogError("Recentering");
+                //Debug.LogError("Recentering");
                 UnityEngine.XR.InputTracking.Recenter();
                 m_recenterFlag = true;
             }

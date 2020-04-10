@@ -2628,6 +2628,7 @@ MonoBehaviour:
   m_description: {fileID: 0}
   m_synchronizedElements: []
   m_loader: {fileID: 0}
+  m_standaloneMenu: {fileID: 0}
 --- !u!1 &8221756215651059790
 GameObject:
   m_ObjectHideFlags: 0

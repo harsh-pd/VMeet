@@ -213,6 +213,10 @@ namespace VRExperience.Core
                         MenuSequence.Add(ResourceType.MEETING);
                         LearnMenuSequence.Add(ResourceType.MEETING);
                         break;
+                    case MenuCommandType.USER:
+                        MenuSequence.Add(ResourceType.USER);
+                        LearnMenuSequence.Add(ResourceType.USER);
+                        break;
                 }
             }
         }

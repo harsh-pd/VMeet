@@ -275,7 +275,7 @@ namespace VRExperience.UI.MenuControl
                 Debug.LogError(this.name);
                 return;
             }
-            Debug.LogError("Loadr activating: " + name);
+            //Debug.LogError("Loadr activating: " + name);
             m_loader.SetActive(true);
             m_description.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
 

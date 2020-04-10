@@ -18,12 +18,11 @@ namespace VRExperience.Core
 
         public override void ExecuteMenuCommand(MenuClickArgs args)
         {
-            if (args.CommandType != MenuCommandType.MEETING)
+            if (args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER)
                 base.ExecuteMenuCommand(args);
+
             if (args.CommandType == MenuCommandType.QUIT || args.CommandType == MenuCommandType.MAIN || args.CommandType == MenuCommandType.SETTINGS || args.CommandType == MenuCommandType.SAVE_PRESET || args.CommandType == MenuCommandType.LOBBY)
-            {
                 return;
-            }
 
             if (args.CommandType == MenuCommandType.MEETING || args.CommandType == MenuCommandType.TRAINING)
             {
