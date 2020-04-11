@@ -268,7 +268,7 @@ namespace VRExperience.Core
                     return ResourceType.USER;
             }
 
-            Debug.LogError("Failed conversion");
+            Debug.LogError("Failed conversion: " + commandType.ToString());
             return ResourceType.MEETING;
         }
 
