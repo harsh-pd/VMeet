@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VRExperience.Common;
 using VRExperience.Core;
@@ -45,6 +46,38 @@ namespace VRExperience.UI.MenuControl
         private TextMeshProUGUI m_resultText;
 
         private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
+
+        private EventSystem m_eventSystem;
+
+        void Start()
+        {
+            m_eventSystem = EventSystem.current;// EventSystemManager.currentSystem;
+        }
+
+        private int m_inputIndex = 0;
+
+        private void Update()
+        {
+            if (m_inputs.Count == 0)
+                return;
+
+            if (!m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
+            {
+                m_inputIndex--;
+                if (m_inputIndex < 0)
+                    m_inputIndex = m_inputs.Count - 1;
+                m_inputs[m_inputIndex].Select();
+                return;
+            }
+
+            if (!m_blocker.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab))
+            {
+                m_inputIndex++;
+                if (m_inputIndex > m_inputs.Count - 1)
+                    m_inputIndex = 0;
+                m_inputs[m_inputIndex].Select();
+            }
+        }
 
         public override void DisplayResult(Error error)
         {
@@ -129,6 +162,12 @@ namespace VRExperience.UI.MenuControl
                 m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
             if (m_closeButton != null)
                 m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+
+            if (m_inputs.Count > 0)
+            {
+                m_inputs[0].Select();
+                m_inputIndex = 0;
+            }
         }
     }
 }
