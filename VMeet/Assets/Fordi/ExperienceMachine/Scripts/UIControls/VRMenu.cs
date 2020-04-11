@@ -766,7 +766,6 @@ namespace VRExperience.UI.MenuControl
 
         public void RefreshDesktopMode()
         {
-            Debug.LogError("RefreshDesktopMode");
             m_settings.SelectedPreferences.ForcedDesktopMode = false;
             m_settings.SyncSettingsWithDisk(() =>
             {

@@ -122,6 +122,7 @@ namespace VRExperience.Core
         private IMenuSelection m_menuSelection;
         private IAudio m_audio;
         private IVRMenu m_vrMenu;
+        private ISettings m_settings;
 
         public const string DynamicAmbienceTag = "DynamicAmbience";
         public const string CorrectTextColorStyle = "Correct";
@@ -153,6 +154,7 @@ namespace VRExperience.Core
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_settings = IOC.Resolve<ISettings>();
             SetExperience(GetExperience(m_menuSelection.ExperienceType));
             UIInteractionBase.OnClick += Click;
             ResetGuideConditions();
@@ -176,6 +178,9 @@ namespace VRExperience.Core
 
         private void Update()
         {
+            if (m_settings.SelectedPreferences.DesktopMode)
+                return;
+
             if (FordiInput.GetDown(OVRInput.Button.Start, OVRInput.Controller.LTouch))
                 ToggleMenu();
             if (FordiInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
