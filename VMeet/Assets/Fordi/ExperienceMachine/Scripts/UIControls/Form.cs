@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VRExperience.Common;
 using VRExperience.Core;
@@ -46,13 +45,6 @@ namespace VRExperience.UI.MenuControl
         private TextMeshProUGUI m_resultText;
 
         private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
-
-        private EventSystem m_eventSystem;
-
-        void Start()
-        {
-            m_eventSystem = EventSystem.current;// EventSystemManager.currentSystem;
-        }
 
         private int m_inputIndex = 0;
 
