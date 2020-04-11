@@ -18,11 +18,21 @@ namespace VRExperience.Core
 
         public override void ExecuteMenuCommand(MenuClickArgs args)
         {
-            if (args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER)
+            if (args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER && args.CommandType != MenuCommandType.CREATE_MEETING)
                 base.ExecuteMenuCommand(args);
 
             if (args.CommandType == MenuCommandType.QUIT || args.CommandType == MenuCommandType.MAIN || args.CommandType == MenuCommandType.SETTINGS || args.CommandType == MenuCommandType.SAVE_PRESET || args.CommandType == MenuCommandType.LOBBY)
                 return;
+
+            if (args.CommandType == MenuCommandType.CREATE_MEETING)
+            {
+                m_webInterace.GetCategories(ResourceType.USER, (users) =>
+                {
+                    m_vrMenu.OpenMeetingForm(ResourceToMenuItems(m_webInterace.GetResource(ResourceType.USER, "")), null);
+                });
+               
+                return;
+            }
 
             if (args.CommandType == MenuCommandType.MEETING || args.CommandType == MenuCommandType.TRAINING)
             {

@@ -23,6 +23,7 @@ namespace VRExperience.UI.MenuControl
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
         void OpenCalendar();
+        void OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip);
         void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
         void Popup(PopupInfo popupInfo);
         void OpenForm(FormArgs args, bool block = true, bool persist = true);
@@ -61,6 +62,8 @@ namespace VRExperience.UI.MenuControl
         private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab;
         [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
+        [SerializeField]
+        private MeetingForm m_meetingFormPrefab, m_dMeetingFormPrefab;
         [SerializeField]
         private ObjectInterface m_objectInterfacePrefab;
         [SerializeField]
@@ -457,6 +460,35 @@ namespace VRExperience.UI.MenuControl
         {
             OpenInterface(m_settingsInterfacePrefab, m_dSettingsInterace);
             PlayGuide(clip);
+        }
+
+        public void OpenMeetingForm(MenuItemInfo[] items, AudioClip clip)
+        {
+            PlayGuide(clip);
+
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Peek();
+                if (screen.Persist)
+                    screen.Deactivate();
+                else
+                    m_screenStack.Pop().Close();
+            }
+
+            m_player.PrepareForSpawn();
+            var menu = Instantiate(m_meetingFormPrefab, m_player.PlayerCanvas);
+            BringInFront(menu.transform);
+            menu.OpenForm(items);
+            m_screenStack.Push(menu);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
+
+            if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
+                m_inventoryOpen = true;
+
+            var dMenu = Instantiate(m_dMeetingFormPrefab, m_dScreenRoot);
+            dMenu.OpenForm(items);
+            menu.Pair = dMenu;
         }
 
         public void OpenCalendar()

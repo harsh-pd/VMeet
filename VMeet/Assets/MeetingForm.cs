@@ -48,6 +48,11 @@ namespace VRExperience.UI.MenuControl
             m_webInterace = IOC.Resolve<IWebInterface>();
         }
 
+        public void OpenForm(MenuItemInfo[] items)
+        {
+            OpenMenu(items, false, true);
+        }
+
         public void PopulateMemberList(List<UserInfo> users)
         {
             for (int i = 0; i < users.Count; i++)

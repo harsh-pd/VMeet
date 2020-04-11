@@ -2591,6 +2591,21 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Path: Create
+    Text: Create
+    Icon: {fileID: 0}
+    Command: 
+    CommandType: 20
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Exit
     Text: Exit
     Icon: {fileID: 0}
@@ -3794,6 +3809,18 @@ PrefabInstance:
       propertyPath: m_standaloneMenuPrefab
       value: 
       objectReference: {fileID: -1492733784173120003, guid: 15b3320f2e7410e43b71334a7f19ac7e,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_dMeetingFormPrefab
+      value: 
+      objectReference: {fileID: 1148804007043975701, guid: 1aada44c7b47d954f9b6888dd16ce797,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_meetingFormPrefab
+      value: 
+      objectReference: {fileID: 1148804007043975701, guid: 1aada44c7b47d954f9b6888dd16ce797,
         type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
