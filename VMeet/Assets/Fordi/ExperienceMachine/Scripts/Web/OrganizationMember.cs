@@ -8,6 +8,7 @@ using VRExperience.UI.MenuControl;
 using VRExperience.UI;
 using VRExperience.Core;
 using VRExperience.Common;
+using AL.UI;
 
 namespace VRExperience.Meeting
 {
@@ -16,12 +17,20 @@ namespace VRExperience.Meeting
         MenuItemInfo Item { get; set; }
     }
 
-    public class OrganizationMember : VRToggleInteraction, IMenuItem, IResettable
+    public class OrganizationMember : ToggleInteraction, IMenuItem, IResettable
     {
         [SerializeField]
         TextMeshProUGUI nameField;
         [SerializeField]
         private Image m_icon;
+        [SerializeField]
+        private TextMeshProUGUI m_text;
+        [SerializeField]
+        private Image m_image;
+        [SerializeField]
+        private bool overrideColor;
+        [SerializeField]
+        private Color overriddenHighlight;
 
         private int userId;
 
@@ -79,10 +88,10 @@ namespace VRExperience.Meeting
         //    selectionToggle.onValueChanged.AddListener(Coordinator.instance.meetingInterface.OnMemberSelectionChange);
         //}
 
-        protected override void OnDisableOverride()
-        {
-            m_selectionToggle.onValueChanged.RemoveAllListeners();
-        }
+        //protected override void OnDisableOverride()
+        //{
+        //    m_selectionToggle.onValueChanged.RemoveAllListeners();
+        //}
 
         public bool Selected
         {
