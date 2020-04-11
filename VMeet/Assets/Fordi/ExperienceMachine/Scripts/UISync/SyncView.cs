@@ -18,13 +18,13 @@ namespace Fordi.Sync
 
 #if UNITY_EDITOR
     using UnityEditor;
+#endif
     using UnityEngine.UI;
     using TMPro;
     using VRExperience.Common;
     using Fordi.Sync.UI;
     using VRExperience.Core;
     using VRExperience.UI.MenuControl;
-#endif
 
 
 
