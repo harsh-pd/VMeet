@@ -879,6 +879,7 @@ namespace VRExperience.UI.MenuControl
         {
             if (!freshScreen && m_screenStack.Count > 0)
             {
+                //Debug.LogError(m_screenStack.Peek().Gameobject.name);
                 m_screenStack.Peek().DisplayProgress(text);
             }
         }

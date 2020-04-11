@@ -49,7 +49,10 @@ namespace VRExperience.UI.MenuControl
         public override void DisplayResult(Error error)
         {
             if (m_loader != null)
-                Destroy(m_loader);
+                m_loader.gameObject.SetActive(false);
+
+            if (m_blocker != null && error.ErrorCode == Error.OK)
+                m_blocker.gameObject.SetActive(false);
             
             if (error.HasError)
                 m_resultText.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
@@ -68,8 +71,12 @@ namespace VRExperience.UI.MenuControl
             if (m_loader != null)
                 Destroy(m_loader);
 
-            if (m_loaderPrefab != null)
+            if (m_loader == null && m_loaderPrefab != null)
                 m_loader = Instantiate(m_loaderPrefab, m_actionButton.transform);
+            else if (m_loader != null)
+                m_loader.SetActive(true);
+            if (m_blocker != null)
+                m_blocker.gameObject.SetActive(true);
 
             m_resultText.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
             if (Pair != null && !(Pair is IForm))

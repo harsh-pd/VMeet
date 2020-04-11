@@ -60,6 +60,9 @@ namespace VRExperience.UI.MenuControl
 
         [SerializeField]
         private GameObject m_standaloneMenu = null;
+
+        [SerializeField]
+        protected Blocker m_blocker;
  
         protected IVRMenu m_vrMenu;
         protected IExperienceMachine m_experienceMachine;
@@ -120,6 +123,8 @@ namespace VRExperience.UI.MenuControl
         {
             if (m_loader != null)
                 m_loader.SetActive(false);
+            if (m_blocker != null)
+                m_blocker.gameObject.SetActive(false);
             if (m_description != null)
                 m_description.text = "";
             gameObject.SetActive(false);
@@ -255,14 +260,18 @@ namespace VRExperience.UI.MenuControl
         {
             if (m_preview != null && m_preview.sprite != null)
                 m_preview.gameObject.SetActive(true);
-            m_loader.SetActive(false);
+
+            if (m_loader)
+                m_loader.SetActive(false);
+            if (m_blocker)
+                m_blocker.gameObject.SetActive(false);
 
             if (error.HasError)
                 m_description.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
             else
                 m_description.text = error.ErrorText.Style(ExperienceMachine.CorrectTextColorStyle);
 
-            Debug.LogError("Dislay result " + m_description.text);
+            //Debug.LogError("Dislay result " + m_description.text);
             if (Pair != null)
                 Pair.DisplayResult(error);
         }
@@ -278,6 +287,7 @@ namespace VRExperience.UI.MenuControl
             }
             //Debug.LogError("Loadr activating: " + name);
             m_loader.SetActive(true);
+            m_blocker.gameObject.SetActive(true);
             m_description.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
 
             if (Pair != null)

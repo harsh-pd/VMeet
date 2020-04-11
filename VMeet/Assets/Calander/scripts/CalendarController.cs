@@ -9,9 +9,6 @@ using VRExperience.UI.MenuControl;
 
 public class CalendarController : MenuScreen
 {
-    [SerializeField]
-    private Blocker m_blocker = null;
-
     public GameObject _calendarPanel;
     public Text _yearNumText;
     public Text _monthNumText;
