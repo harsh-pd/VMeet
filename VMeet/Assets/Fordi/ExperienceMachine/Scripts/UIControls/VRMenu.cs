@@ -69,6 +69,8 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private SettingsPanel m_settingsInterfacePrefab;
         [SerializeField]
+        private MessageScreen m_genericLoader, m_dGenericLoader;
+        [SerializeField]
         private CalendarController m_calendarPrefab;
         [SerializeField]
         private Transform m_screensRoot, m_dScreenRoot;
@@ -886,6 +888,31 @@ namespace VRExperience.UI.MenuControl
             {
                 //Debug.LogError(m_screenStack.Peek().Gameobject.name);
                 m_screenStack.Peek().DisplayProgress(text);
+            }
+            else
+            {
+                m_screensRoot.gameObject.SetActive(true);
+                if (m_screenStack.Count > 0)
+                {
+                    var screen = m_screenStack.Peek();
+                    if (screen.Persist)
+                        screen.Deactivate();
+                    else
+                        m_screenStack.Pop().Close();
+                }
+
+                m_player.PrepareForSpawn();
+                var menu = Instantiate(m_genericLoader, m_player.PlayerCanvas);
+                BringInFront(menu.transform);
+
+                menu.Init(text, true, false);
+                m_screenStack.Push(menu);
+                if (m_settings.SelectedPreferences.DesktopMode)
+                    menu.Hide();
+
+                var dMenu = Instantiate(m_dGenericLoader, m_dScreenRoot);
+                dMenu.Init(text, true, false);
+                menu.Pair = dMenu;
             }
         }
 

@@ -48,20 +48,22 @@ namespace VRExperience.UI
 
         public void Close()
         {
-            m_button.onClick.Invoke();
+            if (m_button)
+                m_button.onClick.Invoke();
             Destroy(gameObject);
         }
 
         public void Deactivate()
         {
-            m_loader.SetActive(false);
+            if (m_loader)
+                m_loader.SetActive(false);
             gameObject.SetActive(false);
         }
 
         public void Init(string text, bool blocked = true, bool persist = false, Action okClick = null)
         {
             m_text.text = text;
-            if (okClick != null)
+            if (okClick != null && m_button != null)
                 m_button.onClick.AddListener(() => okClick.Invoke());
         }
 
@@ -98,7 +100,8 @@ namespace VRExperience.UI
 
         public void DisplayResult(Error error)
         {
-            m_loader.SetActive(false);
+            if(m_loader)
+                m_loader.SetActive(false);
 
             if (error.HasError)
                 m_text.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
@@ -111,7 +114,8 @@ namespace VRExperience.UI
 
         public void DisplayProgress(string text)
         {
-            m_loader.SetActive(true);
+            if (m_loader)
+                m_loader.SetActive(true);
             m_text.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
 
             if (Pair != null)

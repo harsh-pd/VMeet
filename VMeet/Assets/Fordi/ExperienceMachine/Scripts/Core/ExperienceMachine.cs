@@ -333,6 +333,8 @@ namespace VRExperience.Core
                 FadeTime = 2,
             };
             m_audio.Stop(voArgs);
+
+            m_vrMenu.DisplayProgress("Loading: " + m_menuSelection.Location);
             //SceneManager.LoadScene(m_menuSelection.Location);
         }
         #endregion
