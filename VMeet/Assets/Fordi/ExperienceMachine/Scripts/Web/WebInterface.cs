@@ -982,7 +982,7 @@ namespace Cornea.Web
                 meetingResources[i] = new MeetingResource
                 {
                     Name = meetings[i].MeetingNumber,
-                    Description = meetings[i].Description,
+                    Description = meetings[i].MeetingNumber + "\n\n" + (string.IsNullOrEmpty(meetings[i].Description) ? "" : string.IsNullOrEmpty(meetings[i].Description) + "\n\n") + meetings[i].MeetingTime + "\n\n" + meetings[i].MeetingDurationInMinutes/60 + " Hours, " + meetings[i].MeetingDurationInMinutes % 60 + " Minutes",
                     MeetingInfo = meetings[i],
                     ResourceType = ResourceType.MEETING
                 };
