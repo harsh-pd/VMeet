@@ -126,6 +126,7 @@ namespace VRExperience.UI.MenuControl
                     error.ErrorCode = Error.E_Exception;
                     error.ErrorText = (string)result["error"]["message"];
                 }
+                Debug.LogError(error.ErrorText);
                 m_vrMenu.DisplayResult(error);
             });
         }

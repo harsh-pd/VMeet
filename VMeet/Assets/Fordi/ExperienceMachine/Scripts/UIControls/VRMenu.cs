@@ -483,9 +483,6 @@ namespace VRExperience.UI.MenuControl
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
 
-            if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
-                m_inventoryOpen = true;
-
             var dMenu = Instantiate(m_dMeetingFormPrefab, m_dScreenRoot);
             dMenu.OpenForm(items);
             menu.Pair = dMenu;
@@ -872,9 +869,9 @@ namespace VRExperience.UI.MenuControl
 
         public void DisplayResult(Error error, bool freshScreen = false)
         {
-            if (!freshScreen && m_screenStack.Count > 0 && m_screenStack.Peek() is IForm form)
+            if (!freshScreen && m_screenStack.Count > 0)
             {
-                form.DisplayResult(error);
+                m_screenStack.Peek().DisplayResult(error);
             }
         }
 

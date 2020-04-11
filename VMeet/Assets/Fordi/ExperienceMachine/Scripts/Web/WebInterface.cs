@@ -554,6 +554,7 @@ namespace Cornea.Web
 
         public APIRequest CreateMeeting(string meetingJson)
         {
+            m_vrMenu.DisplayProgress("Submitting details. Please wait...");
             var url = vesApiBaseUrl + saveMeeting;
             var jsonData = Encoding.ASCII.GetBytes(meetingJson);
 

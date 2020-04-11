@@ -262,6 +262,7 @@ namespace VRExperience.UI.MenuControl
             else
                 m_description.text = error.ErrorText.Style(ExperienceMachine.CorrectTextColorStyle);
 
+            Debug.LogError("Dislay result " + m_description.text);
             if (Pair != null)
                 Pair.DisplayResult(error);
         }
