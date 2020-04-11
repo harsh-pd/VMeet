@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 6434145745106842323}
   - component: {fileID: 2956596851466832932}
   - component: {fileID: 2229305578125769215}
+  - component: {fileID: 8458499262896417254}
   m_Layer: 5
   m_Name: DGridItem
   m_TagString: Untagged
@@ -200,6 +201,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &8458499262896417254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516355413508906621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.105882354, g: 0.105882354, b: 0.10980392, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5802528781723101939
 GameObject:
   m_ObjectHideFlags: 0
