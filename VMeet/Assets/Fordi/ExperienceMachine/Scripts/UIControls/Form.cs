@@ -93,9 +93,6 @@ namespace VRExperience.UI.MenuControl
 
         public override void DisplayProgress(string text)
         {
-            if (m_loader != null)
-                Destroy(m_loader);
-
             if (m_loader == null && m_loaderPrefab != null)
                 m_loader = Instantiate(m_loaderPrefab, m_actionButton.transform);
             else if (m_loader != null)

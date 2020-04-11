@@ -14,7 +14,7 @@ using System.Linq;
 
 namespace VRExperience.UI.MenuControl
 {
-    public class MeetingForm : MenuScreen
+    public class MeetingForm : MenuScreen, IForm
     {
         [Header("Details")]
         [SerializeField]
@@ -172,6 +172,11 @@ namespace VRExperience.UI.MenuControl
             string meetingJson = JsonMapper.ToJson(newMeeting);
             Debug.LogError(meetingJson);
             return meetingJson;
+        }
+
+        public void OpenForm(FormArgs args, bool blocked, bool persist)
+        {
+            OpenForm(args.FormItems);
         }
     }
 }

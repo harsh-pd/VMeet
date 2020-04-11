@@ -337,6 +337,7 @@ namespace VRExperience.UI.MenuControl
             {
                 m_screensRoot.gameObject.SetActive(false);
                 SwitchStandaloneMenu();
+                RefreshDesktopMode();
             }
         }
 
@@ -486,6 +487,10 @@ namespace VRExperience.UI.MenuControl
             var dMenu = Instantiate(m_dMeetingFormPrefab, m_dScreenRoot);
             dMenu.OpenForm(items);
             menu.Pair = dMenu;
+
+            m_settings.SelectedPreferences.DesktopMode = true;
+            m_settings.SelectedPreferences.ForcedDesktopMode = true;
+            SwitchToDesktopOnlyMode();
         }
 
         //Not handled properly for VR screen
@@ -761,6 +766,7 @@ namespace VRExperience.UI.MenuControl
 
         public void RefreshDesktopMode()
         {
+            Debug.LogError("RefreshDesktopMode");
             m_settings.SelectedPreferences.ForcedDesktopMode = false;
             m_settings.SyncSettingsWithDisk(() =>
             {
