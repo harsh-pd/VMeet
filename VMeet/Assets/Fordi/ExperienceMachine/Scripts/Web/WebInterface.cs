@@ -961,7 +961,7 @@ namespace Cornea.Web
                     GetUsersByOrganization().OnRequestComplete(
                     (isNetworkError, message) =>
                     {
-                        Debug.LogError(message);
+                        //Debug.LogError(message);
                         var userGroup = GetUserGroup(ParseUserListJson(message));
                         m_users.Add(userGroup);
                         done?.Invoke(Users);

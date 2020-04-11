@@ -90,5 +90,10 @@ namespace VRExperience.UI.MenuControl
             }
         }
 
+        public void OpenCalendar()
+        {
+            m_vrMenu.OpenCalendar();
+        }
+
     }
 }

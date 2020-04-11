@@ -85,7 +85,7 @@ namespace VRExperience.UI
         {
             ToggleOutlineHighlight(false);
             ToggleBackgroundHighlight(false);
-            if (EventSystem.current != null)
+            if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
                 EventSystem.current.SetSelectedGameObject(null);
         }
 

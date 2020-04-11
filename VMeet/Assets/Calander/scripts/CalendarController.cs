@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VRExperience.UI.MenuControl;
 
 public class CalendarController : MenuScreen
 {
     [SerializeField]
-    private GameObject m_blocker = null;
+    private Blocker m_blocker = null;
 
     public GameObject _calendarPanel;
     public Text _yearNumText;
@@ -47,6 +48,23 @@ public class CalendarController : MenuScreen
         CreateCalendar();
 
         _calendarPanel.SetActive(false);
+    }
+
+    protected override void AwakeOverride()
+    {
+        base.AwakeOverride();
+        m_blocker.ClickEvent += BlockerClicked;
+    }
+
+    protected override void OnDestroyOverride()
+    {
+        base.OnDestroyOverride();
+        m_blocker.ClickEvent -= BlockerClicked;
+    }
+
+    private void BlockerClicked(object sender, PointerEventData e)
+    {
+        m_vrMenu.CloseLastScreen();
     }
 
     void CreateCalendar()
@@ -136,7 +154,7 @@ public class CalendarController : MenuScreen
     {
         base.Init(block, persist);
         if (block && m_blocker != null)
-            m_blocker.SetActive(true);
+            m_blocker.gameObject.SetActive(true);
     }
 
     private Action<string> m_onClick = null;

@@ -491,17 +491,19 @@ namespace VRExperience.UI.MenuControl
             menu.Pair = dMenu;
         }
 
+        //Not handled properly for VR screen
         public void OpenCalendar()
         {
             m_screensRoot.gameObject.SetActive(true);
-            if (m_screenStack.Count > 0)
-            {
-                var screen = m_screenStack.Peek();
-                if (screen.Persist)
-                    screen.Deactivate();
-                else
-                    m_screenStack.Pop().Close();
-            }
+            
+            //if (m_screenStack.Count > 0)
+            //{
+            //    var screen = m_screenStack.Peek();
+            //    if (screen.Persist)
+            //        screen.Deactivate();
+            //    else
+            //        m_screenStack.Pop().Close();
+            //}
 
             m_player.PrepareForSpawn();
             var menu = Instantiate(m_calendarPrefab, m_player.PlayerCanvas);
@@ -512,7 +514,11 @@ namespace VRExperience.UI.MenuControl
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
 
-            var dMenu = Instantiate(m_calendarPrefab, m_dScreenRoot);
+            Transform root = m_dScreenRoot;
+            if (m_screenStack.Count > 0 && m_screenStack.Peek().Pair != null)
+                root = m_screenStack.Peek().Pair.Gameobject.transform;
+
+            var dMenu = Instantiate(m_calendarPrefab, root);
             dMenu.Init(true, false);
             menu.Pair = dMenu;
             //PlayGuide(clip);

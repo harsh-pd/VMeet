@@ -181,7 +181,6 @@ namespace VRExperience.Meeting
                     //m_item.Action.AddListener(m_experienceMachine.ExecuteMenuCommand);
                     ((Toggle)selectable).onValueChanged.AddListener((val) =>
                     {
-                        Debug.LogError(val);
                         MenuItemEvent<bool> action = new MenuItemEvent<bool>();
                         action.Invoke(new MenuClickArgs(m_item.Path, m_item.Text, m_item.Command, m_item.CommandType, m_item.Data), val);
                     });
