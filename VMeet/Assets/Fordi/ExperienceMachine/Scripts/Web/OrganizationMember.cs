@@ -191,6 +191,10 @@ namespace VRExperience.Meeting
             selectable.interactable = validationResult.IsValid;
 
             m_userInfo = ((UserResource)m_item.Data).UserInfo;
+
+            userId = m_userInfo.id;
+            m_selectionToggle.isOn = false;
+            m_selectionToggle.interactable = true;
             //if (m_allowTextScroll)
             //    StartCoroutine(InitializeTextScroll());
 

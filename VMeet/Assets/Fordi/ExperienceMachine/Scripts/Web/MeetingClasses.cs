@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Cornea.Web;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRExperience.Common;
 using VRExperience.Core;
 
 namespace VRExperience.Meeting
@@ -72,5 +74,36 @@ namespace VRExperience.Meeting
     public class UserGroup : ResourceComponent
     {
         public UserResource[] Resources;
+    }
+
+    public class Meeting
+    {
+        public string fileToBeReviewed = "NA";
+        public string fileLocation = "NA";
+        public string meetingTime = DateTime.UtcNow.ToShortDateString();
+        public int meetingDurationInMinutes = 0;
+        public int modelUploadTimeInSeconds = 0;
+        public bool status = true;
+        public int userid = 0;
+        public string createddatetime;
+        public List<MeetingParticipant> MeetingParticipants = new List<MeetingParticipant>();
+        public string description = "Untitled";
+    }
+
+    public class MeetingParticipant
+    {
+        //public int Id = 0;
+        //public int MeetingId = 0;
+        public int InvitedByUserId = 0;
+        public string InvitedDateTime = "2019-01-13T07:04:56.810Z";
+        public int ParticipantUserId = 0;
+        public int Status = 1;
+        public string StatusUpdatedDateTime = "2019-01-13T07:04:56.810Z";
+
+        public MeetingParticipant(int _ParticipantUserId)
+        {
+            ParticipantUserId = _ParticipantUserId;
+            InvitedByUserId = IOC.Resolve<IWebInterface>().UserInfo.id;
+        }
     }
 }

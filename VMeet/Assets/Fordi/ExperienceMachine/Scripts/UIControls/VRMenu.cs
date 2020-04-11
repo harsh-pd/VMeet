@@ -22,7 +22,7 @@ namespace VRExperience.UI.MenuControl
         void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
-        void OpenCalendar();
+        void OpenCalendar(Action<string> onClick);
         void OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip);
         void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
         void Popup(PopupInfo popupInfo);
@@ -492,7 +492,7 @@ namespace VRExperience.UI.MenuControl
         }
 
         //Not handled properly for VR screen
-        public void OpenCalendar()
+        public void OpenCalendar(Action<string> onClick)
         {
             m_screensRoot.gameObject.SetActive(true);
             
@@ -519,7 +519,7 @@ namespace VRExperience.UI.MenuControl
                 root = m_screenStack.Peek().Pair.Gameobject.transform;
 
             var dMenu = Instantiate(m_calendarPrefab, root);
-            dMenu.Init(true, false);
+            dMenu.OpenCalendar(onClick);
             menu.Pair = dMenu;
             //PlayGuide(clip);
         }

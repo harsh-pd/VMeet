@@ -143,10 +143,7 @@ public class CalendarController : MenuScreen
     Text _target;
     public void OnDateItemClick(string day)
     {
-        Debug.LogError("Click");
-        m_onClick?.Invoke(_yearNumText.text + "Year" + _monthNumText.text + "Month" + day + "Day");
-        m_menuSelection.MeetingDate = _yearNumText.text + "Year" + _monthNumText.text + "Month" + day + "Day";
-        //Debug.LogError(_yearNumText.text + "Year" + _monthNumText.text + "Month" + day + "Day");
+        m_onClick?.Invoke(_yearNumText.text + "-" + _monthNumText.text + "-" + day);
         m_vrMenu.CloseLastScreen();
     }
 
@@ -161,5 +158,6 @@ public class CalendarController : MenuScreen
     public void OpenCalendar(Action<string> OnClick)
     {
         m_onClick = OnClick;
+        Init(true, false);
     }
 }
