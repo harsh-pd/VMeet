@@ -27,6 +27,9 @@ namespace Cornea.Web
         void RemoveRequest(APIRequest req);
         APIRequest ListAllMeetingDetails(MeetingFilter meetingFilter);
         APIRequest CreateMeeting(string meetingJson);
+        APIRequest AcceptMeeting(int meetingId);
+        APIRequest RejectMeeting(int meetingId);
+        APIRequest CancelMeeting(int meetingId);
         List<UserInfo> ParseUserListJson(string userListJson);
         List<MeetingInfo> ParseMeetingListJson(string meetingListJson, MeetingCategory category);
         ExperienceResource[] GetResource(ResourceType resourceType, string category);

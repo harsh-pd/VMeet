@@ -3841,6 +3841,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 901858980693035175, guid: d770989674efaa44993e7cef2585f0f5,
         type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_dMeetingPagePrefab
+      value: 
+      objectReference: {fileID: -3174474922240902517, guid: 9e5b5246437fb524ab622beebaa83b47,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_meetingPagePrefab
+      value: 
+      objectReference: {fileID: 4029748492899387519, guid: 8490b80cf269cb3429255aea71c12e78,
+        type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_Name

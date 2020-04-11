@@ -44,7 +44,16 @@ namespace VRExperience.UI
             {
                 FordiNetwork.RegisterPhotonView(item);
             }
+            AwakeOverride();
         }
+
+        private void OnDestroy()
+        {
+            OnDestroyOverride();
+        }
+
+        protected virtual void AwakeOverride() { }
+        protected virtual void OnDestroyOverride() { }
 
         public void Close()
         {

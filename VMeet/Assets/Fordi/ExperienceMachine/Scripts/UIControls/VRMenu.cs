@@ -10,6 +10,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.XR;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using VRExperience.Meeting;
+using VRExperience.Meetings.UI;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -23,6 +25,7 @@ namespace VRExperience.UI.MenuControl
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
         void OpenCalendar(Action<string> onClick);
+        void OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false);
         void OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip);
         void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
         void Popup(PopupInfo popupInfo);
@@ -62,6 +65,8 @@ namespace VRExperience.UI.MenuControl
         private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab;
         [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
+        [SerializeField]
+        private MeetingPage m_meetingPagePrefab, m_dMeetingPagePrefab;
         [SerializeField]
         private MeetingForm m_meetingFormPrefab, m_dMeetingFormPrefab;
         [SerializeField]
@@ -274,6 +279,37 @@ namespace VRExperience.UI.MenuControl
 
             if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
                 m_inventoryOpen = true;
+        }
+
+        public void OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false)
+        {
+            m_screensRoot.gameObject.SetActive(true);
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Peek();
+                if (screen.Persist)
+                    screen.Deactivate();
+                else
+                    m_screenStack.Pop().Close();
+            }
+
+            if (m_player == null)
+                m_player = IOC.Resolve<IPlayer>();
+
+            m_player.PrepareForSpawn();
+            var menu = Instantiate(m_meetingPagePrefab, m_player.PlayerCanvas);
+            BringInFront(menu.transform);
+
+            menu.OpenMeeting(meetingInfo);
+            m_screenStack.Push(menu);
+            m_menuOn = true;
+
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
+
+            var dMenu = Instantiate(m_dMeetingPagePrefab, m_dScreenRoot);
+            dMenu.OpenMeeting(meetingInfo);
+            menu.Pair = dMenu;
         }
 
 

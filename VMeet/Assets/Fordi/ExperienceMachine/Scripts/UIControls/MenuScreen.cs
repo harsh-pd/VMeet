@@ -50,7 +50,7 @@ namespace VRExperience.UI.MenuControl
         private Image m_preview;
 
         [SerializeField]
-        private TextMeshProUGUI m_description;
+        protected TextMeshProUGUI m_description;
 
         [SerializeField]
         private List<SyncView> m_synchronizedElements = new List<SyncView>();

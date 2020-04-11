@@ -18,7 +18,11 @@ namespace VRExperience.Core
 
         public override void ExecuteMenuCommand(MenuClickArgs args)
         {
-            if (args.CommandType != MenuCommandType.CATEGORY_SELECTION && args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER && args.CommandType != MenuCommandType.CREATE_MEETING)
+            if (args.Data != null)
+            {
+                //Debug.LogError(args.Data.GetType().ToString());
+            }
+            if (!(args.Data is MeetingResource) && args.CommandType != MenuCommandType.CATEGORY_SELECTION && args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER && args.CommandType != MenuCommandType.CREATE_MEETING)
                 base.ExecuteMenuCommand(args);
 
             if (args.CommandType == MenuCommandType.QUIT || args.CommandType == MenuCommandType.MAIN || args.CommandType == MenuCommandType.SETTINGS || args.CommandType == MenuCommandType.SAVE_PRESET || args.CommandType == MenuCommandType.LOBBY)
@@ -63,6 +67,11 @@ namespace VRExperience.Core
                 ResourceType resourceType = ResourceType.OBJECT;
                 if (args.Data != null && args.Data is ExperienceResource experienceResource)
                     resourceType = experienceResource.ResourceType;
+                if (args.Data != null && args.Data is MeetingResource)
+                {
+                    m_vrMenu.OpenMeeting(((MeetingResource)args.Data).MeetingInfo);
+                    return;
+                }
                 if (!(args.Data != null && (args.Data is ColorGroup || resourceType == ResourceType.EXPERIENCE)))
                     m_vrMenu.CloseLastScreen();
             }
@@ -181,9 +190,7 @@ namespace VRExperience.Core
             }
             else
             {
-                Debug.LogError(sequenceIndex + " " + sequence.Count);
-                m_menu.Close();
-                m_experienceMachine.LoadExperience();
+                Debug.LogError(args.Data.GetType().ToString() + " " + args.CommandType.ToString());
                 return;
             }
         }
