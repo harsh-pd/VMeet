@@ -59,10 +59,11 @@ namespace VRExperience.UI.MenuControl
         public void OpenForm(MenuItemInfo[] items)
         {
             OpenMenu(items, false, true);
+            var time = DateTime.Now.Add(new TimeSpan(0, 10, 0));
             m_hourPlaceholder = m_meetingHour.placeholder.GetComponent<TextMeshProUGUI>();
-            m_hourPlaceholder.text = DateTime.Now.ToString("hh");
+            m_hourPlaceholder.text = time.ToString("hh");
             m_minutePlaceholder = m_meetingMinute.placeholder.GetComponent<TextMeshProUGUI>();
-            m_minutePlaceholder.text = DateTime.Now.ToString("mm");
+            m_minutePlaceholder.text = time.ToString("mm");
 
             m_durationHourPlaceholder = m_meetingDurationHour.placeholder.GetComponent<TextMeshProUGUI>();
             m_durationMinutePlaceholder = m_meetingDurationMinute.placeholder.GetComponent<TextMeshProUGUI>();
