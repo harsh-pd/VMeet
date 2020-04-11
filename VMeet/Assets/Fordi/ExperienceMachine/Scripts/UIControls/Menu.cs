@@ -95,6 +95,11 @@ namespace VRExperience.UI.MenuControl
     }
 
     [Serializable]
+    public class MenuItemEvent<T> : UnityEvent<MenuClickArgs, T>
+    {
+    }
+
+    [Serializable]
     public class MenuItemInfo
     {
         public string Path;

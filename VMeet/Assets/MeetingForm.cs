@@ -48,6 +48,13 @@ namespace VRExperience.UI.MenuControl
             m_webInterace = IOC.Resolve<IWebInterface>();
         }
 
+        public override void SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
+        {
+            IMenuItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<IMenuItem>();
+            //menuItem.name = "MenuItem";
+            menuItem.Item = menuItemInfo;
+        }
+
         public void OpenForm(MenuItemInfo[] items)
         {
             OpenMenu(items, false, true);
