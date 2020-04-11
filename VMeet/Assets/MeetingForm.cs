@@ -132,6 +132,13 @@ namespace VRExperience.UI.MenuControl
             });
         }
 
+        public override void DisplayResult(Error error)
+        {
+            base.DisplayResult(error);
+            if (m_blocker != null && error.ErrorCode != Error.OK)
+                m_blocker.gameObject.SetActive(true);
+        }
+
         private void CloseSelf()
         {
             m_vrMenu.CloseLastScreen();

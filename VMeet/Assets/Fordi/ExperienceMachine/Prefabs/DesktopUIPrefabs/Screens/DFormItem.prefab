@@ -170,7 +170,6 @@ GameObject:
   - component: {fileID: 3172191834536903117}
   - component: {fileID: 3172191834536903116}
   - component: {fileID: 3172191834536903107}
-  - component: {fileID: 3172191834536903106}
   - component: {fileID: 4048743145776914775}
   m_Layer: 5
   m_Name: DFormItem
@@ -375,21 +374,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0.11764706}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!114 &3172191834536903106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3172191834536903104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afcb66df0b67cec4eab646d38c517688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shadow: {fileID: 3172191834536903107}
-  image: {fileID: 3172191834536903117}
-  selectable: {fileID: 3172191834536903116}
 --- !u!114 &4048743145776914775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,16 +386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba5ee2cc75d5af469743b536935325e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shadow: {fileID: 0}
-  selection: {fileID: 3172191834536903117}
+  shadow: {fileID: 3172191834536903107}
+  image: {fileID: 3172191834536903117}
   selectable: {fileID: 3172191834536903116}
-  m_text: {fileID: 3172191834422787364}
-  m_image: {fileID: 0}
-  overriddenHighlight: {r: 1, g: 1, b: 1, a: 1}
-  overrideColor: 0
   m_icon: {fileID: 3172191835827595718}
-  m_allowTextScroll: 0
-  m_textScrollSpeed: 10
+  m_text: {fileID: 3172191834422787364}
 --- !u!1 &3172191834807154993
 GameObject:
   m_ObjectHideFlags: 0

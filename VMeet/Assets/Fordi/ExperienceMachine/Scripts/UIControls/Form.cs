@@ -51,7 +51,7 @@ namespace VRExperience.UI.MenuControl
             if (m_loader != null)
                 m_loader.gameObject.SetActive(false);
 
-            if (m_blocker != null && error.ErrorCode == Error.OK)
+            if (m_blocker != null)
                 m_blocker.gameObject.SetActive(false);
             
             if (error.HasError)
@@ -88,7 +88,7 @@ namespace VRExperience.UI.MenuControl
 
         public override void SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
         {
-            MenuItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<MenuItem>();
+            FormItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<FormItem>();
             //menuItem.name = "MenuItem";
             menuItem.Item = menuItemInfo;
             m_inputs.Add(((FormItem)menuItem).InputField);
