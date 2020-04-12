@@ -7,6 +7,7 @@ using System.IO;
 using System;
 using VRExperience.Core;
 using VRExperience.Common;
+using UnityEngine.SceneManagement;
 
 namespace Fordi.Networking
 {
@@ -32,6 +33,7 @@ namespace Fordi.Networking
         {
             m_player = IOC.Resolve<IPlayer>();
             PhotonNetwork.ConnectUsingSettings();
+            Debug.LogError(PhotonNetwork.InRoom);
         }
 
         public override void OnEnable()
@@ -49,9 +51,13 @@ namespace Fordi.Networking
 
         private void OnLevelWasLoaded(int level)
         {
-            Debug.LogError("Loaded: " + level);
             if (PhotonNetwork.InRoom)
-                PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Cube"), Vector3.one, Quaternion.identity, 0);
+            {
+                Debug.LogError("Level: " + level + " In room: " + PhotonNetwork.InRoom);
+                RaisePlayerSpawnEvent();
+            }
+            //    if (PhotonNetwork.InRoom)
+            //        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Cube"), Vector3.one, Quaternion.identity, 0);
         }
         #endregion
 
@@ -61,6 +67,10 @@ namespace Fordi.Networking
             base.OnConnectedToMaster();
             Log("OnConnectedToMaster");
             PhotonNetwork.AutomaticallySyncScene = true;
+            if (PhotonNetwork.CountOfRooms > 0)
+                JoinRoom("Test");
+            else
+                CreateRoom("Test");
         }
 
         public override void OnJoinedLobby()
@@ -91,7 +101,8 @@ namespace Fordi.Networking
         {
             base.OnJoinedRoom();
             Log("OnJoinedRoom");
-            PhotonNetwork.LoadLevel("Multiplayer");
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.LoadLevel("Multiplayer");
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
@@ -122,29 +133,12 @@ namespace Fordi.Networking
         [PunRPC]
         private void RPC_SpawnPlayer(int senderId, int playerViewId, int avatarViewId, bool firstHand)
         {
-            if (PhotonNetwork.LocalPlayer.ActorNumber == senderId)
-            {
-                try
-                {
-                    var playerSync = m_player.PlayerController.GetComponent<OvrPlayerSync>();
-                    playerSync.Init(true, false, senderId);
-                    m_player.PlayerViewId = playerViewId;
-                    m_player.AvatarViewId = avatarViewId;
-                }
-                catch(NullReferenceException)
-                {
-                    Debug.LogError("Networking scripts not steup properly on local player");
-                    return;
-                }
-            }
-            else
-            {
-                var remotePlayer = Instantiate(m_remotePlayerPrefab);
-                remotePlayer.Setup(senderId, playerViewId, avatarViewId);
-                if (firstHand)
-                    RaiseSecondHandPlayerSpawnEvent(senderId);
-            }
-            //SpawnAvatar(senderId, avatarViewId);
+            Debug.LogError(senderId + " " + firstHand);
+            var remotePlayer = Instantiate(m_remotePlayerPrefab);
+            remotePlayer.Setup(senderId, playerViewId, avatarViewId);
+            if (firstHand)
+                RaiseSecondHandPlayerSpawnEvent(senderId);
+            
         }
 
         //private void SpawnAvatar(int senderId, int viewId)
@@ -262,12 +256,27 @@ namespace Fordi.Networking
         {
             int viewAvatarId = PhotonNetwork.AllocateViewID(false);
             int viewPlayerId = PhotonNetwork.AllocateViewID(false);
-            RaiseEventOptions options = new RaiseEventOptions
+            Debug.LogError(SceneManager.GetActiveScene().name + " " + viewAvatarId + " " + viewPlayerId);
+
+            try
             {
-                CachingOption = EventCaching.AddToRoomCache,
-                Receivers = ReceiverGroup.All
-            };
-            photonView.RPC("RPC_SpawnPlayer", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, viewPlayerId, viewAvatarId, true);
+                var playerSync = m_player.PlayerController.GetComponent<OvrPlayerSync>();
+                playerSync.Init(true, false, PhotonNetwork.LocalPlayer.ActorNumber);
+                m_player.PlayerViewId = viewAvatarId;
+                m_player.AvatarViewId = viewPlayerId;
+            }
+            catch (NullReferenceException)
+            {
+                Debug.LogError("Networking scripts not steup properly on local player");
+                return;
+            }
+
+            //RaiseEventOptions options = new RaiseEventOptions
+            //{
+            //    CachingOption = EventCaching.AddToRoomCache,
+            //    Receivers = ReceiverGroup.All
+            //};
+            photonView.RPC("RPC_SpawnPlayer", RpcTarget.Others, PhotonNetwork.LocalPlayer.ActorNumber, viewPlayerId, viewAvatarId, true);
         }
         #endregion
     }
