@@ -1,6 +1,7 @@
 ﻿using Oculus.Platform;
 using Oculus.Platform.Models;
 using OculusSampleFramework;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace VRExperience.Core
         OVRCameraRig CameraRig { get; }
         Transform RightHand { get; }
         Transform LeftHand { get; }
+        int PlayerViewId { get; set; }
+        int AvatarViewId { get; set; }
         void PrepareForSpawn();
         void UpdateAdditionalRotation(float angle);
         float RootRotation { get; }
@@ -80,6 +83,10 @@ namespace VRExperience.Core
         private FordiTeleport m_teleport;
         [SerializeField]
         private OvrAvatar m_avatar;
+        [SerializeField]
+        PhotonView m_playerPhotonView;
+        [SerializeField]
+        PhotonView m_avatarPhotonView;
 
 
         [SerializeField]
@@ -96,6 +103,9 @@ namespace VRExperience.Core
 
         [SerializeField]
         private GameObject m_leftGrabGuidePrefab, m_rightGrabGuidePrefab;
+
+        public int PlayerViewId { get { return m_playerPhotonView.ViewID; } set { m_playerPhotonView.ViewID = value; } }
+        public int AvatarViewId { get { return m_avatarPhotonView.ViewID; } set { m_avatarPhotonView.ViewID = value; } }
 
         private GameObject m_leftGrabGuide, m_rightGrabGuide;
 
