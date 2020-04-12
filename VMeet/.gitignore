@@ -7,7 +7,5 @@ Builds/
 obj/
 Temp/
 Logs/
-Assets/Photon/
-Assets/PUNVoice/
 VRLMS-*/
 *.log
