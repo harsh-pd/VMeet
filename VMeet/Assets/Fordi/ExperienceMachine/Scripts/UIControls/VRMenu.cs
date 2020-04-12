@@ -733,7 +733,7 @@ namespace VRExperience.UI.MenuControl
         private void InitializeSidePanels()
         {
             var thoughts = m_commonResource.AssetDb.Thoughts;
-            if (thoughts.Length > 0)
+            if (m_thoughtOfTheDay != null && thoughts.Length > 0)
                 m_thoughtOfTheDay.text = thoughts[UnityEngine.Random.Range(0, thoughts.Length)];
             //m_creditsText.text = m_commonResource.AssetDb.Credits;
         }
