@@ -40,19 +40,6 @@ namespace Fordi.Networking
             Debug.LogError(PhotonNetwork.InRoom);
         }
 
-        public override void OnEnable()
-        {
-            base.OnEnable();
-            PhotonNetwork.AddCallbackTarget(this);
-        }
-
-        public override void OnDisable()
-        {
-            base.OnDisable();
-            PhotonNetwork.RemoveCallbackTarget(this);
-        }
-        
-
         private void OnLevelWasLoaded(int level)
         {
             if (PhotonNetwork.InRoom)
@@ -71,16 +58,17 @@ namespace Fordi.Networking
             base.OnConnectedToMaster();
             Log("OnConnectedToMaster");
             PhotonNetwork.AutomaticallySyncScene = true;
-            if (PhotonNetwork.CountOfRooms > 0)
-                JoinRoom("Test");
-            else
-                CreateRoom("Test");
+            PhotonNetwork.JoinLobby();
         }
 
         public override void OnJoinedLobby()
         {
             base.OnJoinedLobby();
             Log("OnJoinedLobby");
+            if (PhotonNetwork.CountOfRooms > 0)
+                JoinRoom("Test");
+            else
+                CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
@@ -128,6 +116,7 @@ namespace Fordi.Networking
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
+            Debug.LogError("RoomList: " + roomList.Count);
             base.OnRoomListUpdate(roomList);
             m_rooms = roomList;
             foreach (var item in m_rooms)
