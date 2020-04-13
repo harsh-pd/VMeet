@@ -129,14 +129,17 @@ namespace VRExperience.Meetings.UI
                     }
                     break;
                 case MeetingCategory.INVITED:
+                    m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
                     m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept Meeting";
                     m_meetingButton.onClick.AddListener(() => Accept());
                     break;
                 case MeetingCategory.REJECTED:
+                    m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
                     m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept Meeting";
                     m_meetingButton.onClick.AddListener(() => Accept());
                     break;
                 case MeetingCategory.ACCEPTED:
+                    m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
                     m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reject Meeting";
                     m_meetingButton.onClick.AddListener(() => Reject());
                     if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
