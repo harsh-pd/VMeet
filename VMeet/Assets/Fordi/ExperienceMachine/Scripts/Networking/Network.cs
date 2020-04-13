@@ -16,6 +16,7 @@ namespace Fordi.Networking
         void CreateRoom(string roomName);
         void JoinRoom(string roomName);
         void LeaveRoom();
+        RoomInfo[] Rooms { get; }
     }
 
     public class Network : MonoBehaviourPunCallbacks, INetwork
@@ -27,6 +28,9 @@ namespace Fordi.Networking
         private RemotePlayer m_remotePlayerPrefab = null;
 
         private IPlayer m_player = null;
+
+        private List<RoomInfo> m_rooms = new List<RoomInfo>();
+        public RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
 
         #region INITIALIZATIONS
         private void Awake()
@@ -120,6 +124,16 @@ namespace Fordi.Networking
         {
             if (PhotonNetwork.InRoom)
                 PhotonNetwork.LeaveRoom();
+        }
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+            base.OnRoomListUpdate(roomList);
+            m_rooms = roomList;
+            foreach (var item in m_rooms)
+            {
+                Log(item.Name);
+            }
         }
 
         private void Log(string message)
