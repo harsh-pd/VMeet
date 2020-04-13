@@ -116,36 +116,36 @@ namespace VRExperience.Meetings.UI
                     m_roomButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
                     if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
                     {
-                        m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join Meeting";
+                        m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join";
                         m_roomButton.onClick.AddListener(() => Join());
                     }
                     else
                     {
                         m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
-                        m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Cancel Meeting";
+                        m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Cancel";
                         m_meetingButton.onClick.AddListener(() => Cancel());
-                        m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Host Meeting";
+                        m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Host";
                         m_roomButton.onClick.AddListener(() => Host());
                     }
                     break;
                 case MeetingCategory.INVITED:
                     m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
-                    m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept Meeting";
+                    m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept";
                     m_meetingButton.onClick.AddListener(() => Accept());
                     break;
                 case MeetingCategory.REJECTED:
                     m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
-                    m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept Meeting";
+                    m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept";
                     m_meetingButton.onClick.AddListener(() => Accept());
                     break;
                 case MeetingCategory.ACCEPTED:
                     m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
-                    m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reject Meeting";
+                    m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reject";
                     m_meetingButton.onClick.AddListener(() => Reject());
                     if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
                     {
                         m_roomButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>(); ;
-                        m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join Meeting";
+                        m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join";
                         m_roomButton.onClick.AddListener(() => Join());
                     }
                     break;
@@ -182,7 +182,7 @@ namespace VRExperience.Meetings.UI
                                 m_roomButton.onClick.RemoveAllListeners();
                             else
                                 m_roomButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>(); ;
-                            m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join Meeting";
+                            m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join";
                             m_roomButton.onClick.AddListener(() => Join());
                         }
 
@@ -267,7 +267,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept Meeting";
+                        m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept";
                         m_meetingButton.onClick.RemoveAllListeners();
                         m_meetingButton.onClick.AddListener(() => Accept());
                         //m_vrMenu.CloseLastScreen();
