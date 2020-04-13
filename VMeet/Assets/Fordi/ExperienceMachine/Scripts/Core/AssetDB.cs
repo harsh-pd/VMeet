@@ -33,6 +33,8 @@ namespace VRExperience.Core
         [Header("Others")]
         public string[] Thoughts;
         public string Credits;
+        [Header("Vectors")]
+        public ExperienceGroup Vectors;
         #endregion
     }
 }
