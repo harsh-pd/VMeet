@@ -262,8 +262,8 @@ namespace Fordi.Networking
             {
                 var playerSync = m_player.PlayerController.GetComponent<OvrPlayerSync>();
                 playerSync.Init(true, false, PhotonNetwork.LocalPlayer.ActorNumber);
-                m_player.PlayerViewId = viewAvatarId;
-                m_player.AvatarViewId = viewPlayerId;
+                m_player.PlayerViewId = viewPlayerId;
+                m_player.AvatarViewId = viewAvatarId;
             }
             catch (NullReferenceException)
             {
