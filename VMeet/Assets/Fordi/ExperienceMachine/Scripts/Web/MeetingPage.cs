@@ -174,6 +174,8 @@ namespace VRExperience.Meetings.UI
                         m_meetingButton.onClick.RemoveAllListeners();
                         m_meetingButton.onClick.AddListener(() => Reject());
 
+
+
                         if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
                         {
                             if (m_roomButton != null)
@@ -183,7 +185,11 @@ namespace VRExperience.Meetings.UI
                             m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join Meeting";
                             m_roomButton.onClick.AddListener(() => Join());
                         }
+
                         //m_vrMenu.CloseLastScreen();
+                        Error error = new Error(Error.OK);
+                        error.ErrorText = "";
+                        m_vrMenu.DisplayResult(error);
                     }
                     else
                     {
@@ -211,12 +217,15 @@ namespace VRExperience.Meetings.UI
                         m_meetingButton.onClick.RemoveAllListeners();
                         m_meetingButton.onClick.AddListener(() => Accept());
                         //m_vrMenu.CloseLastScreen();
+                        Error error = new Error(Error.OK);
+                        error.ErrorText = "";
+                        m_vrMenu.DisplayResult(error);
                     }
                     else
                     {
                         Error error = new Error(Error.E_Exception);
-                            error.ErrorText = (string)oututData["error"]["message"];
-                            m_vrMenu.DisplayResult(error);
+                        error.ErrorText = (string)oututData["error"]["message"];
+                        m_vrMenu.DisplayResult(error);
                     }
                 }
             );
@@ -262,6 +271,9 @@ namespace VRExperience.Meetings.UI
                         m_meetingButton.onClick.RemoveAllListeners();
                         m_meetingButton.onClick.AddListener(() => Accept());
                         //m_vrMenu.CloseLastScreen();
+                        Error error = new Error(Error.OK);
+                        error.ErrorText = "";
+                        m_vrMenu.DisplayResult(error);
                     }
                     else
                     {
