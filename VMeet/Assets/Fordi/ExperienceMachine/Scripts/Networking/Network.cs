@@ -16,7 +16,6 @@ namespace Fordi.Networking
         void CreateRoom(string roomName);
         void JoinRoom(string roomName);
         void LeaveRoom();
-        RoomInfo[] Rooms { get; }
     }
 
     public class Network : MonoBehaviourPunCallbacks, INetwork
@@ -29,15 +28,15 @@ namespace Fordi.Networking
 
         private IPlayer m_player = null;
 
-        private List<RoomInfo> m_rooms = new List<RoomInfo>();
-        public RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
+        private static List<RoomInfo> m_rooms = new List<RoomInfo>();
+        public static RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
 
         #region INITIALIZATIONS
         private void Awake()
         {
             m_player = IOC.Resolve<IPlayer>();
-            PhotonNetwork.ConnectUsingSettings();
-            Debug.LogError(PhotonNetwork.InRoom);
+            if (!PhotonNetwork.IsConnectedAndReady)
+                PhotonNetwork.ConnectUsingSettings();
         }
 
         private void OnLevelWasLoaded(int level)
@@ -65,10 +64,10 @@ namespace Fordi.Networking
         {
             base.OnJoinedLobby();
             Log("OnJoinedLobby");
-            if (PhotonNetwork.CountOfRooms > 0)
-                JoinRoom("Test");
-            else
-                CreateRoom("Test");
+            //if (PhotonNetwork.CountOfRooms > 0)
+            //    JoinRoom("Test");
+            //else
+            //    CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
@@ -87,6 +86,7 @@ namespace Fordi.Networking
         {
             base.OnCreatedRoom();
             Log("Created");
+            m_rooms.Add(PhotonNetwork.CurrentRoom);
         }
 
         public override void OnJoinedRoom()
@@ -116,13 +116,12 @@ namespace Fordi.Networking
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
-            Debug.LogError("RoomList: " + roomList.Count);
             base.OnRoomListUpdate(roomList);
             m_rooms = roomList;
-            foreach (var item in m_rooms)
-            {
-                Log(item.Name);
-            }
+            //foreach (var item in m_rooms)
+            //{
+            //    Log(item.Name);
+            //}
         }
 
         private void Log(string message)

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Fordi/ExperienceMachine/Scripts/Networking/NetworkingTest.unity
-    guid: 97791ef415ad7c244a2f2e0d9b207aca
+    path: Assets/Fordi/ExperienceMachine/Demo/Scenes/LoadingScene.unity
+    guid: b9318aea9777eb44383019152d44b116
   - enabled: 1
-    path: Assets/Fordi/ExperienceMachine/Scripts/Networking/Multiplayer.unity
-    guid: a052b0f271fc83a45b1f0b168155cb62
+    path: Assets/Fordi/ExperienceMachine/Demo/Scenes/Home.unity
+    guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Fordi/ExperienceMachine/Demo/Scenes/Lobby.unity
+    guid: 9a75d0e9d7d6f8247aa0040cc0a1836a
   m_configObjects: {}
