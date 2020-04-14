@@ -64,10 +64,10 @@ namespace Fordi.Networking
         {
             base.OnJoinedLobby();
             Log("OnJoinedLobby");
-            //if (PhotonNetwork.CountOfRooms > 0)
-            //    JoinRoom("Test");
-            //else
-            //    CreateRoom("Test");
+            if (PhotonNetwork.CountOfRooms > 0)
+                JoinRoom("Test");
+            else
+                CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
@@ -122,6 +122,23 @@ namespace Fordi.Networking
             //{
             //    Log(item.Name);
             //}
+        }
+
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+            base.OnDisconnected(cause);
+            PhotonNetwork.ConnectUsingSettings();
+        }
+
+        public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+        {
+            base.OnPlayerEnteredRoom(newPlayer);
+            Debug.LogError(newPlayer.ActorNumber + " " + newPlayer.NickName);
+        }
+
+        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+        {
+            base.OnPlayerLeftRoom(otherPlayer);
         }
 
         private void Log(string message)

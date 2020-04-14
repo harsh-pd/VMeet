@@ -70,10 +70,6 @@ namespace Fordi.ScreenSharing
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Debug.LogError(Input.mousePosition);
-            }
             if (XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present && m_activeMonitor != null && m_laserPointer.HitMonitor)
             {
                 var cursorPosition = WorldToMouseCoordinates(m_laserPointer.EndPoint);
