@@ -96,6 +96,15 @@ namespace VRExperience.Meetings.UI
 
         private void RoomListUpdated(object sender, EventArgs e)
         {
+            if (m_meetingInfo.meetingType == MeetingCategory.INVITED || m_meetingInfo.meetingType == MeetingCategory.REJECTED)
+                return;
+
+            if (PhotonNetwork.InRoom && m_roomButton != null)
+            {
+                Destroy(m_roomButton.gameObject);
+                return;
+            }
+
             if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
             {
                 Debug.LogError(Fordi.Networking.Network.Rooms.Length);
@@ -107,7 +116,19 @@ namespace VRExperience.Meetings.UI
                 m_roomButton.onClick.AddListener(() => Join());
             }
             else
-                Destroy(m_roomButton.gameObject);
+            {
+                if (m_meetingInfo.meetingType == MeetingCategory.ACCEPTED)
+                    Destroy(m_roomButton.gameObject);
+                else
+                {
+                    if (m_roomButton != null)
+                        m_roomButton.onClick.RemoveAllListeners();
+                    else
+                        m_roomButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>(); ;
+                    m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Host";
+                    m_roomButton.onClick.AddListener(() => Host());
+                }
+            }
         }
 
         public bool IsRelavant(string searchValue)
