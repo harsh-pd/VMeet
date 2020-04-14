@@ -1,5 +1,6 @@
 ﻿using Cornea.Web;
 using Fordi.Networking;
+using Fordi.ScreenSharing;
 using Fordi.Sync;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -167,6 +168,24 @@ namespace VRExperience.Core
             }
         }
 
+        private IMouseControl m_mouseControl;
+
+        protected virtual IMouseControl MouseControl
+        {
+            get
+            {
+                MouseControl mouseControl = FindObjectOfType<MouseControl>();
+                if (mouseControl == null)
+                {
+                    var obj = new GameObject("MouseControl");
+                    mouseControl = obj.AddComponent<MouseControl>();
+                    mouseControl.transform.parent = transform;
+                    mouseControl.transform.localPosition = Vector3.zero;
+                }
+                return mouseControl;
+            }
+        }
+
         private void Awake()
         {
             if(m_instance != null)
@@ -190,6 +209,7 @@ namespace VRExperience.Core
             m_fordiNetwork = FordiNetwork;
             m_webInterface = WebInterface;
             m_network = Network;
+            m_mouseControl = MouseControl;
         }
 
         private void OnDestroy()
@@ -257,6 +277,7 @@ namespace VRExperience.Core
             IOC.RegisterFallback(() => Instance.m_fordiNetwork);
             IOC.RegisterFallback(() => Instance.m_webInterface);
             IOC.RegisterFallback(() => Instance.m_network);
+            IOC.RegisterFallback(() => Instance.m_mouseControl);
 
             if (IOC.Resolve<IMenuSelection>() == null)
                 IOC.Register<IMenuSelection>(new MenuSelection());
