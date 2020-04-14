@@ -9,6 +9,7 @@ using VRExperience.Core;
 using VRExperience.Common;
 using UnityEngine.SceneManagement;
 using VRExperience.UI.MenuControl;
+using System.Linq;
 
 namespace Fordi.Networking
 {
@@ -131,12 +132,8 @@ namespace Fordi.Networking
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
             base.OnRoomListUpdate(roomList);
-            m_rooms = roomList;
-            Debug.LogError("Received room update: "+ m_rooms.Count);
-            foreach (var item in m_rooms)
-            {
-                Debug.LogError(item.Name);
-            }
+            m_rooms = roomList.Where(room => !room.RemovedFromList).ToList();
+            
             //if (m_rooms.Count > 0)
             //    JoinRoom(m_rooms[0].Name);
             //Debug.LogError("Recieved room udate: " + m_rooms.Count);
