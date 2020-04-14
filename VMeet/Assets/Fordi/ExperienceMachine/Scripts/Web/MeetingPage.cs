@@ -79,6 +79,13 @@ namespace VRExperience.Meetings.UI
             base.AwakeOverride();
             m_webInterface = IOC.Resolve<IWebInterface>();
             m_network = IOC.Resolve<INetwork>();
+            m_network.RoomListUpdateEvent += RoomListUpdated
+        }
+
+        protected override void OnDestroyOverride()
+        {
+            base.OnDestroyOverride();
+            m_network.RoomListUpdateEvent -= RoomListUpdated;
         }
 
         public void OnReset()
@@ -86,16 +93,22 @@ namespace VRExperience.Meetings.UI
 
         }
 
-        //private void ReceivedRoomListUpdate()
-        //{
-        //    if (Coordinator.instance.meetingRoomInterface.IsRoomAvailable(meetingInfo.MeetingNumber))
-        //    {
-        //        NetworkManager.ReceivedRoomListUpdate -= ReceivedRoomListUpdate;
-        //        UpdateDescriptionText(true);
-        //        if (meetingInfo.meetingType != MeetingCategory.CREATED)
-        //            actionPanel.OnRoomCreated();
-        //    }
-        //}
+
+        private void RoomListUpdated(object sender, EventArgs e)
+        {
+            if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
+            {
+                Debug.LogError(Fordi.Networking.Network.Rooms.Length);
+                if (m_roomButton != null)
+                    m_roomButton.onClick.RemoveAllListeners();
+                else
+                    m_roomButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>(); ;
+                m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join";
+                m_roomButton.onClick.AddListener(() => Join());
+            }
+            else
+                Destroy(m_roomButton.gameObject);
+        }
 
         public bool IsRelavant(string searchValue)
         {

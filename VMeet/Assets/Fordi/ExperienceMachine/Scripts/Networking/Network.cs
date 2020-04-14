@@ -18,6 +18,7 @@ namespace Fordi.Networking
         void CreateRoom(string roomName);
         void JoinRoom(string roomName);
         void LeaveRoom();
+        EventHandler RoomListUpdateEvent { get; set; }
     }
 
     public class Network : MonoBehaviourPunCallbacks, INetwork
@@ -33,6 +34,8 @@ namespace Fordi.Networking
 
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
         public static RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
+
+        public EventHandler RoomListUpdateEvent { get; set; }
 
         private Dictionary<int, RemotePlayer> m_remotePlayers = new Dictionary<int, RemotePlayer>();
 
@@ -133,7 +136,7 @@ namespace Fordi.Networking
         {
             base.OnRoomListUpdate(roomList);
             m_rooms = roomList.Where(room => !room.RemovedFromList).ToList();
-            
+            RoomListUpdateEvent?.Invoke(this, EventArgs.Empty);
             //if (m_rooms.Count > 0)
             //    JoinRoom(m_rooms[0].Name);
             //Debug.LogError("Recieved room udate: " + m_rooms.Count);
