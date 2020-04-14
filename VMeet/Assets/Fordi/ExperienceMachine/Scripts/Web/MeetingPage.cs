@@ -301,12 +301,12 @@ namespace VRExperience.Meetings.UI
         #region ROOM
         public void Host()
         {
-            
+            m_network.CreateRoom(m_meetingInfo.MeetingNumber);
         }
 
         public void Join()
         {
-
+            m_network.JoinRoom(m_meetingInfo.MeetingNumber);
         }
         #endregion
     }
