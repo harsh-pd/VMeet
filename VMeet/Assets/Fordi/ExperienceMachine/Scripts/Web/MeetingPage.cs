@@ -79,7 +79,7 @@ namespace VRExperience.Meetings.UI
             base.AwakeOverride();
             m_webInterface = IOC.Resolve<IWebInterface>();
             m_network = IOC.Resolve<INetwork>();
-            m_network.RoomListUpdateEvent += RoomListUpdated
+            m_network.RoomListUpdateEvent += RoomListUpdated;
         }
 
         protected override void OnDestroyOverride()
