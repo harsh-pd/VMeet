@@ -8,6 +8,7 @@ using System;
 using VRExperience.Core;
 using VRExperience.Common;
 using UnityEngine.SceneManagement;
+using VRExperience.UI.MenuControl;
 
 namespace Fordi.Networking
 {
@@ -27,6 +28,7 @@ namespace Fordi.Networking
         private RemotePlayer m_remotePlayerPrefab = null;
 
         private IPlayer m_player = null;
+        private IVRMenu m_vrMenu = null;
 
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
         public static RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
@@ -37,6 +39,7 @@ namespace Fordi.Networking
         private void Awake()
         {
             m_player = IOC.Resolve<IPlayer>();
+            m_vrMenu = IOC.Resolve<IVRMenu>();
             if (!PhotonNetwork.IsConnectedAndReady)
                 PhotonNetwork.ConnectUsingSettings();
         }
@@ -66,14 +69,11 @@ namespace Fordi.Networking
         {
             base.OnJoinedLobby();
             Log("OnJoinedLobby");
-            if (PhotonNetwork.CountOfRooms > 0)
-                JoinRoom("Test");
-            else
-                CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
         {
+            m_vrMenu.DisplayProgress("Creating room: " + roomName);
             RoomOptions options = new RoomOptions
             {
                 IsVisible = true,
@@ -102,11 +102,23 @@ namespace Fordi.Networking
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             base.OnCreateRoomFailed(returnCode, message);
+            Error error = new Error(Error.E_Exception);
+            error.ErrorText = message;
+            m_vrMenu.DisplayResult(error);
             Log(message);
+        }
+
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        {
+            Error error = new Error(Error.E_Exception);
+            error.ErrorText = message;
+            m_vrMenu.DisplayResult(error);
+            base.OnJoinRoomFailed(returnCode, message);
         }
 
         public void JoinRoom(string roomName)
         {
+            m_vrMenu.DisplayProgress("Creating room: " + roomName);
             PhotonNetwork.JoinRoom(roomName);
         }
 
