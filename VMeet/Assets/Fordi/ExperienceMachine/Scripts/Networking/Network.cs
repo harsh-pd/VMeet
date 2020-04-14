@@ -118,7 +118,7 @@ namespace Fordi.Networking
 
         public void JoinRoom(string roomName)
         {
-            m_vrMenu.DisplayProgress("Creating room: " + roomName);
+            m_vrMenu.DisplayProgress("Joining room: " + roomName);
             PhotonNetwork.JoinRoom(roomName);
         }
 
