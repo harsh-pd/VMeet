@@ -31,6 +31,8 @@ namespace Fordi.Networking
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
         public static RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
 
+        private Dictionary<int, RemotePlayer> m_remotePlayers = new Dictionary<int, RemotePlayer>();
+
         #region INITIALIZATIONS
         private void Awake()
         {
@@ -130,15 +132,11 @@ namespace Fordi.Networking
             PhotonNetwork.ConnectUsingSettings();
         }
 
-        public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
-        {
-            base.OnPlayerEnteredRoom(newPlayer);
-            Debug.LogError(newPlayer.ActorNumber + " " + newPlayer.NickName);
-        }
-
         public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
         {
             base.OnPlayerLeftRoom(otherPlayer);
+            Destroy(m_remotePlayers[otherPlayer.ActorNumber].gameObject);
+            m_remotePlayers.Remove(otherPlayer.ActorNumber);
         }
 
         private void Log(string message)
@@ -155,6 +153,7 @@ namespace Fordi.Networking
             Debug.LogError(senderId + " " + firstHand);
             var remotePlayer = Instantiate(m_remotePlayerPrefab);
             remotePlayer.Setup(senderId, playerViewId, avatarViewId);
+            m_remotePlayers[senderId] = remotePlayer;
             if (firstHand)
                 RaiseSecondHandPlayerSpawnEvent(senderId);
             
