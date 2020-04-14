@@ -132,6 +132,7 @@ namespace Fordi.Networking
         {
             base.OnRoomListUpdate(roomList);
             m_rooms = roomList;
+            Debug.LogError("Recieved room udate: " + m_rooms.Count);
             //foreach (var item in m_rooms)
             //{
             //    Log(item.Name);

@@ -83,7 +83,7 @@ namespace VRExperience.Meetings.UI
 
         public void OnReset()
         {
-            
+
         }
 
         //private void ReceivedRoomListUpdate()
@@ -149,6 +149,7 @@ namespace VRExperience.Meetings.UI
                     m_meetingButton.onClick.AddListener(() => Reject());
                     if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
                     {
+                        Debug.LogError(Fordi.Networking.Network.Rooms.Length);
                         m_roomButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>(); ;
                         m_roomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Join";
                         m_roomButton.onClick.AddListener(() => Join());
