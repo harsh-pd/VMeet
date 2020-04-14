@@ -132,10 +132,13 @@ namespace Fordi.Networking
         {
             base.OnRoomListUpdate(roomList);
             m_rooms = roomList;
+            Debug.LogError("Received room update: "+ m_rooms.Count);
             foreach (var item in m_rooms)
             {
                 Debug.LogError(item.Name);
             }
+            //if (m_rooms.Count > 0)
+            //    JoinRoom(m_rooms[0].Name);
             //Debug.LogError("Recieved room udate: " + m_rooms.Count);
             //foreach (var item in m_rooms)
             //{
