@@ -16,6 +16,8 @@ namespace Fordi.ScreenSharing
         void ActivateMonitor(Monitor monitor);
         void DeactivateMonitor(Monitor monitor);
         void PointerClickOnMonitor(Monitor monitor, PointerEventData eventData);
+        void PointerDownOnMonitor(Monitor monitor, PointerEventData eventData);
+        void PointerUpOnMonitor(Monitor monitor, PointerEventData eventData);
     }
 
     public class MouseControl : MonoBehaviour, IMouseControl
@@ -104,6 +106,33 @@ namespace Fordi.ScreenSharing
 
             //Debug.LogError(xMousePosition + " " + yMousePosition + " " + worldUnitSizeDelta + " " + xMousePosition + " " + yMousePosition);
         }
+
+        public void PointerDownOnMonitor(Monitor monitor, PointerEventData eventData)
+        {
+            if (m_activeMonitor != monitor)
+            {
+                Debug.LogWarning("PointerDownOnMonitor: Active monitor not same as event monitor");
+                return;
+            }
+            var mouseCoordinates = WorldToMouseCoordinates(eventData.pointerCurrentRaycast.worldPosition);
+            mouse_event(MOUSEEVENTF_LEFTDOWN, (uint)mouseCoordinates.x, (uint)mouseCoordinates.y, 0, 0);
+
+            //Debug.LogError(xMousePosition + " " + yMousePosition + " " + worldUnitSizeDelta + " " + xMousePosition + " " + yMousePosition);
+        }
+
+        public void PointerUpOnMonitor(Monitor monitor, PointerEventData eventData)
+        {
+            if (m_activeMonitor != monitor)
+            {
+                Debug.LogWarning("PointerUpOnMonitor: Active monitor not same as event monitor");
+                return;
+            }
+            var mouseCoordinates = WorldToMouseCoordinates(eventData.pointerCurrentRaycast.worldPosition);
+            mouse_event(MOUSEEVENTF_LEFTUP, (uint)mouseCoordinates.x, (uint)mouseCoordinates.y, 0, 0);
+
+            //Debug.LogError(xMousePosition + " " + yMousePosition + " " + worldUnitSizeDelta + " " + xMousePosition + " " + yMousePosition);
+        }
+
 
         private Vector2Int WorldToMouseCoordinates(Vector3 worldPosition)
         {

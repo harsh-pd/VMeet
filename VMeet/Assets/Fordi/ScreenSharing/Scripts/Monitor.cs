@@ -7,7 +7,7 @@ using VRExperience.Common;
 
 namespace Fordi.ScreenSharing
 {
-    public class Monitor : Graphic, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+    public class Monitor : Graphic, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
         private IMouseControl m_mouseControl = null;
 
@@ -30,6 +30,16 @@ namespace Fordi.ScreenSharing
         public void OnPointerClick(PointerEventData eventData)
         {
             m_mouseControl.PointerClickOnMonitor(this, eventData);
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            m_mouseControl.PointerDownOnMonitor(this, eventData);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            m_mouseControl.PointerUpOnMonitor(this, eventData);
         }
     }
 }
