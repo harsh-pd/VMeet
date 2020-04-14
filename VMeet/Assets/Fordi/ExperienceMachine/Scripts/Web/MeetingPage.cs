@@ -17,6 +17,7 @@ using VRExperience.Common;
 using VRExperience.Core;
 using VRExperience.UI;
 using Photon.Pun;
+using Fordi.Networking;
 
 namespace VRExperience.Meetings.UI
 {
@@ -67,13 +68,17 @@ namespace VRExperience.Meetings.UI
         }
         #endregion
 
-        #region GENERAL_METHODS
+        private INetwork m_network = null;
         private IWebInterface m_webInterface = null;
+
+
+        #region GENERAL_METHODS
 
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
             m_webInterface = IOC.Resolve<IWebInterface>();
+            m_network = IOC.Resolve<INetwork>();
         }
 
         public void OnReset()
@@ -296,7 +301,7 @@ namespace VRExperience.Meetings.UI
         #region ROOM
         public void Host()
         {
-
+            
         }
 
         public void Join()
