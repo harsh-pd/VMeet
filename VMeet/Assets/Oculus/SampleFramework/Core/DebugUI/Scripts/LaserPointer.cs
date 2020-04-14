@@ -33,7 +33,7 @@ public class LaserPointer : OVRCursor
     {
         set {
             _laserBeamBehavior = value;
-            if(laserBeamBehavior == LaserBeamBehavior.Off || laserBeamBehavior == LaserBeamBehavior.OnWhenHitTarget)
+            if (laserBeamBehavior == LaserBeamBehavior.Off || laserBeamBehavior == LaserBeamBehavior.OnWhenHitTarget)
             {
                 lineRenderer.enabled = false;
             }
@@ -53,8 +53,17 @@ public class LaserPointer : OVRCursor
     private bool _hitTarget;
     private LineRenderer lineRenderer;
 
+    private const string MonitorLayer = "Monitor";
+    private int m_monitorSortingLayer = 11;
+    private int m_sortingLayer = -1;
+
+    public bool HitMonitor { get { return m_sortingLayer == m_monitorSortingLayer && _hitTarget; } }
+
+    public Vector3 EndPoint { get { return _endPoint; } }
+
     private void Awake()
     {
+        m_monitorSortingLayer = SortingLayer.NameToID(MonitorLayer);
         lineRenderer = GetComponent<LineRenderer>();
     }
 
@@ -68,6 +77,14 @@ public class LaserPointer : OVRCursor
         _startPoint = start;
         _endPoint = dest;
         _hitTarget = true;
+    }
+
+    public void SetCursorStartDest(Vector3 start, Vector3 dest, Vector3 normal, int sortingLayer)
+    {
+        _startPoint = start;
+        _endPoint = dest;
+        _hitTarget = true;
+        m_sortingLayer = sortingLayer;
     }
 
     public override void SetCursorRay(Transform t)

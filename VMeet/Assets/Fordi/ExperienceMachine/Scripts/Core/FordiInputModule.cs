@@ -37,5 +37,105 @@ namespace UnityEngine.EventSystems
                 return PointerEventData.FramePressState.Released;
             return PointerEventData.FramePressState.NotChanged;
         }
+
+        // The following 2 functions are equivalent to PointerInputModule.GetMousePointerEventData but are customized to
+        // get data for ray pointers and canvas mouse pointers.
+
+        /// <summary>
+        /// State for a pointer controlled by a world space ray. E.g. gaze pointer
+        /// </summary>
+        /// <returns></returns>
+        override protected MouseState GetGazePointerData()
+        {
+            // Get the OVRRayPointerEventData reference
+            OVRPointerEventData leftData;
+            GetPointerData(kMouseLeftId, out leftData, true);
+            leftData.Reset();
+
+            //Now set the world space ray. This ray is what the user uses to point at UI elements
+            leftData.worldSpaceRay = new Ray(rayTransform.position, rayTransform.forward);
+            leftData.scrollDelta = GetExtraScrollDelta();
+
+            //Populate some default values
+            leftData.button = PointerEventData.InputButton.Left;
+            leftData.useDragThreshold = true;
+            // Perform raycast to find intersections with world
+            eventSystem.RaycastAll(leftData, m_RaycastResultCache);
+            var raycast = FindFirstRaycast(m_RaycastResultCache);
+            leftData.pointerCurrentRaycast = raycast;
+            m_RaycastResultCache.Clear();
+
+            m_Cursor.SetCursorRay(rayTransform);
+
+            OVRRaycaster ovrRaycaster = raycast.module as OVRRaycaster;
+            // We're only interested in intersections from OVRRaycasters
+            if (ovrRaycaster)
+            {
+                // The Unity UI system expects event data to have a screen position
+                // so even though this raycast came from a world space ray we must get a screen
+                // space position for the camera attached to this raycaster for compatability
+                leftData.position = ovrRaycaster.GetScreenPosition(raycast);
+
+                // Find the world position and normal the Graphic the ray intersected
+                RectTransform graphicRect = raycast.gameObject.GetComponent<RectTransform>();
+                if (graphicRect != null)
+                {
+                    // Set are gaze indicator with this world position and normal
+                    Vector3 worldPos = raycast.worldPosition;
+                    Vector3 normal = GetRectTransformNormal(graphicRect);
+                    if (m_Cursor is LaserPointer laserPointer)
+                        laserPointer.SetCursorStartDest(rayTransform.position, worldPos, normal, raycast.sortingLayer);
+                    else
+                        m_Cursor.SetCursorStartDest(rayTransform.position, worldPos, normal);
+                }
+            }
+
+            // Now process physical raycast intersections
+            OVRPhysicsRaycaster physicsRaycaster = raycast.module as OVRPhysicsRaycaster;
+            if (physicsRaycaster)
+            {
+                Vector3 position = raycast.worldPosition;
+                int sortingLayer = 0;
+
+                if (performSphereCastForGazepointer)
+                {
+                    // Here we cast a sphere into the scene rather than a ray. This gives a more accurate depth
+                    // for positioning a circular gaze pointer
+                    List<RaycastResult> results = new List<RaycastResult>();
+                    physicsRaycaster.Spherecast(leftData, results, m_SpherecastRadius);
+                    if (results.Count > 0 && results[0].distance < raycast.distance)
+                    {
+                        position = results[0].worldPosition;
+                        sortingLayer = results[0].sortingLayer;
+                    }
+                }
+
+                leftData.position = physicsRaycaster.GetScreenPos(raycast.worldPosition);
+
+                if (m_Cursor is LaserPointer laserPointer)
+                    laserPointer.SetCursorStartDest(rayTransform.position, position, raycast.worldNormal, sortingLayer);
+                else
+                    m_Cursor.SetCursorStartDest(rayTransform.position, position, raycast.worldNormal);
+            }
+
+            // Stick default data values in right and middle slots for compatability
+
+            // copy the apropriate data into right and middle slots
+            OVRPointerEventData rightData;
+            GetPointerData(kMouseRightId, out rightData, true);
+            CopyFromTo(leftData, rightData);
+            rightData.button = PointerEventData.InputButton.Right;
+
+            OVRPointerEventData middleData;
+            GetPointerData(kMouseMiddleId, out middleData, true);
+            CopyFromTo(leftData, middleData);
+            middleData.button = PointerEventData.InputButton.Middle;
+
+
+            m_MouseState.SetButtonState(PointerEventData.InputButton.Left, GetGazeButtonState(), leftData);
+            m_MouseState.SetButtonState(PointerEventData.InputButton.Right, PointerEventData.FramePressState.NotChanged, rightData);
+            m_MouseState.SetButtonState(PointerEventData.InputButton.Middle, PointerEventData.FramePressState.NotChanged, middleData);
+            return m_MouseState;
+        }
     }
 }

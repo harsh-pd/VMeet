@@ -67,7 +67,7 @@ namespace UnityEngine.EventSystems
         public float angleDragThreshold = 1;
 
         [SerializeField]
-        private float m_SpherecastRadius = 1.0f;       
+        protected float m_SpherecastRadius = 1.0f;       
 
 
 
@@ -572,7 +572,7 @@ namespace UnityEngine.EventSystems
         /// <summary>
         /// For RectTransform, calculate it's normal in world space
         /// </summary>
-        static Vector3 GetRectTransformNormal(RectTransform rectTransform)
+        protected static Vector3 GetRectTransformNormal(RectTransform rectTransform)
         {
             Vector3[] corners = new Vector3[4];
             rectTransform.GetWorldCorners(corners);
@@ -582,7 +582,7 @@ namespace UnityEngine.EventSystems
             return Vector3.Cross(BottomEdge, LeftEdge).normalized;
         }
 
-        private readonly MouseState m_MouseState = new MouseState();
+        protected readonly MouseState m_MouseState = new MouseState();
 
 
         // The following 2 functions are equivalent to PointerInputModule.GetMousePointerEventData but are customized to
