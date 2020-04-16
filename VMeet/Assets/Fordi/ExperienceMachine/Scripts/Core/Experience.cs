@@ -1,4 +1,6 @@
 ﻿using Cornea.Web;
+using Fordi.Networking;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -135,6 +137,7 @@ namespace VRExperience.Core
         protected ICommonResource m_commonResource;
         protected IPlayer m_player;
         protected IWebInterface m_webInterace;
+        protected INetwork m_network;
 
         [SerializeField]
         protected Menu m_menu;
@@ -162,6 +165,7 @@ namespace VRExperience.Core
             m_player = IOC.Resolve<IPlayer>();
             m_settings = IOC.Resolve<ISettings>();
             m_webInterace = IOC.Resolve<IWebInterface>();
+            m_network = IOC.Resolve<INetwork>();
             AwakeOverride();
         }
 
@@ -330,10 +334,23 @@ namespace VRExperience.Core
 
             if (args.CommandType == MenuCommandType.LOBBY)
             {
-                m_menuSelection.Location = args.Path;
-                m_menuSelection.ExperienceType = ExperienceType.LOBBY;
-                m_vrMenu.Close();
-                m_experienceMachine.LoadExperience();
+                if (PhotonNetwork.InRoom)
+                {
+                    m_network.LeaveRoom(() =>
+                    {
+                        m_menuSelection.Location = args.Path;
+                        m_menuSelection.ExperienceType = ExperienceType.LOBBY;
+                        m_vrMenu.Close();
+                        m_experienceMachine.LoadExperience();
+                    });
+                }
+                else
+                {
+                    m_menuSelection.Location = args.Path;
+                    m_menuSelection.ExperienceType = ExperienceType.LOBBY;
+                    m_vrMenu.Close();
+                    m_experienceMachine.LoadExperience();
+                }
             }
 
             if (args.CommandType == MenuCommandType.SETTINGS)

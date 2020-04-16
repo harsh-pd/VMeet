@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -324,7 +325,13 @@ namespace VRExperience.Core
             AudioArgs args = new AudioArgs(null, AudioType.MUSIC)
             {
                 FadeTime = 2,
-                Done = () => SceneManager.LoadSceneAsync(m_menuSelection.Location)
+                Done = () =>
+                {
+                    if (PhotonNetwork.InRoom)
+                        PhotonNetwork.LoadLevel(m_menuSelection.Location);
+                    else
+                        SceneManager.LoadSceneAsync(m_menuSelection.Location);
+                }
             };
             m_audio.Stop(args);
 

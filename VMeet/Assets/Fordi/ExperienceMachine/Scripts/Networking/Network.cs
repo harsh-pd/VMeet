@@ -17,7 +17,7 @@ namespace Fordi.Networking
     {
         void CreateRoom(string roomName);
         void JoinRoom(string roomName);
-        void LeaveRoom();
+        void LeaveRoom(Action done);
         EventHandler RoomListUpdateEvent { get; set; }
     }
 
@@ -32,6 +32,7 @@ namespace Fordi.Networking
         private IPlayer m_player = null;
         private IVRMenu m_vrMenu = null;
         private IMenuSelection m_menuSelection = null;
+        private IExperienceMachine m_experienceMachine = null;
         private const string MeetingRoom = "Meeting";
 
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
@@ -47,6 +48,7 @@ namespace Fordi.Networking
             m_player = IOC.Resolve<IPlayer>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
+            m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             if (!PhotonNetwork.IsConnectedAndReady)
                 PhotonNetwork.ConnectUsingSettings();
         }
@@ -105,7 +107,7 @@ namespace Fordi.Networking
             m_menuSelection.Location = MeetingRoom;
             m_menuSelection.ExperienceType = ExperienceType.MEETING;
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel(MeetingRoom);
+                m_experienceMachine.LoadExperience();
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
@@ -131,10 +133,18 @@ namespace Fordi.Networking
             PhotonNetwork.JoinRoom(roomName);
         }
 
-        public void LeaveRoom()
+        private Action m_onLeftRoom = null;
+        public void LeaveRoom(Action done)
         {
             if (PhotonNetwork.InRoom)
+            {
+                m_onLeftRoom = done;
                 PhotonNetwork.LeaveRoom();
+            }
+            else
+            {
+                done?.Invoke();
+            }
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -164,6 +174,13 @@ namespace Fordi.Networking
             m_remotePlayers.Remove(otherPlayer.ActorNumber);
         }
 
+        public override void OnLeftRoom()
+        {
+            base.OnLeftRoom();
+            m_onLeftRoom?.Invoke();
+            m_onLeftRoom = null;
+        }
+
         private void Log(string message)
         {
             if (m_debug)
@@ -183,112 +200,7 @@ namespace Fordi.Networking
                 RaiseSecondHandPlayerSpawnEvent(senderId);
             
         }
-
-        //private void SpawnAvatar(int senderId, int viewId)
-        //{
-        //    GameObject go = null;
-        //    Debug.LogError("_____spawnAvatar event received:  " + PhotonNetwork.player.ID.ToString() + "--" + senderId.ToString());
-        //    Coordinator.instance.audioManager.Play(Cornea.AudioManager.playerJoin);
-        //    if (PhotonNetwork.LocalPlayer.ActorNumber == senderId)
-        //    {
-        //        go = Instantiate(Resources.Load("LocalOvrAvatar")) as GameObject;
-        //        go.transform.parent = ovrCam.transform.GetChild(0);
-        //        go.transform.localPosition = Vector3.zero;
-        //        go.transform.localRotation = Quaternion.identity;
-
-        //        locOvrAvatarRef = go;
-
-        //        go.GetComponent<OvrAvatar>().oculusUserID = sceneMgr.myOculusId;
-        //        go.SetActive(true);
-        //        GameObject gt = Instantiate(usrTxtMesh, go.transform.GetComponentInChildren<OvrAvatarBase>().transform) as GameObject;
-        //        gt.transform.localPosition = new Vector3(0.22f, 1.9f, 0);
-        //        gt.transform.localScale = new Vector3(-1, 1, 1);
-        //        gt.GetComponent<TextMesh>().text = sceneMgr.myOculusName;
-
-        //        gt = Instantiate(remoteLaser, go.transform.GetChild(4)) as GameObject;
-        //        //gt.transform.parent = ovrCam.transform.GetChild(0);
-        //        gt.transform.localPosition = Vector3.zero;
-        //        gt.transform.localRotation = Quaternion.identity;
-
-
-        //        if (ovrCam.transform.parent.gameObject.GetComponent<OvrPlayerSync>() != null)
-        //        {
-        //            ovrCam.transform.parent.gameObject.GetComponent<OvrPlayerSync>().rLsr = gt.GetComponent<RemoteLaser>();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        InSceneNetworkManager inSceneNetworkManager = transform.GetComponent<InSceneNetworkManager>();
-        //        if (inSceneNetworkManager.remoteOvrPlayers != null && inSceneNetworkManager.remoteOvrPlayers.ContainsKey(PhotonPlayer.Find(senderId).NickName))
-        //        {
-        //            return;
-        //        }
-
-
-        //        go = Instantiate(Resources.Load("RemoteOvrAvatar")) as GameObject;
-
-        //        //Coordinator.instance.annotation.InitializeRemotePlayerAnnotation(senderid);
-
-        //        go.GetComponent<OvrAvatar>().oculusUserID = (string)PhotonPlayer.Find(senderId).CustomProperties["oculusID"];
-
-        //        OvrPlayerSync[] ps = FindObjectsOfType<OvrPlayerSync>();
-
-        //        //remotePlyrSync.Clear();
-        //        //foreach (OvrPlayerSync op in ps)
-        //        //    remotePlyrSync.Add(op);
-
-        //        OvrPlayerSync pps = null;
-        //        foreach (OvrPlayerSync os in ps)
-        //        {
-        //            if (!os.avatarSet)
-        //            {
-        //                os.gameObject.transform.rotation = go.transform.rotation;
-        //                go.transform.parent = os.gameObject.transform.GetChild(0);
-        //                go.transform.localPosition = new Vector3(0, 0, 0);//Vector3.zero;
-        //                                                                  //go.transform.localRotation = Quaternion.identity;
-        //                os.avatarSet = true;
-        //                pps = os;
-        //                break;
-        //            }
-        //        }
-
-        //        go.SetActive(true);
-        //        inSceneNetworkManager.remoteOvrPlayers.Add(PhotonPlayer.Find(senderId).NickName, go.transform.parent.gameObject);
-
-        //        GameObject gt = Instantiate(usrTxtMesh, go.transform.GetComponentInChildren<OvrAvatarBase>().transform) as GameObject;
-        //        //gt.transform.localPosition = new Vector3(0, 1.7f, 0);
-        //        gt.transform.localPosition = new Vector3(0.22f, 1.9f, 0);
-
-        //        gt.transform.localScale = new Vector3(-1, 1, 1);
-        //        gt.GetComponent<TextMesh>().text = (string)PhotonPlayer.Find(senderId).CustomProperties["oculusName"];
-
-
-        //        gt = Instantiate(remoteLaser, go.transform.GetChild(3)) as GameObject;
-        //        //gt.transform.parent = go.transform.parent;
-        //        gt.transform.localPosition = Vector3.zero;
-        //        gt.transform.localRotation = Quaternion.identity;
-
-        //        if (pps != null)
-        //        {
-        //            pps.rLsr = gt.GetComponent<RemoteLaser>();
-        //        }
-        //    }
-        //    //Debug.Log("Spawned ovr player");
-        //    if (go != null)
-        //    {
-
-        //        PhotonView pView = go.GetComponent<PhotonView>();
-        //        go.GetComponent<UniqueIdentifier>().playerId = senderId;
-
-        //        if (pView != null)
-        //        {
-        //            pView.viewID = viewId;
-        //        }
-
-        //        voiceMgr.EnableVoIP(go);
-        //    }
-        //}
-
+        
         public void RaiseSecondHandPlayerSpawnEvent(int targetPlayerId)
         {
             var targetPlayer = Array.Find(PhotonNetwork.PlayerList, item => item.ActorNumber == targetPlayerId);
