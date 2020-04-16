@@ -31,6 +31,8 @@ namespace Fordi.Networking
 
         private IPlayer m_player = null;
         private IVRMenu m_vrMenu = null;
+        private IMenuSelection m_menuSelection = null;
+        private const string MeetingRoom = "Meeting";
 
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
         public static RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
@@ -44,6 +46,7 @@ namespace Fordi.Networking
         {
             m_player = IOC.Resolve<IPlayer>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_menuSelection = IOC.Resolve<IMenuSelection>();
             if (!PhotonNetwork.IsConnectedAndReady)
                 PhotonNetwork.ConnectUsingSettings();
         }
@@ -99,8 +102,10 @@ namespace Fordi.Networking
         {
             base.OnJoinedRoom();
             Log("OnJoinedRoom");
+            m_menuSelection.Location = MeetingRoom;
+            m_menuSelection.ExperienceType = ExperienceType.MEETING;
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.LoadLevel("Multiplayer");
+                PhotonNetwork.LoadLevel(MeetingRoom);
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
