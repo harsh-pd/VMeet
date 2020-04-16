@@ -15,13 +15,23 @@ namespace Fordi.ScreenSharing
         private GameObject m_TogglePrefab;
         [SerializeField]
         private GameObject m_menuBorderPrefab = null;
+        [SerializeField]
+        private RawImage m_remoteMonitorView;
 
         private Toggle m_micToggle = null;
         private Toggle m_screenShareToggle = null;
 
+        private IAppTheme m_appTheme = null;
+
+        protected override void AwakeOverride()
+        {
+            base.AwakeOverride();
+            m_appTheme = IOC.Resolve<IAppTheme>();
+        }
+
         public override void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
         {
-
+            m_remoteMonitorView.color = m_appTheme.SelectedTheme.panelInteractionBackground;
             var toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
             m_micToggle = toggleMenu.GetComponentInChildren<Toggle>();
             m_micToggle.isOn = true;
@@ -64,6 +74,11 @@ namespace Fordi.ScreenSharing
         private void ScreenSharingToggle(bool val)
         {
             
+        }
+
+        public void ActivateRemoteView()
+        {
+            m_remoteMonitorView.color = Color.white;
         }
     }
 }
