@@ -476,6 +476,12 @@ PrefabInstance:
       propertyPath: m_rightSideDropdown
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_dMainMenuPrefab
+      value: 
+      objectReference: {fileID: 2109265851013776062, guid: b1cb72d94de00a1478151194371a2295,
+        type: 3}
     - target: {fileID: 8221756216845216751, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: oculusUserID
@@ -1586,6 +1592,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2471894462235951138, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 95602350606921892, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: m_IsActive
@@ -1642,11 +1653,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2471894462235951138, guid: 2a7e3c1abf054f745bb1480314b29966,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8489878352216427617, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
