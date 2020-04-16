@@ -11,7 +11,7 @@ namespace VRExperience.Core
     public abstract class Gameplay : Experience
     {
         [SerializeField]
-        private MenuItemInfo[] m_insceneMenuItems = new MenuItemInfo[] { };
+        protected MenuItemInfo[] m_insceneMenuItems = new MenuItemInfo[] { };
 
         public override void ExecuteMenuCommand(MenuClickArgs args)
         {

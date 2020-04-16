@@ -12,6 +12,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VRExperience.Meeting;
 using VRExperience.Meetings.UI;
+using Fordi.ScreenSharing;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -43,6 +44,7 @@ namespace VRExperience.UI.MenuControl
         void SwitchToDesktopOnlyMode();
         void DisableDesktopOnlyMode();
         void SwitchStandaloneMenu();
+        void LoadRemoteDesktopView(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
     }
 
     public class Sound
@@ -63,6 +65,8 @@ namespace VRExperience.UI.MenuControl
         private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab;
         [SerializeField]
         private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab;
+        [SerializeField]
+        private RemoteMonitorScreen m_dRemoteMonitorPrefab;
         [SerializeField]
         private ColorInterface m_colorInterfacePrefab;
         [SerializeField]
@@ -312,6 +316,12 @@ namespace VRExperience.UI.MenuControl
             menu.Pair = dMenu;
         }
 
+        public void LoadRemoteDesktopView(MenuItemInfo[] items, bool block = true, bool persist = false)
+        {
+            m_screensRoot.gameObject.SetActive(true);
+            var dMenu = Instantiate(m_dRemoteMonitorPrefab, m_dScreenRoot);
+            dMenu.OpenMenu(items, block, persist);
+        }
 
         public void OpenObjectInterface(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
         {
@@ -452,11 +462,10 @@ namespace VRExperience.UI.MenuControl
 
         public void GoBack()
         {
-            if (m_screenStack.Count > 1)
-            {
+            if (m_screenStack.Count > 0)
                 m_screenStack.Pop().Close();
+            if (m_screenStack.Count > 0)
                 m_screenStack.Peek().Reopen();
-            }
         }
 
         public void ShowTooltip(string text)

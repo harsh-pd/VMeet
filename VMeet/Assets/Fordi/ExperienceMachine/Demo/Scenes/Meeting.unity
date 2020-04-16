@@ -436,6 +436,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExperienceMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 8221756216845216751, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: oculusUserID
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: m_sidePanelsRoot
@@ -480,13 +485,14 @@ PrefabInstance:
         type: 3}
       propertyPath: m_dMainMenuPrefab
       value: 
+      objectReference: {fileID: 2109265851013776062, guid: 26d55a76900fbe64c87dc92a3d2c6de3,
+        type: 3}
+    - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_dRemoteMonitorPrefab
+      value: 
       objectReference: {fileID: 2109265851013776062, guid: b1cb72d94de00a1478151194371a2295,
         type: 3}
-    - target: {fileID: 8221756216845216751, guid: 2a7e3c1abf054f745bb1480314b29966,
-        type: 3}
-      propertyPath: oculusUserID
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8221756215893366404, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: m_LocalPosition.x

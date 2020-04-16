@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.023529412, b: 0.078431375, a: 1}
+  m_Color: {r: 0, g: 0.023529412, b: 0.078431375, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -518,7 +518,7 @@ GameObject:
   - component: {fileID: 664228715591439648}
   - component: {fileID: 2109265851013776062}
   m_Layer: 5
-  m_Name: DRemoteMonitorScreen
+  m_Name: DMeetingMainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.019607844, g: 0.019607844, b: 0.04705883, a: 1}
+  m_Color: {r: 0.019607844, g: 0.019607844, b: 0.04705883, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

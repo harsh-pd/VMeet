@@ -59,7 +59,7 @@ namespace VRExperience.UI.MenuControl
         protected GameObject m_loader = null;
 
         [SerializeField]
-        private GameObject m_standaloneMenu = null;
+        protected GameObject m_standaloneMenu = null;
 
         [SerializeField]
         protected Blocker m_blocker;

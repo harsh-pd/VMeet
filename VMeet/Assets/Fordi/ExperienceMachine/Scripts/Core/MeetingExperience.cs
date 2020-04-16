@@ -37,5 +37,11 @@ namespace VRExperience.Core
 
             return null;
         }
+
+        public override void OnLoad()
+        {
+            base.OnLoad();
+            m_vrMenu.LoadRemoteDesktopView(m_insceneMenuItems);
+        }
     }
 }
