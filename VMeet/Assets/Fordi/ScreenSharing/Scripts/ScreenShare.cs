@@ -241,6 +241,12 @@ namespace Fordi.ScreenSharing
             mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR | LOG_FILTER.CRITICAL);
             // set callbacks (optional)
             mRtcEngine.SetParameters("{\"rtc.log_filter\": 65535}");
+            //Configure the external video source
+            //mRtcEngine.SetExternalVideoSource(true, false);
+            //// Start video mode
+            mRtcEngine.EnableVideo();
+            //// allow camera output callback
+            mRtcEngine.EnableVideoObserver();
             // join channel
             mRtcEngine.JoinChannel(channelName, null, 0);
             mRtcEngine.OnUserJoined = OtherUserJoined;
