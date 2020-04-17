@@ -18,8 +18,6 @@ namespace Fordi.ScreenSharing
         [SerializeField]
         private GameObject m_menuBorderPrefab = null;
         [SerializeField]
-        private VideoSurface m_remoteMonitorView;
-        [SerializeField]
         private VideoSurface m_remoteMonitorViewPrefab = null;
 
         private Toggle m_micToggle = null;
@@ -27,6 +25,8 @@ namespace Fordi.ScreenSharing
 
         private IAppTheme m_appTheme = null;
         private IScreenShare m_screenShare = null;
+
+        private VideoSurface m_remoteMonitorView;
 
         protected override void AwakeOverride()
         {
