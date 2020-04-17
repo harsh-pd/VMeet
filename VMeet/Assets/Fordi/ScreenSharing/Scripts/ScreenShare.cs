@@ -59,6 +59,16 @@ namespace Fordi.ScreenSharing
             mRtcEngine.OnUserJoined = OtherUserJoined;
         }
 
+        private void OnDestroy()
+        {
+            if (mRtcEngine != null)
+            {
+                mRtcEngine.LeaveChannel();
+                IRtcEngine.Destroy();
+                mRtcEngine = null;
+            }
+        }
+
         void Update()
         {
             //Start the screenshare Coroutine
