@@ -49,6 +49,8 @@ public class Broadcast : MonoBehaviour
 
     [SerializeField]
     private VideoSurface m_videoSurfacePrefab = null;
+    [SerializeField]
+    private Renderer m_pixelPreview = null;
 
     private void CreateTextureIfNeeded()
     {
@@ -96,6 +98,11 @@ public class Broadcast : MonoBehaviour
         {
             mTexture.SetPixels32(colors);
             mTexture.Apply();
+        }
+
+        if (m_pixelPreview != null)
+        {
+            m_pixelPreview.material.mainTexture = mTexture;
         }
 
         // Get the Raw Texture data from the the from the texture and apply it to an array of bytes
