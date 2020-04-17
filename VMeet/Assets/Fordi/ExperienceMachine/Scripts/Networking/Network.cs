@@ -240,13 +240,13 @@ namespace Fordi.Networking
 
         public void ToggleScreenStreaming(bool val)
         {
-            photonView.RPC("RPC_StopScreenShare", RpcTarget.Others, val);
+            photonView.RPC("RPC_StopScreenShare", RpcTarget.Others, PhotonNetwork.LocalPlayer.ActorNumber, val);
         }
 
         [PunRPC]
         private void RPC_StopScreenShare(int sender, bool val)
         {
-            m_screenShare.ToggleScreenReceiving(PhotonNetwork.LocalPlayer.ActorNumber, val);
+            m_screenShare.ToggleScreenReceiving(val);
         }
         #endregion
     }
