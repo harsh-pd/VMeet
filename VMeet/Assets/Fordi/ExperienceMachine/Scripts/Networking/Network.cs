@@ -246,7 +246,7 @@ namespace Fordi.Networking
         [PunRPC]
         private void RPC_StopScreenShare(int sender, bool val)
         {
-            m_screenShare.ToggleScreenReceiving(val);
+            m_screenShare.ToggleScreenReceiving(PhotonNetwork.LocalPlayer.ActorNumber, val);
         }
         #endregion
     }
