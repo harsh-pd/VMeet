@@ -64,6 +64,7 @@ namespace Fordi.ScreenSharing
             if (mRtcEngine != null)
             {
                 mRtcEngine.LeaveChannel();
+                mRtcEngine.DisableVideoObserver();
                 IRtcEngine.Destroy();
                 mRtcEngine = null;
             }
