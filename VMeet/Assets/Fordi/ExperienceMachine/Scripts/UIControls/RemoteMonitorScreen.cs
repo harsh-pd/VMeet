@@ -101,11 +101,11 @@ namespace Fordi.ScreenSharing
 
         public void ToggleMonitor(bool val)
         {
-            if (val && m_remoteMonitorView != null)
+            if (!val && m_remoteMonitorView != null)
             {
                 Destroy(m_remoteMonitorView.gameObject);
             }
-            else if (!val)
+            else if (val)
             {
                 m_remoteMonitorView = Instantiate(m_remoteMonitorViewPrefab, transform);
                 m_remoteMonitorView.transform.SetSiblingIndex(transform.childCount - 1);
