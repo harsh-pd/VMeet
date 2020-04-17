@@ -21,8 +21,7 @@ namespace Fordi.ScreenSharing
 
         private string appId = "397c1095001f4f88abe788a32dcd1570";
 
-        [SerializeField]
-        private string channelName = "agora";
+        private string channelName = "channeltest";
         public IRtcEngine mRtcEngine;
         int i = 100;
 
