@@ -218,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_videoSurfacePrefab: {fileID: 8944037213810936513, guid: 0e326c7340d44ff40ba0753ccccd3863,
     type: 3}
-  m_pixelPreview: {fileID: 0}
+  m_pixelPreview: {fileID: 1728393443}
 --- !u!1 &772106462
 GameObject:
   m_ObjectHideFlags: 0
