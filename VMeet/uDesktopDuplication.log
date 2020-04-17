@@ -1,15 +1,427 @@
-[uDD::Log][2020-04-17 14:17:19] Start
-[uDD::Log][2020-04-17 14:17:19] OS Version    : 10.0
-[uDD::Log][2020-04-17 14:17:19] Build Number  : 17763
-[uDD::Log][2020-04-17 14:17:19] Service Pack  : 
-[uDD::Log][2020-04-17 14:17:19] Graphics Card [0] : NVIDIA GeForce GTX 1070
-[uDD::Log][2020-04-17 14:17:19]   > Monitor[0] : \\.\DISPLAY1
-[uDD::Log][2020-04-17 14:17:19] Graphics Card [1] : Intel(R) HD Graphics 530
-[uDD::Log][2020-04-17 14:17:19] Graphics Card [2] : Microsoft Basic Render Driver
-[uDD::Log][2020-04-17 14:17:19] Monitor::Initialized() =>
-[uDD::Log][2020-04-17 14:17:19]     ID    : 0
-[uDD::Log][2020-04-17 14:17:19]     Size  : (1920, 1080)
-[uDD::Log][2020-04-17 14:17:19]     DPI   : (141, 142)
-[uDD::Log][2020-04-17 14:17:19]     Rot   : Landscape
-[uDD::Log][2020-04-17 14:17:19] Duplicator::Initialize() => OK.
-[uDD::Log][2020-04-17 14:24:54] Stop
+[uDD::Log][2020-04-17 14:26:16] Start
+[uDD::Log][2020-04-17 14:26:16] OS Version    : 10.0
+[uDD::Log][2020-04-17 14:26:16] Build Number  : 17763
+[uDD::Log][2020-04-17 14:26:16] Service Pack  : 
+[uDD::Log][2020-04-17 14:26:16] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:26:16]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:26:16] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:26:16] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:26:16] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:26:16]     ID    : 0
+[uDD::Log][2020-04-17 14:26:16]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:26:16]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:26:16]     Rot   : Landscape
+[uDD::Log][2020-04-17 14:26:17] Duplicator::Initialize() => OK.
+[uDD::Log][2020-04-17 14:27:03] Duplicator::UpdateMoveRects() => DXGI_ERROR_ACCESS_LOST.
+[uDD::Log][2020-04-17 14:27:03] Duplicator::UpdateDirtyRects() => DXGI_ERROR_ACCESS_LOST.
+[uDD::Log][2020-04-17 14:27:03] Duplicator::Duplicate() => DXGI_ERROR_ACCESS_LOST.
+[uDD::Err][2020-04-17 14:27:03] Duplicator::Duplicate() => DXGI_ERROR_INVALID_CALL.
+[uDD::Log][2020-04-17 14:27:04] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:04] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:04]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:04] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:04] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:04] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:04]     ID    : 0
+[uDD::Log][2020-04-17 14:27:04]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:04]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:04]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:04] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:05] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:05] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:05]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:05] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:05] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:05] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:05]     ID    : 0
+[uDD::Log][2020-04-17 14:27:05]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:05]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:05]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:05] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:06] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:06] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:06]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:06] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:06] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:06] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:06]     ID    : 0
+[uDD::Log][2020-04-17 14:27:06]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:06]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:06]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:06] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:07] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:07] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:07]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:07] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:07] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:07] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:07]     ID    : 0
+[uDD::Log][2020-04-17 14:27:07]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:07]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:07]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:07] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:08] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:08] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:08]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:08] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:08] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:08] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:08]     ID    : 0
+[uDD::Log][2020-04-17 14:27:08]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:08]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:08]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:08] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:09] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:09] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:09]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:09] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:09] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:09] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:09]     ID    : 0
+[uDD::Log][2020-04-17 14:27:09]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:09]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:09]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:09] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:10] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:10] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:10]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:10] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:10] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:10] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:10]     ID    : 0
+[uDD::Log][2020-04-17 14:27:10]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:10]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:10]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:10] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:11] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:11] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:11]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:11] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:11] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:11] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:11]     ID    : 0
+[uDD::Log][2020-04-17 14:27:11]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:11]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:11]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:11] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:12] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:12] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:12]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:12] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:12] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:12] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:12]     ID    : 0
+[uDD::Log][2020-04-17 14:27:12]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:12]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:12]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:12] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:13] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:13] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:13]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:13] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:13] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:13] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:13]     ID    : 0
+[uDD::Log][2020-04-17 14:27:13]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:13]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:13]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:13] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:14] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:14] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:14]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:14] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:14] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:14] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:14]     ID    : 0
+[uDD::Log][2020-04-17 14:27:14]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:14]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:14]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:14] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:15] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:15] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:15]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:15] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:15] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:15] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:15]     ID    : 0
+[uDD::Log][2020-04-17 14:27:15]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:15]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:15]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:15] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:16] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:16] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:16]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:16] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:16] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:16] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:16]     ID    : 0
+[uDD::Log][2020-04-17 14:27:16]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:16]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:16]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:16] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:17] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:17] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:17]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:17] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:17] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:17] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:17]     ID    : 0
+[uDD::Log][2020-04-17 14:27:17]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:17]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:17]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:17] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:18] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:18] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:18]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:18] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:18] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:18] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:18]     ID    : 0
+[uDD::Log][2020-04-17 14:27:18]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:18]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:18]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:19] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:19] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:20] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:20]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:20] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:20] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:20] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:20]     ID    : 0
+[uDD::Log][2020-04-17 14:27:20]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:20]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:20]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:20] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:21] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:21] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:21]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:21] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:21] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:21] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:21]     ID    : 0
+[uDD::Log][2020-04-17 14:27:21]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:21]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:21]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:21] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:22] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:22] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:22]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:22] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:22] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:22] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:22]     ID    : 0
+[uDD::Log][2020-04-17 14:27:22]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:22]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:22]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:22] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:23] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:23] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:23]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:23] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:23] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:23] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:23]     ID    : 0
+[uDD::Log][2020-04-17 14:27:23]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:23]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:23]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:23] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:24] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:24] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:24]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:24] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:24] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:24] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:24]     ID    : 0
+[uDD::Log][2020-04-17 14:27:24]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:24]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:24]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:24] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:25] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:25] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:25]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:25] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:25] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:25] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:25]     ID    : 0
+[uDD::Log][2020-04-17 14:27:25]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:25]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:25]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:25] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:26] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:26] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:26]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:26] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:26] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:26] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:26]     ID    : 0
+[uDD::Log][2020-04-17 14:27:26]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:26]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:26]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:26] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:27] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:27] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:27]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:27] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:27] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:27] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:27]     ID    : 0
+[uDD::Log][2020-04-17 14:27:27]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:27]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:27]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:27] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:28] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:28] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:28]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:28] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:28] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:28] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:28]     ID    : 0
+[uDD::Log][2020-04-17 14:27:28]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:28]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:28]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:28] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:29] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:29] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:29]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:29] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:29] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:29] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:29]     ID    : 0
+[uDD::Log][2020-04-17 14:27:29]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:29]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:29]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:29] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:30] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:30] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:30]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:30] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:30] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:30] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:30]     ID    : 0
+[uDD::Log][2020-04-17 14:27:30]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:30]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:30]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:30] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:31] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:31] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:31]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:31] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:31] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:31] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:31]     ID    : 0
+[uDD::Log][2020-04-17 14:27:31]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:31]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:31]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:31] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:32] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:32] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:32]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:32] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:32] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:32] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:32]     ID    : 0
+[uDD::Log][2020-04-17 14:27:32]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:32]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:32]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:32] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:33] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:33] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:33]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:33] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:33] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:33] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:33]     ID    : 0
+[uDD::Log][2020-04-17 14:27:33]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:33]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:33]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:33] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:34] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:34] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:34]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:34] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:34] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:34] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:34]     ID    : 0
+[uDD::Log][2020-04-17 14:27:34]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:34]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:34]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:34] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:35] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:35] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:35]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:35] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:35] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:35] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:35]     ID    : 0
+[uDD::Log][2020-04-17 14:27:35]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:35]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:35]     Rot   : Landscape
+[uDD::Err][2020-04-17 14:27:35] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 14:27:36] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 14:27:36] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 14:27:36]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 14:27:36] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 14:27:36] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 14:27:36] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 14:27:36]     ID    : 0
+[uDD::Log][2020-04-17 14:27:36]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 14:27:36]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 14:27:36]     Rot   : Landscape
+[uDD::Log][2020-04-17 14:27:36] Duplicator::Initialize() => OK.
+[uDD::Log][2020-04-17 15:15:50] Duplicator::Duplicate() => DXGI_ERROR_ACCESS_LOST.
+[uDD::Log][2020-04-17 15:15:51] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 15:15:51] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 15:15:51]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 15:15:51] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 15:15:51] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 15:15:51] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 15:15:51]     ID    : 0
+[uDD::Log][2020-04-17 15:15:51]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 15:15:51]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 15:15:51]     Rot   : Landscape
+[uDD::Err][2020-04-17 15:15:51] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 15:15:52] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 15:15:52] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 15:15:52]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 15:15:52] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 15:15:52] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 15:15:52] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 15:15:52]     ID    : 0
+[uDD::Log][2020-04-17 15:15:52]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 15:15:52]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 15:15:52]     Rot   : Landscape
+[uDD::Err][2020-04-17 15:15:52] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 15:15:53] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 15:15:53] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 15:15:53]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 15:15:53] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 15:15:53] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 15:15:53] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 15:15:53]     ID    : 0
+[uDD::Log][2020-04-17 15:15:53]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 15:15:53]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 15:15:53]     Rot   : Landscape
+[uDD::Err][2020-04-17 15:15:53] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 15:15:54] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 15:15:54] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 15:15:54]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 15:15:54] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 15:15:54] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 15:15:54] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 15:15:54]     ID    : 0
+[uDD::Log][2020-04-17 15:15:54]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 15:15:54]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 15:15:54]     Rot   : Landscape
+[uDD::Err][2020-04-17 15:15:54] Duplicator::Initialize() => Access denied.
+[uDD::Log][2020-04-17 15:15:55] MonitorManager::Reinitialize()
+[uDD::Log][2020-04-17 15:15:55] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 15:15:55]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 15:15:55] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 15:15:55] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 15:15:55] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 15:15:55]     ID    : 0
+[uDD::Log][2020-04-17 15:15:55]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 15:15:55]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 15:15:55]     Rot   : Landscape
+[uDD::Log][2020-04-17 15:15:55] Duplicator::Initialize() => OK.
+[uDD::Log][2020-04-17 15:16:01] Stop
