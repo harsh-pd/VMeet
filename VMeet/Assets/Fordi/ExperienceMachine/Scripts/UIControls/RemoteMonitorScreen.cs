@@ -36,6 +36,12 @@ namespace Fordi.ScreenSharing
             m_screenShare.OtherUserJoinedEvent += RemoteUserJoinedChannel;
         }
 
+        protected override void OnDestroyOverride()
+        {
+            base.OnDestroyOverride();
+            m_screenShare.OtherUserJoinedEvent -= RemoteUserJoinedChannel;
+        }
+
         private void RemoteUserJoinedChannel(object sender, uint e)
         {
             ToggleMonitor(true);
