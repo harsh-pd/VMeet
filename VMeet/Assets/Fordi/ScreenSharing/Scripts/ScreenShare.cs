@@ -13,6 +13,7 @@ namespace Fordi.ScreenSharing
     {
         bool BroadcastScreen { get; set; }
         EventHandler<uint> OtherUserJoinedEvent { get; set; }
+        void Initialize();
     }
 
     public class ScreenShare : MonoBehaviour, IScreenShare
@@ -30,14 +31,35 @@ namespace Fordi.ScreenSharing
 
         public EventHandler<uint> OtherUserJoinedEvent { get; set; }
 
-        private void Awake()
+        [SerializeField]
+        private VideoSurface m_videoSurfacePrefab = null;
+        [SerializeField]
+        private Renderer m_pixelPreview = null;
+
+        private void CreateTextureIfNeeded()
         {
-            m_localMonitorView = FindObjectOfType<uDesktopDuplication.Texture>();
+            if (!mTexture || mTexture.width != 1920 || mTexture.height != 1080)
+            {
+                colors = new Color32[1920 * 1080];
+                mTexture = new Texture2D(1920, 1080, TextureFormat.BGRA32, false);
+                Debug.LogError("Texture created");
+            }
         }
 
-        void Start()
+        private void Initialize()
         {
+            if (mRtcEngine != null)
+            {
+                mRtcEngine.LeaveChannel();
+                mRtcEngine.DisableVideoObserver();
+                IRtcEngine.Destroy();
+                mRtcEngine = null;
+                m_localMonitorView = null;
+            }
+
             Debug.Log("ScreenShare Activated");
+            m_localMonitorView = FindObjectOfType<uDesktopDuplication.Texture>();
+
             mRtcEngine = IRtcEngine.getEngine(appId);
             // enable log
             mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR | LOG_FILTER.CRITICAL);
@@ -56,21 +78,6 @@ namespace Fordi.ScreenSharing
             //Create a texture the size of the rectangle you just created
             //mTexture = new Texture2D((int)mRect.width, (int)mRect.height, TextureFormat.RGBA32, false);
             mRtcEngine.OnUserJoined = OtherUserJoined;
-        }
-
-        [SerializeField]
-        private VideoSurface m_videoSurfacePrefab = null;
-        [SerializeField]
-        private Renderer m_pixelPreview = null;
-
-        private void CreateTextureIfNeeded()
-        {
-            if (!mTexture || mTexture.width != 1920 || mTexture.height != 1080)
-            {
-                colors = new Color32[1920 * 1080];
-                mTexture = new Texture2D(1920, 1080, TextureFormat.BGRA32, false);
-                Debug.LogError("Texture created");
-            }
         }
 
         private static byte[] Color32ArrayToByteArray(Color32[] colors)
@@ -111,7 +118,7 @@ namespace Fordi.ScreenSharing
         void Update()
         {
             //Start the screenshare Coroutine
-            if (m_localMonitorView != null)
+            if (mRtcEngine != null && m_localMonitorView != null)
                 StartCoroutine(shareScreen());
         }
         //Screen Share
