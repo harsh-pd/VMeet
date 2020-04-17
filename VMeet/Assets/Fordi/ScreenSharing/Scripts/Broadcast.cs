@@ -12,7 +12,7 @@ public class Broadcast : MonoBehaviour
     Texture2D mTexture;
     Rect mRect;
     private string appId = "397c1095001f4f88abe788a32dcd1570";
-    private string channelName = "btest";
+    private string channelName = "bt1";
     public IRtcEngine mRtcEngine;
     int i = 100;
 
