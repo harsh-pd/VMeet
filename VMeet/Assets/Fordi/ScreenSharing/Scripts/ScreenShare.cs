@@ -46,7 +46,7 @@ namespace Fordi.ScreenSharing
             }
         }
 
-        private void Initialize()
+        public void Initialize()
         {
             if (mRtcEngine != null)
             {
