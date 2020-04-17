@@ -1,17 +1,23 @@
-﻿using System;
+﻿using Fordi.ScreenSharing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRExperience.Common;
 using VRExperience.UI.MenuControl;
 
 namespace VRExperience.Core
 {
     public class MeetingExperience : Gameplay
     {
+        protected IScreenShare m_screenShare = null;
+
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
             m_music = m_commonResource.AssetDb.MeetingMusic;
+            m_screenShare = IOC.Resolve<IScreenShare>();
+            m_screenShare.Initialize();
         }
 
         public override ExperienceResource[] GetResource(ResourceType resourceType, string category)

@@ -109,9 +109,9 @@ namespace Fordi.ScreenSharing
         {
             //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             //var vs = cube.AddComponent<VideoSurface>();
-            var vs = Instantiate(m_videoSurfacePrefab, FindObjectOfType<Canvas>().transform);
-            vs.SetForUser(uid);
-            vs.SetEnable(true);
+            //var vs = Instantiate(m_videoSurfacePrefab, FindObjectOfType<Canvas>().transform);
+            //vs.SetForUser(uid);
+            //vs.SetEnable(true);
             OtherUserJoinedEvent?.Invoke(this, uid);
         }
 
