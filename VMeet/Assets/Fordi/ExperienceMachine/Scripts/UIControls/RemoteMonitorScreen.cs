@@ -34,19 +34,24 @@ namespace Fordi.ScreenSharing
             m_appTheme = IOC.Resolve<IAppTheme>();
             m_screenShare = IOC.Resolve<IScreenShare>();
             m_screenShare.OtherUserJoinedEvent += RemoteUserJoinedChannel;
+            m_screenShare.RemoteScreenShareEvent += RemoteScreenShareNotification;
         }
 
         protected override void OnDestroyOverride()
         {
             base.OnDestroyOverride();
             m_screenShare.OtherUserJoinedEvent -= RemoteUserJoinedChannel;
+            m_screenShare.RemoteScreenShareEvent -= RemoteScreenShareNotification;
         }
 
         private void RemoteUserJoinedChannel(object sender, uint e)
         {
-            ToggleMonitor(true);
-            m_remoteMonitorView.SetForUser(e);
-            m_remoteMonitorView.SetEnable(true);
+            if (m_remoteStreaming)
+            {
+                ToggleMonitor(true);
+                m_remoteMonitorView.SetForUser(e);
+                m_remoteMonitorView.SetEnable(true);
+            }
         }
 
         public override void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
@@ -60,7 +65,7 @@ namespace Fordi.ScreenSharing
 
             toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
             m_screenShareToggle = toggleMenu.GetComponentInChildren<Toggle>();
-            m_screenShareToggle.isOn = true;
+            m_screenShareToggle.isOn = false;
             m_screenShareToggle.onValueChanged.AddListener(ScreenSharingToggle);
             toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Share Screen: ";
 
@@ -96,7 +101,7 @@ namespace Fordi.ScreenSharing
             if (m_screenShare == null)
                 m_screenShare = IOC.Resolve<IScreenShare>();
             if (m_screenShare != null)
-                m_screenShare.BroadcastScreen = val;
+                m_screenShare.ToggleScreenSharing(val);
         }
 
         public void ToggleMonitor(bool val)
@@ -104,12 +109,22 @@ namespace Fordi.ScreenSharing
             if (!val && m_remoteMonitorView != null)
             {
                 Destroy(m_remoteMonitorView.gameObject);
+                m_screenShareToggle.interactable = true;
             }
             else if (val)
             {
                 m_remoteMonitorView = Instantiate(m_remoteMonitorViewPrefab, transform);
                 m_remoteMonitorView.transform.SetSiblingIndex(transform.childCount - 1);
+                m_screenShareToggle.interactable = false;
             }
+        }
+
+        private bool m_remoteStreaming = false;
+        private void RemoteScreenShareNotification(object sender, ScreenEventArgs e)
+        {
+            if (!e.Streaming)
+                ToggleMonitor(false);
+            m_remoteStreaming = e.Streaming;
         }
     }
 }

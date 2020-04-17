@@ -6,14 +6,24 @@ using UnityEngine.UI;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System;
+using Fordi.Networking;
+using VRExperience.Common;
 
 namespace Fordi.ScreenSharing
 {
+    public class ScreenEventArgs : EventArgs
+    {
+        public bool Streaming;
+    }
+
     public interface IScreenShare
     {
         bool BroadcastScreen { get; set; }
         EventHandler<uint> OtherUserJoinedEvent { get; set; }
-        void Initialize();
+        EventHandler<ScreenEventArgs> RemoteScreenShareEvent { get; set; }
+        void RemoteScreenShareNotification(bool val);
+        void ToggleScreenSharing(bool val);
+        void ToggleScreenReceiving(bool val);
     }
 
     public class ScreenShare : MonoBehaviour, IScreenShare
@@ -30,11 +40,14 @@ namespace Fordi.ScreenSharing
         public bool BroadcastScreen { get; set; } = true;
 
         public EventHandler<uint> OtherUserJoinedEvent { get; set; }
+        public EventHandler<ScreenEventArgs> RemoteScreenShareEvent { get; set; }
 
         [SerializeField]
         private VideoSurface m_videoSurfacePrefab = null;
         [SerializeField]
         private Renderer m_pixelPreview = null;
+
+        private INetwork m_network;
 
         private void CreateTextureIfNeeded()
         {
@@ -44,40 +57,6 @@ namespace Fordi.ScreenSharing
                 mTexture = new Texture2D(1920, 1080, TextureFormat.BGRA32, false);
                 Debug.LogError("Texture created");
             }
-        }
-
-        public void Initialize()
-        {
-            if (mRtcEngine != null)
-            {
-                mRtcEngine.LeaveChannel();
-                mRtcEngine.DisableVideoObserver();
-                IRtcEngine.Destroy();
-                mRtcEngine = null;
-                m_localMonitorView = null;
-            }
-
-            Debug.Log("ScreenShare Activated");
-            m_localMonitorView = FindObjectOfType<uDesktopDuplication.Texture>();
-
-            mRtcEngine = IRtcEngine.getEngine(appId);
-            // enable log
-            mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR | LOG_FILTER.CRITICAL);
-            // set callbacks (optional)
-            mRtcEngine.SetParameters("{\"rtc.log_filter\": 65535}");
-            //Configure the external video source
-            mRtcEngine.SetExternalVideoSource(true, false);
-            // Start video mode
-            mRtcEngine.EnableVideo();
-            // allow camera output callback
-            mRtcEngine.EnableVideoObserver();
-            // join channel
-            mRtcEngine.JoinChannel(channelName, null, 0);
-            //Create a rectangle width and height of the screen
-            //mRect = new Rect(0, 0, Screen.width, Screen.height);
-            //Create a texture the size of the rectangle you just created
-            //mTexture = new Texture2D((int)mRect.width, (int)mRect.height, TextureFormat.RGBA32, false);
-            mRtcEngine.OnUserJoined = OtherUserJoined;
         }
 
         private static byte[] Color32ArrayToByteArray(Color32[] colors)
@@ -113,6 +92,11 @@ namespace Fordi.ScreenSharing
             //vs.SetForUser(uid);
             //vs.SetEnable(true);
             OtherUserJoinedEvent?.Invoke(this, uid);
+        }
+
+        private void Awake()
+        {
+            m_network = IOC.Resolve<INetwork>();
         }
 
         void Update()
@@ -195,6 +179,73 @@ namespace Fordi.ScreenSharing
                 IRtcEngine.Destroy();
                 mRtcEngine = null;
             }
+        }
+
+        public void RemoteScreenShareNotification(bool val)
+        {
+            RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs() { Streaming = val });
+        }
+
+        public void ToggleScreenSharing(bool val)
+        {
+            if (mRtcEngine != null)
+            {
+                mRtcEngine.OnUserJoined = null;
+                mRtcEngine.LeaveChannel();
+                mRtcEngine.DisableVideoObserver();
+                IRtcEngine.Destroy();
+                mRtcEngine = null;
+                m_localMonitorView = null;
+                m_network.ToggleScreenStreaming(val);
+                if (!val)
+                    return;
+            }
+
+            Debug.Log("ScreenShare activated");
+            m_localMonitorView = FindObjectOfType<uDesktopDuplication.Texture>();
+
+            mRtcEngine = IRtcEngine.getEngine(appId);
+            // enable log
+            mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR | LOG_FILTER.CRITICAL);
+            // set callbacks (optional)
+            mRtcEngine.SetParameters("{\"rtc.log_filter\": 65535}");
+            //Configure the external video source
+            mRtcEngine.SetExternalVideoSource(true, false);
+            // Start video mode
+            mRtcEngine.EnableVideo();
+            // allow camera output callback
+            mRtcEngine.EnableVideoObserver();
+            // join channel
+            mRtcEngine.JoinChannel(channelName, null, 0);
+            mRtcEngine.OnUserJoined = OtherUserJoined;
+            m_network.ToggleScreenStreaming(val);
+        }
+
+        public void ToggleScreenReceiving(bool val)
+        {
+            if (mRtcEngine != null)
+            {
+                mRtcEngine.OnUserJoined = null;
+                mRtcEngine.LeaveChannel();
+                mRtcEngine.DisableVideoObserver();
+                IRtcEngine.Destroy();
+                mRtcEngine = null;
+                m_localMonitorView = null;
+                if (!val)
+                    return;
+            }
+
+            Debug.Log("ScreenReceiving activated");
+            m_localMonitorView = FindObjectOfType<uDesktopDuplication.Texture>();
+
+            mRtcEngine = IRtcEngine.getEngine(appId);
+            // enable log
+            mRtcEngine.SetLogFilter(LOG_FILTER.DEBUG | LOG_FILTER.INFO | LOG_FILTER.WARNING | LOG_FILTER.ERROR | LOG_FILTER.CRITICAL);
+            // set callbacks (optional)
+            mRtcEngine.SetParameters("{\"rtc.log_filter\": 65535}");
+            // join channel
+            mRtcEngine.JoinChannel(channelName, null, 0);
+            mRtcEngine.OnUserJoined = OtherUserJoined;
         }
     }
 }

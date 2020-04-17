@@ -48,7 +48,6 @@ namespace VRExperience.Core
             base.OnLoad();
             Debug.LogError("OnLoad");
             m_vrMenu.LoadRemoteDesktopView(m_insceneMenuItems);
-            m_screenShare.Initialize();
         }
     }
 }

@@ -10,6 +10,7 @@ using VRExperience.Common;
 using UnityEngine.SceneManagement;
 using VRExperience.UI.MenuControl;
 using System.Linq;
+using Fordi.ScreenSharing;
 
 namespace Fordi.Networking
 {
@@ -19,6 +20,7 @@ namespace Fordi.Networking
         void JoinRoom(string roomName);
         void LeaveRoom(Action done);
         EventHandler RoomListUpdateEvent { get; set; }
+        void ToggleScreenStreaming(bool val);
     }
 
     public class Network : MonoBehaviourPunCallbacks, INetwork
@@ -33,6 +35,8 @@ namespace Fordi.Networking
         private IVRMenu m_vrMenu = null;
         private IMenuSelection m_menuSelection = null;
         private IExperienceMachine m_experienceMachine = null;
+        private IScreenShare m_screenShare = null;
+
         private const string MeetingRoom = "Meeting";
 
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
@@ -232,6 +236,17 @@ namespace Fordi.Networking
             //    Receivers = ReceiverGroup.All
             //};
             photonView.RPC("RPC_SpawnPlayer", RpcTarget.Others, PhotonNetwork.LocalPlayer.ActorNumber, viewPlayerId, viewAvatarId, true);
+        }
+
+        public void ToggleScreenStreaming(bool val)
+        {
+            photonView.RPC("RPC_StopScreenShare", RpcTarget.Others, val);
+        }
+
+        [PunRPC]
+        private void RPC_StopScreenShare(int sender, bool val)
+        {
+            m_screenShare.ToggleScreenReceiving(val);
         }
         #endregion
     }
