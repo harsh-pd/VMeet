@@ -23,6 +23,7 @@ namespace Fordi.ScreenSharing
         EventHandler<ScreenEventArgs> RemoteScreenShareEvent { get; set; }
         void ToggleScreenSharing(bool val);
         void ToggleScreenReceiving(bool val);
+        bool ReceivingRemoteStream { get; }
     }
 
     public class ScreenShare : MonoBehaviour, IScreenShare
@@ -92,6 +93,9 @@ namespace Fordi.ScreenSharing
             //vs.SetEnable(true);
             OtherUserJoinedEvent?.Invoke(this, uid);
         }
+
+        private bool m_receivingRemoteStream = false;
+        public bool ReceivingRemoteStream { get { return m_receivingRemoteStream; } set { m_receivingRemoteStream = value; } }
 
         private void Awake()
         {
@@ -215,7 +219,6 @@ namespace Fordi.ScreenSharing
             m_network.ToggleScreenStreaming(val);
         }
 
-        private bool m_receivingRemoteStream = false;
         public void ToggleScreenReceiving(bool val)
         {
             

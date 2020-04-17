@@ -46,7 +46,7 @@ namespace Fordi.ScreenSharing
 
         private void RemoteUserJoinedChannel(object sender, uint e)
         {
-            if (m_remoteStreaming)
+            if (m_screenShare.ReceivingRemoteStream)
             {
                 ToggleMonitor(true);
                 m_remoteMonitorView.SetForUser(e);
@@ -104,7 +104,7 @@ namespace Fordi.ScreenSharing
                 m_screenShare.ToggleScreenSharing(val);
         }
 
-        public void ToggleMonitor(bool val)
+        private void ToggleMonitor(bool val)
         {
             if (!val && m_remoteMonitorView != null)
             {
@@ -119,12 +119,10 @@ namespace Fordi.ScreenSharing
             }
         }
 
-        private bool m_remoteStreaming = false;
         private void RemoteScreenShareNotification(object sender, ScreenEventArgs e)
         {
             if (!e.Streaming)
                 ToggleMonitor(false);
-            m_remoteStreaming = e.Streaming;
             Debug.LogError(e.Streaming);
         }
     }
