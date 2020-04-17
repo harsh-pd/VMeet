@@ -17,7 +17,6 @@ namespace VRExperience.Core
             base.AwakeOverride();
             m_music = m_commonResource.AssetDb.MeetingMusic;
             m_screenShare = IOC.Resolve<IScreenShare>();
-            m_screenShare.Initialize();
         }
 
         public override ExperienceResource[] GetResource(ResourceType resourceType, string category)
@@ -48,6 +47,7 @@ namespace VRExperience.Core
         {
             base.OnLoad();
             m_vrMenu.LoadRemoteDesktopView(m_insceneMenuItems);
+            m_screenShare.Initialize();
         }
     }
 }
