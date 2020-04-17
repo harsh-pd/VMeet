@@ -14,6 +14,15 @@ public class Broadcast : MonoBehaviour
     private string channelName = "btest";
     public IRtcEngine mRtcEngine;
     int i = 100;
+
+    private uDesktopDuplication.Texture m_localMonitorView = null;
+    private Color32[] colors;
+
+    private void Awake()
+    {
+        m_localMonitorView = FindObjectOfType<uDesktopDuplication.Texture>();
+    }
+
     void Start()
     {
         Debug.Log("ScreenShare Activated");
@@ -52,7 +61,8 @@ public class Broadcast : MonoBehaviour
     void Update()
     {
         //Start the screenshare Coroutine
-        StartCoroutine(shareScreen());
+        if (m_localMonitorView != null)
+            StartCoroutine(shareScreen());
     }
     //Screen Share
     IEnumerator shareScreen()
