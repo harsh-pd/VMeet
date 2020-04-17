@@ -10,7 +10,6 @@ using System;
 public class Broadcast : MonoBehaviour
 {
     Texture2D mTexture;
-    Rect mRect;
     private string appId = "397c1095001f4f88abe788a32dcd1570";
     private string channelName = "bt1";
     public IRtcEngine mRtcEngine;
@@ -41,7 +40,7 @@ public class Broadcast : MonoBehaviour
         // join channel
         mRtcEngine.JoinChannel(channelName, null, 0);
         //Create a rectangle width and height of the screen
-        mRect = new Rect(0, 0, Screen.width, Screen.height);
+        //mRect = new Rect(0, 0, Screen.width, Screen.height);
         //Create a texture the size of the rectangle you just created
         //mTexture = new Texture2D((int)mRect.width, (int)mRect.height, TextureFormat.RGBA32, false);
         mRtcEngine.OnUserJoined = OtherUserJoined;
@@ -149,9 +148,9 @@ public class Broadcast : MonoBehaviour
             //apply raw data you are pulling from the rectangle you created earlier to the video frame
             externalVideoFrame.buffer = bytes;
             //Set the width of the video frame (in pixels)
-            externalVideoFrame.stride = (int)mRect.width;
+            externalVideoFrame.stride = (int)1920;
             //Set the height of the video frame
-            externalVideoFrame.height = (int)mRect.height;
+            externalVideoFrame.height = (int)1080;
             //Remove pixels from the sides of the frame
             externalVideoFrame.cropLeft = 10;
             externalVideoFrame.cropTop = 10;
