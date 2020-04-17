@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 2362295364454567662}
   - component: {fileID: 4566395642010313379}
   - component: {fileID: 6785213301357433361}
+  - component: {fileID: 7221040825306692501}
   m_Layer: 5
   m_Name: RemoteMonitorView
   m_TagString: Untagged
@@ -278,6 +279,19 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7221040825306692501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844322367814007301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318a20438a87047f994fba414d853cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VideoSurfaceType: 0
 --- !u!1 &1924388194389197502
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +624,8 @@ MonoBehaviour:
     type: 3}
   m_menuBorderPrefab: {fileID: 8033802373567879725, guid: 5ce03a37aa631884ab66a437421ceca5,
     type: 3}
+  m_remoteMonitorView: {fileID: 6785213301357433361}
+  m_videoSurface: {fileID: 7221040825306692501}
 --- !u!1 &8165484787880361731
 GameObject:
   m_ObjectHideFlags: 0

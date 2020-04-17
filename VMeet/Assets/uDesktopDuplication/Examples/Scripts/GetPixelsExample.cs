@@ -2,7 +2,7 @@
 
 public class GetPixelsExample : MonoBehaviour
 {
-    [SerializeField] uDesktopDuplication.Texture uddTexture;
+    //[SerializeField] uDesktopDuplication.Texture uddTexture;
 
     [SerializeField] int x = 100;
     [SerializeField] int y = 100;
@@ -34,7 +34,7 @@ public class GetPixelsExample : MonoBehaviour
         // must be called (performance will be slightly down).
         uDesktopDuplication.Manager.primary.useGetPixels = true;
 
-        var monitor = uddTexture.monitor;
+        var monitor = uDesktopDuplication.Manager.primary;
         if (!monitor.hasBeenUpdated) return;
 
         if (monitor.GetPixels(colors, x, y, w, h)) {

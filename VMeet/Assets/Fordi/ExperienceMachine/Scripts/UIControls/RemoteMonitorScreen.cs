@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using agora_gaming_rtc;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -17,21 +19,33 @@ namespace Fordi.ScreenSharing
         private GameObject m_menuBorderPrefab = null;
         [SerializeField]
         private RawImage m_remoteMonitorView;
+        [SerializeField]
+        private VideoSurface m_videoSurface = null;
 
         private Toggle m_micToggle = null;
         private Toggle m_screenShareToggle = null;
 
         private IAppTheme m_appTheme = null;
+        private IScreenShare m_screenShare = null;
 
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
             m_appTheme = IOC.Resolve<IAppTheme>();
+            m_screenShare = IOC.Resolve<IScreenShare>();
+            m_screenShare.OtherUserJoinedEvent += RemoteUserJoinedChannel;
+        }
+
+        private void RemoteUserJoinedChannel(object sender, uint e)
+        {
+            m_videoSurface.SetForUser(e);
+            m_videoSurface.SetEnable(true);
+            m_remoteMonitorView.color = Color.white;
         }
 
         public override void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
         {
-            m_remoteMonitorView.color = m_appTheme.SelectedTheme.panelInteractionBackground;
+            ToggleMonitor(false);
             var toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
             m_micToggle = toggleMenu.GetComponentInChildren<Toggle>();
             m_micToggle.isOn = true;
@@ -73,12 +87,15 @@ namespace Fordi.ScreenSharing
 
         private void ScreenSharingToggle(bool val)
         {
-            
+            if (m_screenShare == null)
+                m_screenShare = IOC.Resolve<IScreenShare>();
+            if (m_screenShare != null)
+                m_screenShare.BroadcastScreen = val;
         }
 
-        public void ActivateRemoteView()
+        public void ToggleMonitor(bool val)
         {
-            m_remoteMonitorView.color = Color.white;
+            m_remoteMonitorView.color = val ? Color.white : m_appTheme.SelectedTheme.panelInteractionBackground;
         }
     }
 }

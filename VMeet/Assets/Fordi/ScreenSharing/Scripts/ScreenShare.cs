@@ -6,12 +6,18 @@ using UnityEngine.UI;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System;
+
 namespace Fordi.ScreenSharing
 {
-    public class ScreenShare : MonoBehaviour
+    public interface IScreenShare
+    {
+        bool BroadcastScreen { get; set; }
+        EventHandler<uint> OtherUserJoinedEvent { get; set; }
+    }
+
+    public class ScreenShare : MonoBehaviour, IScreenShare
     {
         Texture2D mTexture;
-        Rect mRect;
 
         private string appId = "397c1095001f4f88abe788a32dcd1570";
 
@@ -19,6 +25,20 @@ namespace Fordi.ScreenSharing
         private string channelName = "agora";
         public IRtcEngine mRtcEngine;
         int i = 100;
+
+        private uDesktopDuplication.Texture m_localMonitorView = null;
+        private Color32[] colors;
+
+        public bool BroadcastScreen { get; set; } = true;
+
+        public EventHandler<uint> OtherUserJoinedEvent { get; set; }
+
+
+        private void Awake()
+        {
+            m_localMonitorView = FindObjectOfType<uDesktopDuplication.Texture>();
+        }
+
         void Start()
         {
             Debug.Log("ScreenShare Activated");
@@ -35,24 +55,54 @@ namespace Fordi.ScreenSharing
             mRtcEngine.EnableVideoObserver();
             // join channel
             mRtcEngine.JoinChannel(channelName, null, 0);
-            //Create a rectangle width and height of the screen
-            mRect = new Rect(0, 0, Screen.width, Screen.height);
-            //Create a texture the size of the rectangle you just created
-            mTexture = new Texture2D((int)mRect.width, (int)mRect.height, TextureFormat.RGBA32, false);
+
+            mRtcEngine.OnUserJoined = OtherUserJoined;
         }
+
         void Update()
         {
             //Start the screenshare Coroutine
-            StartCoroutine(shareScreen());
+            if (BroadcastScreen && m_localMonitorView != null)
+                StartCoroutine(shareScreen());
         }
+
+        private void OtherUserJoined(uint uid, int elapsed)
+        {
+            Debug.LogError("User Joined" + uid);
+            OtherUserJoinedEvent?.Invoke(this, uid);
+        }
+
+        private void CreateTextureIfNeeded()
+        {
+            if (!mTexture || mTexture.width != MouseControl.SystemWidth || mTexture.height != MouseControl.SystemHeight)
+            {
+                colors = new Color32[MouseControl.SystemWidth * MouseControl.SystemHeight];
+                mTexture = new Texture2D(MouseControl.SystemWidth, MouseControl.SystemHeight, TextureFormat.ARGB32, false);
+            }
+        }
+
         //Screen Share
         IEnumerator shareScreen()
         {
+            CreateTextureIfNeeded();
+            uDesktopDuplication.Manager.primary.useGetPixels = true;
+
+            var monitor = m_localMonitorView.monitor;
             yield return new WaitForEndOfFrame();
-            //Read the Pixels inside the Rectangle
-            mTexture.ReadPixels(mRect, 0, 0);
-            //Apply the Pixels read from the rectangle to the texture
-            mTexture.Apply();
+
+            if (!monitor.hasBeenUpdated)
+                yield break;
+
+            if (monitor.GetPixels(colors, 0, 0, MouseControl.SystemWidth, MouseControl.SystemHeight))
+            {
+                mTexture.SetPixels32(colors);
+                mTexture.Apply();
+            }
+
+            ////Read the Pixels inside the Rectangle
+            //mTexture.ReadPixels(mRect, 0, 0);
+            ////Apply the Pixels read from the rectangle to the texture
+            //mTexture.Apply();
             // Get the Raw Texture data from the the from the texture and apply it to an array of bytes
             byte[] bytes = mTexture.GetRawTextureData();
             // Make enough space for the bytes array
@@ -71,9 +121,9 @@ namespace Fordi.ScreenSharing
                 //apply raw data you are pulling from the rectangle you created earlier to the video frame
                 externalVideoFrame.buffer = bytes;
                 //Set the width of the video frame (in pixels)
-                externalVideoFrame.stride = (int)mRect.width;
+                externalVideoFrame.stride = (int)MouseControl.SystemWidth;
                 //Set the height of the video frame
-                externalVideoFrame.height = (int)mRect.height;
+                externalVideoFrame.height = (int)MouseControl.SystemHeight;
                 //Remove pixels from the sides of the frame
                 externalVideoFrame.cropLeft = 10;
                 externalVideoFrame.cropTop = 10;

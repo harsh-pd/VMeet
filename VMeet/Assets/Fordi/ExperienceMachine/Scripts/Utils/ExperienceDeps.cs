@@ -186,6 +186,24 @@ namespace VRExperience.Core
             }
         }
 
+        private IScreenShare m_screenShare;
+
+        protected virtual IScreenShare ScreenShare
+        {
+            get
+            {
+                ScreenShare screenShare = FindObjectOfType<ScreenShare>();
+                if (screenShare == null)
+                {
+                    var obj = new GameObject("ScreenShare");
+                    screenShare = obj.AddComponent<ScreenShare>();
+                    screenShare.transform.parent = transform;
+                    screenShare.transform.localPosition = Vector3.zero;
+                }
+                return screenShare;
+            }
+        }
+
         private void Awake()
         {
             if(m_instance != null)
@@ -210,6 +228,7 @@ namespace VRExperience.Core
             m_webInterface = WebInterface;
             m_network = Network;
             m_mouseControl = MouseControl;
+            m_screenShare = ScreenShare;
         }
 
         private void OnDestroy()
@@ -278,6 +297,7 @@ namespace VRExperience.Core
             IOC.RegisterFallback(() => Instance.m_webInterface);
             IOC.RegisterFallback(() => Instance.m_network);
             IOC.RegisterFallback(() => Instance.m_mouseControl);
+            IOC.RegisterFallback(() => Instance.m_screenShare);
 
             if (IOC.Resolve<IMenuSelection>() == null)
                 IOC.Register<IMenuSelection>(new MenuSelection());
