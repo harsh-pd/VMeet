@@ -37,10 +37,14 @@ public class Broadcast : MonoBehaviour
         mRtcEngine.OnUserJoined = OtherUserJoined;
     }
 
+    [SerializeField]
+    private VideoSurface m_videoSurfacePrefab = null;
+
     private void OtherUserJoined(uint uid, int elapsed)
     {
-        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        var vs = cube.AddComponent<VideoSurface>();
+        //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        //var vs = cube.AddComponent<VideoSurface>();
+        var vs = Instantiate(m_videoSurfacePrefab, FindObjectOfType<Canvas>().transform);
         vs.SetForUser(uid);
         vs.SetEnable(true);
     }
