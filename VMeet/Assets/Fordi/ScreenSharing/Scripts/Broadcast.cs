@@ -61,6 +61,31 @@ public class Broadcast : MonoBehaviour
         }
     }
 
+    private static byte[] Color32ArrayToByteArray(Color32[] colors)
+    {
+        if (colors == null || colors.Length == 0)
+            return null;
+
+        int lengthOfColor32 = Marshal.SizeOf(typeof(Color32));
+        int length = lengthOfColor32 * colors.Length;
+        byte[] bytes = new byte[length];
+
+        GCHandle handle = default(GCHandle);
+        try
+        {
+            handle = GCHandle.Alloc(colors, GCHandleType.Pinned);
+            IntPtr ptr = handle.AddrOfPinnedObject();
+            Marshal.Copy(ptr, bytes, 0, length);
+        }
+        finally
+        {
+            if (handle != default(GCHandle))
+                handle.Free();
+        }
+
+        return bytes;
+    }
+
     private void OtherUserJoined(uint uid, int elapsed)
     {
         //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -106,7 +131,7 @@ public class Broadcast : MonoBehaviour
         }
 
         // Get the Raw Texture data from the the from the texture and apply it to an array of bytes
-        byte[] bytes = mTexture.GetRawTextureData();
+        byte[] bytes = Color32ArrayToByteArray(colors);
         // Make enough space for the bytes array
         int size = Marshal.SizeOf(bytes[0]) * bytes.Length;
         // Check to see if there is an engine instance already created
