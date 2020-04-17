@@ -53,6 +53,7 @@ namespace Fordi.Networking
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+            m_screenShare = IOC.Resolve<IScreenShare>();
             if (!PhotonNetwork.IsConnectedAndReady)
                 PhotonNetwork.ConnectUsingSettings();
         }
