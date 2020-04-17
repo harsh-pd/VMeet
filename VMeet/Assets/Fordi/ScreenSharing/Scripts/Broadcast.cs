@@ -11,8 +11,7 @@ public class Broadcast : MonoBehaviour
     Texture2D mTexture;
     Rect mRect;
     private string appId = "397c1095001f4f88abe788a32dcd1570";
-    [SerializeField]
-    private string channelName = "agora";
+    private string channelName = "btest";
     public IRtcEngine mRtcEngine;
     int i = 100;
     void Start()
@@ -92,6 +91,17 @@ public class Broadcast : MonoBehaviour
             //Push the external video frame with the frame we just created
             int a = rtc.PushVideoFrame(externalVideoFrame);
             Debug.Log(" pushVideoFrame =       " + a);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (mRtcEngine != null)
+        {
+            mRtcEngine.LeaveChannel();
+            mRtcEngine.DisableVideoObserver();
+            IRtcEngine.Destroy();
+            mRtcEngine = null;
         }
     }
 }
