@@ -142,6 +142,8 @@ namespace VRExperience.Core
         private bool m_isRunning = false;
         public bool IsRunning { get { return m_isRunning; } }
 
+        private const string MeetingScene = "Meeting";
+
         private void Awake()
         {
             m_isRunning = true;
@@ -156,6 +158,13 @@ namespace VRExperience.Core
             m_audio = IOC.Resolve<IAudio>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_settings = IOC.Resolve<ISettings>();
+
+            if (SceneManager.GetActiveScene().name == MeetingScene)
+            {
+                m_menuSelection.Location = MeetingScene;
+                m_menuSelection.ExperienceType = ExperienceType.MEETING;
+            }
+
             SetExperience(GetExperience(m_menuSelection.ExperienceType));
             UIInteractionBase.OnClick += Click;
             ResetGuideConditions();
