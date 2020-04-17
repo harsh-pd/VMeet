@@ -1728,6 +1728,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_remoteMonitorViewPrefab: {fileID: 282526929035317315, guid: 4d6908d550ac73d478f3fd68ac2b26ac,
     type: 3}
+  m_localDesktop: {fileID: 1309535020}
+--- !u!114 &1309535020 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1896131072632412581, guid: 2a7e3c1abf054f745bb1480314b29966,
+    type: 3}
+  m_PrefabInstance: {fileID: 1309535015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb54a34570e4747429b1c5b66c69d356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1335882641
 GameObject:
   m_ObjectHideFlags: 0
