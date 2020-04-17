@@ -21,7 +21,6 @@ namespace Fordi.ScreenSharing
         bool BroadcastScreen { get; set; }
         EventHandler<uint> OtherUserJoinedEvent { get; set; }
         EventHandler<ScreenEventArgs> RemoteScreenShareEvent { get; set; }
-        void RemoteScreenShareNotification(bool val);
         void ToggleScreenSharing(bool val);
         void ToggleScreenReceiving(bool val);
     }
@@ -181,11 +180,6 @@ namespace Fordi.ScreenSharing
             }
         }
 
-        public void RemoteScreenShareNotification(bool val)
-        {
-            RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs() { Streaming = val });
-        }
-
         public void ToggleScreenSharing(bool val)
         {
             if (mRtcEngine != null)
@@ -231,6 +225,7 @@ namespace Fordi.ScreenSharing
                 IRtcEngine.Destroy();
                 mRtcEngine = null;
                 m_localMonitorView = null;
+                RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs { Streaming = val });
                 if (!val)
                     return;
             }
@@ -246,6 +241,7 @@ namespace Fordi.ScreenSharing
             // join channel
             mRtcEngine.JoinChannel(channelName, null, 0);
             mRtcEngine.OnUserJoined = OtherUserJoined;
+            RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs { Streaming = val });
         }
     }
 }

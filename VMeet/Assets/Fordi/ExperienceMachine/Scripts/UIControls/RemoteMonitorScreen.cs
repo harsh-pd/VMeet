@@ -125,6 +125,7 @@ namespace Fordi.ScreenSharing
             if (!e.Streaming)
                 ToggleMonitor(false);
             m_remoteStreaming = e.Streaming;
+            Debug.LogError(e.Streaming);
         }
     }
 }

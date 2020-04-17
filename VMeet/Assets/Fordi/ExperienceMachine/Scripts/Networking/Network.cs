@@ -247,6 +247,7 @@ namespace Fordi.Networking
         [PunRPC]
         private void RPC_StopScreenShare(int sender, bool val)
         {
+            Debug.LogError("RPC_StopScreenShare: " + val);
             m_screenShare.ToggleScreenReceiving(val);
         }
         #endregion
