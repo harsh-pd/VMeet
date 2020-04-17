@@ -101,7 +101,7 @@ namespace Fordi.ScreenSharing
         void Update()
         {
             //Start the screenshare Coroutine
-            if (mRtcEngine != null && m_localMonitorView != null)
+            if (mRtcEngine != null && m_localMonitorView != null && !m_receivingRemoteStream)
                 StartCoroutine(shareScreen());
         }
         //Screen Share
