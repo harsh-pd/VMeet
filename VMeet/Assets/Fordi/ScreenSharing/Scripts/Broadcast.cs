@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System;
+
 public class Broadcast : MonoBehaviour
 {
     Texture2D mTexture;
@@ -49,6 +50,15 @@ public class Broadcast : MonoBehaviour
     [SerializeField]
     private VideoSurface m_videoSurfacePrefab = null;
 
+    private void CreateTextureIfNeeded()
+    {
+        if (!mTexture || mTexture.width != 1920 || mTexture.height != 1080)
+        {
+            colors = new Color32[1920 * 1080];
+            mTexture = new Texture2D(1920, 1080, TextureFormat.ARGB32, false);
+        }
+    }
+
     private void OtherUserJoined(uint uid, int elapsed)
     {
         //var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -67,11 +77,26 @@ public class Broadcast : MonoBehaviour
     //Screen Share
     IEnumerator shareScreen()
     {
+        uDesktopDuplication.Manager.primary.useGetPixels = true;
         yield return new WaitForEndOfFrame();
-        //Read the Pixels inside the Rectangle
-        mTexture.ReadPixels(mRect, 0, 0);
-        //Apply the Pixels read from the rectangle to the texture
-        mTexture.Apply();
+
+
+        ////Read the Pixels inside the Rectangle
+        //mTexture.ReadPixels(mRect, 0, 0);
+        ////Apply the Pixels read from the rectangle to the texture
+        //mTexture.Apply();
+
+        var monitor = m_localMonitorView.monitor;
+
+        if (!monitor.hasBeenUpdated)
+            yield break;
+
+        if (monitor.GetPixels(colors, 0, 0, 1920, 1080))
+        {
+            mTexture.SetPixels32(colors);
+            mTexture.Apply();
+        }
+
         // Get the Raw Texture data from the the from the texture and apply it to an array of bytes
         byte[] bytes = mTexture.GetRawTextureData();
         // Make enough space for the bytes array

@@ -97,8 +97,9 @@ namespace Fordi.ScreenSharing
             CreateTextureIfNeeded();
             uDesktopDuplication.Manager.primary.useGetPixels = true;
 
-            var monitor = m_localMonitorView.monitor;
             yield return new WaitForEndOfFrame();
+
+            var monitor = m_localMonitorView.monitor;
 
             if (!monitor.hasBeenUpdated)
                 yield break;
