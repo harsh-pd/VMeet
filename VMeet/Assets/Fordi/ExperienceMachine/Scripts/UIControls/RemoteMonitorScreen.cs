@@ -18,9 +18,9 @@ namespace Fordi.ScreenSharing
         [SerializeField]
         private GameObject m_menuBorderPrefab = null;
         [SerializeField]
-        private RawImage m_remoteMonitorView;
+        private VideoSurface m_remoteMonitorView;
         [SerializeField]
-        private VideoSurface m_videoSurface = null;
+        private VideoSurface m_remoteMonitorViewPrefab = null;
 
         private Toggle m_micToggle = null;
         private Toggle m_screenShareToggle = null;
@@ -38,9 +38,9 @@ namespace Fordi.ScreenSharing
 
         private void RemoteUserJoinedChannel(object sender, uint e)
         {
-            m_videoSurface.SetForUser(e);
-            m_videoSurface.SetEnable(true);
-            m_remoteMonitorView.color = Color.white;
+            ToggleMonitor(true);
+            m_remoteMonitorView.SetForUser(e);
+            m_remoteMonitorView.SetEnable(true);
         }
 
         public override void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
@@ -95,7 +95,15 @@ namespace Fordi.ScreenSharing
 
         public void ToggleMonitor(bool val)
         {
-            m_remoteMonitorView.color = val ? Color.white : m_appTheme.SelectedTheme.panelInteractionBackground;
+            if (val && m_remoteMonitorView != null)
+            {
+                Destroy(m_remoteMonitorView.gameObject);
+            }
+            else if (!val)
+            {
+                m_remoteMonitorView = Instantiate(m_remoteMonitorViewPrefab, transform);
+                m_remoteMonitorView.transform.SetSiblingIndex(transform.childCount - 1);
+            }
         }
     }
 }
