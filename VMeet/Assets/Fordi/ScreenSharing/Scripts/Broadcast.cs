@@ -57,7 +57,8 @@ public class Broadcast : MonoBehaviour
         if (!mTexture || mTexture.width != 1920 || mTexture.height != 1080)
         {
             colors = new Color32[1920 * 1080];
-            mTexture = new Texture2D(1920, 1080, TextureFormat.RGBA32, false);
+            mTexture = new Texture2D(1920, 1080, TextureFormat.BGRA32, false);
+            Debug.LogError("Texture created");
         }
     }
 
