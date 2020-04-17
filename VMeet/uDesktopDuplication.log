@@ -1,16 +1,16 @@
-[uDD::Log][2020-04-17 18:57:31] Start
-[uDD::Log][2020-04-17 18:57:31] OS Version    : 10.0
-[uDD::Log][2020-04-17 18:57:31] Build Number  : 17763
-[uDD::Log][2020-04-17 18:57:31] Service Pack  : 
-[uDD::Log][2020-04-17 18:57:31] Graphics Card [0] : NVIDIA GeForce GTX 1070
-[uDD::Log][2020-04-17 18:57:31]   > Monitor[0] : \\.\DISPLAY1
-[uDD::Log][2020-04-17 18:57:31] Graphics Card [1] : Intel(R) HD Graphics 530
-[uDD::Log][2020-04-17 18:57:31] Graphics Card [2] : Microsoft Basic Render Driver
-[uDD::Log][2020-04-17 18:57:31] Monitor::Initialized() =>
-[uDD::Log][2020-04-17 18:57:31]     ID    : 0
-[uDD::Log][2020-04-17 18:57:31]     Size  : (1920, 1080)
-[uDD::Log][2020-04-17 18:57:31]     DPI   : (141, 142)
-[uDD::Log][2020-04-17 18:57:31]     Rot   : Landscape
-[uDD::Log][2020-04-17 18:57:31] Duplicator::Initialize() => OK.
-[uDD::Err][2020-04-17 18:58:19] Monitor::GetPixels() => CopyTextureFromGpuToCpu() has not been called yet.
-[uDD::Log][2020-04-17 19:00:47] Stop
+[uDD::Log][2020-04-17 19:07:52] Start
+[uDD::Log][2020-04-17 19:07:52] OS Version    : 10.0
+[uDD::Log][2020-04-17 19:07:52] Build Number  : 17763
+[uDD::Log][2020-04-17 19:07:52] Service Pack  : 
+[uDD::Log][2020-04-17 19:07:52] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-04-17 19:07:52]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-04-17 19:07:52] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-04-17 19:07:52] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-04-17 19:07:52] Monitor::Initialized() =>
+[uDD::Log][2020-04-17 19:07:52]     ID    : 0
+[uDD::Log][2020-04-17 19:07:52]     Size  : (1920, 1080)
+[uDD::Log][2020-04-17 19:07:52]     DPI   : (141, 142)
+[uDD::Log][2020-04-17 19:07:52]     Rot   : Landscape
+[uDD::Log][2020-04-17 19:07:52] Duplicator::Initialize() => OK.
+[uDD::Err][2020-04-17 19:08:17] Monitor::GetPixels() => CopyTextureFromGpuToCpu() has not been called yet.
+[uDD::Log][2020-04-17 19:12:27] Stop

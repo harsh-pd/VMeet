@@ -215,8 +215,10 @@ namespace Fordi.ScreenSharing
             m_network.ToggleScreenStreaming(val);
         }
 
+        private bool m_receivingRemoteStream = false;
         public void ToggleScreenReceiving(bool val)
         {
+            
             if (mRtcEngine != null)
             {
                 mRtcEngine.OnUserJoined = null;
@@ -226,6 +228,7 @@ namespace Fordi.ScreenSharing
                 mRtcEngine = null;
                 m_localMonitorView = null;
                 RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs { Streaming = val });
+                m_receivingRemoteStream = false;
                 if (!val)
                     return;
             }
@@ -242,6 +245,7 @@ namespace Fordi.ScreenSharing
             mRtcEngine.JoinChannel(channelName, null, 0);
             mRtcEngine.OnUserJoined = OtherUserJoined;
             RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs { Streaming = val });
+            m_receivingRemoteStream = true;
         }
     }
 }
