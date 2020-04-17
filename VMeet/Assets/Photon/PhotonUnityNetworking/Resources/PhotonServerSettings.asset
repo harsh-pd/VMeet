@@ -39,6 +39,7 @@ MonoBehaviour:
   - ChangeColour
   - RPC_SpawnPlayer
   - RPC_StopScreenShare
+  - RPC_RemoteScreenShareNotification
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
