@@ -43,7 +43,7 @@ public class Broadcast : MonoBehaviour
         //Create a rectangle width and height of the screen
         mRect = new Rect(0, 0, Screen.width, Screen.height);
         //Create a texture the size of the rectangle you just created
-        mTexture = new Texture2D((int)mRect.width, (int)mRect.height, TextureFormat.RGBA32, false);
+        //mTexture = new Texture2D((int)mRect.width, (int)mRect.height, TextureFormat.RGBA32, false);
         mRtcEngine.OnUserJoined = OtherUserJoined;
     }
 
@@ -77,6 +77,7 @@ public class Broadcast : MonoBehaviour
     //Screen Share
     IEnumerator shareScreen()
     {
+        CreateTextureIfNeeded();
         uDesktopDuplication.Manager.primary.useGetPixels = true;
         yield return new WaitForEndOfFrame();
 
