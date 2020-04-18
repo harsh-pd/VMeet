@@ -2,6 +2,7 @@
 using Fordi.Networking;
 using Fordi.ScreenSharing;
 using Fordi.Sync;
+using Fordi.VoiceChat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VRExperience.Common;
@@ -204,6 +205,21 @@ namespace VRExperience.Core
             }
         }
 
+        private IVoiceChat m_voiceChat;
+
+        protected virtual IVoiceChat VoiceChat
+        {
+            get
+            {
+                VoiceChat voiceChat = FindObjectOfType<VoiceChat>();
+                if (voiceChat == null)
+                {
+                    throw new System.InvalidOperationException("No VoiceChat object found in the scene");
+                }
+                return voiceChat;
+            }
+        }
+
         private void Awake()
         {
             if(m_instance != null)
@@ -229,6 +245,7 @@ namespace VRExperience.Core
             m_network = Network;
             m_mouseControl = MouseControl;
             m_screenShare = ScreenShare;
+            m_voiceChat = VoiceChat;
         }
 
         private void OnDestroy()
@@ -298,6 +315,7 @@ namespace VRExperience.Core
             IOC.RegisterFallback(() => Instance.m_network);
             IOC.RegisterFallback(() => Instance.m_mouseControl);
             IOC.RegisterFallback(() => Instance.m_screenShare);
+            IOC.RegisterFallback(() => Instance.m_voiceChat);
 
             if (IOC.Resolve<IMenuSelection>() == null)
                 IOC.Register<IMenuSelection>(new MenuSelection());
