@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using VRExperience.Meeting;
 using VRExperience.UI.MenuControl;
@@ -32,7 +33,7 @@ namespace VRExperience.Core
             {
                 m_webInterace.GetCategories(ResourceType.USER, (users) =>
                 {
-                    m_vrMenu.OpenMeetingForm(ResourceToMenuItems(m_webInterace.GetResource(ResourceType.USER, "")), null);
+                    m_vrMenu.OpenMeetingForm(ResourceToMenuItems(m_webInterace.GetResource(ResourceType.USER, "").Where(item => ((UserResource)item).UserInfo.id != m_webInterace.UserInfo.id).ToArray()), null);
                 });
                
                 return;
