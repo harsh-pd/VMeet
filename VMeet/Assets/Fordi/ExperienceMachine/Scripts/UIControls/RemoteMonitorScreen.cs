@@ -1,4 +1,5 @@
 ﻿using agora_gaming_rtc;
+using Fordi.ChatEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,10 @@ namespace Fordi.ScreenSharing
         private GameObject m_menuBorderPrefab = null;
         [SerializeField]
         private VideoSurface m_remoteMonitorViewPrefab = null;
+        [SerializeField]
+        private Chat m_chatPrefab;
+        [SerializeField]
+        private Transform m_chatRoot = null;
 
         private Toggle m_micToggle = null;
         private Toggle m_screenShareToggle = null;
@@ -27,6 +32,7 @@ namespace Fordi.ScreenSharing
         private IScreenShare m_screenShare = null;
 
         private VideoSurface m_remoteMonitorView;
+        private Chat m_chat = null;
 
         protected override void AwakeOverride()
         {
@@ -42,6 +48,14 @@ namespace Fordi.ScreenSharing
             base.OnDestroyOverride();
             m_screenShare.OtherUserJoinedEvent -= RemoteUserJoinedChannel;
             m_screenShare.RemoteScreenShareEvent -= RemoteScreenShareNotification;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                ToggleChat(m_chat == null ? true : !m_chat.gameObject.activeSelf);
+            }
         }
 
         private void RemoteUserJoinedChannel(object sender, uint e)
@@ -124,6 +138,20 @@ namespace Fordi.ScreenSharing
             if (!e.Streaming)
                 ToggleMonitor(false);
             Debug.LogError(e.Streaming);
+        }
+
+        private void ToggleChat(bool val)
+        {
+            if (!val)
+            {
+                if (m_chat != null)
+                    m_chat.gameObject.SetActive(false);
+                return;
+            }
+            if (m_chat == null)
+                m_chat = Instantiate(m_chatPrefab, m_chatRoot);
+            else
+                m_chat.gameObject.SetActive(true);
         }
     }
 }

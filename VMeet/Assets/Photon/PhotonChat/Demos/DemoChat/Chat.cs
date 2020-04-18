@@ -18,7 +18,7 @@ using System.Collections;
 using Photon.Pun;
 #endif
 
-namespace Fordi.Chat
+namespace Fordi.ChatEngine
 {
     /// <summary>
     /// This simple Chat UI demonstrate basics usages of the Chat Api
