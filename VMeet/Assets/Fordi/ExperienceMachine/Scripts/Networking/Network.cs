@@ -38,6 +38,7 @@ namespace Fordi.Networking
         private IScreenShare m_screenShare = null;
 
         private const string MeetingRoom = "Meeting";
+        private const string LobbyRoom = "Lobby";
 
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
         public static RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
@@ -83,12 +84,12 @@ namespace Fordi.Networking
         {
             base.OnJoinedLobby();
             Log("OnJoinedLobby");
-            //if (PhotonNetwork.CountOfRooms > 0)
-            //{
-            //    JoinRoom("Test");
-            //}
-            //else
-            //    CreateRoom("Test");
+            if (PhotonNetwork.CountOfRooms > 0)
+            {
+                JoinRoom("Test");
+            }
+            else
+                CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
@@ -188,8 +189,19 @@ namespace Fordi.Networking
         public override void OnLeftRoom()
         {
             base.OnLeftRoom();
-            m_onLeftRoom?.Invoke();
-            m_onLeftRoom = null;
+            if (m_onLeftRoom != null)
+            {
+                m_onLeftRoom.Invoke();
+                m_onLeftRoom = null;
+            }
+            else
+            {
+                m_menuSelection.Location = LobbyRoom;
+                m_menuSelection.ExperienceType = ExperienceType.LOBBY;
+                m_vrMenu.Close();
+                m_experienceMachine.LoadExperience();
+            }
+
         }
 
         private void Log(string message)
