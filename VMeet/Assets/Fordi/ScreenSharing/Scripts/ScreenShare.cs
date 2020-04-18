@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 using System;
 using Fordi.Networking;
 using VRExperience.Common;
+using Photon.Pun;
 
 namespace Fordi.ScreenSharing
 {
@@ -30,7 +31,6 @@ namespace Fordi.ScreenSharing
     {
         Texture2D mTexture;
         private string appId = "397c1095001f4f88abe788a32dcd1570";
-        private string channelName = "bt1";
         public IRtcEngine mRtcEngine;
         int i = 100;
 
@@ -214,7 +214,7 @@ namespace Fordi.ScreenSharing
             // allow camera output callback
             mRtcEngine.EnableVideoObserver();
             // join channel
-            mRtcEngine.JoinChannel(channelName, null, 0);
+            mRtcEngine.JoinChannel(PhotonNetwork.CurrentRoom.Name, null, 0);
             mRtcEngine.OnUserJoined = OtherUserJoined;
             m_network.ToggleScreenStreaming(val);
         }
@@ -245,13 +245,13 @@ namespace Fordi.ScreenSharing
             // set callbacks (optional)
             mRtcEngine.SetParameters("{\"rtc.log_filter\": 65535}");
             //Configure the external video source
-            //mRtcEngine.SetExternalVideoSource(true, false);
+            mRtcEngine.SetExternalVideoSource(true, false);
             //// Start video mode
             mRtcEngine.EnableVideo();
             //// allow camera output callback
             mRtcEngine.EnableVideoObserver();
             // join channel
-            mRtcEngine.JoinChannel(channelName, null, 0);
+            mRtcEngine.JoinChannel(PhotonNetwork.CurrentRoom.Name, null, 0);
             mRtcEngine.OnUserJoined = OtherUserJoined;
             RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs { Streaming = val });
             m_receivingRemoteStream = true;
