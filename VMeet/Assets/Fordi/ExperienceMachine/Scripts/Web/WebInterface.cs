@@ -290,6 +290,8 @@ namespace Cornea.Web
         [HideInInspector]
         private static string access_token = "";
 
+        private bool m_requireMeetingListRefresh = true;
+
         private string MacAddress { get {
                 //Debug.LogError(SystemInfo.deviceUniqueIdentifier);
                 return SystemInfo.deviceUniqueIdentifier;
@@ -574,7 +576,9 @@ namespace Cornea.Web
             saveMeetingReq.Run(this).OnRequestComplete(
                 (isNetworkError, message) =>
                 {
-                    print(message);
+                    JsonData result = JsonMapper.ToObject(message);
+                    if (result["success"].ToString() == "True")
+                        m_requireMeetingListRefresh = true;
                 }
             );
 
@@ -632,7 +636,19 @@ namespace Cornea.Web
             acceptMeetingRequest.Run(this, false).OnRequestComplete(
                 (isNetworkError, message) =>
                 {
-                    Debug.Log(message);
+                    var meetingsGroup = m_meetings.Find(item => item.Name == MeetingFilter.Accepted.ToString());
+                    if (meetingsGroup != null && meetingsGroup.Resources != null && meetingsGroup.Resources.Length > 0 && (Array.FindIndex(meetingsGroup.Resources, item => item.MeetingInfo.Id == meetingId) != -1))
+                    {
+                        meetingsGroup.Resources = meetingsGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
+                        return;
+                    }
+
+                    meetingsGroup = m_meetings.Find(item => item.Name == MeetingFilter.Rejected.ToString());
+                    if (meetingsGroup != null && meetingsGroup.Resources != null && meetingsGroup.Resources.Length > 0 && (Array.FindIndex(meetingsGroup.Resources, item => item.MeetingInfo.Id == meetingId) != -1))
+                    {
+                        meetingsGroup.Resources = meetingsGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
+                        return;
+                    }
                 }
             );
             return acceptMeetingRequest;
@@ -654,6 +670,11 @@ namespace Cornea.Web
                 (isNetworkError, message) =>
                 {
                     Debug.Log(message);
+                    var meetingsGroup = m_meetings.Find(item => item.Name == MeetingFilter.Accepted.ToString());
+                    if (meetingsGroup != null && meetingsGroup.Resources != null && meetingsGroup.Resources.Length > 0)
+                    {
+                        meetingsGroup.Resources = meetingsGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
+                    }
                 }
             );
 
@@ -675,7 +696,11 @@ namespace Cornea.Web
             cancelMeetingRequest.Run(this, false).OnRequestComplete(
                 (isNetworkError, message) =>
                 {
-                    Debug.Log(message);
+                    var createdMeetingsGroup = m_meetings.Find(item => item.Name == MeetingFilter.Created.ToString());
+                    if (createdMeetingsGroup != null && createdMeetingsGroup.Resources != null && createdMeetingsGroup.Resources.Length > 0)
+                    {
+                        createdMeetingsGroup.Resources = createdMeetingsGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
+                    }
                 }
             );
 
@@ -897,7 +922,7 @@ namespace Cornea.Web
             switch (type)
             {
                 case ResourceType.MEETING:
-                    if (m_meetings.Count == 4)
+                    if (!m_requireMeetingListRefresh && m_meetings.Count == 4)
                     {
                         done?.Invoke(Meetings);
                         break;
@@ -912,7 +937,10 @@ namespace Cornea.Web
                             var allCreatedMeetings = ParseMeetingListJson(message, MeetingCategory.CREATED);
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Created, allCreatedMeetings));
                             if (m_meetings.Count == 4)
+                            {
                                 done?.Invoke(Meetings);
+                                m_requireMeetingListRefresh = false;
+                            }
                             //Coordinator.instance.meetingInterface.CleanupCache();
                         }
                     });
@@ -925,7 +953,10 @@ namespace Cornea.Web
                             var meetings = ParseMeetingListJson(message, MeetingCategory.ACCEPTED);
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Accepted, meetings));
                             if (m_meetings.Count == 4)
+                            {
                                 done?.Invoke(Meetings);
+                                m_requireMeetingListRefresh = false;
+                            }
                             //Coordinator.instance.meetingInterface.CleanupCache();
                         }
                     });
@@ -938,7 +969,10 @@ namespace Cornea.Web
                             var meetings = ParseMeetingListJson(message, MeetingCategory.INVITED);
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Invited, meetings));
                             if (m_meetings.Count == 4)
+                            {
                                 done?.Invoke(Meetings);
+                                m_requireMeetingListRefresh = false;
+                            }
                             //Coordinator.instance.meetingInterface.CleanupCache();
                         }
                     });
@@ -951,7 +985,10 @@ namespace Cornea.Web
                             var meetings = ParseMeetingListJson(message, MeetingCategory.REJECTED);
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Rejected, meetings));
                             if (m_meetings.Count == 4)
+                            {
                                 done?.Invoke(Meetings);
+                                m_requireMeetingListRefresh = false;
+                            }
                             //Coordinator.instance.meetingInterface.CleanupCache();
                         }
                     });

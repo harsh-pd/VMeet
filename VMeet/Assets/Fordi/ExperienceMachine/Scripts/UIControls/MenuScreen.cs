@@ -1,4 +1,5 @@
-﻿using Fordi.Sync;
+﻿using Cornea.Web;
+using Fordi.Sync;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VRExperience.Common;
 using VRExperience.Core;
+using VRExperience.Meeting;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -68,6 +70,7 @@ namespace VRExperience.UI.MenuControl
         protected IExperienceMachine m_experienceMachine;
         protected ISettings m_settings;
         protected IMenuSelection m_menuSelection;
+        protected IWebInterface m_webInterface = null;
 
         public bool Blocked { get; protected set; }
 
@@ -78,7 +81,11 @@ namespace VRExperience.UI.MenuControl
         private IScreen m_pair = null;
         public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
 
+        private bool m_requireRefreshOnReopen = false;
+
         private Vector3 m_localScale = Vector3.zero;
+
+        private List<MenuItem> m_menuItems = new List<MenuItem>();
 
         void Awake()
         {
@@ -86,6 +93,8 @@ namespace VRExperience.UI.MenuControl
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
+            m_webInterface = IOC.Resolve<IWebInterface>();
+
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
 
@@ -135,8 +144,54 @@ namespace VRExperience.UI.MenuControl
         public virtual void Reopen()
         {
             gameObject.SetActive(true);
+
+            if (m_requireRefreshOnReopen)
+                Refresh();
+
             if (Pair != null)
                 Pair.Reopen();
+        }
+
+        private void Refresh()
+        {
+            if (m_menuItems.Count == 0 || m_menuItems[0].Item.Data == null || m_menuItems[0].Item.Data.GetType() != typeof(MeetingResource))
+                return;
+
+            var sampleItem = m_menuItems[0].Item;
+            var category = ((MeetingResource)sampleItem.Data).MeetingInfo.meetingType;
+            ExperienceResource[] resources = new ExperienceResource[] { };
+            switch (category)
+            {
+                case MeetingCategory.CREATED:
+                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Created");
+                    break;
+                case MeetingCategory.INVITED:
+                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Invited");
+                    break;
+                case MeetingCategory.REJECTED:
+                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Rejected");
+                    break;
+                case MeetingCategory.ACCEPTED:
+                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Accepted");
+                    break;
+                default:
+                    break;
+            }
+
+            MenuItemInfo[] items = ResourceToMenuItems(resources);
+            Clear();
+            m_menuItems.Clear();
+
+            foreach (var item in items)
+                SpawnMenuItem(item, m_menuItem, m_contentRoot);
+        }
+
+        protected MenuItemInfo[] ResourceToMenuItems(ExperienceResource[] resources)
+        {
+            MenuItemInfo[] menuItems = new MenuItemInfo[resources.Length];
+            for (int i = 0; i < resources.Length; i++)
+                menuItems[i] = resources[i];
+            return menuItems;
         }
 
 
@@ -145,6 +200,7 @@ namespace VRExperience.UI.MenuControl
             MenuItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<MenuItem>();
             //menuItem.name = "MenuItem";
             menuItem.Item = menuItemInfo;
+            m_menuItems.Add(menuItem);
         }
 
         public virtual void Clear()
@@ -161,6 +217,7 @@ namespace VRExperience.UI.MenuControl
             if (m_experienceMachine.CurrentExperience == ExperienceType.HOME && m_standaloneMenu != null)
                 m_standaloneMenu.SetActive(false);
             Clear();
+            m_menuItems.Clear();
             Blocked = blocked;
             Persist = persist;
             gameObject.SetActive(true);
@@ -193,10 +250,11 @@ namespace VRExperience.UI.MenuControl
                 m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
         }
 
-        public virtual void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true)
+        public virtual void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, bool requireRefreshOnReopen = false)
         {
             if (m_backButton != null)
                 m_backButton.gameObject.SetActive(backEnabled);
+            m_requireRefreshOnReopen = requireRefreshOnReopen;
 
             if (m_title != null)
                 m_title.text = title;

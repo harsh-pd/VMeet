@@ -39,7 +39,7 @@ namespace VRExperience.UI.MenuControl
             //m_scrollRect.enabled = m_objectItems.Count > 12;
         }
 
-        public override void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true)
+        public override void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, bool refreshOnReopen = false)
         {
             m_objectItems.Clear();
             base.OpenGridMenu(items, title, blocked, persist, backEnabled);

@@ -74,7 +74,7 @@ namespace VRExperience.Core
                     if (resourceComponent.ResourceType == ResourceType.AUDIO)
                         m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
                     var resourceType = resourceComponent.ResourceType;
-                    m_menu.OpenGridMenu(null, ResourceToMenuItems(experience.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper());
+                    m_menu.OpenGridMenu(null, ResourceToMenuItems(experience.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper(), true);
                     return;
                 }
             }
@@ -95,7 +95,7 @@ namespace VRExperience.Core
                 {
                     if (resourceType != ResourceType.COLOR)
                     {
-                        m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)) , ResourceToMenuItems(experience.GetResource(sequence[sequenceIndex], "")), "SELECT " + sequence[sequenceIndex].ToString());
+                        m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)) , ResourceToMenuItems(experience.GetResource(sequence[sequenceIndex], "")), "SELECT " + sequence[sequenceIndex].ToString(), true);
                     }
                     else
                     {
@@ -153,7 +153,7 @@ namespace VRExperience.Core
                     }
 
                     MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, categoryDescription);
+                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, categoryDescription, true);
                 }
                 //m_menu.OpenGridMenu(sequence[++m_sequenceIterator], sequence[0][m_sequenceIterator - 1].Text);
             }

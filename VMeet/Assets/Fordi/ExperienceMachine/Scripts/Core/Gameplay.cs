@@ -23,7 +23,7 @@ namespace VRExperience.Core
                 if (resourceType == ResourceType.OBJECT)
                     m_vrMenu.OpenObjectInterface(null, ResourceToMenuItems(m_commonResource.GetResource(resourceType, args.Command)), "PICK ITEM");
                 else
-                    m_menu.OpenGridMenu(null, ResourceToMenuItems(GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper());
+                    m_menu.OpenGridMenu(null, ResourceToMenuItems(GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper(), true);
                 return;
             }
 
@@ -31,9 +31,9 @@ namespace VRExperience.Core
             {
                 var categories = GetCategories(ResourceType.AUDIO);
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.VO), ResourceToMenuItems(GetResource(ResourceType.AUDIO, "")), "SELECT AUDIO");
+                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.VO), ResourceToMenuItems(GetResource(ResourceType.AUDIO, "")), "SELECT AUDIO", true);
                 else
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.VO), GetCategoryMenu(categories, ResourceType.AUDIO), "WHICH MEDITATION SUITS YOUR MOOD?");
+                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.VO), GetCategoryMenu(categories, ResourceType.AUDIO), "WHICH MEDITATION SUITS YOUR MOOD?", true);
             }
 
             else if (args.CommandType == MenuCommandType.SELECTION)

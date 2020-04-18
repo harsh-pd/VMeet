@@ -288,7 +288,7 @@ namespace VRExperience.Core
         protected void OpenResourceWindow(AudioClip guide, ExperienceResource[] resources, string windowTitle)
         {
             MenuItemInfo[] menuItems = ResourceToMenuItems(resources);
-            m_menu.OpenGridMenu(guide, menuItems, windowTitle);
+            m_menu.OpenGridMenu(guide, menuItems, windowTitle, true);
         }
 
         /// <summary>
@@ -370,7 +370,7 @@ namespace VRExperience.Core
                 else
                 {
                     MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?");
+                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?", true);
                 }
             }
 
@@ -378,9 +378,9 @@ namespace VRExperience.Core
             {
                 var categories = GetCategories(ResourceType.MUSIC);
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.MUSIC), ResourceToMenuItems(GetResource(ResourceType.MUSIC, "")), "SELECT MUSIC");
+                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.MUSIC), ResourceToMenuItems(GetResource(ResourceType.MUSIC, "")), "SELECT MUSIC", true);
                 else
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.MUSIC), GetCategoryMenu(categories, ResourceType.MUSIC), "WHAT MUSIC IS THE RIGHT FIT?");
+                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.MUSIC), GetCategoryMenu(categories, ResourceType.MUSIC), "WHAT MUSIC IS THE RIGHT FIT?", true);
             }
             else if (args.CommandType == MenuCommandType.SELECTION)
             {
