@@ -159,7 +159,6 @@ namespace Fordi.Chat
             this.chatClient.AuthValues = new AuthenticationValues(this.UserName);
             this.chatClient.ConnectUsingSettings(this.chatAppSettings);
 
-            this.ChannelToggleToInstantiate.gameObject.SetActive(false);
             Debug.Log("Connecting as: " + this.UserName);
 
             this.ConnectingLabel.SetActive(true);
