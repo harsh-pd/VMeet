@@ -40,8 +40,6 @@ namespace Fordi.Chat
     public class Chat : MonoBehaviour, IChatClientListener
     {
 
-        public string[] ChannelsToJoinOnConnect; // set in inspector. Demo channels to join automatically.
-
         public string[] FriendsList;
 
         public int HistoryLengthToFetch; // set in inspector. Up to a certain degree, previously sent messages can be fetched for context
@@ -115,8 +113,6 @@ namespace Fordi.Chat
 
         public IEnumerator Start()
         {
-            DontDestroyOnLoad(this.gameObject);
-
             this.UserIdText.text = "";
             this.StateText.text = "";
             this.StateText.gameObject.SetActive(true);
@@ -367,10 +363,11 @@ namespace Fordi.Chat
 
         public void OnConnected()
         {
-            if (this.ChannelsToJoinOnConnect != null && this.ChannelsToJoinOnConnect.Length > 0)
-            {
-                this.chatClient.Subscribe(this.ChannelsToJoinOnConnect, this.HistoryLengthToFetch);
-            }
+            if (PhotonNetwork.InRoom)
+                this.chatClient.Subscribe(PhotonNetwork.CurrentRoom.Name, this.HistoryLengthToFetch);
+            else
+                this.chatClient.Subscribe("Temp", this.HistoryLengthToFetch);
+
 
             this.ConnectingLabel.SetActive(false);
 
