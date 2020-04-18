@@ -39,6 +39,8 @@ namespace Fordi.Chat
     /// </remarks>
     public class Chat : MonoBehaviour, IChatClientListener
     {
+        [SerializeField]
+        private Button m_sendButton = null;
 
         public string[] FriendsList;
 
@@ -74,8 +76,6 @@ namespace Fordi.Chat
 
         public bool ShowState = true;
         public GameObject Title;
-        public Text StateText; // set in inspector
-        public Text UserIdText; // set in inspector
 
         // private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
         private static string HelpText = "\n    -- HELP --\n" +
@@ -113,11 +113,6 @@ namespace Fordi.Chat
 
         public IEnumerator Start()
         {
-            this.UserIdText.text = "";
-            this.StateText.text = "";
-            this.StateText.gameObject.SetActive(true);
-            this.UserIdText.gameObject.SetActive(true);
-            this.Title.SetActive(true);
             this.ChatPanel.gameObject.SetActive(false);
             this.ConnectingLabel.SetActive(false);
 
@@ -132,8 +127,6 @@ namespace Fordi.Chat
 
             bool appIdPresent = !string.IsNullOrEmpty(this.chatAppSettings.AppId);
 
-            this.UserIdFormPanel.gameObject.SetActive(appIdPresent);
-
             if (!appIdPresent)
             {
                 Debug.LogError("You need to set the chat app ID in the PhotonServerSettings file in order to continue.");
@@ -146,8 +139,6 @@ namespace Fordi.Chat
 
         public void Connect()
         {
-            this.UserIdFormPanel.gameObject.SetActive(false);
-
             this.chatClient = new ChatClient(this);
 #if !UNITY_WEBGL
             this.chatClient.UseBackgroundWorkerForSending = true;
@@ -184,15 +175,6 @@ namespace Fordi.Chat
             {
                 this.chatClient.Service(); // make sure to call this regularly! it limits effort internally, so calling often is ok!
             }
-
-            // check if we are missing context, which means we got kicked out to get back to the Photon Demo hub.
-            if (this.StateText == null)
-            {
-                Destroy(this.gameObject);
-                return;
-            }
-
-            this.StateText.gameObject.SetActive(this.ShowState); // this could be handled more elegantly, but for the demo it's ok.
         }
 
 
@@ -371,8 +353,6 @@ namespace Fordi.Chat
 
             this.ConnectingLabel.SetActive(false);
 
-            this.UserIdText.text = "Connected as " + this.UserName;
-
             this.ChatPanel.gameObject.SetActive(true);
 
             if (this.FriendsList != null && this.FriendsList.Length > 0)
@@ -410,7 +390,8 @@ namespace Fordi.Chat
             // use OnConnected() and OnDisconnected()
             // this method might become more useful in the future, when more complex states are being used.
 
-            this.StateText.text = state.ToString();
+            if (m_sendButton)
+                m_sendButton.interactable = state == ChatState.ConnectedToFrontEnd;
         }
 
         public void OnSubscribed(string[] channels, bool[] results)
