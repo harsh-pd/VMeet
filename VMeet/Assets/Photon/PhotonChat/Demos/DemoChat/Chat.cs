@@ -16,6 +16,7 @@ using System.Collections;
 using TMPro;
 using Cornea.Web;
 using VRExperience.Common;
+using Fordi.ScreenSharing;
 
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -81,6 +82,8 @@ namespace Fordi.ChatEngine
         public GameObject Title;
 
         private IWebInterface m_webInterface = null;
+        private RemoteMonitorScreen m_remoteMonitorScreen = null;
+
 
         // private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
         private static string HelpText = "\n    -- HELP --\n" +
@@ -152,6 +155,14 @@ namespace Fordi.ChatEngine
             Debug.Log("Connecting as: " + this.UserName);
 
             this.ConnectingLabel.SetActive(true);
+        }
+
+        public void ExternallyCloseChat()
+        {
+            if (m_remoteMonitorScreen == null)
+                m_remoteMonitorScreen = FindObjectOfType<RemoteMonitorScreen>();
+            if (m_remoteMonitorScreen)
+                m_remoteMonitorScreen.ExternallyCloseChat();
         }
 
         /// <summary>To avoid that the Editor becomes unresponsive, disconnect all Photon connections in OnDestroy.</summary>

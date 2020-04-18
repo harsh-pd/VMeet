@@ -27,6 +27,7 @@ namespace Fordi.ScreenSharing
 
         private Toggle m_micToggle = null;
         private Toggle m_screenShareToggle = null;
+        private Toggle m_chatToggle = null;
 
         private IAppTheme m_appTheme = null;
         private IScreenShare m_screenShare = null;
@@ -81,7 +82,14 @@ namespace Fordi.ScreenSharing
             m_screenShareToggle = toggleMenu.GetComponentInChildren<Toggle>();
             m_screenShareToggle.isOn = false;
             m_screenShareToggle.onValueChanged.AddListener(ScreenSharingToggle);
-            toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Share Screen: ";
+            toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Screen: ";
+
+            toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
+            m_chatToggle = toggleMenu.GetComponentInChildren<Toggle>();
+            m_chatToggle.isOn = false;
+            m_screenShareToggle.onValueChanged.AddListener(ToggleChat);
+            toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Chat: ";
+
 
             var border = Instantiate(m_menuBorderPrefab, m_contentRoot);
 
@@ -103,6 +111,11 @@ namespace Fordi.ScreenSharing
             if (m_closeButton != null)
                 m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
 
+        }
+
+        public void ExternallyCloseChat()
+        {
+            m_chatToggle.isOn = false;
         }
 
         private void OnMicToggle(bool val)

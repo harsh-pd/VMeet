@@ -83,12 +83,12 @@ namespace Fordi.Networking
         {
             base.OnJoinedLobby();
             Log("OnJoinedLobby");
-            //if (PhotonNetwork.CountOfRooms > 0)
-            //{
-            //    JoinRoom("Test");
-            //}
-            //else
-            //    CreateRoom("Test");
+            if (PhotonNetwork.CountOfRooms > 0)
+            {
+                JoinRoom("Test");
+            }
+            else
+                CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
