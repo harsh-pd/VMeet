@@ -13,6 +13,7 @@ using UnityEngine.UI;
 
 using Photon.Chat;
 using System.Collections;
+using TMPro;
 
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -63,7 +64,7 @@ namespace Fordi.ChatEngine
 
         public RectTransform ChatPanel;     // set in inspector (to enable/disable panel)
         public GameObject UserIdFormPanel;
-        public InputField InputFieldChat;   // set in inspector
+        public TMP_InputField InputFieldChat;   // set in inspector
         public Text CurrentChannelText;     // set in inspector
         public Toggle ChannelToggleToInstantiate; // set in inspector
 
