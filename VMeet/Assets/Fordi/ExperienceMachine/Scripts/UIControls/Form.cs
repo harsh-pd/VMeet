@@ -114,6 +114,16 @@ namespace VRExperience.UI.MenuControl
             //menuItem.name = "MenuItem";
             menuItem.Item = menuItemInfo;
             m_inputs.Add(((FormItem)menuItem).InputField);
+            ((FormItem)menuItem).InputField.onEndEdit.AddListener(OnInputEnter);
+        }
+
+        public void OnInputEnter(string value)
+        {
+            if (Input.GetKey(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
+            {
+                if (m_actionButton.onClick != null)
+                    m_actionButton.onClick.Invoke();
+            }
         }
 
         public virtual void OpenForm(FormArgs args, bool blocked, bool persist)
