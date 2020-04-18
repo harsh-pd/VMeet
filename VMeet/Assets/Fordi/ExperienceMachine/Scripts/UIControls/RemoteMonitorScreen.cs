@@ -87,7 +87,7 @@ namespace Fordi.ScreenSharing
             toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
             m_chatToggle = toggleMenu.GetComponentInChildren<Toggle>();
             m_chatToggle.isOn = false;
-            m_screenShareToggle.onValueChanged.AddListener(ToggleChat);
+            m_chatToggle.onValueChanged.AddListener(ToggleChat);
             toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Chat: ";
 
 
