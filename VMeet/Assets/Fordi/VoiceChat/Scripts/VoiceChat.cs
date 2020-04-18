@@ -64,7 +64,8 @@ namespace Fordi.VoiceChat
                 Debug.LogError("No mics found");
                 return;
             }
-            
+
+            Debug.LogError(mic.Name + " " + mic.MicType.ToString());
 
             this.m_voiceRecorder.MicrophoneType = mic.MicType;
 
