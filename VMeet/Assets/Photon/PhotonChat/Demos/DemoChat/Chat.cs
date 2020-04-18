@@ -14,6 +14,8 @@ using UnityEngine.UI;
 using Photon.Chat;
 using System.Collections;
 using TMPro;
+using Cornea.Web;
+using VRExperience.Common;
 
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -78,6 +80,8 @@ namespace Fordi.ChatEngine
         public bool ShowState = true;
         public GameObject Title;
 
+        private IWebInterface m_webInterface = null;
+
         // private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
         private static string HelpText = "\n    -- HELP --\n" +
             "To subscribe to channel(s) (channelnames are case sensitive) :  \n" +
@@ -116,11 +120,9 @@ namespace Fordi.ChatEngine
         {
             this.ChatPanel.gameObject.SetActive(false);
             this.ConnectingLabel.SetActive(false);
+            m_webInterface = IOC.Resolve<IWebInterface>();
 
-            if (string.IsNullOrEmpty(this.UserName))
-            {
-                this.UserName = "user" + Environment.TickCount % 99; //made-up username
-            }
+            this.UserName = m_webInterface.UserInfo.name;
 
 #if PHOTON_UNITY_NETWORKING
             this.chatAppSettings = PhotonNetwork.PhotonServerSettings.AppSettings.GetChatSettings();
