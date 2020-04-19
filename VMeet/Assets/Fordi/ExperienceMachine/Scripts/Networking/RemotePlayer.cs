@@ -48,15 +48,22 @@ namespace Fordi.Networking
 
         private IEnumerator EnsureGameobjectIntegrity()
         {
+            OvrAvatarHand[] hands = null;
             do
             {
-                m_rightHand = transform.Find("hand_left");
-                m_leftHand = transform.Find("hand_right");
-                m_currentDefaultTrail = Instantiate(m_trailPrefab, m_rightHand).transform;
-                m_pen = Instantiate(m_penPrefab, m_rightHand);
+                hands = GetComponentsInChildren<OvrAvatarHand>();
                 yield return null;
             }
-            while (m_rightHand == null || m_leftHand == null);
+            while (hands == null || hands.Length < 2);
+            foreach (var item in hands)
+            {
+                if (item.isLeftHand)
+                    m_leftHand = item.transform;
+                else
+                    m_rightHand = item.transform;
+            }
+            m_currentDefaultTrail = Instantiate(m_trailPrefab, m_rightHand).transform;
+            m_pen = Instantiate(m_penPrefab, m_rightHand);
         }
 
         private void OnDestroy()
