@@ -2866,7 +2866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 932cfa1ed18fdec45b9a2e16cfe3cd93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_debug: 1
   m_remotePlayerPrefab: {fileID: 6347688229099146209, guid: 6323204582c1aa345b6e7131a2d863ab,
     type: 3}
 --- !u!114 &555243863067182530
@@ -3731,6 +3730,12 @@ PrefabInstance:
       propertyPath: m_laserPointerObject
       value: 
       objectReference: {fileID: 1038146019644532}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_solidBackgroundPrefab
+      value: 
+      objectReference: {fileID: 3987941955954100425, guid: a83bb93eb41e5b44e9c915b9fd674c2d,
+        type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_Name

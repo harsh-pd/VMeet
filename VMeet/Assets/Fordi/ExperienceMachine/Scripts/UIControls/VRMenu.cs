@@ -108,6 +108,8 @@ namespace VRExperience.UI.MenuControl
         private GameObject m_laserPointerObject;
         [SerializeField]
         private StandaloneMenu m_standaloneMenuPrefab;
+        [SerializeField]
+        private GameObject m_solidBackgroundPrefab = null;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -191,6 +193,13 @@ namespace VRExperience.UI.MenuControl
             menuTransform.transform.localPosition = menuTransform.transform.localPosition - m_playerScreenOffset;
             menuTransform.transform.SetParent(m_screensRoot);
             menuTransform.position = menuTransform.position + menuTransform.forward * offset.z + new Vector3(0, offset.y, 0);
+
+            if (m_experienceMachine.GetExperience(m_experienceMachine.CurrentExperience) is Gameplay)
+            {
+                Instantiate(m_solidBackgroundPrefab, menuTransform);
+                Vector3 localRotation = menuTransform.localRotation.eulerAngles;
+                menuTransform.localRotation = Quaternion.Euler(new Vector3(30, localRotation.y, localRotation.z));
+            }
             m_player.RequestHaltMovement(true);
         }
 
