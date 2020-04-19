@@ -51,10 +51,10 @@ namespace Fordi.ScreenSharing
 
         private void CreateTextureIfNeeded()
         {
-            if (!mTexture || mTexture.width != 1920 || mTexture.height != 1080)
+            if (!mTexture || mTexture.width != MouseControl.SystemWidth || mTexture.height != MouseControl.SystemHeight)
             {
-                colors = new Color32[1920 * 1080];
-                mTexture = new Texture2D(1920, 1080, TextureFormat.BGRA32, false);
+                colors = new Color32[MouseControl.SystemWidth * MouseControl.SystemHeight];
+                mTexture = new Texture2D(MouseControl.SystemWidth, MouseControl.SystemHeight, TextureFormat.RGBA32, false);
                 Debug.LogError("Texture created");
             }
         }
@@ -126,7 +126,7 @@ namespace Fordi.ScreenSharing
             if (!monitor.hasBeenUpdated)
                 yield break;
 
-            if (monitor.GetPixels(colors, 0, 0, 1920, 1080))
+            if (monitor.GetPixels(colors, 0, 0, MouseControl.SystemWidth, MouseControl.SystemHeight))
             {
                 mTexture.SetPixels32(colors);
                 mTexture.Apply();
@@ -155,9 +155,9 @@ namespace Fordi.ScreenSharing
                 //apply raw data you are pulling from the rectangle you created earlier to the video frame
                 externalVideoFrame.buffer = bytes;
                 //Set the width of the video frame (in pixels)
-                externalVideoFrame.stride = (int)1920;
+                externalVideoFrame.stride = MouseControl.SystemWidth;
                 //Set the height of the video frame
-                externalVideoFrame.height = (int)1080;
+                externalVideoFrame.height = MouseControl.SystemHeight;
                 //Remove pixels from the sides of the frame
                 externalVideoFrame.cropLeft = 10;
                 externalVideoFrame.cropTop = 10;
