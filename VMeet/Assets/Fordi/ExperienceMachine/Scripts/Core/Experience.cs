@@ -143,7 +143,7 @@ namespace VRExperience.Core
         protected Menu m_menu;
 
         [SerializeField]
-        private Transform[] m_teleportAnchors;
+        protected Transform[] m_teleportAnchors;
 
         [SerializeField]
         private List<VRButtonGroup> m_usedButtons;

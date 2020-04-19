@@ -1,4 +1,5 @@
 ﻿using Fordi.ScreenSharing;
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +48,9 @@ namespace VRExperience.Core
         {
             base.OnLoad();
             m_vrMenu.LoadRemoteDesktopView(m_insceneMenuItems);
+            if (m_teleportAnchors.Length >= PhotonNetwork.LocalPlayer.ActorNumber - 1)
+                m_player.DoWaypointTeleport(m_teleportAnchors[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
+            Debug.LogError(PhotonNetwork.LocalPlayer.ActorNumber + " " + m_teleportAnchors.Length);
         }
     }
 }

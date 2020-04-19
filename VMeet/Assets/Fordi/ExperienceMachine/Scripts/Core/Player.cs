@@ -33,6 +33,7 @@ namespace VRExperience.Core
         void Grab(DistanceGrabbable grabbable, OVRInput.Controller controller);
         void ToogleGrabGuide(OVRInput.Controller controller, bool val);
         bool GuideOn { get; }
+        void DoWaypointTeleport(Transform anchor);
     }
 
     public class ToolTip
@@ -589,6 +590,11 @@ namespace VRExperience.Core
                     m_rightGrabGuide = Instantiate(m_rightGrabGuidePrefab, m_rightHandAnchor);
                 m_rightGrabGuide.SetActive(val);
             }
+        }
+
+        public void DoWaypointTeleport(Transform anchor)
+        {
+            m_teleport.WaypointTeleport(anchor);
         }
     }
 }

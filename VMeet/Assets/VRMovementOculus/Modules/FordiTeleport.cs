@@ -45,6 +45,33 @@ namespace VRExperience.Core
                 WaypointTeleport();
         }
 
+        public void WaypointTeleport(Transform anchor)
+        {
+            if (anchor == null)
+                return;
+
+            refSystem.myFade.StartFadeIn(refSystem.fadeTime);
+            Vector3 holder = anchor.position;
+            holder.y += refSystem.GetHeight();
+
+            float rootRotation = m_player.RootRotation;
+            float angle = anchor.transform.rotation.eulerAngles.y - rootRotation;
+
+
+            refSystem.yourRig.enabled = false;
+            refSystem.yourRig.transform.DOMove(holder, .1f).OnComplete(() =>
+            {
+                m_player.UpdateAdditionalRotation(angle);
+                refSystem.yourRig.enabled = true;
+            });
+
+            refSystem.yourRig.transform.Rotate(new Vector3(0, angle, 0));
+
+            refSystem.yourRig.transform.position = holder;
+            Invoke("BumpMe", Time.deltaTime);
+            return;
+        }
+
         private void WaypointTeleport()
         {
             Transform anchor = m_experienceMachine.GetNextTeleportAnchor();
