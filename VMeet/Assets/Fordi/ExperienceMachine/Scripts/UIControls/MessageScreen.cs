@@ -1,11 +1,11 @@
-﻿using AL;
-using Fordi.Sync;
+﻿using Fordi.Sync;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VRExperience.Common;
 using VRExperience.Core;
 using VRExperience.UI.MenuControl;
 
@@ -34,9 +34,13 @@ namespace VRExperience.UI
         private IScreen m_pair = null;
         public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
 
+        private IVRMenu m_vrMenu = null;
+
         private Vector3 m_localScale;
         private void Awake()
         {
+            m_vrMenu = IOC.Resolve<IVRMenu>();
+
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
 
@@ -119,6 +123,13 @@ namespace VRExperience.UI
 
             if (Pair != null)
                 Pair.DisplayResult(error);
+
+            Invoke("CloseSelf", 2.0f);
+        }
+
+        private void CloseSelf()
+        {
+            m_vrMenu.CloseLastScreen();
         }
 
         public void DisplayProgress(string text)
@@ -126,6 +137,7 @@ namespace VRExperience.UI
             if (m_loader)
                 m_loader.SetActive(true);
             m_text.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
+            Debug.LogError(m_text.text);
 
             if (Pair != null)
                 Pair.DisplayProgress(text);

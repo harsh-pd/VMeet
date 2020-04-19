@@ -965,7 +965,7 @@ namespace VRExperience.UI.MenuControl
                 //Debug.LogError(m_screenStack.Peek().Gameobject.name);
                 m_screenStack.Peek().DisplayProgress(text);
             }
-            else
+            else if(freshScreen)
             {
                 m_screensRoot.gameObject.SetActive(true);
                 if (m_screenStack.Count > 0)
@@ -981,13 +981,13 @@ namespace VRExperience.UI.MenuControl
                 var menu = Instantiate(m_genericLoader, m_player.PlayerCanvas);
                 BringInFront(menu.transform);
 
-                menu.Init(text, true, false);
+                menu.Init(text.Style(ExperienceMachine.ProgressTextColorStyle), true, false);
                 m_screenStack.Push(menu);
                 if (m_settings.SelectedPreferences.DesktopMode)
                     menu.Hide();
 
                 var dMenu = Instantiate(m_dGenericLoader, m_dScreenRoot);
-                dMenu.Init(text, true, false);
+                dMenu.Init(text.Style(ExperienceMachine.ProgressTextColorStyle), true, false);
                 menu.Pair = dMenu;
             }
         }

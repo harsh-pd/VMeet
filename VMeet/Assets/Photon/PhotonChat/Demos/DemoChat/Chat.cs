@@ -64,7 +64,7 @@ namespace Fordi.ChatEngine
 
 
         public GameObject missingAppIdErrorPanel;
-        public GameObject ConnectingLabel;
+        //public GameObject ConnectingLabel;
 
         public RectTransform ChatPanel;     // set in inspector (to enable/disable panel)
         public GameObject UserIdFormPanel;
@@ -124,7 +124,7 @@ namespace Fordi.ChatEngine
         public IEnumerator Start()
         {
             this.ChatPanel.gameObject.SetActive(false);
-            this.ConnectingLabel.SetActive(false);
+            //this.ConnectingLabel.SetActive(false);
             m_webInterface = IOC.Resolve<IWebInterface>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
 
@@ -151,8 +151,9 @@ namespace Fordi.ChatEngine
         {
             InputFieldChat.onValueChanged.AddListener((val) =>
             {
-                if (m_sendButton != null)
-                    m_sendButton.interactable = !string.IsNullOrEmpty(val);
+                if (m_sendButton)
+                    m_sendButton.interactable = m_chatState == ChatState.ConnectedToFrontEnd && !string.IsNullOrEmpty(InputFieldChat.text);
+
             });
         }
 
@@ -163,7 +164,7 @@ namespace Fordi.ChatEngine
 
         public void Connect()
         {
-            m_vrMenu.DisplayProgress("Connecting to chat server...");
+            m_vrMenu.DisplayProgress("Connecting to chat server...", true);
             this.chatClient = new ChatClient(this);
 #if !UNITY_WEBGL
             this.chatClient.UseBackgroundWorkerForSending = true;
@@ -173,7 +174,7 @@ namespace Fordi.ChatEngine
 
             Debug.Log("Connecting as: " + this.UserName);
 
-            this.ConnectingLabel.SetActive(true);
+            //this.ConnectingLabel.SetActive(true);
         }
 
         public void ExternallyCloseChat()
@@ -217,8 +218,14 @@ namespace Fordi.ChatEngine
             {
                 this.SendChatMessage(this.InputFieldChat.text);
                 this.InputFieldChat.text = "";
-                InputFieldChat.Select();
             }
+        }
+
+        IEnumerator SelectChatInput()
+        {
+            yield return null;
+            if (!InputFieldChat.isFocused)
+                InputFieldChat.Select();
         }
 
         public void OnClickSend()
@@ -388,7 +395,7 @@ namespace Fordi.ChatEngine
                 this.chatClient.Subscribe("Temp", this.HistoryLengthToFetch);
 
 
-            this.ConnectingLabel.SetActive(false);
+            //this.ConnectingLabel.SetActive(false);
 
             this.ChatPanel.gameObject.SetActive(true);
 
@@ -419,17 +426,18 @@ namespace Fordi.ChatEngine
 
         public void OnDisconnected()
         {
-            this.ConnectingLabel.SetActive(false);
+            //this.ConnectingLabel.SetActive(false);
             m_vrMenu.DisplayResult(new VRExperience.Core.Error { ErrorCode = VRExperience.Core.Error.E_NetworkIssue, ErrorText = "Chat disconnected." });
         }
 
+        private ChatState m_chatState;
         public void OnChatStateChange(ChatState state)
         {
             // use OnConnected() and OnDisconnected()
             // this method might become more useful in the future, when more complex states are being used.
-
+            m_chatState = state;
             if (m_sendButton)
-                m_sendButton.interactable = state == ChatState.ConnectedToFrontEnd;
+                m_sendButton.interactable = state == ChatState.ConnectedToFrontEnd && !string.IsNullOrEmpty(InputFieldChat.text);
         }
 
         public void OnSubscribed(string[] channels, bool[] results)
