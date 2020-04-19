@@ -30,7 +30,6 @@ namespace Fordi.Networking
 
         private Transform m_pen;
         private Transform m_rightHand, m_leftHand = null;
-        private Transform m_currentDefaultTrail = null;
 
         public OVRInput.Controller selectedController = OVRInput.Controller.RTouch;
 
@@ -62,7 +61,7 @@ namespace Fordi.Networking
                 else
                     m_rightHand = item.transform;
             }
-            m_currentDefaultTrail = Instantiate(m_trailPrefab, m_rightHand).transform;
+            currentDefaultTrail = Instantiate(m_trailPrefab, m_rightHand);
             m_pen = Instantiate(m_penPrefab, m_rightHand);
         }
 
