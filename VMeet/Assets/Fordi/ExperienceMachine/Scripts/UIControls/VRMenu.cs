@@ -185,7 +185,7 @@ namespace VRExperience.UI.MenuControl
         }
 
         #region CORE
-        private void BringInFront(Transform menuTransform)
+        private void BringInFront(Transform menuTransform, bool solidInGameplay = true)
         {
             Vector3 offset = menuTransform.localPosition / 100.0f;
             menuTransform.transform.localPosition = Vector3.zero;
@@ -194,7 +194,7 @@ namespace VRExperience.UI.MenuControl
             menuTransform.transform.SetParent(m_screensRoot);
             menuTransform.position = menuTransform.position + menuTransform.forward * offset.z + new Vector3(0, offset.y, 0);
 
-            if (m_experienceMachine.GetExperience(m_experienceMachine.CurrentExperience) is Gameplay)
+            if (m_experienceMachine.GetExperience(m_experienceMachine.CurrentExperience) is Gameplay && solidInGameplay)
             {
                 Instantiate(m_solidBackgroundPrefab, menuTransform);
                 Vector3 localRotation = menuTransform.localRotation.eulerAngles;
@@ -315,7 +315,7 @@ namespace VRExperience.UI.MenuControl
 
             m_player.PrepareForSpawn();
             var menu = Instantiate(m_inventoryMenuPrefab, m_player.PlayerCanvas);
-            BringInFront(menu.transform);
+            BringInFront(menu.transform, false);
             menu.OpenGridMenu(items, title, block, persist, backEnabled);
             m_screenStack.Push(menu);
             if (m_settings.SelectedPreferences.DesktopMode)
@@ -378,7 +378,7 @@ namespace VRExperience.UI.MenuControl
 
             m_player.PrepareForSpawn();
             var menu = Instantiate(m_objectInterfacePrefab, m_player.PlayerCanvas);
-            BringInFront(menu.transform);
+            BringInFront(menu.transform, false);
             menu.OpenGridMenu(items, title, block, persist, backEnabled);
             m_screenStack.Push(menu);
             if (m_settings.SelectedPreferences.DesktopMode)
