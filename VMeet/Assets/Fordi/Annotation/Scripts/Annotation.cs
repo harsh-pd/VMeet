@@ -112,7 +112,7 @@ namespace Fordi.Annotation
             finishedAnnotationHolder = transform;
             whiteboard = GameObject.FindGameObjectWithTag(WhiteBoardTag);
             if (whiteboard)
-                whiteboardLayerMask = whiteboard.layer;
+                whiteboardLayerMask = LayerMask.NameToLayer(WhiteBoardLayer);
         }
 
         private IEnumerator Start()
