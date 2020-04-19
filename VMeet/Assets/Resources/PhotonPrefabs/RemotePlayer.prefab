@@ -249,6 +249,11 @@ MonoBehaviour:
   m_playerPhotonView: {fileID: 8583453621510744318}
   m_avatarPhotonView: {fileID: 1643575259287289142}
   m_avatarView: {fileID: 1606698046218303279}
+  m_trailPrefab: {fileID: 114673819776552032, guid: 6f99b14df8610954a9d1cf911889955e,
+    type: 3}
+  m_penPrefab: {fileID: 4958437469321864, guid: 9171cea9868518a4bbc3b92b0360ecf0,
+    type: 3}
+  selectedController: 2
 --- !u!1 &6347688229208281747
 GameObject:
   m_ObjectHideFlags: 0
