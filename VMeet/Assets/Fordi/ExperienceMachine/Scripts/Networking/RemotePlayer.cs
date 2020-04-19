@@ -16,18 +16,21 @@ namespace Fordi.Networking
         private PhotonView m_avatarPhotonView = null;
         [SerializeField]
         private PhotonAvatarView m_avatarView = null;
+        [SerializeField]
+        private Trail m_trailPrefab = null;
 
         [SerializeField]
-        private Transform rightHand, leftHand;
-        [SerializeField]
-        private Transform pen;
+        private Transform m_penPrefab;
 
         public int playerId { get; private set; }
         public Trail currentDefaultTrail { get; set; }
-        public Transform RightHand { get { return rightHand; } }
-        public Transform LeftHand { get { return leftHand; } }
-        public Transform Pen { get { return pen; } }
+        public Transform RightHand { get { return m_rightHand; } }
+        public Transform LeftHand { get { return m_leftHand; } }
+        public Transform Pen { get { return m_pen; } }
 
+        private Transform m_pen;
+        private Transform m_rightHand, m_leftHand = null;
+        private Transform m_currentDefaultTrail = null;
 
         public OVRInput.Controller selectedController = OVRInput.Controller.RTouch;
 
@@ -39,6 +42,15 @@ namespace Fordi.Networking
             m_playerSync.playerId = senderId;
             m_playerPhotonView.ViewID = playerViewId;
             m_avatarPhotonView.ViewID = avatarViewId;
+        }
+
+        private IEnumerator EnsureGameobjectIntegrity()
+        {
+            m_rightHand = transform.Find("right_hand");
+            m_leftHand = transform.Find("left_hand");
+            m_currentDefaultTrail = Instantiate(m_trailPrefab, m_rightHand).transform;
+            m_pen = Instantiate(m_penPrefab, m_rightHand);
+            yield return null;
         }
 
         private void OnDestroy()
