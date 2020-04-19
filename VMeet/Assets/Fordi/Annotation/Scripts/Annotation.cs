@@ -51,7 +51,7 @@ namespace Fordi.Annotation
     public class Annotation : MonoBehaviour, IAnnotation
     {
         [HideInInspector]
-        public Transform trailOrigin;
+        public Transform trailOrigin = null;
         public GameObject trailObject;
         public GameObject AnnotationRootPrefab;
         public List<Trail> trails = new List<Trail>();
@@ -114,14 +114,17 @@ namespace Fordi.Annotation
             whiteboardLayerMask = whiteboard.layer;
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
             settings = new AnnotationSettings();
-
-            selectedColor = currentDefaultTrail.trailRend.material.GetColor(TintColorProperty);
-            
-
             instance = this;
+
+            yield return null;
+            yield return null;
+
+            EnsureGameobjectIntegrity();
+            selectedColor = currentDefaultTrail.trailRend.material.GetColor(TintColorProperty);
+
             if (controller == OVRInput.Controller.RTouch)
             {
                 trailOrigin = m_player.RightHand;
@@ -132,6 +135,9 @@ namespace Fordi.Annotation
 
         void Update()
         {
+            if (trailOrigin == null)
+                return;
+
             UpdatePinchAndPenStatus();
 
             if (pinchOn && OVRInput.GetDown(OVRInput.Button.Two, controller))
@@ -279,8 +285,8 @@ namespace Fordi.Annotation
                 content[4] = settings.SelectedThickness;
                 content[5] = currentDefaultTrail.PhotonViewId;
                 PhotonNetwork.RaiseEvent(Network.trailBegin, content, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, new SendOptions { Reliability = true });
+                Debug.LogError("____trailBegin event fired");
             }
-            Debug.LogError("____trailBegin event fired");
             yield return new WaitForSeconds(m_settings.SelectedPreferences.annotationDelay);
             currentDefaultTrail.ActivateDrawing();
             trails.Add(currentDefaultTrail);
