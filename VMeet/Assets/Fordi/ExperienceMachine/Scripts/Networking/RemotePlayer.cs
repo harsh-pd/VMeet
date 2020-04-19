@@ -42,6 +42,8 @@ namespace Fordi.Networking
             m_playerSync.playerId = senderId;
             m_playerPhotonView.ViewID = playerViewId;
             m_avatarPhotonView.ViewID = avatarViewId;
+
+            StartCoroutine(EnsureGameobjectIntegrity());
         }
 
         private IEnumerator EnsureGameobjectIntegrity()
