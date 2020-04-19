@@ -111,7 +111,8 @@ namespace Fordi.Annotation
             m_network = IOC.Resolve<INetwork>();
             finishedAnnotationHolder = transform;
             whiteboard = GameObject.FindGameObjectWithTag(WhiteBoardTag);
-            whiteboardLayerMask = whiteboard.layer;
+            if (whiteboard)
+                whiteboardLayerMask = whiteboard.layer;
         }
 
         private IEnumerator Start()
