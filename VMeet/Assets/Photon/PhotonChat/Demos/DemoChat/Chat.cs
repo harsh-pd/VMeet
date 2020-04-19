@@ -17,6 +17,7 @@ using TMPro;
 using Cornea.Web;
 using VRExperience.Common;
 using Fordi.ScreenSharing;
+using VRExperience.UI.MenuControl;
 
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -82,6 +83,7 @@ namespace Fordi.ChatEngine
         public GameObject Title;
 
         private IWebInterface m_webInterface = null;
+        private IVRMenu m_vrMenu = null;
         private RemoteMonitorScreen m_remoteMonitorScreen = null;
 
 
@@ -124,6 +126,7 @@ namespace Fordi.ChatEngine
             this.ChatPanel.gameObject.SetActive(false);
             this.ConnectingLabel.SetActive(false);
             m_webInterface = IOC.Resolve<IWebInterface>();
+            m_vrMenu = IOC.Resolve<IVRMenu>();
 
             this.UserName = m_webInterface.UserInfo.name;
 
@@ -139,12 +142,28 @@ namespace Fordi.ChatEngine
             }
 
             yield return null;
-
+            m_sendButton.interactable = false;
+            
             Connect();
+        }
+
+        private void OnEnable()
+        {
+            InputFieldChat.onValueChanged.AddListener((val) =>
+            {
+                if (m_sendButton != null)
+                    m_sendButton.interactable = !string.IsNullOrEmpty(val);
+            });
+        }
+
+        private void OnDisable()
+        {
+            InputFieldChat.onValueChanged.RemoveAllListeners();
         }
 
         public void Connect()
         {
+            m_vrMenu.DisplayProgress("Connecting to chat server...");
             this.chatClient = new ChatClient(this);
 #if !UNITY_WEBGL
             this.chatClient.UseBackgroundWorkerForSending = true;
@@ -198,6 +217,7 @@ namespace Fordi.ChatEngine
             {
                 this.SendChatMessage(this.InputFieldChat.text);
                 this.InputFieldChat.text = "";
+                InputFieldChat.Select();
             }
         }
 
@@ -207,6 +227,7 @@ namespace Fordi.ChatEngine
             {
                 this.SendChatMessage(this.InputFieldChat.text);
                 this.InputFieldChat.text = "";
+                InputFieldChat.Select();
             }
         }
 
@@ -359,6 +380,8 @@ namespace Fordi.ChatEngine
 
         public void OnConnected()
         {
+            m_vrMenu.DisplayResult(new VRExperience.Core.Error());
+
             if (PhotonNetwork.InRoom)
                 this.chatClient.Subscribe(PhotonNetwork.CurrentRoom.Name, this.HistoryLengthToFetch);
             else
@@ -397,6 +420,7 @@ namespace Fordi.ChatEngine
         public void OnDisconnected()
         {
             this.ConnectingLabel.SetActive(false);
+            m_vrMenu.DisplayResult(new VRExperience.Core.Error { ErrorCode = VRExperience.Core.Error.E_NetworkIssue, ErrorText = "Chat disconnected." });
         }
 
         public void OnChatStateChange(ChatState state)
