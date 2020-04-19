@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Fordi.Annotation;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,20 @@ namespace Fordi.Networking
         private PhotonView m_avatarPhotonView = null;
         [SerializeField]
         private PhotonAvatarView m_avatarView = null;
+
+        [SerializeField]
+        private Transform rightHand, leftHand;
+        [SerializeField]
+        private Transform pen;
+
+        public int playerId { get; private set; }
+        public Trail currentDefaultTrail { get; set; }
+        public Transform RightHand { get { return rightHand; } }
+        public Transform LeftHand { get { return leftHand; } }
+        public Transform Pen { get { return pen; } }
+
+
+        public OVRInput.Controller selectedController = OVRInput.Controller.RTouch;
 
         public void Setup(int senderId, int playerViewId, int avatarViewId)
         {

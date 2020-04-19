@@ -11,6 +11,8 @@ using UnityEngine.SceneManagement;
 using VRExperience.UI.MenuControl;
 using System.Linq;
 using Fordi.ScreenSharing;
+using ExitGames.Client.Photon;
+using Fordi.Annotation;
 
 namespace Fordi.Networking
 {
@@ -21,9 +23,10 @@ namespace Fordi.Networking
         void LeaveRoom(Action done);
         EventHandler RoomListUpdateEvent { get; set; }
         void ToggleScreenStreaming(bool val);
+        RemotePlayer GetRemotePlayer(int actorNumber);
     }
 
-    public class Network : MonoBehaviourPunCallbacks, INetwork
+    public class Network : MonoBehaviourPunCallbacks, INetwork, IOnEventCallback
     {
         [SerializeField]
         private bool m_debug = true;
@@ -31,11 +34,17 @@ namespace Fordi.Networking
         [SerializeField]
         private RemotePlayer m_remotePlayerPrefab = null;
 
+        public const byte trailBegin = 137;
+        public const byte trailFinish = 138;
+        public const byte deletePreviousTrail = 139;
+        public const byte whiteboardNoteBegan = 140;
+
         private IPlayer m_player = null;
         private IVRMenu m_vrMenu = null;
         private IMenuSelection m_menuSelection = null;
         private IExperienceMachine m_experienceMachine = null;
         private IScreenShare m_screenShare = null;
+        private IAnnotation m_annotation = null;
 
         private const string MeetingRoom = "Meeting";
         private const string LobbyRoom = "Lobby";
@@ -55,6 +64,7 @@ namespace Fordi.Networking
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_screenShare = IOC.Resolve<IScreenShare>();
+            m_annotation = IOC.Resolve<IAnnotation>();
             if (!PhotonNetwork.IsConnectedAndReady)
                 PhotonNetwork.ConnectUsingSettings();
         }
@@ -204,6 +214,41 @@ namespace Fordi.Networking
 
         }
 
+
+        public void OnEvent(EventData photonEvent)
+        {
+            switch (photonEvent.Code)
+            {
+                case trailBegin:
+                    Debug.Log("_____trailBegin event");
+                    object[] trailDrawData = (object[])photonEvent.CustomData;
+
+                    Color selectedColor = new Color((float)trailDrawData[0], (float)trailDrawData[1], (float)trailDrawData[2], (float)trailDrawData[3]);
+                    float selectedThickness = (float)trailDrawData[4];
+                    int trailViewId = (int)trailDrawData[5];
+                    m_annotation.RemoteStartNewTrail(photonEvent.Sender, selectedColor, selectedThickness, trailViewId, photonEvent.Sender);
+                    break;
+                case trailFinish:
+                    Debug.Log("_____trailFinish event");
+                    m_annotation.RemoteFinishTrail(photonEvent.Sender);
+                    break;
+                case deletePreviousTrail:
+                    Debug.Log("_____deletePreviousTrail event");
+                    m_annotation.RemoteDeletePreviousTrail(photonEvent.Sender);
+                    break;
+                case whiteboardNoteBegan:
+                    Debug.Log("_____noteBegin event");
+                    object[] whiteboardTrailDrawData = (object[])photonEvent.CustomData;
+
+                    Color chosenColor = new Color((float)whiteboardTrailDrawData[0], (float)whiteboardTrailDrawData[1], (float)whiteboardTrailDrawData[2], (float)whiteboardTrailDrawData[3]);
+                    Vector3 startPosition = (Vector3)whiteboardTrailDrawData[4];
+                    float selectedNoteThickness = (float)whiteboardTrailDrawData[5];
+                    int noteViewId = (int)whiteboardTrailDrawData[6];
+                    m_annotation.RemoteStartNewNote(startPosition, photonEvent.Sender, chosenColor, selectedNoteThickness, noteViewId, photonEvent.Sender);
+                    break;
+            }
+        }
+
         private void Log(string message)
         {
             if (m_debug)
@@ -267,6 +312,13 @@ namespace Fordi.Networking
         {
             Debug.LogError("RPC_RemoteScreenShareNotification: " + val);
             m_screenShare.ToggleScreenReceiving(val);
+        }
+
+        public RemotePlayer GetRemotePlayer(int actorNumber)
+        {
+            if (m_remotePlayers.ContainsKey(actorNumber))
+                return m_remotePlayers[actorNumber];
+            return null;
         }
         #endregion
     }

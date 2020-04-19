@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: edc69a85bff81e845959ff0a2a9649ae
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - trailOrigin: {instanceID: 0}
+  - trailObject: {fileID: 1383092242097550, guid: 6f99b14df8610954a9d1cf911889955e,
+      type: 3}
+  - AnnotationRootPrefab: {fileID: 1283008063288006, guid: 59854f835c59344459ebe4e5e1e20ee1,
+      type: 3}
+  - m_penPrefab: {fileID: 1203885869333448, guid: 9171cea9868518a4bbc3b92b0360ecf0,
+      type: 3}
+  - m_pinchTrailAnchorPrefab: {fileID: 3910699292949888923, guid: ea00ddb772d24cf4999d21cefe7e0fb5,
+      type: 3}
+  - m_penTrailAnchorPrefab: {fileID: 4782537289517553224, guid: 25c0f7decfeeaca47881972ed29675f7,
+      type: 3}
+  - currentDefaultTrail: {instanceID: 0}
+  - currentAnnotationRoot: {instanceID: 0}
+  - whiteboard: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

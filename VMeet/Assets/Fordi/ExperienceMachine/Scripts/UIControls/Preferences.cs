@@ -40,5 +40,9 @@ namespace VRExperience.Core
         public bool DesktopMode;
         [HideInInspector]
         public bool ForcedDesktopMode = false;
+
+        [Header("Annotation")]
+        [Range(0, 1)]
+        public float annotationDelay = .25f;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Cornea.Web;
+using Fordi.Annotation;
 using Fordi.Networking;
 using Fordi.ScreenSharing;
 using Fordi.Sync;
@@ -220,6 +221,24 @@ namespace VRExperience.Core
             }
         }
 
+        private IAnnotation m_annotation;
+
+        protected virtual IAnnotation Annotation
+        {
+            get
+            {
+                Annotation annotation = FindObjectOfType<Annotation>();
+                if (annotation == null)
+                {
+                    var obj = new GameObject("Annotation");
+                    annotation = obj.AddComponent<Annotation>();
+                    annotation.transform.parent = transform;
+                    annotation.transform.localPosition = Vector3.zero;
+                }
+                return annotation;
+            }
+        }
+
         private void Awake()
         {
             if(m_instance != null)
@@ -246,6 +265,7 @@ namespace VRExperience.Core
             m_mouseControl = MouseControl;
             m_screenShare = ScreenShare;
             m_voiceChat = VoiceChat;
+            m_annotation = Annotation;
         }
 
         private void OnDestroy()
@@ -316,6 +336,7 @@ namespace VRExperience.Core
             IOC.RegisterFallback(() => Instance.m_mouseControl);
             IOC.RegisterFallback(() => Instance.m_screenShare);
             IOC.RegisterFallback(() => Instance.m_voiceChat);
+            IOC.RegisterFallback(() => Instance.m_annotation);
 
             if (IOC.Resolve<IMenuSelection>() == null)
                 IOC.Register<IMenuSelection>(new MenuSelection());
