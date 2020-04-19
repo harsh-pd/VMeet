@@ -291,7 +291,8 @@ namespace VRExperience.UI.MenuControl
 
         public void ShowTooltip(string tooltip)
         {
-            m_description.text = tooltip;
+            if (m_description)
+                m_description.text = tooltip;
             if (Pair != null)
                 Pair.ShowTooltip(tooltip);
         }
