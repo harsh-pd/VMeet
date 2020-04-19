@@ -65,7 +65,7 @@ namespace Fordi.VoiceChat
                 return;
             }
 
-            Debug.LogError(mic.Name + " " + mic.MicType.ToString());
+            //Debug.LogError(mic.Name + " " + mic.MicType.ToString());
 
             this.m_voiceRecorder.MicrophoneType = mic.MicType;
 

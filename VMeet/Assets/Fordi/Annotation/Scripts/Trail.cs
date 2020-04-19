@@ -282,7 +282,7 @@ namespace Fordi.Annotation
         [PunRPC]
         private void RPC_OnReceivedTrajectoryUpdate(Vector3[] points)
         {
-            Debug.LogError("RPC_OnReceivedTrajectoryUpdate");
+            //Debug.LogError("RPC_OnReceivedTrajectoryUpdate");
             m_Points = points;
             if (m_DrawEnumerator == null)
             {

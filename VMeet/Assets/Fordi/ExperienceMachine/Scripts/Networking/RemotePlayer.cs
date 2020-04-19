@@ -67,7 +67,7 @@ namespace Fordi.Networking
 
         private void OnDestroy()
         {
-            Debug.LogError(m_avatarPhotonView.ViewID + " " + m_playerPhotonView.ViewID);
+            //Debug.LogError(m_avatarPhotonView.ViewID + " " + m_playerPhotonView.ViewID);
         }
     }
 }

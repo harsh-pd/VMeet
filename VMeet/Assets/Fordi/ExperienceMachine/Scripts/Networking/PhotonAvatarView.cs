@@ -31,7 +31,7 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable {
 
     public void OnDisable()
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && ovrAvatar != null)
         {
             ovrAvatar.RecordPackets = false;
             ovrAvatar.PacketRecorded -= OnLocalAvatarPacketRecorded;

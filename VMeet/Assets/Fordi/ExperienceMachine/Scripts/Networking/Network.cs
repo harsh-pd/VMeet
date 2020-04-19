@@ -29,9 +29,6 @@ namespace Fordi.Networking
     public class Network : MonoBehaviourPunCallbacks, INetwork, IOnEventCallback
     {
         [SerializeField]
-        private bool m_debug = true;
-
-        [SerializeField]
         private RemotePlayer m_remotePlayerPrefab = null;
 
         public const byte trailBegin = 137;
@@ -56,6 +53,8 @@ namespace Fordi.Networking
 
         private Dictionary<int, RemotePlayer> m_remotePlayers = new Dictionary<int, RemotePlayer>();
 
+        private bool m_debug = false;
+
         #region INITIALIZATIONS
         private void Awake()
         {
@@ -73,7 +72,7 @@ namespace Fordi.Networking
         {
             if (PhotonNetwork.InRoom)
             {
-                Debug.LogError("Level: " + level + " In room: " + PhotonNetwork.InRoom);
+                Log("Level: " + level + " In room: " + PhotonNetwork.InRoom);
                 RaisePlayerSpawnEvent();
             }
             //    if (PhotonNetwork.InRoom)
@@ -279,7 +278,7 @@ namespace Fordi.Networking
         {
             int viewAvatarId = PhotonNetwork.AllocateViewID(false);
             int viewPlayerId = PhotonNetwork.AllocateViewID(false);
-            Debug.LogError(SceneManager.GetActiveScene().name + " " + viewAvatarId + " " + viewPlayerId);
+            Log(SceneManager.GetActiveScene().name + " " + viewAvatarId + " " + viewPlayerId);
 
             try
             {
