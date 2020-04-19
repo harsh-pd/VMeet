@@ -48,8 +48,8 @@ namespace Fordi.Networking
 
         private IEnumerator EnsureGameobjectIntegrity()
         {
-            m_rightHand = transform.Find("right_hand");
-            m_leftHand = transform.Find("left_hand");
+            m_rightHand = transform.Find("hend_left");
+            m_leftHand = transform.Find("hand_right");
             m_currentDefaultTrail = Instantiate(m_trailPrefab, m_rightHand).transform;
             m_pen = Instantiate(m_penPrefab, m_rightHand);
             yield return null;
