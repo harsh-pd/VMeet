@@ -137,7 +137,6 @@ namespace VRExperience.UI
             if (m_loader)
                 m_loader.SetActive(true);
             m_text.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
-            Debug.LogError(m_text.text);
 
             if (Pair != null)
                 Pair.DisplayProgress(text);
