@@ -123,6 +123,7 @@ namespace Fordi.ChatEngine
 
         public IEnumerator Start()
         {
+            m_chatPool = new Pool<ChatElement>(m_chatContentRoot, m_chatElementPrefab.gameObject);
             this.ChatPanel.gameObject.SetActive(false);
             //this.ConnectingLabel.SetActive(false);
             m_webInterface = IOC.Resolve<IWebInterface>();
@@ -614,6 +615,14 @@ namespace Fordi.ChatEngine
         }
 
 
+        [SerializeField]
+        private ChatElement m_chatElementPrefab = null;
+        [SerializeField]
+        private Transform m_chatContentRoot = null;
+
+        private Pool<ChatElement> m_chatPool = null;
+        private List<ChatElement> m_chatList = new List<ChatElement>();
+
 
         public void ShowChannel(string channelName)
         {
@@ -638,11 +647,51 @@ namespace Fordi.ChatEngine
             {
                 pair.Value.isOn = pair.Key == channelName ? true : false;
             }
+
+            List<ChatInfo> chats = new List<ChatInfo>();
+            for (int i = 0; i < channel.Messages.Count; i++)
+                chats.Add(new ChatInfo { Sender = channel.Senders[i], Message = (string)channel.Messages[i]});
+            StartCoroutine(PopulateChat(chats));
         }
 
-        public void OpenDashboard()
+        private string m_currentSearchVallue = null;
+        public void AddNewChat(ChatInfo chatInfo)
         {
-            Application.OpenURL("https://dashboard.photonengine.com");
+            var chatElement = m_chatPool.FetchItem();
+            chatElement.Init(chatInfo);
+            m_chatList.Add(chatElement);
+
+
+            if (!chatElement.IsRelavant(m_currentSearchVallue))
+                m_chatPool.Surrender(chatElement);
         }
+
+        public IEnumerator PopulateChat(List<ChatInfo> chats)
+        {
+            for (int i = 0; i < chats.Count; i++)
+            {
+                if (m_chatList.Count > i)
+                {
+                    if (!m_chatList[i].gameObject.activeSelf)
+                        m_chatPool.Retrieve(m_chatList[i]);
+                }
+                else
+                {
+                    var chat = m_chatPool.FetchItem();
+                    m_chatList.Add(chat);
+                }
+                m_chatList[i].Init(chats[i]);
+            }
+
+            yield return null;
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)m_chatContentRoot);
+        }
+
+    }
+
+    public struct ChatInfo
+    {
+        public string Sender;
+        public string Message;
     }
 }
