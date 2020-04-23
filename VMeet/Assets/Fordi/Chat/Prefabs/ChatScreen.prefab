@@ -1555,17 +1555,17 @@ PrefabInstance:
     - target: {fileID: 1859438883186362326, guid: da185ee630c102f45ba82d92cd8f14a0,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1859438883275714003, guid: da185ee630c102f45ba82d92cd8f14a0,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1859438883275714003, guid: da185ee630c102f45ba82d92cd8f14a0,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da185ee630c102f45ba82d92cd8f14a0, type: 3}
@@ -1780,6 +1780,11 @@ PrefabInstance:
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnEnterSend
       objectReference: {fileID: 0}
+    - target: {fileID: 820187107052130535, guid: 771cea478700bbb4eae4e62cfe91ed48,
+        type: 3}
+      propertyPath: m_LineType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 820187107314509848, guid: 771cea478700bbb4eae4e62cfe91ed48,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -1828,6 +1833,11 @@ PrefabInstance:
     - target: {fileID: 820187107769134095, guid: 771cea478700bbb4eae4e62cfe91ed48,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 820187107769134095, guid: 771cea478700bbb4eae4e62cfe91ed48,
+        type: 3}
+      propertyPath: m_enableWordWrapping
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 820187107052130538, guid: 771cea478700bbb4eae4e62cfe91ed48,
