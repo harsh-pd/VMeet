@@ -219,14 +219,16 @@ namespace Fordi.ChatEngine
             {
                 this.SendChatMessage(this.InputFieldChat.text);
                 this.InputFieldChat.text = "";
+                StartCoroutine(SelectChatInput());
             }
         }
 
         IEnumerator SelectChatInput()
         {
             yield return null;
-            if (!InputFieldChat.isFocused)
-                InputFieldChat.Select();
+            yield return null;
+            InputFieldChat.Select();
+            InputFieldChat.ActivateInputField();
         }
 
         public void OnClickSend()
