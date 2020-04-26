@@ -1417,6 +1417,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChatPane
       objectReference: {fileID: 0}
+    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859438884550702367, guid: da185ee630c102f45ba82d92cd8f14a0,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1859438884578279836, guid: da185ee630c102f45ba82d92cd8f14a0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1521,36 +1551,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1859438884550702367, guid: da185ee630c102f45ba82d92cd8f14a0,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1859438884780763707, guid: da185ee630c102f45ba82d92cd8f14a0,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1859438883186362326, guid: da185ee630c102f45ba82d92cd8f14a0,
         type: 3}
@@ -1944,6 +1944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 820187107052130537, guid: 771cea478700bbb4eae4e62cfe91ed48,
+        type: 3}
+      propertyPath: m_selectOnEnable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 820187107906615535, guid: 771cea478700bbb4eae4e62cfe91ed48,
         type: 3}

@@ -51,14 +51,6 @@ namespace Fordi.ScreenSharing
             m_screenShare.RemoteScreenShareEvent -= RemoteScreenShareNotification;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                ToggleChat(m_chat == null ? true : !m_chat.gameObject.activeSelf);
-            }
-        }
-
         private void RemoteUserJoinedChannel(object sender, uint e)
         {
             if (m_screenShare.ReceivingRemoteStream)
