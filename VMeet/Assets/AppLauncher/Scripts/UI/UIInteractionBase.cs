@@ -62,7 +62,6 @@ namespace AL.UI
 
         public virtual void Init()
         {
-            Debug.LogError("Init");
             ToggleBackgroundHighlight(false);
             ToggleOutlineHighlight(false);
         }

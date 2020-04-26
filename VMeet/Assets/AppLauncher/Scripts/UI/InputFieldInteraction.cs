@@ -15,7 +15,6 @@ namespace AL.UI
             base.OnEnable();
             if (m_selectOnEnable && selectable.interactable)
             {
-                Debug.LogError("OnEnable: Activating inputfield again");
                 selectable.Select();
                 HardSelect();
             }

@@ -1552,6 +1552,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1859438884780763706, guid: da185ee630c102f45ba82d92cd8f14a0,
+        type: 3}
+      propertyPath: m_Spacing
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1859438883186362326, guid: da185ee630c102f45ba82d92cd8f14a0,
         type: 3}
       propertyPath: m_IsActive
