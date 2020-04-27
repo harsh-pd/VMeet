@@ -132,7 +132,6 @@ namespace VRExperience.UI
         private void CloseSelf()
         {
             m_vrMenu.Close(this);
-            Debug.LogError("CloseLastScreen");
         }
 
         public void DisplayProgress(string text)

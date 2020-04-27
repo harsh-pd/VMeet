@@ -82,6 +82,7 @@ namespace Fordi.Sync
 
         public void OnValueChanged<T>(SyncView sender, int viewId, T val)
         {
+            return;
             var viewPair = m_syncViewList[viewId];
             if (viewPair == null)
             {
