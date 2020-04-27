@@ -232,6 +232,7 @@ MonoBehaviour:
   shadow: {fileID: 820187107052130536}
   image: {fileID: 820187107052130534}
   selectable: {fileID: 820187107052130535}
+  m_selectOnEnable: 0
 --- !u!1 &820187107314509850
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,8 +334,8 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_textAlignment: 257
-  m_characterSpacing: 5
-  m_wordSpacing: 5
+  m_characterSpacing: 10
+  m_wordSpacing: 10
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -490,8 +491,8 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_textAlignment: 257
-  m_characterSpacing: 8
-  m_wordSpacing: 8
+  m_characterSpacing: 10
+  m_wordSpacing: 10
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0

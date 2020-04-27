@@ -35,6 +35,7 @@ namespace VRExperience.UI.MenuControl
         void DisplayResult(Error error, bool freshScreen = false);
         void DisplayProgress(string text, bool freshScreen = false);
         void CloseLastScreen();
+        void Close(IScreen screen);
         void Close();
         void Open(IScreen screen);
         void GoBack();
@@ -406,6 +407,38 @@ namespace VRExperience.UI.MenuControl
         public void CloseLastScreen()
         {
             //Debug.LogError("Close last screen");
+
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Pop();
+                screen.Close();
+            }
+
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Peek();
+                screen.Reopen();
+                if (!(screen is IForm))
+                    RefreshDesktopMode();
+                //Debug.LogError("opening: " + screen.Gameobject.name);
+            }
+            else
+            {
+                m_screensRoot.gameObject.SetActive(false);
+                SwitchStandaloneMenu();
+                RefreshDesktopMode();
+            }
+        }
+
+        public void Close(IScreen screenToBeClosed)
+        {
+            //Debug.LogError("Close last screen");
+            if (m_screenStack.Count == 0 || m_screenStack.Peek() != screenToBeClosed)
+            {
+                if (!m_screenStack.Contains(screenToBeClosed))
+                    screenToBeClosed.Close();
+                return;
+            }
 
             if (m_screenStack.Count > 0)
             {

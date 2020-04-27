@@ -61,16 +61,18 @@ namespace VRExperience.UI
 
         public void Close()
         {
-            if (m_button)
-                m_button.onClick.Invoke();
+            if (Pair != null)
+                Pair.Close();
             Destroy(gameObject);
         }
 
         public void Deactivate()
         {
-            if (m_loader)
+            if (m_loader != null)
                 m_loader.SetActive(false);
             gameObject.SetActive(false);
+            if (Pair != null)
+                Pair.Deactivate();
         }
 
         public void Init(string text, bool blocked = true, bool persist = false, Action okClick = null)
@@ -129,7 +131,8 @@ namespace VRExperience.UI
 
         private void CloseSelf()
         {
-            m_vrMenu.CloseLastScreen();
+            m_vrMenu.Close(this);
+            Debug.LogError("CloseLastScreen");
         }
 
         public void DisplayProgress(string text)

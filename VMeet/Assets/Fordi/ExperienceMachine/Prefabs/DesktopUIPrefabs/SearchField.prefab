@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 9166883231872085264}
   - component: {fileID: 9128571738211014965}
   m_Layer: 5
-  m_Name: AppSearchField
+  m_Name: SearchField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,6 +306,7 @@ MonoBehaviour:
   shadow: {fileID: 9166883231872085264}
   image: {fileID: 9166896522366124212}
   selectable: {fileID: 9167369420935250580}
+  m_selectOnEnable: 0
   onSelectSize: {x: 650, y: 30}
 --- !u!1 &9127421995983445210
 GameObject:
@@ -408,8 +409,8 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_textAlignment: 513
-  m_characterSpacing: 0
-  m_wordSpacing: 0
+  m_characterSpacing: 10
+  m_wordSpacing: 10
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -615,8 +616,8 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_textAlignment: 513
-  m_characterSpacing: 8
-  m_wordSpacing: 8
+  m_characterSpacing: 10
+  m_wordSpacing: 10
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0

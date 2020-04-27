@@ -413,8 +413,8 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_textAlignment: 513
-  m_characterSpacing: 5
-  m_wordSpacing: 5
+  m_characterSpacing: 10
+  m_wordSpacing: 10
   m_lineSpacing: 30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 2
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -451,7 +451,7 @@ MonoBehaviour:
     spaceCount: 0
     wordCount: 1
     linkCount: 0
-    lineCount: 1
+    lineCount: 5
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -476,11 +476,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 463981067477158841}
     m_Modifications:
-    - target: {fileID: 6643420889796156955, guid: 9fe89d120ca0c9e4abae94e956a92925,
-        type: 3}
-      propertyPath: m_Name
-      value: MenuActionButton
-      objectReference: {fileID: 0}
     - target: {fileID: 6643420889796156956, guid: 9fe89d120ca0c9e4abae94e956a92925,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -586,6 +581,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6643420889796156955, guid: 9fe89d120ca0c9e4abae94e956a92925,
+        type: 3}
+      propertyPath: m_Name
+      value: MenuActionButton
+      objectReference: {fileID: 0}
     - target: {fileID: 6643420889796156958, guid: 9fe89d120ca0c9e4abae94e956a92925,
         type: 3}
       propertyPath: m_TargetGraphic
@@ -601,5 +601,15 @@ PrefabInstance:
       propertyPath: m_image
       value: 
       objectReference: {fileID: 463981067915721145}
+    - target: {fileID: 6643420889979821656, guid: 9fe89d120ca0c9e4abae94e956a92925,
+        type: 3}
+      propertyPath: m_characterSpacing
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6643420889979821656, guid: 9fe89d120ca0c9e4abae94e956a92925,
+        type: 3}
+      propertyPath: m_wordSpacing
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fe89d120ca0c9e4abae94e956a92925, type: 3}
