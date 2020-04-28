@@ -19,10 +19,12 @@ namespace VRExperience.Core
 
         public override void ExecuteMenuCommand(MenuClickArgs args)
         {
-            if (args.Data != null)
+            if (args.Data != null && args.Data is AudioGroup || args.Data is AudioResource)
             {
-                //Debug.LogError(args.Data.GetType().ToString());
+                base.ExecuteMenuCommand(args);
+                return;
             }
+
             if ((!(args.Data is MeetingResource) && args.CommandType != MenuCommandType.CATEGORY_SELECTION) && args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER && args.CommandType != MenuCommandType.CREATE_MEETING)
                 base.ExecuteMenuCommand(args);
 

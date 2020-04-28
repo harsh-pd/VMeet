@@ -432,7 +432,7 @@ MonoBehaviour:
   m_closeButton: {fileID: 0}
   m_okButton: {fileID: 0}
   m_backButton: {fileID: 0}
-  m_preview: {fileID: 3707834338454478408}
+  m_preview: {fileID: 0}
   m_description: {fileID: 1020180289}
   m_synchronizedElements: []
   m_loader: {fileID: 2719416167773910496}
