@@ -82,14 +82,14 @@ namespace Fordi.Sync
 
         public void OnValueChanged<T>(SyncView sender, int viewId, T val)
         {
-            try
-            {
-                Debug.LogError(sender.name + " " + viewId + " " + (bool)(object)val);
-            }
-            catch
-            {
+            //try
+            //{
+            //    Debug.LogError(sender.name + " " + viewId + " " + (bool)(object)val);
+            //}
+            //catch
+            //{
 
-            }
+            //}
             var viewPair = m_syncViewList[viewId];
             if (viewPair == null)
             {

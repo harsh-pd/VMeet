@@ -38,6 +38,8 @@ namespace Fordi.Sync
     {
         [SerializeField]
         private List<Component> ObservedComponents = new List<Component>();
+        [SerializeField]
+        private bool m_syncState = false;
 
 
         [SerializeField]
@@ -55,7 +57,9 @@ namespace Fordi.Sync
         protected internal void Awake()
         {
             m_fordiNetwork = IOC.Resolve<IFordiNetwork>();
-            
+
+            if (m_syncState)
+                return;
 
             foreach (var item in ObservedComponents)
             {
@@ -94,25 +98,27 @@ namespace Fordi.Sync
         }
 
         private bool m_remoteValueChange = false;
-        //private void OnEnable()
-        //{
-        //    if (m_remoteValueChange)
-        //    {
-        //        m_remoteValueChange = false;
-        //        return;
-        //    }
-        //    m_fordiNetwork.ActiveStateToggle(this, ViewId, true);
-        //}
+        private void OnEnable()
+        {
+            if (m_remoteValueChange)
+            {
+                m_remoteValueChange = false;
+                return;
+            }
+            if (m_syncState)
+                m_fordiNetwork.ActiveStateToggle(this, ViewId, true);
+        }
 
-        //private void OnDisable()
-        //{
-        //    if (m_remoteValueChange)
-        //    {
-        //        m_remoteValueChange = false;
-        //        return;
-        //    }
-        //    m_fordiNetwork.ActiveStateToggle(this, ViewId, false);
-        //}
+        private void OnDisable()
+        {
+            if (m_remoteValueChange)
+            {
+                m_remoteValueChange = false;
+                return;
+            }
+            if (m_syncState)
+                m_fordiNetwork.ActiveStateToggle(this, ViewId, false);
+        }
 
         /// <summary>
         /// Temporary code used for listing the SyncView on FordiNetwork.
@@ -213,7 +219,7 @@ namespace Fordi.Sync
         public void ActiveStateToggle(int viewId, bool e)
         {
             m_remoteValueChange = true;
-            Debug.LogError(name +  " ActiveStateToggle: " + viewId + " " + e);
+            //Debug.LogError(name +  " ActiveStateToggle: " + viewId + " " + e);
             gameObject.SetActive(e);
         }
 
@@ -237,7 +243,6 @@ namespace Fordi.Sync
 
         private void OnValueChanged(Toggle toggle, bool value)
         {
-            //Debug.LogError(name + " value change: " + value);
             try
             {
                 if (!value && toggle.group != null)
@@ -254,7 +259,8 @@ namespace Fordi.Sync
                 m_remoteValueChange = false;
                 return;
             }
-            //Debug.LogError(name + " " + ViewId + " " + value);
+
+            //Debug.LogError(name + " value change: " + value);
             m_fordiNetwork.OnValueChanged(this, ViewId, value);
         }
 
