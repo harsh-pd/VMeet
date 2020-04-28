@@ -63,7 +63,7 @@ namespace Fordi.UI
         {
             FindActiveToggle();
             m_Group.allowSwitchOff = true;
-            Debug.LogError("Switch off allowed");
+            //Debug.LogError("Switch off allowed");
         }
 
         private void OnDisable()
@@ -84,15 +84,15 @@ namespace Fordi.UI
 
         private void FindActiveToggle()
         {
-            Debug.LogError("FindActiveToggle");
+            //Debug.LogError("FindActiveToggle");
             foreach (var item in m_toggles)
             {
                 if (item.isOn)
                 {
-                    if (item != m_activeToggle)
-                    {
-                        Debug.LogError("Old active Toggle value changing");
-                    }
+                    //if (item != m_activeToggle)
+                    //{
+                    //    Debug.LogError("Old active Toggle value changing");
+                    //}
                     m_activeToggle = item;
                     return;
                 }

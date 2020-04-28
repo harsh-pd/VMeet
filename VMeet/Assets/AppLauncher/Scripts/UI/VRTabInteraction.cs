@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 namespace VRExperience.UI
 {
@@ -17,7 +18,7 @@ namespace VRExperience.UI
         {
             base.OnValueChange(val);
 
-            if (!val && TabChangeInitiated != null && m_page != null)
+            if (XRDevice.userPresence == UserPresenceState.Present && !val && TabChangeInitiated != null && m_page != null)
                 TabChangeInitiated.Invoke(this, EventArgs.Empty);
 
             if (m_page != null)

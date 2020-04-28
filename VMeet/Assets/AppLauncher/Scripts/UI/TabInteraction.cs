@@ -31,7 +31,7 @@ namespace AL.UI
 
         protected virtual void OnValueChange(bool val)
         {
-            if (!val && TabChangeInitiated != null && m_page != null)
+            if (UnityEngine.XR.XRDevice.userPresence != UnityEngine.XR.UserPresenceState.Present && !val && TabChangeInitiated != null && m_page != null)
             {
                 TabChangeInitiated.Invoke(this, EventArgs.Empty);
             }
