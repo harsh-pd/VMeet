@@ -111,7 +111,7 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         private StandaloneMenu m_standaloneMenuPrefab;
         [SerializeField]
-        private GameObject m_solidBackgroundPrefab = null;
+        private SolidBackground m_solidBackgroundPrefab = null;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -187,7 +187,7 @@ namespace VRExperience.UI.MenuControl
         }
 
         #region CORE
-        private void BringInFront(Transform menuTransform, bool solidInGameplay = true)
+        private void BringInFront(Transform menuTransform, bool solidInGameplay = true, bool enlarge = false)
         {
             Vector3 offset = menuTransform.localPosition / 100.0f;
             menuTransform.transform.localPosition = Vector3.zero;
@@ -198,7 +198,9 @@ namespace VRExperience.UI.MenuControl
 
             if (m_experienceMachine.GetExperience(m_experienceMachine.CurrentExperience) is Gameplay && solidInGameplay)
             {
-                Instantiate(m_solidBackgroundPrefab, menuTransform);
+                var solidBackground = Instantiate(m_solidBackgroundPrefab, menuTransform);
+                if (enlarge)
+                    solidBackground.Enlarge();
                 Vector3 localRotation = menuTransform.localRotation.eulerAngles;
                 menuTransform.localRotation = Quaternion.Euler(new Vector3(30, localRotation.y, localRotation.z));
             }
@@ -229,7 +231,7 @@ namespace VRExperience.UI.MenuControl
 
             m_player.PrepareForSpawn();
             var menu = Instantiate(m_mainMenuPrefab, m_player.PlayerCanvas);
-            BringInFront(menu.transform);
+            BringInFront(menu.transform, true, items.Length > 4);
 
             menu.OpenMenu(items, block, persist);
             m_screenStack.Push(menu);

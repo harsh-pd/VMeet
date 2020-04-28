@@ -3749,7 +3749,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_solidBackgroundPrefab
       value: 
-      objectReference: {fileID: 3987941955954100425, guid: a83bb93eb41e5b44e9c915b9fd674c2d,
+      objectReference: {fileID: 8492008055334251151, guid: a83bb93eb41e5b44e9c915b9fd674c2d,
         type: 3}
     - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
