@@ -108,13 +108,14 @@ namespace VRExperience.UI.MenuControl
                 ((IForm)Pair).DisplayProgress(text);
         }
 
-        public override void SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
+        public override IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
         {
             FormItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<FormItem>();
             //menuItem.name = "MenuItem";
             menuItem.Item = menuItemInfo;
             m_inputs.Add(((FormItem)menuItem).InputField);
             ((FormItem)menuItem).InputField.onEndEdit.AddListener(OnInputEnter);
+            return menuItem;
         }
 
         public void OnInputEnter(string value)

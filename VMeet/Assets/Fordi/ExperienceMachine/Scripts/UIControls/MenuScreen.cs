@@ -85,7 +85,7 @@ namespace VRExperience.UI.MenuControl
 
         private Vector3 m_localScale = Vector3.zero;
 
-        private List<MenuItem> m_menuItems = new List<MenuItem>();
+        protected List<IMenuItem> m_menuItems = new List<IMenuItem>();
 
         void Awake()
         {
@@ -195,12 +195,13 @@ namespace VRExperience.UI.MenuControl
         }
 
 
-        public virtual void SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
+        public virtual IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
         {
-            MenuItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<MenuItem>();
+            IMenuItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<IMenuItem>();
             //menuItem.name = "MenuItem";
             menuItem.Item = menuItemInfo;
             m_menuItems.Add(menuItem);
+            return menuItem;
         }
 
         public virtual void Clear()
@@ -261,7 +262,7 @@ namespace VRExperience.UI.MenuControl
             OpenMenu(items, blocked, persist);
         }
 
-        public void Close()
+        public virtual void Close()
         {
             if (Pair != null)
                 Pair.Close();

@@ -2,6 +2,7 @@
 using Fordi.Networking;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace Fordi.Annotation
         void RemoteFinishTrail(int remotePlayerId);
         void RemoteDeletePreviousTrail(int remotePlayerId);
         void RemoteStartNewNote(Vector3 startPosition, int remotePlayerId, Color col, float thickness, int trailViewId, int controllingPlayer);
-
+        void ColorSelection(Color color);
     }
 
     public class Annotation : MonoBehaviour, IAnnotation
@@ -60,10 +61,12 @@ namespace Fordi.Annotation
 
         private const string WhiteBoardTag = "Whiteboard";
         private const string WhiteBoardLayer = "Whiteboard";
+        public const string AnnotationColorGroup = "Annotation Colors";
 
         private ISettings m_settings;
         private IPlayer m_player;
         private INetwork m_network;
+        private ICommonResource m_commonResource = null;
 
         public GameObject WhiteBoard { get { return whiteboard; } }
 
@@ -109,6 +112,7 @@ namespace Fordi.Annotation
             m_player = IOC.Resolve<IPlayer>();
             m_settings = IOC.Resolve<ISettings>();
             m_network = IOC.Resolve<INetwork>();
+            m_commonResource = IOC.Resolve<ICommonResource>();
             finishedAnnotationHolder = transform;
             whiteboard = GameObject.FindGameObjectWithTag(WhiteBoardTag);
             if (whiteboard)
@@ -124,7 +128,13 @@ namespace Fordi.Annotation
             yield return null;
 
             EnsureGameobjectIntegrity();
+
             selectedColor = currentDefaultTrail.trailRend.material.GetColor(TintColorProperty);
+            var colorResources = m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup);
+            var colorIndex = Array.FindIndex(colorResources, item => ((ColorResource)item).Color == selectedColor);
+            if (colorIndex == -1)
+                colorIndex = 0;
+            ColorSelection(((ColorResource)m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup)[colorIndex]).Color);
 
             if (controller == OVRInput.Controller.RTouch)
             {
@@ -478,6 +488,12 @@ namespace Fordi.Annotation
         {
             currentDefaultTrail.SetColor(image.color);
             selectedColor = image.color;
+        }
+
+        public void ColorSelection(Color color)
+        {
+            currentDefaultTrail.SetColor(color);
+            selectedColor = color;
         }
 
         public void ChangeTrailThickness(float sliderValue)

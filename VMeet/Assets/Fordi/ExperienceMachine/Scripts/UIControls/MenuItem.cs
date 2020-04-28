@@ -13,7 +13,13 @@ namespace VRExperience.UI.MenuControl
 {
     public delegate void MenuItemEventHandler(MenuItem menuItem);
 
-    public class MenuItem : VRButtonInteraction
+    public interface IMenuItem
+    {
+        MenuItemInfo Item { get; set; }
+        Selectable Selectable { get; }
+    }
+
+    public class MenuItem : VRButtonInteraction, IMenuItem
     {
         [SerializeField]
         protected Image m_icon = null;

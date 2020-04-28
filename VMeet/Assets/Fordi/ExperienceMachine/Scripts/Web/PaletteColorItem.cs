@@ -1,59 +1,20 @@
-﻿using System.Collections;
+﻿using Fordi;
+using Fordi.Annotation;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using Fordi;
-using VRExperience.UI.MenuControl;
-using VRExperience.UI;
-using VRExperience.Core;
 using VRExperience.Common;
-using AL.UI;
+using VRExperience.Core;
+using VRExperience.Meeting;
 
-namespace VRExperience.Meeting
+namespace VRExperience.UI.MenuControl
 {
-    public class OrganizationMember : ToggleInteraction, IMenuItem, IResettable
+    public class PaletteColorItem : VRToggleInteraction, IMenuItem, IResettable
     {
         [SerializeField]
-        TextMeshProUGUI nameField;
-        [SerializeField]
         private Image m_icon;
-        [SerializeField]
-        private TextMeshProUGUI m_text;
-        [SerializeField]
-        private Image m_image;
-        [SerializeField]
-        private bool overrideColor;
-        [SerializeField]
-        private Color overriddenHighlight;
-
-        private int userId;
-
-        public string Name
-        {
-            get
-            {
-                return m_userInfo.name;
-            }
-        }
-
-        public string Email
-        {
-            get
-            {
-                return m_userInfo.emailAddress;
-            }
-        }
-
-        public int UserId
-        {
-            get
-            {
-                return userId;
-            }
-        }
-
-        private UserInfo m_userInfo;
 
         protected MenuItemInfo m_item;
         public MenuItemInfo Item
@@ -72,6 +33,7 @@ namespace VRExperience.Meeting
         public GameObject Gameobject { get { return gameObject; } }
 
         protected IExperienceMachine m_experienceMachine = null;
+        protected IAnnotation m_annotation = null;
         protected Toggle m_selectionToggle = null;
 
         protected override void AwakeOverride()
@@ -109,13 +71,10 @@ namespace VRExperience.Meeting
             m_selectionToggle.interactable = true;
         }
 
-        public void Init(string _name, string _email, int _userId)
+        protected override void OnDestroyOverride()
         {
-            //nameField.text = _name;
-            //emailField.text = _email;
-            userId = _userId;
-            m_selectionToggle.isOn = false;
-            m_selectionToggle.interactable = true;
+            base.OnDestroyOverride();
+            ((Toggle)selectable).onValueChanged.RemoveAllListeners();
         }
 
         protected void DataBind()
@@ -127,7 +86,7 @@ namespace VRExperience.Meeting
                 if (m_item.Data != null && m_item.Data is ColorResource)
                 {
                     m_icon.color = ((ColorResource)m_item.Data).Color;
-                    m_text.text = ((ColorResource)m_item.Data).ShortDescription.ToUpper();
+                    m_text.text = "";
                 }
 
                 m_icon.gameObject.SetActive(m_item.Icon != null || (m_item.Data != null && m_item.Data is ColorResource));
@@ -145,6 +104,8 @@ namespace VRExperience.Meeting
                 m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             if (m_appTheme == null)
                 m_appTheme = IOC.Resolve<IAppTheme>();
+            if (m_annotation == null)
+                m_annotation = IOC.Resolve<IAnnotation>();
 
             m_item.Validate.AddListener(m_experienceMachine.CanExecuteMenuCommand);
             m_item.Validate.AddListener((args) => args.IsValid = m_item.IsValid);
@@ -173,13 +134,12 @@ namespace VRExperience.Meeting
                     }
                 }
 
-                if (!(m_item.Data is ColorResource))
+                if ((m_item.Data is ColorResource))
                 {
-                    //m_item.Action.AddListener(m_experienceMachine.ExecuteMenuCommand);
                     ((Toggle)selectable).onValueChanged.AddListener((val) =>
                     {
-                        MenuItemEvent<bool> action = new MenuItemEvent<bool>();
-                        action.Invoke(new MenuClickArgs(m_item.Path, m_item.Text, m_item.Command, m_item.CommandType, m_item.Data), val);
+                        if (val)
+                            m_annotation.ColorSelection(((ColorResource)m_item.Data).Color);
                     });
                 }
             }
@@ -187,11 +147,7 @@ namespace VRExperience.Meeting
             gameObject.SetActive(validationResult.IsVisible);
             selectable.interactable = validationResult.IsValid;
 
-            m_userInfo = ((UserResource)m_item.Data).UserInfo;
-
-            userId = m_userInfo.id;
-            m_selectionToggle.isOn = false;
-            m_selectionToggle.interactable = true;
+            m_selectionToggle.isOn = m_annotation.SelectedColor == ((ColorResource)m_item.Data).Color;
             //if (m_allowTextScroll)
             //    StartCoroutine(InitializeTextScroll());
 
@@ -213,6 +169,5 @@ namespace VRExperience.Meeting
             m_item.Validate.Invoke(args);
             return args;
         }
-
     }
 }

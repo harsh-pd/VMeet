@@ -1,4 +1,5 @@
 ﻿using Cornea.Web;
+using Fordi.Annotation;
 using Fordi.Networking;
 using Photon.Pun;
 using System;
@@ -356,6 +357,11 @@ namespace VRExperience.Core
             if (args.CommandType == MenuCommandType.SETTINGS)
             {
                 m_vrMenu.OpenSettingsInterface(m_commonResource.GetGuideClip(MenuCommandType.SETTINGS));
+            }
+
+            if (args.CommandType == MenuCommandType.ANNOTATION)
+            {
+                m_vrMenu.OpenColorPalette(null, ResourceToMenuItems(m_commonResource.GetResource(ResourceType.COLOR, Annotation.AnnotationColorGroup)), "ANNOTATION COLORS");
             }
 
             if (args.CommandType == MenuCommandType.INVENTORY)

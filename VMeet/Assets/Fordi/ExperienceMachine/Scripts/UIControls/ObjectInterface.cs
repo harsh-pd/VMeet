@@ -31,11 +31,12 @@ namespace VRExperience.UI.MenuControl
             m_player = IOC.Resolve<IPlayer>();
         }
 
-        public override void SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
+        public override IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
         {
             ObjectItem objectItem = Instantiate(prefab, parent, false).GetComponentInChildren<ObjectItem>();
             objectItem.Item = menuItemInfo;
             m_objectItems.Add(objectItem);
+            return objectItem;
             //m_scrollRect.enabled = m_objectItems.Count > 12;
         }
 

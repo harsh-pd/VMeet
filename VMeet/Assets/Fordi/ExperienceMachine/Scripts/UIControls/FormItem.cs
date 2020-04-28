@@ -9,7 +9,7 @@ using VRExperience.Core;
 
 namespace VRExperience.UI.MenuControl
 {
-    public class FormItem : InputFieldInteraction
+    public class FormItem : InputFieldInteraction, IMenuItem
     {
         [SerializeField]
         private Image m_icon;

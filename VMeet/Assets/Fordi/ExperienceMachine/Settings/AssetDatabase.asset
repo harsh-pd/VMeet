@@ -320,6 +320,112 @@ MonoBehaviour:
       SecondaryDescription: 
       TertiaryDescription: 
       ShortDescription: Dark
+  - Name: Annotation Colors
+    Description: 
+    ResourceType: 1
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources:
+    - Name: Red
+      Description: Stands for love and passion.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.8867924, g: 0.012548926, b: 0.012548926, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Love
+    - Name: Pink
+      Description: Stands for energy.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.8490566, g: 0, b: 0.59600466, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Passion
+    - Name: Orange
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.7924528, g: 0.1779249, b: 0.018689923, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Fire
+    - Name: Yellow
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.7830189, g: 0.662563, b: 0, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Heat
+    - Name: Blue
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0, g: 0.39141697, b: 0.8679245, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+    - Name: Green
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0, g: 0.8584906, b: 0.5051161, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+    - Name: Purple
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.5626823, g: 0, b: 0.8207547, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: 
+    - Name: White
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.7169812, g: 0.7169812, b: 0.7169812, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Truth
+    - Name: Black
+      Description: Stands for peace.
+      ResourceType: 1
+      Preview: {fileID: 0}
+      LargePreview: {fileID: 0}
+      SpecialCommand: 
+      Color: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
+      PrimaryDescription: 
+      SecondaryDescription: 
+      TertiaryDescription: 
+      ShortDescription: Dark
   MandalaColorCategory:
     Name: Color
     Description: Audio based on color selection
@@ -983,3 +1089,11 @@ MonoBehaviour:
     EDITING BY</b></u> Barbara Parks & Alex Noyes,  <b><u>ADDITIONAL CINEMATOGRAPHY</b></u>
     Alex Stikich    <b><u>ADDITIONAL GRAPHICS</b></u> Gap Sangpattharamatee,  Mi-Sook
     Cho  Tim Van Horn'
+  Vectors:
+    Name: 
+    Description: 
+    ResourceType: 0
+    Preview: {fileID: 0}
+    LargePreview: {fileID: 0}
+    SpecialCommand: 
+    Resources: []

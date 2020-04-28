@@ -60,6 +60,7 @@ namespace VRExperience.Core
         private VOGroup[] m_voiceOvers;
         private GuideAudioGroup[] m_controlGuideVO;
         private ObjectGroup[] m_objects;
+        private ColorGroup[] m_colors;
 
         [SerializeField]
         private AssetDB m_assetDb;
@@ -95,6 +96,7 @@ namespace VRExperience.Core
             m_voiceOvers = m_assetDb.AudioGroups;
             m_controlGuideVO = m_assetDb.GuideAudioGroups;
             m_objects = m_assetDb.ObjectGroups;
+            m_colors = m_assetDb.ColorGroups;
         }
 
         public ResourceComponent[] GetCategories(ResourceType type)
@@ -105,6 +107,8 @@ namespace VRExperience.Core
                     return Array.FindAll(m_voiceOvers, item => item.Name != null && !item.Name.Equals(SampleResource));
                 case ResourceType.OBJECT:
                     return m_objects;
+                case ResourceType.COLOR:
+                    return m_colors;
                 default:
                     return null;
             }
@@ -126,6 +130,8 @@ namespace VRExperience.Core
                         return Array.Find(m_assetDb.ColorAudioGroups, item => item.Name.Equals(category)).Resources;
                     case ResourceType.OBJECT:
                         return Array.Find(m_assetDb.ObjectGroups, item => item.Name.Equals(category)).Resources;
+                    case ResourceType.COLOR:
+                        return Array.Find(m_assetDb.ColorGroups, item => item.Name.Equals(category)).Resources;
                     default:
                         return null;
                 }

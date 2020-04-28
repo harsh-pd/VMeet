@@ -62,7 +62,8 @@ namespace VRExperience.UI.MenuControl
         FORM_INPUT,
         MEETING,
         USER,
-        CREATE_MEETING
+        CREATE_MEETING,
+        ANNOTATION
     }
 
     [Serializable]

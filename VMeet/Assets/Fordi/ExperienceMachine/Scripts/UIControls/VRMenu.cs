@@ -26,6 +26,7 @@ namespace VRExperience.UI.MenuControl
         void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
+        void OpenColorPalette(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenCalendar(Action<string> onClick);
         void OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false);
         void OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip);
@@ -64,9 +65,9 @@ namespace VRExperience.UI.MenuControl
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
-        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab;
+        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab, m_colorPalettePrefab;
         [SerializeField]
-        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab;
+        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab, m_dColorPalettePrefab;
         [SerializeField]
         private RemoteMonitorScreen m_dRemoteMonitorPrefab;
         [SerializeField]
@@ -300,6 +301,32 @@ namespace VRExperience.UI.MenuControl
             menu.Pair = dMenu;
         }
 
+        public void OpenColorPalette(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        {
+            PlayGuide(guide);
+
+            if (m_screenStack.Count > 0)
+            {
+                var screen = m_screenStack.Peek();
+                if (screen.Persist)
+                    screen.Deactivate();
+                else
+                    m_screenStack.Pop().Close();
+            }
+
+            m_player.PrepareForSpawn();
+            var menu = Instantiate(m_colorPalettePrefab, m_player.PlayerCanvas);
+            BringInFront(menu.transform);
+            menu.OpenGridMenu(items, title, block, persist, backEnabled);
+            m_screenStack.Push(menu);
+            if (m_settings.SelectedPreferences.DesktopMode)
+                menu.Hide();
+
+            var dMenu = Instantiate(m_dColorPalettePrefab, m_dScreenRoot);
+            dMenu.OpenGridMenu(items, title, block, persist, backEnabled);
+            dMenu.Hide();
+            menu.Pair = dMenu;
+        }
 
         public void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
         {

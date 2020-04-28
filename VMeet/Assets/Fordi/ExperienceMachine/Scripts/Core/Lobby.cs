@@ -26,7 +26,7 @@ namespace VRExperience.Core
             if ((!(args.Data is MeetingResource) && args.CommandType != MenuCommandType.CATEGORY_SELECTION) && args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER && args.CommandType != MenuCommandType.CREATE_MEETING)
                 base.ExecuteMenuCommand(args);
 
-            if (args.CommandType == MenuCommandType.MUSIC || args.CommandType == MenuCommandType.VO || args.CommandType == MenuCommandType.QUIT || args.CommandType == MenuCommandType.MAIN || args.CommandType == MenuCommandType.SETTINGS || args.CommandType == MenuCommandType.SAVE_PRESET || args.CommandType == MenuCommandType.LOBBY)
+            if (args.CommandType == MenuCommandType.ANNOTATION || args.CommandType == MenuCommandType.MUSIC || args.CommandType == MenuCommandType.VO || args.CommandType == MenuCommandType.QUIT || args.CommandType == MenuCommandType.MAIN || args.CommandType == MenuCommandType.SETTINGS || args.CommandType == MenuCommandType.SAVE_PRESET || args.CommandType == MenuCommandType.LOBBY)
                 return;
 
             if (args.CommandType == MenuCommandType.CREATE_MEETING)
