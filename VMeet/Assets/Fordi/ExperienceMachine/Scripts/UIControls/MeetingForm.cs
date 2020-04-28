@@ -171,7 +171,7 @@ namespace VRExperience.UI.MenuControl
             newMeeting.description = m_meetingTitle.text;
 
             string meetingJson = JsonMapper.ToJson(newMeeting);
-            Debug.LogError(meetingJson);
+            //Debug.LogError(meetingJson);
             return meetingJson;
         }
 

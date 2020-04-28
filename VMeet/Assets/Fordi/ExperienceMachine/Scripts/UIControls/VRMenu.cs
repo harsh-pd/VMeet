@@ -564,10 +564,11 @@ namespace VRExperience.UI.MenuControl
 
         public void GoBack()
         {
-            if (m_screenStack.Count > 0)
-                m_screenStack.Pop().Close();
-            if (m_screenStack.Count > 0)
-                m_screenStack.Peek().Reopen();
+            //if (m_screenStack.Count > 0)
+            //    m_screenStack.Pop().Close();
+            //if (m_screenStack.Count > 0)
+            //    m_screenStack.Peek().Reopen();
+            CloseLastScreen();
         }
 
         public void ShowTooltip(string text)
@@ -915,6 +916,7 @@ namespace VRExperience.UI.MenuControl
 
         public void RefreshDesktopMode()
         {
+            //Debug.LogError("RefreshDesktopMode");
             m_settings.SelectedPreferences.ForcedDesktopMode = false;
             m_settings.SyncSettingsWithDisk(() =>
             {
