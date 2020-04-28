@@ -9202,7 +9202,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7920444335814552636}
   m_syncState: 0
-  viewIdField: 10
+  viewIdField: 9
 --- !u!114 &4395252055850776953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9266,7 +9266,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 7920444335258671642}
   m_syncState: 0
-  viewIdField: 9
+  viewIdField: 10
 --- !u!114 &8119128576193598236
 MonoBehaviour:
   m_ObjectHideFlags: 0
