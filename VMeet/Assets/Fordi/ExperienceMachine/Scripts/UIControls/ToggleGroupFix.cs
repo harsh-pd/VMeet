@@ -11,16 +11,17 @@ namespace Fordi.UI
     [RequireComponent(typeof(ToggleGroup))]
     public class ToggleGroupFix : MonoBehaviour
     {
+        [SerializeField]
         private ToggleGroup m_Group;
+        [SerializeField]
+        private bool m_switchOffAllowed = false;
+
         private List<Toggle> m_toggles = new List<Toggle>();
         private Toggle m_activeToggle = null;
-        private bool m_switchOffAllowed = false;
 
         private IEnumerator Start()
         {
-           
-
-            if (m_Group.allowSwitchOff)
+            if (m_switchOffAllowed)
                 yield break;
 
             yield return null;
@@ -44,19 +45,15 @@ namespace Fordi.UI
 
         private void OnEnable()
         {
-            EnsureGameobjectIntegrity();
             VRTabInteraction.TabChangeInitiated += TabChangeInitiated;
             TabInteraction.TabChangeInitiated += TabChangeInitiated;
-            m_Group.allowSwitchOff = m_switchOffAllowed;
+            StartCoroutine(ConfigureToggleGroup());
         }
 
-        private void EnsureGameobjectIntegrity()
+        private IEnumerator ConfigureToggleGroup()
         {
-            if (m_Group == null)
-            {
-                m_Group = this.GetComponent<ToggleGroup>();
-                m_switchOffAllowed = m_Group.allowSwitchOff;
-            }
+            yield return null;
+            m_Group.allowSwitchOff = m_switchOffAllowed;
         }
 
         private void TabChangeInitiated(object sender, EventArgs e)
@@ -70,16 +67,7 @@ namespace Fordi.UI
         {
             VRTabInteraction.TabChangeInitiated -= TabChangeInitiated;
             TabInteraction.TabChangeInitiated -= TabChangeInitiated;
-            if (m_Group == null)
-                return;
-
-            //foreach (var item in m_Group.ActiveToggles())
-            //{
-            //    if (item != m_activeToggle)
-            //        item.SetValue(false);
-            //}
-            //m_activeToggle.SetValue(true);
-            //Debug.LogError("Toggles fixed");
+            m_Group.allowSwitchOff = true;
         }
 
         private void FindActiveToggle()
