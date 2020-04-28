@@ -68,7 +68,7 @@ namespace Fordi.Sync
                 if (((IFordiObservable)item).Selectable is TMP_InputField inputField)
                     inputField.onValueChanged.AddListener(OnValueChanged);
                 if (((IFordiObservable)item).Selectable is Toggle toggle)
-                    toggle.onValueChanged.AddListener(OnValueChanged);
+                    toggle.onValueChanged.AddListener((val) => OnValueChanged(toggle, val));
                 if (((IFordiObservable)item).Selectable is Slider slider)
                     slider.onValueChanged.AddListener(OnValueChanged);
             }
@@ -235,9 +235,20 @@ namespace Fordi.Sync
             m_fordiNetwork.OnValueChanged(this, ViewId, value);
         }
 
-        private void OnValueChanged(bool value)
+        private void OnValueChanged(Toggle toggle, bool value)
         {
             //Debug.LogError(name + " value change: " + value);
+            try
+            {
+                if (!value && toggle.group != null)
+                    return;
+            }
+            catch (NullReferenceException e)
+            {
+                Debug.LogException(e);
+            }
+            
+
             if (m_remoteValueChange)
             {
                 m_remoteValueChange = false;
