@@ -49,7 +49,7 @@ namespace VRExperience.UI.MenuControl
         private GameObject m_backButton;
 
         [SerializeField]
-        private Image m_preview;
+        protected Image m_preview;
 
         [SerializeField]
         protected TextMeshProUGUI m_description;
