@@ -17,6 +17,14 @@ namespace VRExperience.Core
         {
             base.ExecuteMenuCommand(args);
 
+            if (args.CommandType == MenuCommandType.LOGOUT)
+            {
+                m_menuSelection.Location = Home.HOME_SCENE;
+                m_menuSelection.ExperienceType = ExperienceType.HOME;
+                ToggleMenu();
+                m_experienceMachine.LoadExperience();
+            }
+
             if (args.CommandType == MenuCommandType.CATEGORY_SELECTION)
             {
                 var resourceType = ((ResourceComponent)args.Data).ResourceType;

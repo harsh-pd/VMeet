@@ -16,6 +16,8 @@ namespace VRExperience.Core
         [SerializeField]
         private GameObject m_glow;
 
+        public const string HOME_SCENE = "Home";
+
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
@@ -27,7 +29,14 @@ namespace VRExperience.Core
             base.ExecuteMenuCommand(args);
             if (args.CommandType == MenuCommandType.QUIT || args.CommandType == MenuCommandType.MAIN || args.CommandType == MenuCommandType.SETTINGS || args.CommandType == MenuCommandType.SAVE_PRESET || args.CommandType == MenuCommandType.LOBBY)
                 return;
-            
+
+            if (args.CommandType == MenuCommandType.LOGOUT)
+            {
+                ToggleMenu();
+                OpenLoginPage();
+                return;
+            }
+
             if (args.CommandType == MenuCommandType.EXPERIENCE || args.CommandType == MenuCommandType.TRAINING)
             {
                 if (args.CommandType == MenuCommandType.TRAINING)

@@ -303,5 +303,10 @@ namespace VRExperience.UI.MenuControl
             base.Reopen();
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
         }
+
+        public void Logout()
+        {
+            m_experienceMachine.ExecuteMenuCommand(new MenuClickArgs("Logout", "Logout", "Logout", MenuCommandType.LOGOUT, null));
+        }
     }
 }
