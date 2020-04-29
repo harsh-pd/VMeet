@@ -20,6 +20,7 @@ namespace VRExperience.UI.MenuControl
     {
         bool IsOpen { get; }
         EventHandler AudioInterruptionEvent { get; set; }
+        EventHandler ScreenChangeInitiated { get; set; }
         void OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
         void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, bool refreshOnReopen = false);
@@ -125,6 +126,7 @@ namespace VRExperience.UI.MenuControl
         public bool IsOpen { get { return m_screenStack.Count != 0; } }
 
         public EventHandler AudioInterruptionEvent { get; set; }
+        public EventHandler ScreenChangeInitiated { get; set; }
 
         private Stack<IScreen> m_screenStack = new Stack<IScreen>();
 
@@ -431,6 +433,8 @@ namespace VRExperience.UI.MenuControl
         public void CloseLastScreen()
         {
             //Debug.LogError("Close last screen");
+
+            ScreenChangeInitiated?.Invoke(this, EventArgs.Empty);
 
             if (m_screenStack.Count > 0)
             {
@@ -950,6 +954,13 @@ namespace VRExperience.UI.MenuControl
 
         void OnHMDUnmount()
         {
+            if (IOC.Resolve<IVRMenu>() != this)
+            {
+                OVRManager.HMDMounted -= this.OnHMDMount;
+                OVRManager.HMDUnmounted -= this.OnHMDUnmount;
+                return;
+            }
+
             if (!m_settings.SelectedPreferences.DesktopMode)
                 UnblockDesktop();
             EnableDesktopModule();
@@ -957,6 +968,13 @@ namespace VRExperience.UI.MenuControl
 
         void OnHMDMount()
         {
+            if (IOC.Resolve<IVRMenu>() != this)
+            {
+                OVRManager.HMDMounted -= this.OnHMDMount;
+                OVRManager.HMDUnmounted -= this.OnHMDUnmount;
+                return;
+            }
+
             if (!m_settings.SelectedPreferences.DesktopMode)
                 BlockDesktop();
             EnableVRModule();

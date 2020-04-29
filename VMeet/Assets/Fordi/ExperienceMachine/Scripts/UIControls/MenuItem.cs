@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -319,15 +320,17 @@ namespace VRExperience.UI.MenuControl
             ((Button)selectable).targetGraphic = image;
         }
 
+        protected override void OnEnableOverride()
+        {
+            base.OnEnableOverride();
+            m_vrMenu.ScreenChangeInitiated += ScreenChangeInitiated;
+        }
+
         protected override void OnDisableOverride()
         {
             base.OnDisableOverride();
 
-            if (Item.Data is ResourceComponent experienceResource)
-            {
-                m_vrMenu.ShowPreview(null);
-                m_vrMenu.ShowTooltip("");
-            }
+            m_vrMenu.ScreenChangeInitiated -= ScreenChangeInitiated;
 
             if (m_textScrollEnumerator != null)
             {
@@ -335,6 +338,15 @@ namespace VRExperience.UI.MenuControl
                 ((RectTransform)m_text.transform).localPosition = m_initialTextPosition;
                 if (m_clonedText != null)
                     m_clonedText.gameObject.SetActive(false);
+            }
+        }
+
+        private void ScreenChangeInitiated(object sender, EventArgs e)
+        {
+            if (Item.Data is ResourceComponent experienceResource)
+            {
+                m_vrMenu.ShowPreview(null);
+                m_vrMenu.ShowTooltip("");
             }
         }
 

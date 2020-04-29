@@ -75,11 +75,19 @@ namespace VRExperience.UI
 
         }
 
+
+        private void OnEnable()
+        {
+            OnEnableOverride();
+        }
+
         public void OnDisable()
         {
             pointerHovering = false;
             OnDisableOverride();
         }
+
+        protected virtual void OnEnableOverride() { }
 
         protected virtual void OnDisableOverride()
         {

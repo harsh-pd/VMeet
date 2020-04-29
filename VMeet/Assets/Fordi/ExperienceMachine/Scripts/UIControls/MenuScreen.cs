@@ -144,6 +144,7 @@ namespace VRExperience.UI.MenuControl
         public virtual void Reopen()
         {
             gameObject.SetActive(true);
+            m_preview.gameObject.SetActive(m_preview.sprite != null);
 
             if (m_requireRefreshOnReopen)
                 Refresh();
