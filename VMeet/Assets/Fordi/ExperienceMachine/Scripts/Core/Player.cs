@@ -34,6 +34,7 @@ namespace VRExperience.Core
         void ToogleGrabGuide(OVRInput.Controller controller, bool val);
         bool GuideOn { get; }
         void DoWaypointTeleport(Transform anchor);
+        void FadeOut();
     }
 
     public class ToolTip
@@ -105,6 +106,9 @@ namespace VRExperience.Core
         [SerializeField]
         private GameObject m_leftGrabGuidePrefab, m_rightGrabGuidePrefab;
 
+        [SerializeField]
+        private OVRScreenFade m_fadeScript;
+
         public int PlayerViewId { get { return m_playerPhotonView.ViewID; } set { m_playerPhotonView.ViewID = value; } }
         public int AvatarViewId { get { return m_avatarPhotonView.ViewID; } set { m_avatarPhotonView.ViewID = value; } }
 
@@ -137,8 +141,6 @@ namespace VRExperience.Core
         private ISettings m_settings;
         private IVRMenu m_vrMenu;
         private IAudio m_audio;
-
-        private VRFadeScript m_fadeScript;
 
         [SerializeField]
         private List<ButtonTip> m_movementButtonTips = new List<ButtonTip>();
@@ -595,6 +597,11 @@ namespace VRExperience.Core
         public void DoWaypointTeleport(Transform anchor)
         {
             m_teleport.WaypointTeleport(anchor);
+        }
+
+        public void FadeOut()
+        {
+            m_fadeScript.FadeOut();
         }
     }
 }

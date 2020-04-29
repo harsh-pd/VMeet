@@ -124,6 +124,7 @@ namespace VRExperience.Core
         private IAudio m_audio;
         private IVRMenu m_vrMenu;
         private ISettings m_settings;
+        private IPlayer m_player;
 
         public const string DynamicAmbienceTag = "DynamicAmbience";
         public const string CorrectTextColorStyle = "Correct";
@@ -158,6 +159,7 @@ namespace VRExperience.Core
             m_audio = IOC.Resolve<IAudio>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_settings = IOC.Resolve<ISettings>();
+            m_player = IOC.Resolve<IPlayer>();
 
             if (SceneManager.GetActiveScene().name == MeetingScene)
             {
@@ -343,6 +345,8 @@ namespace VRExperience.Core
                 }
             };
             m_audio.Stop(args);
+
+            m_player.FadeOut();
 
             AudioArgs voArgs = new AudioArgs(null, AudioType.VO)
             {
