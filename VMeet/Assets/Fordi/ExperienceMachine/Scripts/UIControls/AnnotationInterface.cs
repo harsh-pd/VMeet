@@ -7,10 +7,12 @@ using VRExperience.Common;
 
 namespace VRExperience.UI.MenuControl
 {
-    public class ColorPalette : MenuScreen
+    public class AnnotationInterface : MenuScreen
     {
         [SerializeField]
         ToggleGroup m_group = null;
+        [SerializeField]
+        private Slider m_thicknessSlider = null;
 
         private IAnnotation m_annotaiton;
 
@@ -18,6 +20,12 @@ namespace VRExperience.UI.MenuControl
         {
             base.AwakeOverride();
             m_annotaiton = IOC.Resolve<IAnnotation>();
+        }
+
+        protected override void OnDestroyOverride()
+        {
+            base.OnDestroyOverride();
+            m_thicknessSlider.onValueChanged.RemoveAllListeners();
         }
 
         public override void Close()
@@ -50,6 +58,9 @@ namespace VRExperience.UI.MenuControl
             base.OpenGridMenu(items, title, blocked, persist, backEnabled, requireRefreshOnReopen);
             m_preview.color = m_annotaiton.SelectedColor;
             m_group.allowSwitchOff = false;
+            m_thicknessSlider.value = m_annotaiton.Settings.SelectedThickness;
+            Debug.LogError("TrailThickness: " + m_annotaiton.Settings.SelectedThickness);
+            m_thicknessSlider.onValueChanged.AddListener(m_annotaiton.ChangeTrailThickness);
         }
     }
 }

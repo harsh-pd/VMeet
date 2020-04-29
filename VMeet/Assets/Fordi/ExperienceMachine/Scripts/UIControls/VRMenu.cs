@@ -27,7 +27,7 @@ namespace VRExperience.UI.MenuControl
         void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
-        void OpenColorPalette(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
+        void OpenAnnotationInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenCalendar(Action<string> onClick);
         void OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false);
         void OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip);
@@ -302,7 +302,7 @@ namespace VRExperience.UI.MenuControl
             menu.Pair = dMenu;
         }
 
-        public void OpenColorPalette(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public void OpenAnnotationInterface(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
         {
             PlayGuide(guide);
 

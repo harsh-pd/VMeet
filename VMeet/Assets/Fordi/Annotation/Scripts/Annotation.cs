@@ -47,6 +47,7 @@ namespace Fordi.Annotation
         void RemoteDeletePreviousTrail(int remotePlayerId);
         void RemoteStartNewNote(Vector3 startPosition, int remotePlayerId, Color col, float thickness, int trailViewId, int controllingPlayer);
         void ColorSelection(Color color);
+        void ChangeTrailThickness(float thickness);
     }
 
     public class Annotation : MonoBehaviour, IAnnotation

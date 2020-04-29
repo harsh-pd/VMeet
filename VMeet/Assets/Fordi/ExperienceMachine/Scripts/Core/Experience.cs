@@ -361,7 +361,7 @@ namespace VRExperience.Core
 
             if (args.CommandType == MenuCommandType.ANNOTATION)
             {
-                m_vrMenu.OpenColorPalette(null, ResourceToMenuItems(m_commonResource.GetResource(ResourceType.COLOR, Annotation.AnnotationColorGroup)), "ANNOTATION COLORS");
+                m_vrMenu.OpenAnnotationInterface(null, ResourceToMenuItems(m_commonResource.GetResource(ResourceType.COLOR, Annotation.AnnotationColorGroup)), "ANNOTATION COLORS");
             }
 
             if (args.CommandType == MenuCommandType.INVENTORY)
