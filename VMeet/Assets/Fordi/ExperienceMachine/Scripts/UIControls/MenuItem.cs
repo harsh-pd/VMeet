@@ -343,7 +343,7 @@ namespace VRExperience.UI.MenuControl
 
         private void ScreenChangeInitiated(object sender, EventArgs e)
         {
-            if (Item.Data is ResourceComponent experienceResource)
+            if (Item != null && Item.Data != null && Item.Data is ResourceComponent experienceResource)
             {
                 m_vrMenu.ShowPreview(null);
                 m_vrMenu.ShowTooltip("");
