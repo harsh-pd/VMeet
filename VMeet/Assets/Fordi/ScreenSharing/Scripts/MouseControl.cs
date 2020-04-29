@@ -66,7 +66,7 @@ namespace Fordi.ScreenSharing
 
         private void Start()
         {
-            if (m_laserPointer == null )
+            if (m_laserPointer == null)
                 m_laserPointer = FindObjectOfType<LaserPointer>();
         }
 
@@ -145,14 +145,19 @@ namespace Fordi.ScreenSharing
             Vector3[] worldCorners = new Vector3[4];
             m_activeMonitor.rectTransform.GetWorldCorners(worldCorners);
 
+            var width = 2 * Vector2.Distance(new Vector2(worldCorners[2].x, worldCorners[2].z), new Vector2(m_activeMonitor.rectTransform.position.x, m_activeMonitor.rectTransform.position.z));
+            var height = 2 * (worldCorners[2].y - m_activeMonitor.rectTransform.position.y);
 
-            Vector2 worldUnitSizeDelta = 2 * ( new Vector2(worldCorners[2].x - m_activeMonitor.rectTransform.position.x, worldCorners[2].y - m_activeMonitor.rectTransform.position.y) );
+            Vector3 leftDownCoordinates = worldCorners[0];
 
-            Vector2 leftDownCoordinates = new Vector2(m_activeMonitor.rectTransform.position.x, m_activeMonitor.rectTransform.position.y) - worldUnitSizeDelta / 2;
+            var unitX = Vector3.Normalize(new Vector3(m_activeMonitor.rectTransform.position.x, leftDownCoordinates.y, m_activeMonitor.rectTransform.position.z) - leftDownCoordinates);
+            //var xVector = new Vector2(worldPosition.x, worldPosition.z) - new Vector2(leftDownCoordinates.x, leftDownCoordinates.z);
+            var xValue = Vector2.Distance(new Vector2(worldPosition.x, worldPosition.z), new Vector2(leftDownCoordinates.x, leftDownCoordinates.z));
 
-
-            int xMousePosition = (int)Mathf.Abs(((worldPosition.x - leftDownCoordinates.x) * m_systemWidth / worldUnitSizeDelta.x));
-            int yMousePosition = (int)Mathf.Abs(((worldPosition.y - leftDownCoordinates.y) * m_systemHeight / worldUnitSizeDelta.y));
+            //int xMousePosition = (int)Mathf.Abs(((worldPosition.x - leftDownCoordinates.x) * m_systemWidth / width));
+            int xMousePosition = (int)Mathf.Abs((xValue * m_systemWidth / width));
+            int yMousePosition = (int)Mathf.Abs(((worldPosition.y - leftDownCoordinates.y) * m_systemHeight / height));
+            //Debug.LogError(worldPosition + " : " + worldCorners[0] + " x: " + xMousePosition + " y: " + yMousePosition + " xValue: " + xValue + " unitX: " + unitX);
 
             return new Vector2Int(xMousePosition, m_systemHeight - yMousePosition);
         }
