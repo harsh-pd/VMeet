@@ -354,7 +354,7 @@ namespace VRExperience.Core
             };
             m_audio.Stop(voArgs);
 
-            m_vrMenu.DisplayProgress("Loading: " + m_menuSelection.Location);
+            m_vrMenu.DisplayProgress("Loading: " + m_menuSelection.Location, true);
             //SceneManager.LoadScene(m_menuSelection.Location);
         }
         #endregion

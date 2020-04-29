@@ -28,6 +28,9 @@ namespace VRExperience.UI
         [SerializeField]
         private GameObject m_loader = null;
 
+        [SerializeField]
+        private GameObject m_header = null;
+
         public bool Blocked { get; private set; }
 
         public bool Persist { get; private set; }
@@ -83,7 +86,7 @@ namespace VRExperience.UI
             m_text.text = text;
             if (okClick != null && m_button != null)
                 m_button.onClick.AddListener(() => okClick.Invoke());
-            m_backButton.SetActive(backEnabled);
+            m_header.SetActive(backEnabled);
         }
 
         public void BackClick()
