@@ -93,7 +93,7 @@ namespace Fordi.Annotation
         private RaycastHit hit;
         public RaycastHit Hit { get { return hit; } }
 
-        private AnnotationSettings settings = null;
+        private static AnnotationSettings settings = null;
         public AnnotationSettings Settings { get { return settings; } }
 
         private bool newTrailCreationInProgress = false, trailFinishRequestGenerated = false;
@@ -122,7 +122,8 @@ namespace Fordi.Annotation
 
         private IEnumerator Start()
         {
-            settings = new AnnotationSettings();
+            if (settings == null)
+                settings = new AnnotationSettings();
             instance = this;
 
             yield return null;
