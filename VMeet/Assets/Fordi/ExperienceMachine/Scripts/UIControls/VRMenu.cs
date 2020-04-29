@@ -209,12 +209,9 @@ namespace VRExperience.UI.MenuControl
 
         public void OpenMenu(MenuItemInfo[] items, bool block = true, bool persist = false)
         {
-            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && !m_recenterFlag)
-            {
-                //Debug.LogError("Recentering");
-                UnityEngine.XR.InputTracking.Recenter();
-                m_recenterFlag = true;
-            }
+            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && !m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
+                StartCoroutine(CoRecenter());
+
             //Debug.LogError("OpenMenu");
             m_screensRoot.gameObject.SetActive(true);
             if (m_screenStack.Count > 0)
@@ -961,6 +958,16 @@ namespace VRExperience.UI.MenuControl
             if (!m_settings.SelectedPreferences.DesktopMode)
                 BlockDesktop();
             EnableVRModule();
+
+            if (!m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
+                StartCoroutine(CoRecenter());
+        }
+
+        private IEnumerator CoRecenter()
+        {
+            yield return new WaitForSeconds(1);
+            InputTracking.Recenter();
+            m_recenterFlag = true;
         }
 
         private void EnableDesktopModule()
