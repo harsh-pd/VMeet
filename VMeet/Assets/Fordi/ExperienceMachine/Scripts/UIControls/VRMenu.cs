@@ -324,9 +324,7 @@ namespace VRExperience.UI.MenuControl
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
 
-            var dMenu = Instantiate(m_dColorPalettePrefab, m_dScreenRoot);
-            dMenu.OpenGridMenu(items, title, block, persist, backEnabled);
-            dMenu.Hide();
+            var dMenu = DisplayMessage("Annotation interface activated in VR.", true);
             menu.Pair = dMenu;
         }
 
@@ -729,32 +727,42 @@ namespace VRExperience.UI.MenuControl
             menu.Pair = dMenu;
         }
 
-        public void DisplayMessage(string message, bool block = true, bool persist = false)
+        public IScreen DisplayMessage(string message, bool desktop, bool block = true, bool persist = false)
         {
-            if (m_vrBlocker != null)
-                m_vrBlocker.Close();
+            if (desktop)
+            {
+                var dMenu = Instantiate(m_dGenericLoader, m_dScreenRoot);
+                dMenu.Init(message, true, false, true);
+                return dMenu;
+            }
+            else
+            {
+                if (m_vrBlocker != null)
+                    m_vrBlocker.Close();
 
-            m_screensRoot.gameObject.SetActive(true);
-            //if (m_screenStack.Count > 0)
-            //{
-            //    var screen = m_screenStack.Peek();
-            //    if (screen.Persist)
-            //        screen.Deactivate();
-            //    else
-            //        m_screenStack.Pop().Close();
-            //}
+                m_screensRoot.gameObject.SetActive(true);
+                //if (m_screenStack.Count > 0)
+                //{
+                //    var screen = m_screenStack.Peek();
+                //    if (screen.Persist)
+                //        screen.Deactivate();
+                //    else
+                //        m_screenStack.Pop().Close();
+                //}
 
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
+                if (m_player == null)
+                    m_player = IOC.Resolve<IPlayer>();
 
-            m_player.PrepareForSpawn();
-            var menu = Instantiate(m_textBoxPrefab, m_player.PlayerCanvas);
-            BringInFront(menu.transform);
+                m_player.PrepareForSpawn();
+                var menu = Instantiate(m_textBoxPrefab, m_player.PlayerCanvas);
+                BringInFront(menu.transform);
 
-            menu.OpenMenu(message, block, persist);
-            m_vrBlocker = menu;
-            //m_screenStack.Push(menu);
-            m_menuOn = true;
+                menu.OpenMenu(message, block, persist);
+                m_vrBlocker = menu;
+                //m_screenStack.Push(menu);
+                m_menuOn = true;
+                return menu;
+            }
         }
 
         public void CloseVRBlocker()
@@ -905,7 +913,7 @@ namespace VRExperience.UI.MenuControl
             foreach (var item in m_screenStack)
                 item.Hide();
 
-            DisplayMessage("Desktop only mode is active.");
+            DisplayMessage("Desktop only mode is active.", false);
             UnblockDesktop();
             if (m_sidePanelsRoot)
                 m_sidePanelsRoot.SetActive(false);
@@ -1064,6 +1072,11 @@ namespace VRExperience.UI.MenuControl
                 menu.Pair = dMenu;
             }
         }
+
+        //public void DisplayMessage(string text)
+        //{
+            
+        //}
 
         public void SwitchStandaloneMenu()
         {

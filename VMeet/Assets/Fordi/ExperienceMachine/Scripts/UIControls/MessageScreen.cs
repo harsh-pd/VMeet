@@ -20,6 +20,9 @@ namespace VRExperience.UI
         private Button m_button;
 
         [SerializeField]
+        private GameObject m_backButton = null;
+
+        [SerializeField]
         private List<SyncView> m_synchronizedElements = new List<SyncView>();
 
         [SerializeField]
@@ -75,11 +78,17 @@ namespace VRExperience.UI
                 Pair.Deactivate();
         }
 
-        public void Init(string text, bool blocked = true, bool persist = false, Action okClick = null)
+        public void Init(string text, bool blocked = true, bool persist = false, bool backEnabled = false, Action okClick = null)
         {
             m_text.text = text;
             if (okClick != null && m_button != null)
                 m_button.onClick.AddListener(() => okClick.Invoke());
+            m_backButton.SetActive(backEnabled);
+        }
+
+        public void BackClick()
+        {
+            m_vrMenu.GoBack();
         }
 
         public void Reopen()
