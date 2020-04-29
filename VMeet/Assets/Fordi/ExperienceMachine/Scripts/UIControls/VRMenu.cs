@@ -511,7 +511,9 @@ namespace VRExperience.UI.MenuControl
             
             m_screenStack.Clear();
             m_menuOff = true;
-            m_player.RequestHaltMovement(false);
+
+            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME)
+                m_player.RequestHaltMovement(false);
 
             if (m_menuSelection.ExperienceType == ExperienceType.MANDALA && m_experienceMachine.CurrentExperience == ExperienceType.MANDALA && m_menuSelection.VoiceOver == null)
             {
