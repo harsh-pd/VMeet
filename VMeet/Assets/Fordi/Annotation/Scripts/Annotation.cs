@@ -32,7 +32,8 @@ namespace Fordi.Annotation
 
         public void SetThickness(float sliderValue)
         {
-            selectedThickness = minThickness + (maxThickness - minThickness) * sliderValue;
+            //selectedThickness = minThickness + (maxThickness - minThickness) * sliderValue;
+            selectedThickness = sliderValue;
         }
     }
 
@@ -79,8 +80,8 @@ namespace Fordi.Annotation
         public Trail currentDefaultTrail;
         public OVRInput.Controller controller = OVRInput.Controller.RTouch;
         public const string TintColorProperty = "_Color";
-        public Color selectedColor;
-        public Color SelectedColor { get { return selectedColor; } }
+        private static Color s_selectedColor = Color.black;
+        public Color SelectedColor { get { return s_selectedColor; } }
        
 
         public static Annotation instance;
@@ -131,12 +132,13 @@ namespace Fordi.Annotation
 
             EnsureGameobjectIntegrity();
 
-            selectedColor = currentDefaultTrail.trailRend.material.GetColor(TintColorProperty);
             var colorResources = m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup);
-            var colorIndex = Array.FindIndex(colorResources, item => ((ColorResource)item).Color == selectedColor);
+            var colorIndex = Array.FindIndex(colorResources, item => ((ColorResource)item).Color == s_selectedColor);
             if (colorIndex == -1)
                 colorIndex = 0;
             ColorSelection(((ColorResource)m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup)[colorIndex]).Color);
+
+            ChangeTrailThickness(settings.SelectedThickness);
 
             if (controller == OVRInput.Controller.RTouch)
             {
@@ -291,10 +293,10 @@ namespace Fordi.Annotation
             if (PhotonNetwork.InRoom)
             {
                 object[] content = new object[6];
-                content[0] = selectedColor.r;
-                content[1] = selectedColor.g;
-                content[2] = selectedColor.b;
-                content[3] = selectedColor.a;
+                content[0] = s_selectedColor.r;
+                content[1] = s_selectedColor.g;
+                content[2] = s_selectedColor.b;
+                content[3] = s_selectedColor.a;
                 content[4] = settings.SelectedThickness;
                 content[5] = currentDefaultTrail.PhotonViewId;
                 PhotonNetwork.RaiseEvent(Network.trailBegin, content, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, new SendOptions { Reliability = true });
@@ -335,10 +337,10 @@ namespace Fordi.Annotation
             if (PhotonNetwork.InRoom)
             {
                 object[] content = new object[7];
-                content[0] = selectedColor.r;
-                content[1] = selectedColor.g;
-                content[2] = selectedColor.b;
-                content[3] = selectedColor.a;
+                content[0] = s_selectedColor.r;
+                content[1] = s_selectedColor.g;
+                content[2] = s_selectedColor.b;
+                content[3] = s_selectedColor.a;
                 content[4] = startPosition;
                 content[5] = settings.SelectedThickness;
                 content[6] = newTrailComp.PhotonViewId;
@@ -489,13 +491,13 @@ namespace Fordi.Annotation
         public void ChangeTrailColor(Image image)
         {
             currentDefaultTrail.SetColor(image.color);
-            selectedColor = image.color;
+            s_selectedColor = image.color;
         }
 
         public void ColorSelection(Color color)
         {
             currentDefaultTrail.SetColor(color);
-            selectedColor = color;
+            s_selectedColor = color;
         }
 
         public void ChangeTrailThickness(float sliderValue)
