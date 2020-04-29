@@ -59,7 +59,6 @@ namespace VRExperience.UI.MenuControl
             m_preview.color = m_annotaiton.SelectedColor;
             m_group.allowSwitchOff = false;
             m_thicknessSlider.value = m_annotaiton.Settings.SelectedThickness;
-            Debug.LogError("TrailThickness: " + m_annotaiton.Settings.SelectedThickness);
             m_thicknessSlider.onValueChanged.AddListener(m_annotaiton.ChangeTrailThickness);
         }
     }
