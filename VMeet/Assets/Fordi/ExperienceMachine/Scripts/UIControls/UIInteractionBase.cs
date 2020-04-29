@@ -17,6 +17,9 @@ namespace VRExperience.UI
         protected Shadow shadow;
 
         [SerializeField]
+        protected GameObject m_solidBackground = null;
+
+        [SerializeField]
         protected Image selection;
 
         [SerializeField]
@@ -26,6 +29,7 @@ namespace VRExperience.UI
 
         protected IAppTheme m_appTheme;
         protected IAudio m_audio;
+        protected IExperienceMachine m_experienceMachine = null;
 
         public static event EventHandler<PointerEventData> OnClick;
 
@@ -33,7 +37,11 @@ namespace VRExperience.UI
         {
             m_appTheme = IOC.Resolve<IAppTheme>();
             m_audio = IOC.Resolve<IAudio>();
+            m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+            if (m_solidBackground)
+                m_solidBackground.SetActive(m_experienceMachine.CurrentExperience != ExperienceType.HOME);
             AwakeOverride();
+
         }
 
         private void OnDestroy()

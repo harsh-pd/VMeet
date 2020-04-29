@@ -28,14 +28,10 @@ namespace VRExperience.UI.MenuControl
         protected bool m_allowTextScroll = false;
         [SerializeField]
         private float m_textScrollSpeed = 10.0f;
-        [SerializeField]
-        private GameObject m_solidBackground = null;
 
         protected TextMeshProUGUI m_clonedText;
 
         private bool m_textScrollInitialized = false;
-
-        protected IExperienceMachine m_experienceMachine;
 
         protected IVRMenu m_vrMenu;
 
@@ -133,8 +129,6 @@ namespace VRExperience.UI.MenuControl
             selectable.interactable = validationResult.IsValid;
             if (m_allowTextScroll)
                 StartCoroutine(InitializeTextScroll());
-            if (m_solidBackground)
-                m_solidBackground.SetActive(m_experienceMachine.CurrentExperience != ExperienceType.HOME);
         }
 
         protected bool m_textOverflowing = false;
@@ -250,8 +244,6 @@ namespace VRExperience.UI.MenuControl
             selectable.interactable = validationResult.IsValid;
             if (m_allowTextScroll)
                 StartCoroutine(InitializeTextScroll());
-            if(m_solidBackground)
-                m_solidBackground.SetActive(m_experienceMachine.CurrentExperience != ExperienceType.HOME);
         }
 
         protected MenuItemValidationArgs IsValid()
