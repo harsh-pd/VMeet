@@ -14,6 +14,9 @@ namespace VRExperience.UI
     public class UIInteractionBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IFordiObservable
     {
         [SerializeField]
+        private Transform m_root;
+
+        [SerializeField]
         protected Shadow shadow;
 
         [SerializeField]
@@ -70,12 +73,12 @@ namespace VRExperience.UI
 
         protected virtual void AwakeOverride()
         {
-            
+
         }
 
         protected virtual void OnDestroyOverride()
         {
-            
+
         }
 
         protected virtual void UpdateOverride()
@@ -101,6 +104,7 @@ namespace VRExperience.UI
         {
             ToggleOutlineHighlight(false);
             ToggleBackgroundHighlight(false);
+            Pop(false);
             if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
                 EventSystem.current.SetSelectedGameObject(null);
         }
@@ -109,12 +113,24 @@ namespace VRExperience.UI
         {
             ToggleBackgroundHighlight(false);
             ToggleOutlineHighlight(false);
+            Pop(false);
         }
 
         public virtual void OnPointerEnter(PointerEventData eventData)
         {
             pointerHovering = true;
             ToggleOutlineHighlight(true);
+            Pop(true);
+        }
+
+        protected virtual void Pop(bool val)
+        {
+            if (m_solidBackground)
+            {
+                if (m_root == null)
+                    m_root = transform;
+                m_root.localPosition = new Vector3(m_root.localPosition.x, m_root.localPosition.y, val ? -3 : 0);
+            }
         }
 
         public virtual void OnPointerExit(PointerEventData eventData)
@@ -122,6 +138,7 @@ namespace VRExperience.UI
             pointerHovering = false;
             ToggleOutlineHighlight(false);
             ToggleBackgroundHighlight(false);
+            Pop(false);
             if (EventSystem.current != null)
                 EventSystem.current.SetSelectedGameObject(null);
         }
@@ -158,6 +175,7 @@ namespace VRExperience.UI
         {
             ToggleBackgroundHighlight(true);
             ToggleOutlineHighlight(true);
+            Pop(true);
         }
 
         public virtual void OnPointerClick(PointerEventData eventData)

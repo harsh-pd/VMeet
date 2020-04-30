@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30304601ecae9d64badc00dde09f6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_root: {fileID: 6345109721831621501}
   shadow: {fileID: 6345109721831621440}
   m_solidBackground: {fileID: 3992850251460973883}
   selection: {fileID: 6345109721831621442}
@@ -266,7 +267,7 @@ GameObject:
   - component: {fileID: 6345109721831621442}
   - component: {fileID: 6345109721831621440}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: VRButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

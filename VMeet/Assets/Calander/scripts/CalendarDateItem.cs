@@ -12,6 +12,7 @@ public class CalendarDateItem : MenuItem {
     {
         ToggleOutlineHighlight(false);
         ToggleBackgroundHighlight(false);
+        Pop(false);
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(null);
 
@@ -21,6 +22,7 @@ public class CalendarDateItem : MenuItem {
     {
         pointerHovering = true;
         ToggleOutlineHighlight(true);
+        Pop(true);
     }
 
     public override void OnPointerExit(PointerEventData eventData)
@@ -28,6 +30,7 @@ public class CalendarDateItem : MenuItem {
         pointerHovering = false;
         ToggleOutlineHighlight(false);
         ToggleBackgroundHighlight(false);
+        Pop(false);
         if (EventSystem.current != null)
             EventSystem.current.SetSelectedGameObject(null);
 

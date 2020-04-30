@@ -23,6 +23,7 @@ namespace VRExperience.UI
             {
                 ToggleBackgroundHighlight(true);
                 ToggleOutlineHighlight(true);
+                Pop(true);
             }
             if (m_image != null)
                 m_image.gameObject.SetActive(toggle.isOn);
@@ -57,6 +58,7 @@ namespace VRExperience.UI
         {
             ToggleBackgroundHighlight(val);
             ToggleOutlineHighlight(val);
+            Pop(val);
 
             if (m_image != null)
                 m_image.gameObject.SetActive(val);
@@ -71,6 +73,7 @@ namespace VRExperience.UI
             {
                 ToggleOutlineHighlight(false);
                 ToggleBackgroundHighlight(false);
+                Pop(false);
             }
             if (EventSystem.current != null)
                 EventSystem.current.SetSelectedGameObject(null);

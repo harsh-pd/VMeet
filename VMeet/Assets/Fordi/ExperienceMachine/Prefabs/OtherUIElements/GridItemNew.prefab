@@ -332,7 +332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a177935c21e734d8a26fe4b9107aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_root: {fileID: 7127488356038774234}
   shadow: {fileID: 0}
+  m_solidBackground: {fileID: 6112768155403197502}
   selection: {fileID: 2296271218944877309}
   selectable: {fileID: 4329616035446003191}
   m_text: {fileID: 3428806113443760139}
@@ -342,7 +344,6 @@ MonoBehaviour:
   m_icon: {fileID: 8422306329794821614}
   m_allowTextScroll: 1
   m_textScrollSpeed: 10
-  m_solidBackground: {fileID: 6112768155403197502}
 --- !u!1 &2945904162054245281
 GameObject:
   m_ObjectHideFlags: 0
