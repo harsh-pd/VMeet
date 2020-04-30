@@ -16,13 +16,15 @@ namespace Fordi.VoiceChat
 {
     public interface IVoiceChat
     {
-
+        void ToggleMute(bool val);
     }
 
     public class VoiceChat : MonoBehaviour, IVoiceChat
     {
         [SerializeField]
         private Recorder m_voiceRecorder = null;
+
+        protected internal const string MutePropKey = "mute";
 
         private IEnumerator Start()
         {
@@ -83,6 +85,12 @@ namespace Fordi.VoiceChat
             {
                 this.m_voiceRecorder.RestartRecording();
             }
+        }
+
+        public void ToggleMute(bool val)
+        {
+            m_voiceRecorder.TransmitEnabled = val;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { MutePropKey, val } }); // transmit is used as opposite of mute...
         }
 
     }

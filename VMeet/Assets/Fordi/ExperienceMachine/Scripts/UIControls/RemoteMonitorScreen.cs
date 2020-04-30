@@ -1,5 +1,6 @@
 ﻿using agora_gaming_rtc;
 using Fordi.ChatEngine;
+using Fordi.VoiceChat;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace Fordi.ScreenSharing
 
         private IAppTheme m_appTheme = null;
         private IScreenShare m_screenShare = null;
+        private IVoiceChat m_voiceChat = null;
 
         private VideoSurface m_remoteMonitorView;
         private Chat m_chat = null;
@@ -40,6 +42,7 @@ namespace Fordi.ScreenSharing
             base.AwakeOverride();
             m_appTheme = IOC.Resolve<IAppTheme>();
             m_screenShare = IOC.Resolve<IScreenShare>();
+            m_voiceChat = IOC.Resolve<IVoiceChat>();
             m_screenShare.OtherUserJoinedEvent += RemoteUserJoinedChannel;
             m_screenShare.RemoteScreenShareEvent += RemoteScreenShareNotification;
         }
@@ -112,7 +115,7 @@ namespace Fordi.ScreenSharing
 
         private void OnMicToggle(bool val)
         {
-
+            m_voiceChat.ToggleMute(val);
         }
 
         private void ScreenSharingToggle(bool val)
