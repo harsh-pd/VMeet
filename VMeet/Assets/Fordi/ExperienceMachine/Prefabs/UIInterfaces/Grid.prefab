@@ -1190,7 +1190,7 @@ GameObject:
   - component: {fileID: 1733911763537417473}
   - component: {fileID: 2569268465818171012}
   - component: {fileID: 360471392455182254}
-  - component: {fileID: 5674670151689975141}
+  - component: {fileID: 9190806386913569287}
   m_Layer: 5
   m_Name: ScrollableGrid
   m_TagString: Untagged
@@ -1235,7 +1235,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6906296436860136608}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -1289,7 +1289,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &5674670151689975141
+--- !u!114 &9190806386913569287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1298,10 +1298,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6906296436860136608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -146154839, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
 --- !u!1 &7699954124988173286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,6 +1979,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 37041553593263873, guid: 798de0b4ce301bc45867f518f33dc668,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 798de0b4ce301bc45867f518f33dc668, type: 3}
