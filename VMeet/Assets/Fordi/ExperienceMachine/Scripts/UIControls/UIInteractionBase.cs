@@ -129,7 +129,7 @@ namespace VRExperience.UI
             {
                 if (m_root == null)
                     m_root = transform;
-                m_root.localPosition = new Vector3(m_root.localPosition.x, m_root.localPosition.y, val ? -3 : 0);
+                m_root.localPosition = new Vector3(m_root.localPosition.x, m_root.localPosition.y, val ? -5 : -2);
             }
         }
 
@@ -146,11 +146,14 @@ namespace VRExperience.UI
         public void OnPointerDown(PointerEventData eventData)
         {
             ToggleBackgroundHighlight(true);
+            Pop(false);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             ToggleBackgroundHighlight(false);
+            if (pointerHovering)
+                Pop(true);
         }
 
         public virtual void ToggleOutlineHighlight(bool val)

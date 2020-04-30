@@ -4356,7 +4356,7 @@ GameObject:
   - component: {fileID: 1330209229679998901}
   - component: {fileID: 7967319252568474009}
   - component: {fileID: 8746306222766995373}
-  - component: {fileID: 683702980569868612}
+  - component: {fileID: 113599960215647037}
   m_Layer: 5
   m_Name: PersistentMenu
   m_TagString: Untagged
@@ -4463,7 +4463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &683702980569868612
+--- !u!114 &113599960215647037
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7486,7 +7486,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 683702980569868612}
+      objectReference: {fileID: 113599960215647037}
+    - target: {fileID: 1402603448151917994, guid: c68db44361c71554cb64f8989f9aa345,
+        type: 3}
+      propertyPath: m_IsOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7388029028876474779, guid: c68db44361c71554cb64f8989f9aa345,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -7873,7 +7878,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 683702980569868612}
+      objectReference: {fileID: 113599960215647037}
+    - target: {fileID: 1402603448151917994, guid: c68db44361c71554cb64f8989f9aa345,
+        type: 3}
+      propertyPath: m_IsOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7388029028876474779, guid: c68db44361c71554cb64f8989f9aa345,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -8060,11 +8070,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 683702980569868612}
+      objectReference: {fileID: 113599960215647037}
     - target: {fileID: 1402603448151917994, guid: c68db44361c71554cb64f8989f9aa345,
         type: 3}
       propertyPath: m_IsOn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7388029028876474779, guid: c68db44361c71554cb64f8989f9aa345,
         type: 3}
@@ -10463,7 +10473,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 683702980569868612}
+      objectReference: {fileID: 113599960215647037}
+    - target: {fileID: 1402603448151917994, guid: c68db44361c71554cb64f8989f9aa345,
+        type: 3}
+      propertyPath: m_IsOn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7388029028876474779, guid: c68db44361c71554cb64f8989f9aa345,
         type: 3}
       propertyPath: m_textInfo.characterCount
