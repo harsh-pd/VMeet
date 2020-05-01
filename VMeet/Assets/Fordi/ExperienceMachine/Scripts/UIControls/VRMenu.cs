@@ -148,6 +148,7 @@ namespace VRExperience.UI.MenuControl
         private bool m_recenterFlag = false;
 
         private StandaloneMenu m_standAloneMenu = null;
+        private RemoteMonitorScreen m_remoteDesktopScreen = null;
 
         private void Awake()
         {
@@ -191,6 +192,7 @@ namespace VRExperience.UI.MenuControl
         #region CORE
         private void BringInFront(Transform menuTransform, bool solidInGameplay = true, bool enlarge = false)
         {
+            m_screensRoot.gameObject.SetActive(true);
             Vector3 offset = menuTransform.localPosition / 100.0f;
             menuTransform.transform.localPosition = Vector3.zero;
             menuTransform.transform.localRotation = Quaternion.identity;
@@ -215,7 +217,6 @@ namespace VRExperience.UI.MenuControl
                 StartCoroutine(CoRecenter());
 
             //Debug.LogError("OpenMenu");
-            m_screensRoot.gameObject.SetActive(true);
             if (m_screenStack.Count > 0)
             {
                 var screen = m_screenStack.Peek();
@@ -388,6 +389,7 @@ namespace VRExperience.UI.MenuControl
             m_screensRoot.gameObject.SetActive(true);
             var dMenu = Instantiate(m_dRemoteMonitorPrefab, m_dScreenRoot);
             dMenu.OpenMenu(items, block, persist);
+            m_remoteDesktopScreen = dMenu;
         }
 
         public void OpenObjectInterface(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
@@ -453,7 +455,8 @@ namespace VRExperience.UI.MenuControl
             else
             {
                 m_screensRoot.gameObject.SetActive(false);
-                SwitchStandaloneMenu();
+                if (m_remoteDesktopScreen == null)
+                    SwitchStandaloneMenu();
                 RefreshDesktopMode();
             }
         }
@@ -485,7 +488,8 @@ namespace VRExperience.UI.MenuControl
             else
             {
                 m_screensRoot.gameObject.SetActive(false);
-                SwitchStandaloneMenu();
+                if (m_remoteDesktopScreen == null)
+                    SwitchStandaloneMenu();
                 RefreshDesktopMode();
             }
         }
