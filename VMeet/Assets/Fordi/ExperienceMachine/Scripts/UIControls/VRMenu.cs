@@ -1089,7 +1089,7 @@ namespace VRExperience.UI.MenuControl
                 var menu = Instantiate(m_genericLoader, m_player.PlayerCanvas);
                 BringInFront(menu.transform);
 
-                menu.Init(text.Style(ExperienceMachine.ProgressTextColorStyle), true, false);
+                menu.Init(text, true, false);
                 m_screenStack.Push(menu);
                 if (m_settings.SelectedPreferences.DesktopMode)
                     menu.Hide();
