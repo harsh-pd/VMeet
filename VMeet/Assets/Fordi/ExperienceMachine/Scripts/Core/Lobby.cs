@@ -226,7 +226,13 @@ namespace VRExperience.Core
 
         //public override void ToggleMenu()
         //{
-            
+
         //}
+
+        public override void OnLoad()
+        {
+            base.OnLoad();
+            ToggleMenu();
+        }
     }
 }

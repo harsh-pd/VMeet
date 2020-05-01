@@ -114,7 +114,7 @@ namespace agora_gaming_rtc
                         try
                         {
                             // create Texture in the first time update data
-                            nativeTexture = new Texture2D((int)defWidth, (int)defHeight, TextureFormat.RGBA32, false);
+                            nativeTexture = new Texture2D((int)defWidth, (int)defHeight, TextureFormat.BGRA32, false);
                             nativeTexture.LoadRawTextureData(data, (int)defWidth * (int)defHeight * 4);
                             FlipTextureHorizontal(nativeTexture);
                             FlipTextureVertically(nativeTexture);

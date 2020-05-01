@@ -43,9 +43,7 @@ namespace Fordi.ScreenSharing
         public EventHandler<ScreenEventArgs> RemoteScreenShareEvent { get; set; }
 
         [SerializeField]
-        private VideoSurface m_videoSurfacePrefab = null;
-        [SerializeField]
-        private Renderer m_pixelPreview = null;
+        private RawImage m_pixelPreview = null;
 
         private INetwork m_network;
 
@@ -54,8 +52,10 @@ namespace Fordi.ScreenSharing
             if (!mTexture || mTexture.width != MouseControl.SystemWidth || mTexture.height != MouseControl.SystemHeight)
             {
                 colors = new Color32[MouseControl.SystemWidth * MouseControl.SystemHeight];
-                mTexture = new Texture2D(MouseControl.SystemWidth, MouseControl.SystemHeight, TextureFormat.RGBA32, false);
+                mTexture = new Texture2D(MouseControl.SystemWidth, MouseControl.SystemHeight, TextureFormat.BGRA32, false);
                 Debug.LogError("Texture created");
+                if (m_pixelPreview != null)
+                    m_pixelPreview.texture = mTexture;
             }
         }
 
@@ -123,22 +123,15 @@ namespace Fordi.ScreenSharing
 
             var monitor = m_localMonitorView.monitor;
 
-            if (!monitor.hasBeenUpdated)
+            if (!monitor.hasBeenUpdated || !monitor.GetPixels(colors, 0, 0, MouseControl.SystemWidth, MouseControl.SystemHeight))
                 yield break;
-
-            if (monitor.GetPixels(colors, 0, 0, MouseControl.SystemWidth, MouseControl.SystemHeight))
-            {
-                mTexture.SetPixels32(colors);
-                mTexture.Apply();
-            }
-
-            if (m_pixelPreview != null)
-            {
-                m_pixelPreview.material.mainTexture = mTexture;
-            }
 
             // Get the Raw Texture data from the the from the texture and apply it to an array of bytes
             byte[] bytes = Color32ArrayToByteArray(colors);
+
+            mTexture.LoadRawTextureData(bytes);
+            mTexture.Apply();
+
             // Make enough space for the bytes array
             int size = Marshal.SizeOf(bytes[0]) * bytes.Length;
             // Check to see if there is an engine instance already created
