@@ -167,7 +167,7 @@ namespace VRExperience.UI.MenuControl
             Clear();
             m_menuItems.Clear();
 
-            Debug.LogError("Refreshed: " + m_refreshCategory + " " + items.Length);
+            //Debug.LogError("Refreshed: " + m_refreshCategory + " " + items.Length);
 
             foreach (var item in items)
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
