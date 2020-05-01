@@ -500,6 +500,24 @@ PrefabInstance:
       propertyPath: m_sidePanelButton
       value: 
       objectReference: {fileID: 1473252082}
+    - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_mainMenuPrefab
+      value: 
+      objectReference: {fileID: 7613397718039046533, guid: ba42d0499c6b85e4eb10abd2bf4e0371,
+        type: 3}
+    - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_settingsInterfacePrefab
+      value: 
+      objectReference: {fileID: -4096549806511560182, guid: 6ee5e2114db61a844be58d1373091dce,
+        type: 3}
+    - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_gridMenuPrefab
+      value: 
+      objectReference: {fileID: 5026695315779685835, guid: d3ae80023cf88bd498951d308f769f14,
+        type: 3}
     - target: {fileID: 8221756216845216751, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: oculusUserID
@@ -1966,7 +1984,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30304601ecae9d64badc00dde09f6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_root: {fileID: 0}
   shadow: {fileID: 5517167114376942949}
+  m_solidBackground: {fileID: 0}
   selection: {fileID: 6897787516678588191}
   selectable: {fileID: 659536416389545706}
   m_text: {fileID: 8099112063532116854}
@@ -3357,7 +3377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30304601ecae9d64badc00dde09f6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_root: {fileID: 0}
   shadow: {fileID: 4213490222438418982}
+  m_solidBackground: {fileID: 0}
   selection: {fileID: 2976989827433617500}
   selectable: {fileID: 9209471644453872041}
   m_text: {fileID: 471869468747248693}

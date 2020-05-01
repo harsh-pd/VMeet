@@ -2669,7 +2669,6 @@ MonoBehaviour:
     type: 3}
   currentDefaultTrail: {fileID: 0}
   controller: 2
-  selectedColor: {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
   currentAnnotationRoot: {fileID: 0}
   drawMode: 1
   whiteboard: {fileID: 0}
@@ -3778,6 +3777,24 @@ PrefabInstance:
       propertyPath: m_colorPalettePrefab
       value: 
       objectReference: {fileID: 1044593747824488069, guid: 1faa7a13884ed934199aabd2c88c600b,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_mainMenuPrefab
+      value: 
+      objectReference: {fileID: 7613397718039046533, guid: ba9d21d96326986429a1c772b4506f29,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_gridMenuPrefab
+      value: 
+      objectReference: {fileID: 5026695315779685835, guid: 59a6b25c68749354e8202f7d7c48a4df,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_settingsInterfacePrefab
+      value: 
+      objectReference: {fileID: -4096549806511560182, guid: 4b09e74bbab95fd42a11f7da66c791c9,
         type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
