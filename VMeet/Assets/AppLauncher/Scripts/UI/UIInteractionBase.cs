@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using VRExperience.Core;
 using VRExperience.Common;
 using Fordi.Sync;
+using Fordi;
 
 namespace AL.UI
 {
@@ -13,6 +14,9 @@ namespace AL.UI
     {
         [SerializeField]
         protected Shadow shadow;
+
+        [SerializeField]
+        protected Platform m_platform = Platform.DESKTOP;
 
         [SerializeField]
         protected Image image;
@@ -94,9 +98,9 @@ namespace AL.UI
                 return;
 
             if (val && selectable.interactable)
-                shadow.effectColor = m_appTheme.SelectedTheme.colorMix2;
+                shadow.effectColor = m_appTheme.GetSelectedTheme(m_platform).colorMix2;
             else
-                shadow.effectColor = m_appTheme.SelectedTheme.panelInteractionOutline;
+                shadow.effectColor = m_appTheme.GetSelectedTheme(m_platform).panelInteractionOutline;
         }
 
         public virtual void ToggleBackgroundHighlight(bool val) { }

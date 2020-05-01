@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a696b7a8fe54f044866a0015f8f4174, type: 3}
-  m_Name: DefaultTheme
+  m_Name: DefaultVRTheme
   m_EditorClassIdentifier: 
   panelInteractionOutline: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 0.11764706}
   baseColor: {r: 0, g: 0.32156864, b: 0.8, a: 1}

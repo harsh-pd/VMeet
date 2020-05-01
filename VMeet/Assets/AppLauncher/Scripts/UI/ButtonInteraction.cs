@@ -11,18 +11,18 @@ namespace AL.UI
         public override void ToggleBackgroundHighlight(bool val)
         {
             if (val && selectable.interactable)
-                image.color = m_appTheme.SelectedTheme.colorMix2;
+                image.color = m_appTheme.GetSelectedTheme(m_platform).colorMix2;
             else
-                image.color = m_appTheme.SelectedTheme.panelInteractionBackground;
+                image.color = m_appTheme.GetSelectedTheme(m_platform).panelInteractionBackground;
         }
 
         public override void OnReset()
         {
             if (mouseHovering)
-                shadow.effectColor = m_appTheme.SelectedTheme.colorMix2;
+                shadow.effectColor = m_appTheme.GetSelectedTheme(m_platform).colorMix2;
             else
-                shadow.effectColor = m_appTheme.SelectedTheme.panelInteractionOutline;
-            image.color = m_appTheme.SelectedTheme.panelInteractionBackground;
+                shadow.effectColor = m_appTheme.GetSelectedTheme(m_platform).panelInteractionOutline;
+            image.color = m_appTheme.GetSelectedTheme(m_platform).panelInteractionBackground;
         }
     }
 }

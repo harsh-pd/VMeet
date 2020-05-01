@@ -2768,12 +2768,12 @@ GameObject:
   - component: {fileID: 8221756215893366404}
   - component: {fileID: 8221756215893366403}
   - component: {fileID: 8221756215893366406}
-  - component: {fileID: 1444919622}
   - component: {fileID: 363249138}
   - component: {fileID: 1343381550}
   - component: {fileID: 1152198608}
   - component: {fileID: 7256951646113556127}
   - component: {fileID: 555243863067182530}
+  - component: {fileID: 5528278284281419786}
   m_Layer: 0
   m_Name: ExperienceMachine
   m_TagString: Untagged
@@ -2831,19 +2831,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_avatar: {fileID: 8221756216845216751}
---- !u!114 &1444919622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8221756215893366405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76538665a2eb0bb41bab9169dfa435e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_selectedTheme: {fileID: 11400000, guid: e84b864f27236b94bb7086356138ac5c, type: 2}
 --- !u!114 &363249138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2920,6 +2907,21 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &5528278284281419786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221756215893366405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76538665a2eb0bb41bab9169dfa435e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_desktopTheme: {fileID: 11400000, guid: e84b864f27236b94bb7086356138ac5c, type: 2}
+  m_vrTheme: {fileID: 11400000, guid: ce0c4312b427aa5498704af1f89115ec, type: 2}
+  m_arTheme: {fileID: 11400000, guid: d5e57f759d76a0541ab2826915c8960f, type: 2}
 --- !u!1 &8221756216397018037
 GameObject:
   m_ObjectHideFlags: 0

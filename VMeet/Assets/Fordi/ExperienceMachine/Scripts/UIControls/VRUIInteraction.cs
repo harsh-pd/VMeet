@@ -33,32 +33,32 @@ namespace VRExperience.UI
         public override void ToggleOutlineHighlight(bool val)
         {
             if (val && selectable.interactable)
-                m_text.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                m_text.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
             else
-                m_text.color = overrideColor? overriddenHighlight : m_appTheme.SelectedTheme.buttonNormalTextColor;
+                m_text.color = overrideColor? overriddenHighlight : m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
 
             if (m_image != null)
             {
                 if (val && selectable.interactable)
-                    m_image.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
 
             if (m_additionalImage != null)
             {
                 if (val && selectable.interactable)
-                    m_additionalImage.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_additionalImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_additionalImage.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_additionalImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
 
             if (m_toggleImage != null)
             {
                 if (val && selectable.interactable)
-                    m_toggleImage.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_toggleImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_toggleImage.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_toggleImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
 
             //if (overrideColor)
@@ -73,33 +73,33 @@ namespace VRExperience.UI
             if (m_image != null)
             {
                 if (pointerHovering)
-                    m_text.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_text.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_text.color = overrideColor? overriddenHighlight : m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_text.color = overrideColor? overriddenHighlight : m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
 
             if (m_image != null)
             {
                 if (pointerHovering)
-                    m_image.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
 
             if (m_additionalImage != null)
             {
                 if (pointerHovering)
-                    m_additionalImage.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_additionalImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_additionalImage.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_additionalImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
 
             if (m_toggleImage != null)
             {
                 if (pointerHovering)
-                    m_toggleImage.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_toggleImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_toggleImage.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_toggleImage.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
         }
 

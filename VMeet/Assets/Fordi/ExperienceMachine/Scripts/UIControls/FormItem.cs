@@ -81,11 +81,11 @@ namespace VRExperience.UI.MenuControl
                 {
                     if (m_item.IsValid)
                     {
-                        image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                        image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
                     }
                     else
                     {
-                        image.color = m_appTheme.SelectedTheme.buttonDisabledTextColor;
+                        image.color = m_appTheme.GetSelectedTheme(m_platform).buttonDisabledTextColor;
                     }
                 }
 

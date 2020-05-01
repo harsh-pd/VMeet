@@ -115,22 +115,22 @@ namespace VRExperience.UI.MenuControl
             {
                 if (m_item.IsValid)
                 {
-                    m_text.color = overrideColor ? overriddenHighlight : m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_text.color = overrideColor ? overriddenHighlight : m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
                 }
                 else
                 {
-                    m_text.color = m_appTheme.SelectedTheme.buttonDisabledTextColor;
+                    m_text.color = m_appTheme.GetSelectedTheme(m_platform).buttonDisabledTextColor;
                 }
 
                 if (m_image != null)
                 {
                     if (m_item.IsValid)
                     {
-                        m_image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                        m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
                     }
                     else
                     {
-                        m_image.color = m_appTheme.SelectedTheme.buttonDisabledTextColor;
+                        m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonDisabledTextColor;
                     }
                 }
 

@@ -4,7 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - m_selectedTheme: {fileID: 11400000, guid: e84b864f27236b94bb7086356138ac5c, type: 2}
+  - m_desktopTheme: {fileID: 11400000, guid: e84b864f27236b94bb7086356138ac5c, type: 2}
+  - m_vrTheme: {fileID: 11400000, guid: ce0c4312b427aa5498704af1f89115ec, type: 2}
+  - m_arTheme: {fileID: 11400000, guid: d5e57f759d76a0541ab2826915c8960f, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

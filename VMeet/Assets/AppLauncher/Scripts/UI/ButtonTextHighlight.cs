@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.UI;
 using VRExperience.Core;
 using VRExperience.Common;
+using Fordi;
 
 namespace AL.UI
 {
@@ -14,6 +15,8 @@ namespace AL.UI
     {
         TextMeshProUGUI text;
         protected IAppTheme m_appTheme;
+
+        protected Platform m_platform = Platform.DESKTOP;
 
         private void Awake()
         {
@@ -23,21 +26,21 @@ namespace AL.UI
         void Start()
         {
             text = GetComponentInChildren<TextMeshProUGUI>();
-            text.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+            text.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
         }
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
-            text.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+            text.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
         }
 
         public void OnPointerExit(PointerEventData pointerEventData)
         {
-            text.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+            text.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
         }
 
         public void OnPointerClick(PointerEventData pointerEventData)
         {
-            text.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+            text.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
         }
     }
 }

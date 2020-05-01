@@ -7,6 +7,7 @@ using VRExperience.Core;
 using VRExperience.Common;
 using System;
 using Fordi.Sync;
+using Fordi;
 
 namespace VRExperience.UI
 {
@@ -15,6 +16,9 @@ namespace VRExperience.UI
     {
         [SerializeField]
         private Transform m_root;
+
+        [SerializeField]
+        protected Platform m_platform = Platform.VR;
 
         [SerializeField]
         protected Shadow shadow;
@@ -159,9 +163,9 @@ namespace VRExperience.UI
         public virtual void ToggleOutlineHighlight(bool val)
         {
             if (val && shadow && selectable.interactable)
-                shadow.effectColor = m_appTheme.SelectedTheme.baseColor;
+                shadow.effectColor = m_appTheme.GetSelectedTheme(m_platform).baseColor;
             else if(shadow)
-                shadow.effectColor = m_appTheme.SelectedTheme.panelInteractionOutline;
+                shadow.effectColor = m_appTheme.GetSelectedTheme(m_platform).panelInteractionOutline;
         }
 
         public virtual void ToggleBackgroundHighlight(bool val) { }

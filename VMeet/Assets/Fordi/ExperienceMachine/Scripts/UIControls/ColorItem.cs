@@ -14,9 +14,9 @@ namespace VRExperience.UI.MenuControl
             if (m_image != null)
             {
                 if (val && selectable.interactable)
-                    m_image.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
 
             if (overrideColor)
@@ -30,9 +30,9 @@ namespace VRExperience.UI.MenuControl
             if (m_image != null)
             {
                 if (pointerHovering)
-                    m_image.color = m_appTheme.SelectedTheme.buttonHighlightTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonHighlightTextColor;
                 else
-                    m_image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                    m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
             }
         }
 
@@ -77,11 +77,11 @@ namespace VRExperience.UI.MenuControl
                 {
                     if (m_item.IsValid)
                     {
-                        m_image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                        m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
                     }
                     else
                     {
-                        m_image.color = m_appTheme.SelectedTheme.buttonDisabledTextColor;
+                        m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonDisabledTextColor;
                     }
                 }
 
@@ -140,11 +140,11 @@ namespace VRExperience.UI.MenuControl
                 {
                     if (m_item.IsValid)
                     {
-                        m_image.color = m_appTheme.SelectedTheme.buttonNormalTextColor;
+                        m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonNormalTextColor;
                     }
                     else
                     {
-                        m_image.color = m_appTheme.SelectedTheme.buttonDisabledTextColor;
+                        m_image.color = m_appTheme.GetSelectedTheme(m_platform).buttonDisabledTextColor;
                     }
                 }
 

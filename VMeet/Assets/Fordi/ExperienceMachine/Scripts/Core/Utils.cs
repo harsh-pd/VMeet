@@ -9,6 +9,13 @@ namespace Fordi
         void OnReset();
     }
 
+    public enum Platform
+    {
+        DESKTOP = 0,
+        VR = 1,
+        AR = 2
+    }
+
     public class Pool<T> where T : MonoBehaviour, IResettable
     {
         List<T> availableItems = new List<T>();

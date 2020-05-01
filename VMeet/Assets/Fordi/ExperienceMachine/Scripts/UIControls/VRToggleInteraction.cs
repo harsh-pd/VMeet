@@ -46,7 +46,7 @@ namespace VRExperience.UI
         public override void ToggleBackgroundHighlight(bool val)
         {
             base.ToggleBackgroundHighlight(val);
-            selection.color = val ? m_appTheme.SelectedTheme.toggleSelectionColor : m_appTheme.SelectedTheme.toggleNormalColor;
+            selection.color = val ? m_appTheme.GetSelectedTheme(m_platform).toggleSelectionColor : m_appTheme.GetSelectedTheme(m_platform).toggleNormalColor;
         }
 
         public override void ToggleOutlineHighlight(bool val)
