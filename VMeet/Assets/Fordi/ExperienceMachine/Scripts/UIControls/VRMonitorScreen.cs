@@ -14,7 +14,7 @@ namespace Fordi.ScreenSharing
         [SerializeField]
         private VideoSurface m_remoteMonitorViewPrefab = null;
         [SerializeField]
-        private uDesktopDuplication.Texture m_localDesktop = null;
+        private GameObject m_localMonitorHolder = null;
 
         #region INTERFACE_IMPLEMENTATION
     public bool Blocked { get; set; }
@@ -111,11 +111,11 @@ namespace Fordi.ScreenSharing
             if (!val && m_remoteMonitorView != null)
             {
                 Destroy(m_remoteMonitorView.gameObject);
-                m_localDesktop.gameObject.SetActive(true);
+                m_localMonitorHolder.SetActive(true);
             }
             else if (val)
             {
-                m_localDesktop.gameObject.SetActive(false);
+                m_localMonitorHolder.SetActive(false);
                 m_remoteMonitorView = Instantiate(m_remoteMonitorViewPrefab, transform);
                 m_remoteMonitorView.transform.SetSiblingIndex(transform.childCount - 1);
             }
