@@ -1553,6 +1553,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d62594cd4c4f14a479bd8fdf30821966,
         type: 2}
+    - target: {fileID: 5528278284281419786, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_vrTheme
+      value: 
+      objectReference: {fileID: 11400000, guid: d62594cd4c4f14a479bd8fdf30821966,
+        type: 2}
     m_RemovedComponents:
     - {fileID: 8489878352216427617, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
     - {fileID: 7636736946398187176, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
@@ -1985,6 +1991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_root: {fileID: 0}
+  m_platform: 1
   shadow: {fileID: 5517167114376942949}
   m_solidBackground: {fileID: 0}
   selection: {fileID: 6897787516678588191}
@@ -3378,6 +3385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_root: {fileID: 0}
+  m_platform: 1
   shadow: {fileID: 4213490222438418982}
   m_solidBackground: {fileID: 0}
   selection: {fileID: 2976989827433617500}

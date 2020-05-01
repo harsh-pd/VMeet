@@ -303,7 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a177935c21e734d8a26fe4b9107aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_root: {fileID: 0}
+  m_platform: 0
   shadow: {fileID: 0}
+  m_solidBackground: {fileID: 0}
   selection: {fileID: 4016030116814481386}
   selectable: {fileID: 4016030116814481365}
   m_text: {fileID: 4016030116736086453}
