@@ -23,7 +23,7 @@ namespace VRExperience.UI.MenuControl
         EventHandler ScreenChangeInitiated { get; set; }
         void OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
         void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
-        void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, bool refreshOnReopen = false);
+        void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null);
         void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
@@ -274,7 +274,7 @@ namespace VRExperience.UI.MenuControl
             menu.Pair = dMenu;
         }
 
-        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true, bool refreshOnReopen = false)
+        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null)
         {
             PlayGuide(guide);
 
@@ -290,7 +290,7 @@ namespace VRExperience.UI.MenuControl
             m_player.PrepareForSpawn();
             var menu = Instantiate(m_gridMenuPrefab, m_player.PlayerCanvas);
             BringInFront(menu.transform);
-            menu.OpenGridMenu(items, title, block, persist, backEnabled, refreshOnReopen);
+            menu.OpenGridMenu(items, title, block, persist, backEnabled, refreshCategory);
             m_screenStack.Push(menu);
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
@@ -299,7 +299,7 @@ namespace VRExperience.UI.MenuControl
                 m_inventoryOpen = true;
 
             var dMenu = Instantiate(m_dGridMenuPrefab, m_dScreenRoot);
-            dMenu.OpenGridMenu(items, title, block, persist, backEnabled, refreshOnReopen);
+            dMenu.OpenGridMenu(items, title, block, persist, backEnabled, refreshCategory);
             menu.Pair = dMenu;
         }
 
@@ -952,7 +952,7 @@ namespace VRExperience.UI.MenuControl
                 item.UnHide();
 
             CloseVRBlocker();
-            if (m_screenStack.Count > 0)
+            if (m_screenStack.Count > 0 && !m_screenStack.Peek().Gameobject.activeInHierarchy)
                 m_screenStack.Peek().Reopen();
         }
 

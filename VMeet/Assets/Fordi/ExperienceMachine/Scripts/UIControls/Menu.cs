@@ -159,9 +159,9 @@ namespace VRExperience.UI.MenuControl
             m_vrMenu.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true);
         }
 
-        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] itemInfos, string title, bool backEnabled = true, bool refreshOnReopen = false)
+        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] itemInfos, string title, bool backEnabled = true, string refreshCategory = null)
         {
-            m_vrMenu.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true, refreshOnReopen);
+            m_vrMenu.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true, refreshCategory);
         }
 
         public void Close()

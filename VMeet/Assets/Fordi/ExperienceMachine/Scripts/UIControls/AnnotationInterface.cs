@@ -51,11 +51,11 @@ namespace VRExperience.UI.MenuControl
             return menuItem;
         }
 
-        public override void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, bool requireRefreshOnReopen = false)
+        public override void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, string refreshCategory = null)
         {
             if (m_annotaiton == null)
                 m_annotaiton = IOC.Resolve<IAnnotation>();
-            base.OpenGridMenu(items, title, blocked, persist, backEnabled, requireRefreshOnReopen);
+            base.OpenGridMenu(items, title, blocked, persist, backEnabled, refreshCategory);
             m_preview.color = m_annotaiton.SelectedColor;
             m_group.allowSwitchOff = false;
             m_thicknessSlider.value = m_annotaiton.Settings.SelectedThickness;

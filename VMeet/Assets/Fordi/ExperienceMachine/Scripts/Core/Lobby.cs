@@ -101,7 +101,7 @@ namespace VRExperience.Core
                     if (resourceComponent.ResourceType == ResourceType.AUDIO)
                         m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
                     var resourceType = resourceComponent.ResourceType;
-                    m_menu.OpenGridMenu(null, ResourceToMenuItems(m_webInterace.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper(), true, resourceType == ResourceType.MEETING ? true : false);
+                    m_menu.OpenGridMenu(null, ResourceToMenuItems(m_webInterace.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper(), true, args.Command);
                     return;
                 }
             }

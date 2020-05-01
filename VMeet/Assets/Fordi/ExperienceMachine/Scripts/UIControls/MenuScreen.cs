@@ -81,7 +81,7 @@ namespace VRExperience.UI.MenuControl
         private IScreen m_pair = null;
         public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
 
-        private bool m_requireRefreshOnReopen = false;
+        private string m_refreshCategory = null;
 
         private Vector3 m_localScale = Vector3.zero;
 
@@ -147,7 +147,7 @@ namespace VRExperience.UI.MenuControl
             if (m_preview != null)
                 m_preview.gameObject.SetActive(m_preview.sprite != null);
 
-            if (m_requireRefreshOnReopen)
+            if (m_refreshCategory != null)
                 Refresh();
 
             if (Pair != null)
@@ -160,29 +160,14 @@ namespace VRExperience.UI.MenuControl
                 return;
 
             var sampleItem = m_menuItems[0].Item;
-            var category = ((MeetingResource)sampleItem.Data).MeetingInfo.meetingType;
             ExperienceResource[] resources = new ExperienceResource[] { };
-            switch (category)
-            {
-                case MeetingCategory.CREATED:
-                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Created");
-                    break;
-                case MeetingCategory.INVITED:
-                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Invited");
-                    break;
-                case MeetingCategory.REJECTED:
-                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Rejected");
-                    break;
-                case MeetingCategory.ACCEPTED:
-                    resources = m_webInterface.GetResource(ResourceType.MEETING, "Accepted");
-                    break;
-                default:
-                    break;
-            }
+            resources = m_webInterface.GetResource(ResourceType.MEETING, m_refreshCategory);
 
             MenuItemInfo[] items = ResourceToMenuItems(resources);
             Clear();
             m_menuItems.Clear();
+
+            Debug.LogError("Refreshed: " + m_refreshCategory + " " + items.Length);
 
             foreach (var item in items)
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
@@ -253,11 +238,11 @@ namespace VRExperience.UI.MenuControl
                 m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
         }
 
-        public virtual void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, bool requireRefreshOnReopen = false)
+        public virtual void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, string refreshCategory = null)
         {
             if (m_backButton != null)
                 m_backButton.gameObject.SetActive(backEnabled);
-            m_requireRefreshOnReopen = requireRefreshOnReopen;
+            m_refreshCategory = refreshCategory;
 
             if (m_title != null)
                 m_title.text = title;

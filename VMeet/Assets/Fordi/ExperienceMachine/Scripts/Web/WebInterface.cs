@@ -636,19 +636,9 @@ namespace Cornea.Web
             acceptMeetingRequest.Run(this, false).OnRequestComplete(
                 (isNetworkError, message) =>
                 {
-                    var meetingsGroup = m_meetings.Find(item => item.Name == MeetingFilter.Accepted.ToString());
-                    if (meetingsGroup != null && meetingsGroup.Resources != null && meetingsGroup.Resources.Length > 0 && (Array.FindIndex(meetingsGroup.Resources, item => item.MeetingInfo.Id == meetingId) != -1))
-                    {
-                        meetingsGroup.Resources = meetingsGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
-                        return;
-                    }
-
-                    meetingsGroup = m_meetings.Find(item => item.Name == MeetingFilter.Rejected.ToString());
-                    if (meetingsGroup != null && meetingsGroup.Resources != null && meetingsGroup.Resources.Length > 0 && (Array.FindIndex(meetingsGroup.Resources, item => item.MeetingInfo.Id == meetingId) != -1))
-                    {
-                        meetingsGroup.Resources = meetingsGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
-                        return;
-                    }
+                    var meetingResource = ShuffleMeetings(meetingId, MeetingFilter.Invited.ToString(), MeetingFilter.Accepted.ToString(), MeetingFilter.Rejected.ToString());
+                    if (meetingResource != null)
+                        meetingResource.MeetingInfo.meetingType = MeetingCategory.ACCEPTED;
                 }
             );
             return acceptMeetingRequest;
@@ -670,15 +660,49 @@ namespace Cornea.Web
                 (isNetworkError, message) =>
                 {
                     Debug.Log(message);
-                    var meetingsGroup = m_meetings.Find(item => item.Name == MeetingFilter.Accepted.ToString());
-                    if (meetingsGroup != null && meetingsGroup.Resources != null && meetingsGroup.Resources.Length > 0)
-                    {
-                        meetingsGroup.Resources = meetingsGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
-                    }
+                    var meetingResource = ShuffleMeetings(meetingId, MeetingFilter.Accepted.ToString(), MeetingFilter.Rejected.ToString(), MeetingFilter.Invited.ToString());
+                    if (meetingResource != null)
+                        meetingResource.MeetingInfo.meetingType = MeetingCategory.REJECTED;
                 }
             );
 
             return rejectMeetingRequest;
+        }
+
+        private MeetingResource ShuffleMeetings(int meetingId, string fromGroupName, string toGroupName, string alternateFromGroupName)
+        {
+            MeetingGroup fromGroup = null, toGroup = null, alternateFromGroup = null;
+
+            fromGroup = m_meetings.Find(item => item.Name  == fromGroupName);
+            if (!string.IsNullOrEmpty(toGroupName))
+                toGroup = m_meetings.Find(item => item.Name == toGroupName);
+
+            if (!string.IsNullOrEmpty(toGroupName))
+                alternateFromGroup = m_meetings.Find(item => item.Name == alternateFromGroupName);
+
+            MeetingResource meetingResource = null;
+            if (fromGroup != null && fromGroup.Resources != null && fromGroup.Resources.Length > 0)
+            {
+                meetingResource = Array.Find(fromGroup.Resources, item => item.MeetingInfo.Id == meetingId);
+                if (meetingResource != null)
+                {
+                    fromGroup.Resources = fromGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
+                }
+            }
+
+            if (meetingResource == null && alternateFromGroup != null && alternateFromGroup.Resources != null && alternateFromGroup.Resources.Length > 0)
+            {
+                meetingResource = Array.Find(alternateFromGroup.Resources, item => item.MeetingInfo.Id == meetingId);
+                if (meetingResource != null)
+                {
+                    alternateFromGroup.Resources = alternateFromGroup.Resources.Where(item => item.MeetingInfo.Id != meetingId).ToArray();
+                }
+            }
+
+            if (toGroup != null && meetingResource != null)
+                toGroup.Resources = toGroup.Resources.Concatenate(new MeetingResource[] { meetingResource });
+
+            return meetingResource;
         }
 
         public APIRequest CancelMeeting(int meetingId)
