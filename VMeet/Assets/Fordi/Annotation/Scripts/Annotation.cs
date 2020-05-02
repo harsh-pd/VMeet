@@ -363,7 +363,7 @@ namespace Fordi.Annotation
                 //Debug.LogError("FinishTrail: " + trails.Count);
                 if (trails.Count > 0)
                 {
-                    Debug.LogError(trails[trails.Count - 1].TrailStatus.ToString());
+                    //Debug.LogError(trails[trails.Count - 1].TrailStatus.ToString());
                 }
                 return;
             }

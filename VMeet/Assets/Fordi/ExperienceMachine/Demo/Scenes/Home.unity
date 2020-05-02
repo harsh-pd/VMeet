@@ -528,6 +528,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5026695315779685835, guid: d3ae80023cf88bd498951d308f769f14,
         type: 3}
+    - target: {fileID: 1811226089294614906, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_annotationInterface
+      value: 
+      objectReference: {fileID: 1044593747824488069, guid: 1faa7a13884ed934199aabd2c88c600b,
+        type: 3}
     - target: {fileID: 8221756216845216751, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: oculusUserID

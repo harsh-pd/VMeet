@@ -139,6 +139,11 @@ PrefabInstance:
       propertyPath: m_Colors.m_SelectedColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2584049814158852935, guid: 626f7147fc63ead49a06ac568df82478,
+        type: 3}
+      propertyPath: m_Transition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1622276462309389401, guid: 626f7147fc63ead49a06ac568df82478,
         type: 3}
       propertyPath: selection

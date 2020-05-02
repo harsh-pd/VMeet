@@ -3772,7 +3772,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_dColorPalettePrefab
       value: 
-      objectReference: {fileID: 1044593747824488069, guid: 1faa7a13884ed934199aabd2c88c600b,
+      objectReference: {fileID: 1044593747824488069, guid: 8a4e4475b2a52b241a7c08202a82d6bf,
         type: 3}
     - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
@@ -3797,6 +3797,18 @@ PrefabInstance:
       propertyPath: m_settingsInterfacePrefab
       value: 
       objectReference: {fileID: -4096549806511560182, guid: 4b09e74bbab95fd42a11f7da66c791c9,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_annotationInterface
+      value: 
+      objectReference: {fileID: 1044593747824488069, guid: 8a4e4475b2a52b241a7c08202a82d6bf,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_dAnnotationInterface
+      value: 
+      objectReference: {fileID: 1044593747824488069, guid: 8a4e4475b2a52b241a7c08202a82d6bf,
         type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}

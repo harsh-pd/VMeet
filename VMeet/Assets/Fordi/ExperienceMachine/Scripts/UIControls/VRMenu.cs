@@ -66,9 +66,9 @@ namespace VRExperience.UI.MenuControl
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
-        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab, m_colorPalettePrefab;
+        private MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab, m_annotationInterface;
         [SerializeField]
-        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab, m_dColorPalettePrefab;
+        private MenuScreen m_dMainMenuPrefab, m_dGridMenuPrefab, m_dTextBoxPrefab, m_dSettingsInterace, m_dFromPrefab, m_dAnnotationInterface;
         [SerializeField]
         private RemoteMonitorScreen m_dRemoteMonitorPrefab;
         [SerializeField]
@@ -317,7 +317,7 @@ namespace VRExperience.UI.MenuControl
             }
 
             m_player.PrepareForSpawn();
-            var menu = Instantiate(m_colorPalettePrefab, m_player.PlayerCanvas);
+            var menu = Instantiate(m_annotationInterface, m_player.PlayerCanvas);
             BringInFront(menu.transform);
             menu.OpenGridMenu(items, title, block, persist, backEnabled);
             m_screenStack.Push(menu);
