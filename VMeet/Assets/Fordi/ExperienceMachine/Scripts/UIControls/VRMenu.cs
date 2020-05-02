@@ -862,7 +862,7 @@ namespace VRExperience.UI.MenuControl
             var thoughts = m_commonResource.AssetDb.Thoughts;
             if (m_thoughtOfTheDay != null && thoughts.Length > 0)
                 m_thoughtOfTheDay.text = thoughts[UnityEngine.Random.Range(0, thoughts.Length)];
-            //m_creditsText.text = m_commonResource.AssetDb.Credits;
+            m_creditsText.text = m_commonResource.AssetDb.Credits;
         }
 
         #region SOCIAL_MEDIA

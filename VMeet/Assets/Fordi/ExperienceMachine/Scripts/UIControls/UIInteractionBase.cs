@@ -124,6 +124,7 @@ namespace VRExperience.UI
         {
             pointerHovering = true;
             ToggleOutlineHighlight(true);
+            ToggleBackgroundHighlight(true);
             Pop(true);
         }
 

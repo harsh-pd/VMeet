@@ -106,7 +106,10 @@ namespace Fordi.Sync
                 return;
             }
             if (m_syncState)
+            {
+                //Debug.LogError(name + " under " + transform.parent.name + " enabled");
                 m_fordiNetwork.ActiveStateToggle(this, ViewId, true);
+            }
         }
 
         private void OnDisable()
@@ -117,7 +120,10 @@ namespace Fordi.Sync
                 return;
             }
             if (m_syncState)
+            {
+                //Debug.LogError(name + " under " + transform.parent.name + " disabled");
                 m_fordiNetwork.ActiveStateToggle(this, ViewId, false);
+            }
         }
 
         /// <summary>

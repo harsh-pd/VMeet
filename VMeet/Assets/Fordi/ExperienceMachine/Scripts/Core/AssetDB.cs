@@ -32,6 +32,7 @@ namespace VRExperience.Core
         public ObjectGroup[] ObjectGroups;
         [Header("Others")]
         public string[] Thoughts;
+        [Multiline]
         public string Credits;
         [Header("Vectors")]
         public ExperienceGroup Vectors;

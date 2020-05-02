@@ -36,6 +36,13 @@ namespace VRExperience.UI
             toggle.onValueChanged.RemoveAllListeners();
         }
 
+        public override void OnPointerEnter(PointerEventData eventData)
+        {
+            var toggle = (Toggle)selectable;
+            if (toggle.interactable && !toggle.isOn)
+                base.OnPointerEnter(eventData);
+        }
+
         public override void OnPointerExit(PointerEventData eventData)
         {
             var toggle = (Toggle)selectable;
