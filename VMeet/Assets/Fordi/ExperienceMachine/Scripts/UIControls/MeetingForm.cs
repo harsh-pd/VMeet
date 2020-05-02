@@ -14,7 +14,11 @@ using System.Linq;
 
 namespace VRExperience.UI.MenuControl
 {
-    public class MeetingForm : MenuScreen, IForm
+    public interface ITimeForm : IForm
+    {
+        string SelectedTime { get; }
+    }
+    public class MeetingForm : MenuScreen, ITimeForm
     {
         [Header("Details")]
         [SerializeField]
@@ -38,6 +42,19 @@ namespace VRExperience.UI.MenuControl
 
         Fordi.Pool<OrganizationMember> memberPool;
         List<OrganizationMember> memberList = new List<OrganizationMember>();
+
+        public string SelectedTime {
+            get
+            {
+                string hour = string.IsNullOrEmpty(m_meetingHour.text) ? m_hourPlaceholder.text : m_meetingHour.text;
+                if (hour.Length < 2)
+                    hour = 0 + hour;
+                string minute = string.IsNullOrEmpty(m_meetingMinute.text) ? m_minutePlaceholder.text : m_meetingMinute.text;
+                if (minute.Length < 2)
+                    minute = 0 + minute;
+                return hour + ":" + minute;
+            }
+        }
 
         protected override void AwakeOverride()
         {
@@ -108,7 +125,7 @@ namespace VRExperience.UI.MenuControl
             m_vrMenu.OpenCalendar((date) => {
                 Debug.LogError(date);
                 m_meetingDate.text = date;
-            });
+            }, this);
         }
 
         public void Submit()

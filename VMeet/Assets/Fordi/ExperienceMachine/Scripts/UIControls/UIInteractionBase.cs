@@ -15,7 +15,7 @@ namespace VRExperience.UI
     public class UIInteractionBase : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler, IFordiObservable
     {
         [SerializeField]
-        private Transform m_root;
+        protected Transform m_root;
 
         [SerializeField]
         protected Platform m_platform = Platform.VR;

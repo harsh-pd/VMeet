@@ -274,7 +274,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.03137255, g: 0.03137255, b: 0.05882353, a: 1}
     m_PressedColor: {r: 0, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.03137255, g: 0.03137255, b: 0.05882353, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.06848523, g: 0.06848523, b: 0.1792453, a: 0.78431374}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -318,7 +318,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea51964c1ed62bd49b030e4ab1e6b629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_root: {fileID: 6480776700419123674}
+  m_platform: 0
   shadow: {fileID: 0}
+  m_solidBackground: {fileID: 0}
   selection: {fileID: 2649324355533211389}
   selectable: {fileID: 507875619290788343}
   m_text: {fileID: 1480597999660854283}
@@ -421,7 +424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6480776700419123674
 RectTransform:
   m_ObjectHideFlags: 0
@@ -463,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

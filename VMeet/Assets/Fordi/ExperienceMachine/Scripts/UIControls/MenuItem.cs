@@ -83,7 +83,8 @@ namespace VRExperience.UI.MenuControl
                 m_text.text = string.Empty;
             }
 
-            m_item.Validate = new MenuItemValidationEvent();
+            if (m_item.Validate == null)
+                m_item.Validate = new MenuItemValidationEvent();
 
             if (m_experienceMachine == null)
                 m_experienceMachine = IOC.Resolve<IExperienceMachine>();
@@ -125,7 +126,8 @@ namespace VRExperience.UI.MenuControl
                 }
             }
 
-            gameObject.SetActive(validationResult.IsVisible);
+            if (m_root != null)
+                m_root.gameObject.SetActive(validationResult.IsVisible);
             selectable.interactable = validationResult.IsValid;
             if (m_allowTextScroll)
                 StartCoroutine(InitializeTextScroll());

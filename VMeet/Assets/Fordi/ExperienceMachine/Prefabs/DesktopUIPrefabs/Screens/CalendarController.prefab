@@ -479,6 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 6932236206680259303}
+  m_platform: 0
   image: {fileID: 8924578805605147248}
   selectable: {fileID: 4256457684977007500}
 --- !u!1 &2154613979918551114
@@ -1226,7 +1227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_contentRoot: {fileID: 4474741282932689889}
-  m_menuItem: {fileID: 0}
+  m_menuItem: {fileID: 3531084909616982611, guid: fe4f49d3dfaffc340a2e445ffc686530,
+    type: 3}
   m_title: {fileID: 0}
   m_closeButton: {fileID: 0}
   m_okButton: {fileID: 0}
@@ -1240,7 +1242,6 @@ MonoBehaviour:
   _calendarPanel: {fileID: 5601692740437222415}
   _yearNumText: {fileID: 5488685319546017635}
   _monthNumText: {fileID: 5488685319613061139}
-  _item: {fileID: 3531084909616982611, guid: fe4f49d3dfaffc340a2e445ffc686530, type: 3}
   _dateItems: []
 --- !u!222 &3500593019869267670
 CanvasRenderer:
@@ -1900,7 +1901,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea51964c1ed62bd49b030e4ab1e6b629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_root: {fileID: 0}
+  m_platform: 1
   shadow: {fileID: 0}
+  m_solidBackground: {fileID: 0}
   selection: {fileID: 0}
   selectable: {fileID: 0}
   m_text: {fileID: 0}
@@ -4129,5 +4133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 2321846848122421094}
+  m_platform: 0
   image: {fileID: 5392575396965682821}
   selectable: {fileID: 1487554367763932732}
