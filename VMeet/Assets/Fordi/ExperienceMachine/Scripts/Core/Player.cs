@@ -152,11 +152,11 @@ namespace VRExperience.Core
             m_audio = IOC.Resolve<IAudio>();
             FordiGrabber.OnObjectDelete += OnObjectDelete;
 
-            //Oculus.Platform.Core.Initialize();
-            //Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
-            //Request.RunCallbacks();
+            Oculus.Platform.Core.Initialize();
+            Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
+            Request.RunCallbacks();
 
-            //StartCoroutine(ConigureHandColor());
+            StartCoroutine(ConigureHandColor());
         }
 
         private IEnumerator ConigureHandColor()
