@@ -145,6 +145,8 @@ namespace VRExperience.Core
         [SerializeField]
         private List<ButtonTip> m_movementButtonTips = new List<ButtonTip>();
 
+        public static string s_OculusID = "";
+
         private void Awake()
         {
             m_settings = IOC.Resolve<ISettings>();
@@ -155,8 +157,6 @@ namespace VRExperience.Core
             Oculus.Platform.Core.Initialize();
             Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
             Request.RunCallbacks();
-
-            StartCoroutine(ConigureHandColor());
         }
 
         private IEnumerator ConigureHandColor()
@@ -181,7 +181,8 @@ namespace VRExperience.Core
         {
             if (!message.IsError)
             {
-                m_avatar.oculusUserID = message.Data.ID.ToString();
+                s_OculusID = message.Data.ID.ToString();
+                m_avatar.oculusUserID = s_OculusID;
                 m_experienceMachinePrefab?.SetupPersonalisedAvatar(m_avatar.oculusUserID);
                 Debug.Log(message.Data.ID);
                 Debug.Log(message.Data.OculusID);

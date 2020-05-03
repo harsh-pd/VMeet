@@ -13,6 +13,7 @@ using System.Linq;
 using Fordi.ScreenSharing;
 using ExitGames.Client.Photon;
 using Fordi.Annotation;
+using Cornea.Web;
 
 namespace Fordi.Networking
 {
@@ -36,15 +37,18 @@ namespace Fordi.Networking
         public const byte deletePreviousTrail = 139;
         public const byte whiteboardNoteBegan = 140;
 
+        private const string MeetingRoom = "Meeting";
+        private const string LobbyRoom = "Lobby";
+        public const string ActorNumberString = "ActorNumber";
+        public const string OculusIDString = "OculusID";
+
         private IPlayer m_player = null;
         private IVRMenu m_vrMenu = null;
         private IMenuSelection m_menuSelection = null;
         private IExperienceMachine m_experienceMachine = null;
         private IScreenShare m_screenShare = null;
         private IAnnotation m_annotation = null;
-
-        private const string MeetingRoom = "Meeting";
-        private const string LobbyRoom = "Lobby";
+        private IWebInterface m_webInterface = null;
 
         private static List<RoomInfo> m_rooms = new List<RoomInfo>();
         public static RoomInfo[] Rooms { get { return m_rooms.ToArray(); } }
@@ -64,6 +68,7 @@ namespace Fordi.Networking
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_screenShare = IOC.Resolve<IScreenShare>();
             m_annotation = IOC.Resolve<IAnnotation>();
+            m_webInterface = IOC.Resolve<IWebInterface>();
             if (!PhotonNetwork.IsConnectedAndReady)
                 PhotonNetwork.ConnectUsingSettings();
         }
@@ -93,6 +98,13 @@ namespace Fordi.Networking
         {
             base.OnJoinedLobby();
             Log("OnJoinedLobby");
+
+
+            ExitGames.Client.Photon.Hashtable playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
+            playerCustomProperties.Add(OculusIDString, VRExperience.Core.Player.s_OculusID);
+            playerCustomProperties.Add(ActorNumberString, PhotonNetwork.LocalPlayer.ActorNumber);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
+            PhotonNetwork.LocalPlayer.NickName = m_webInterface.UserInfo.userName;
             //if (PhotonNetwork.CountOfRooms > 0)
             //{
             //    JoinRoom("Test");

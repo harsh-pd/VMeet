@@ -1,5 +1,6 @@
 ﻿using Fordi.Annotation;
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Fordi.Networking
         private PhotonAvatarView m_avatarView = null;
         [SerializeField]
         private Trail m_trailPrefab = null;
+        [SerializeField]
+        private OvrAvatar m_avatar = null;
 
         [SerializeField]
         private Transform m_penPrefab;
@@ -33,6 +36,8 @@ namespace Fordi.Networking
 
         public OVRInput.Controller selectedController = OVRInput.Controller.RTouch;
 
+        private Photon.Realtime.Player m_photonPlayer = null;
+
         public void Setup(int senderId, int playerViewId, int avatarViewId)
         {
             Debug.LogError(senderId + " " + playerViewId + " " + avatarViewId);
@@ -41,6 +46,17 @@ namespace Fordi.Networking
             m_playerSync.playerId = senderId;
             m_playerPhotonView.ViewID = playerViewId;
             m_avatarPhotonView.ViewID = avatarViewId;
+
+            m_photonPlayer = Array.Find(PhotonNetwork.PlayerListOthers, item => item.ActorNumber == senderId);
+
+            try
+            {
+                m_avatar.oculusUserID = (string)m_photonPlayer.CustomProperties[Network.OculusIDString];
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
 
             StartCoroutine(EnsureGameobjectIntegrity());
         }
