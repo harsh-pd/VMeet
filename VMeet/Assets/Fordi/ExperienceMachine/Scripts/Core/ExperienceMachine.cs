@@ -117,7 +117,7 @@ namespace VRExperience.Core
     public class ExperienceMachine : MonoBehaviour, IExperienceMachine
     {
         [SerializeField]
-        private OvrAvatar m_avatar;
+        private OvrAvatar m_avatarPrefab;
 
         private IExperience m_home, m_nature, m_mandala, m_abstract, m_lobby, m_meeting, m_currentExperience;
         private IMenuSelection m_menuSelection;
@@ -423,7 +423,7 @@ namespace VRExperience.Core
 
         public void SetupPersonalisedAvatar(string id)
         {
-            m_avatar.oculusUserID = id;
+            m_avatarPrefab.oculusUserID = id;
         }
 
         public void OpenSceneMenu()

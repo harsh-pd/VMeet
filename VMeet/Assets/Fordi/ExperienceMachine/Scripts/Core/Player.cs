@@ -84,11 +84,11 @@ namespace VRExperience.Core
         [SerializeField]
         private FordiTeleport m_teleport;
         [SerializeField]
-        private OvrAvatar m_avatar;
-        [SerializeField]
         PhotonView m_playerPhotonView;
         [SerializeField]
-        PhotonView m_avatarPhotonView;
+        private OvrAvatar m_localAvatarPrefab = null;
+        [SerializeField]
+        private Transform m_avatarAnchor = null;
 
 
         [SerializeField]
@@ -110,6 +110,7 @@ namespace VRExperience.Core
         private OVRScreenFade m_fadeScript;
 
         public int PlayerViewId { get { return m_playerPhotonView.ViewID; } set { m_playerPhotonView.ViewID = value; } }
+
         public int AvatarViewId { get { return m_avatarPhotonView.ViewID; } set { m_avatarPhotonView.ViewID = value; } }
 
         private GameObject m_leftGrabGuide, m_rightGrabGuide;
@@ -145,47 +146,46 @@ namespace VRExperience.Core
         [SerializeField]
         private List<ButtonTip> m_movementButtonTips = new List<ButtonTip>();
 
+        private OvrAvatar m_avatar;
+        private PhotonView m_avatarPhotonView;
+
         public static string s_OculusID = "";
 
         private void Awake()
         {
+            //Debug.LogError(m_avatar.oculusUserID);
             m_settings = IOC.Resolve<ISettings>();
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_audio = IOC.Resolve<IAudio>();
             FordiGrabber.OnObjectDelete += OnObjectDelete;
 
-            Oculus.Platform.Core.Initialize();
-            Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
-            Request.RunCallbacks();
+            if (string.IsNullOrEmpty(s_OculusID))
+            {
+                Oculus.Platform.Core.Initialize();
+                Users.GetLoggedInUser().OnComplete(GetLoggedInUserCallback);
+                Request.RunCallbacks();
+            }
+            else
+                InstantiateAvatar();
         }
 
-        private IEnumerator ConigureHandColor()
+        private void InstantiateAvatar()
         {
-            var hands = m_avatar.GetComponentsInChildren<OvrAvatarHand>();
-            while(hands.Length < 2)
-            {
-                yield return new WaitForSeconds(.2f);
-                hands = m_avatar.GetComponentsInChildren<OvrAvatarHand>();
-            }
-
-            foreach (var item in hands)
-            {
-                var renderer = item.transform.GetChild(0).GetComponent<Renderer>();
-                if (renderer != null)
-                    renderer.material.SetColor("_BaseColor", new Color32(217, 117, 117, 255));
-            }
+            m_avatar = Instantiate(m_localAvatarPrefab, m_avatarAnchor);
+            m_avatarPhotonView = m_avatar.GetComponentInChildren<PhotonView>();
         }
-
 
         private void GetLoggedInUserCallback(Message<User> message)
         {
             if (!message.IsError)
             {
                 s_OculusID = message.Data.ID.ToString();
-                m_avatar.oculusUserID = s_OculusID;
-                m_experienceMachinePrefab?.SetupPersonalisedAvatar(m_avatar.oculusUserID);
+                m_localAvatarPrefab.oculusUserID = s_OculusID;
+                //m_experienceMachinePrefab?.SetupPersonalisedAvatar(m_avatar.oculusUserID);
                 Debug.Log(message.Data.ID);
                 Debug.Log(message.Data.OculusID);
+                m_avatar = Instantiate(m_localAvatarPrefab, m_avatarAnchor);
+                m_avatarPhotonView = m_avatar.GetComponentInChildren<PhotonView>();
             }
             else
             {
