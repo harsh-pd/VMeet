@@ -23,6 +23,7 @@ public class CalendarController : MenuScreen
 
     void Start()
     {
+        Debug.LogError("Start");
         _calendarInstance = this;
         Vector3 startPos = m_menuItem.transform.localPosition;
         _dateItems.Clear();
@@ -120,6 +121,7 @@ public class CalendarController : MenuScreen
                         //Debug.LogError("isVisible: made true");
                         args.IsVisible = true;
                         args.IsValid = dateTime >= DateTime.Now;
+                        Debug.LogError("IsValid: " + args.IsValid + " " + dateTime.ToString() + " " + DateTime.Now.ToString());
                     });
                     date++;
                 }

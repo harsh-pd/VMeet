@@ -434,7 +434,10 @@ namespace VRExperience.UI.MenuControl
 
         public void CloseLastScreen()
         {
-            //Debug.LogError("Close last screen");
+            //if (m_screenStack.Count > 0)
+            //{
+            //    Debug.LogError("Closing: " + m_screenStack.Peek().Gameobject.name);
+            //}
 
             ScreenChangeInitiated?.Invoke(this, EventArgs.Empty);
 
@@ -651,6 +654,11 @@ namespace VRExperience.UI.MenuControl
         //Not handled properly for VR screen
         public void OpenCalendar(Action<string> onClick, ITimeForm timeForm)
         {
+            if (m_screenStack.Count > 0 && m_screenStack.Peek() is CalendarController)
+            {
+                return;
+            }
+
             m_screensRoot.gameObject.SetActive(true);
             
             //if (m_screenStack.Count > 0)

@@ -3810,6 +3810,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1044593747824488069, guid: 8a4e4475b2a52b241a7c08202a82d6bf,
         type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_calendarPrefab
+      value: 
+      objectReference: {fileID: 5488685317871351485, guid: 341d3f2b06240834fa5b21a8e76bb859,
+        type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_Name
