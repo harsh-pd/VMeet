@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_root: {fileID: 0}
+  m_platform: 1
   shadow: {fileID: 2832068178626395781}
   m_solidBackground: {fileID: 0}
   selection: {fileID: 4051427336212460929}
@@ -807,7 +808,7 @@ MonoBehaviour:
   m_title: {fileID: 65517581095182808}
   m_closeButton: {fileID: 0}
   m_okButton: {fileID: 0}
-  m_backButton: {fileID: 0}
+  m_backButton: {fileID: 1238678207482504922}
   m_preview: {fileID: 5139697839725248621}
   m_description: {fileID: 8167197053608251153}
   m_synchronizedElements: []
@@ -2101,6 +2102,12 @@ PrefabInstance:
 --- !u!224 &1238678207482504923 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4180162966205833887, guid: f79fcf6e7377f02438f4989543cff4b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 3112628725748991044}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1238678207482504922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4180162966205833886, guid: f79fcf6e7377f02438f4989543cff4b9,
     type: 3}
   m_PrefabInstance: {fileID: 3112628725748991044}
   m_PrefabAsset: {fileID: 0}

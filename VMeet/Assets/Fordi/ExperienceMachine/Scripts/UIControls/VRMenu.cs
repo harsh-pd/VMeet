@@ -16,11 +16,18 @@ using Fordi.ScreenSharing;
 
 namespace VRExperience.UI.MenuControl
 {
+    public enum InputModule
+    {
+        STANDALONE,
+        OCULUS
+    }
+
     public interface IVRMenu
     {
         bool IsOpen { get; }
         EventHandler AudioInterruptionEvent { get; set; }
         EventHandler ScreenChangeInitiated { get; set; }
+        InputModule ActiveModule { get; }
         void OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
         void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
         void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null);
@@ -122,6 +129,8 @@ namespace VRExperience.UI.MenuControl
 
         private bool m_isMenuOpen = false;
         public bool IsMenuOpen { get { return m_isMenuOpen; } }
+
+        public InputModule ActiveModule { get; private set; }
 
         public bool IsOpen { get { return m_screenStack.Count != 0; } }
 
@@ -1014,6 +1023,7 @@ namespace VRExperience.UI.MenuControl
             m_vrInputModule.enabled = false;
             m_desktopInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(false);
+            ActiveModule = InputModule.STANDALONE;
         }
 
         private void EnableVRModule()
@@ -1028,6 +1038,7 @@ namespace VRExperience.UI.MenuControl
             m_desktopInputModule.enabled = false;
             m_vrInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(true);
+            ActiveModule = InputModule.OCULUS;
         }
 
         public void OpenForm(FormArgs args, bool block = true, bool persist = true)

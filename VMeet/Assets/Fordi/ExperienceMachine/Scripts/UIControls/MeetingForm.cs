@@ -46,8 +46,9 @@ namespace VRExperience.UI.MenuControl
         private ICommonResource m_commonResource;
         private IWebInterface m_webInterace;
 
-        Fordi.Pool<OrganizationMember> memberPool;
-        List<OrganizationMember> memberList = new List<OrganizationMember>();
+        private Fordi.Pool<OrganizationMember> memberPool;
+        private List<OrganizationMember> memberList = new List<OrganizationMember>();
+        private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
 
         public string SelectedTime {
             get
@@ -87,6 +88,32 @@ namespace VRExperience.UI.MenuControl
             }
         }
 
+        private int m_inputIndex = 0;
+
+        protected override void Update()
+        {
+            base.Update();
+            if (m_inputs.Count == 0)
+                return;
+
+            if (!m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
+            {
+                m_inputIndex--;
+                if (m_inputIndex < 0)
+                    m_inputIndex = m_inputs.Count - 1;
+                m_inputs[m_inputIndex].Select();
+                return;
+            }
+
+            if (!m_blocker.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab))
+            {
+                m_inputIndex++;
+                if (m_inputIndex > m_inputs.Count - 1)
+                    m_inputIndex = 0;
+                m_inputs[m_inputIndex].Select();
+            }
+        }
+
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
@@ -101,6 +128,8 @@ namespace VRExperience.UI.MenuControl
                 hourValidator.m_timeForm = this;
             if (m_meetingMinute.inputValidator != null && m_meetingMinute.inputValidator is TimeInputValidator minuteValidator)
                 minuteValidator.m_timeForm = this;
+            m_inputs.Clear();
+            m_inputs = new List<TMP_InputField>() { m_meetingTitle, m_meetingDate, m_meetingHour, m_meetingMinute, m_meetingDurationHour, m_meetingDurationMinute };
         }
 
         public override IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)

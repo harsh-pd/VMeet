@@ -106,6 +106,15 @@ namespace VRExperience.UI.MenuControl
             AwakeOverride();
         }
 
+        protected virtual void Update()
+        {
+            if (m_vrMenu.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)
+            {
+                if (m_blocker == null || !m_blocker.gameObject.activeInHierarchy)
+                    BackClick();
+            }
+        }
+
         private void OnDestroy()
         {
             OnDestroyOverride();

@@ -48,7 +48,7 @@ namespace VRExperience.UI.MenuControl
 
         private int m_inputIndex = 0;
 
-        private void Update()
+        protected override void Update()
         {
             if (m_inputs.Count == 0)
                 return;
