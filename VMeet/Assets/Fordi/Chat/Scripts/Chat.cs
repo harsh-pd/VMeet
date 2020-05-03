@@ -18,6 +18,7 @@ using Cornea.Web;
 using VRExperience.Common;
 using Fordi.ScreenSharing;
 using VRExperience.UI.MenuControl;
+using VRExperience.Core;
 
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -46,6 +47,14 @@ namespace Fordi.ChatEngine
     {
         [SerializeField]
         private Button m_sendButton = null;
+        [SerializeField]
+        private GameObject m_loader = null;
+        [SerializeField]
+        private Blocker m_blocker = null;
+        [SerializeField]
+        private TextMeshProUGUI m_description = null;
+        [SerializeField]
+        private GameObject m_networkInterface = null;
 
         public string[] FriendsList;
 
@@ -85,7 +94,8 @@ namespace Fordi.ChatEngine
         private IWebInterface m_webInterface = null;
         private IVRMenu m_vrMenu = null;
         private RemoteMonitorScreen m_remoteMonitorScreen = null;
-
+        private bool m_connectingSilently = false;
+        private bool m_firstMessageFlag = false;
 
         // private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
         private static string HelpText = "\n    -- HELP --\n" +
@@ -163,9 +173,11 @@ namespace Fordi.ChatEngine
             InputFieldChat.onValueChanged.RemoveAllListeners();
         }
 
-        public void Connect()
+        public void Connect(bool silent = false)
         {
-            m_vrMenu.DisplayProgress("Connecting to chat server...", true);
+            m_connectingSilently = silent;
+            if (!silent)
+                DisplayProgress("Connecting to chat server...");
             this.chatClient = new ChatClient(this);
 #if !UNITY_WEBGL
             this.chatClient.UseBackgroundWorkerForSending = true;
@@ -390,7 +402,8 @@ namespace Fordi.ChatEngine
 
         public void OnConnected()
         {
-            m_vrMenu.DisplayResult(new VRExperience.Core.Error());
+            m_connectingSilently = false;
+            DisplayResult(new VRExperience.Core.Error());
 
             if (PhotonNetwork.InRoom)
                 this.chatClient.Subscribe(PhotonNetwork.CurrentRoom.Name, this.HistoryLengthToFetch);
@@ -429,13 +442,17 @@ namespace Fordi.ChatEngine
 
         public void OnDisconnected()
         {
+            Debug.LogError("OnDisconnected");
             //this.ConnectingLabel.SetActive(false);
-            m_vrMenu.DisplayResult(new VRExperience.Core.Error { ErrorCode = VRExperience.Core.Error.E_NetworkIssue, ErrorText = "Chat disconnected." });
+            if (!m_connectingSilently)
+                DisplayResult(new VRExperience.Core.Error { ErrorCode = VRExperience.Core.Error.E_NetworkIssue, ErrorText = "Chat disconnected" });
+            Connect(true);
         }
 
         private ChatState m_chatState;
         public void OnChatStateChange(ChatState state)
         {
+            //Debug.LogError("OnStatusChange: " + state.ToString());
             // use OnConnected() and OnDisconnected()
             // this method might become more useful in the future, when more complex states are being used.
             m_chatState = state;
@@ -448,7 +465,11 @@ namespace Fordi.ChatEngine
             // in this demo, we simply send a message into each channel. This is NOT a must have!
             foreach (string channel in channels)
             {
-                this.chatClient.PublishMessage(channel, "says 'hi'."); // you don't HAVE to send a msg on join but you could.
+                if (!m_firstMessageFlag)
+                {
+                    this.chatClient.PublishMessage(channel, "says 'hi'."); // you don't HAVE to send a msg on join but you could.
+                    m_firstMessageFlag = true;
+                }
 
                 if (this.ChannelToggleToInstantiate != null)
                 {
@@ -687,6 +708,35 @@ namespace Fordi.ChatEngine
 
             yield return null;
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)m_chatContentRoot);
+        }
+
+        public virtual void DisplayResult(Error error)
+        {
+            if (m_loader)
+                m_loader.SetActive(false);
+            if (m_blocker)
+                m_blocker.gameObject.SetActive(false);
+
+            if (error.HasError)
+                m_description.text = error.ErrorText.Style(ExperienceMachine.ErrorTextColorStyle);
+            else
+                m_description.text = error.ErrorText.Style(ExperienceMachine.CorrectTextColorStyle);
+
+            m_networkInterface.SetActive(error.HasError);
+        }
+
+        public virtual void DisplayProgress(string text)
+        {
+            m_networkInterface.SetActive(true);
+            if (m_loader == null)
+            {
+                Debug.LogError(this.name);
+                return;
+            }
+            //Debug.LogError("Loadr activating: " + name);
+            m_loader.SetActive(true);
+            m_blocker.gameObject.SetActive(true);
+            m_description.text = text.Style(ExperienceMachine.ProgressTextColorStyle);
         }
 
     }
