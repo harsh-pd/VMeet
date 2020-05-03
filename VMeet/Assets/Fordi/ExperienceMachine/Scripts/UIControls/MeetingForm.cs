@@ -11,12 +11,16 @@ using Cornea.Web;
 using VRExperience.Meeting;
 using LitJson;
 using System.Linq;
+using Fordi.UI;
 
 namespace VRExperience.UI.MenuControl
 {
     public interface ITimeForm : IForm
     {
         string SelectedTime { get; }
+        int Hour { get; }
+        int Minute { get; }
+        string Date { get; }
     }
     public class MeetingForm : MenuScreen, ITimeForm
     {
@@ -33,6 +37,8 @@ namespace VRExperience.UI.MenuControl
         private TMP_InputField m_meetingDurationHour;
         [SerializeField]
         private TMP_InputField m_meetingDurationMinute;
+        [SerializeField]
+        private TimeInputValidator m_hourValidator, m_minuteValidator;
 
         private TextMeshProUGUI m_hourPlaceholder, m_minutePlaceholder, m_durationHourPlaceholder, m_durationMinutePlaceholder, m_datePlaceholder;
 
@@ -56,6 +62,31 @@ namespace VRExperience.UI.MenuControl
             }
         }
 
+        public int Hour {
+            get
+            {
+                string hourText = string.IsNullOrEmpty(m_meetingHour.text) ? m_hourPlaceholder.text : m_meetingHour.text;
+                return Convert.ToInt32(hourText);
+            }
+        }
+
+        public int Minute
+        {
+            get
+            {
+                string minuteText = string.IsNullOrEmpty(m_meetingMinute.text) ? m_minutePlaceholder.text : m_meetingMinute.text;
+                return Convert.ToInt32(minuteText);
+            }
+        }
+
+        public string Date
+        {
+            get
+            {
+                return string.IsNullOrEmpty(m_meetingDate.text) ? m_datePlaceholder.text : m_meetingDate.text;
+            }
+        }
+
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
@@ -63,6 +94,13 @@ namespace VRExperience.UI.MenuControl
             m_audio = IOC.Resolve<IAudio>();
             m_commonResource = IOC.Resolve<ICommonResource>();
             m_webInterace = IOC.Resolve<IWebInterface>();
+
+            m_hourValidator.m_timeForm = this;
+            m_minuteValidator.m_timeForm = this;
+            if (m_meetingHour.inputValidator != null && m_meetingHour.inputValidator is TimeInputValidator hourValidator)
+                hourValidator.m_timeForm = this;
+            if (m_meetingMinute.inputValidator != null && m_meetingMinute.inputValidator is TimeInputValidator minuteValidator)
+                minuteValidator.m_timeForm = this;
         }
 
         public override IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
