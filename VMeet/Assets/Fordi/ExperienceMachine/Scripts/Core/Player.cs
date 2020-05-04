@@ -225,6 +225,7 @@ namespace VRExperience.Core
             yield return null;
 
             m_initialized = true;
+            ApplyTooltipSettings();
             //foreach (var item in m_controllerTips)
             //{
             //    ShowTooltip(new VRButton(item.Button, item.Controller));
