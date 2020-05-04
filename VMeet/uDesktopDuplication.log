@@ -1,32 +1,15 @@
-[uDD::Log][2020-05-04 12:42:19] Start
-[uDD::Log][2020-05-04 12:42:19] OS Version    : 10.0
-[uDD::Log][2020-05-04 12:42:19] Build Number  : 17763
-[uDD::Log][2020-05-04 12:42:19] Service Pack  : 
-[uDD::Log][2020-05-04 12:42:19] Graphics Card [0] : NVIDIA GeForce GTX 1070
-[uDD::Log][2020-05-04 12:42:19]   > Monitor[0] : \\.\DISPLAY1
-[uDD::Log][2020-05-04 12:42:19] Graphics Card [1] : Intel(R) HD Graphics 530
-[uDD::Log][2020-05-04 12:42:19] Graphics Card [2] : Microsoft Basic Render Driver
-[uDD::Log][2020-05-04 12:42:19] Monitor::Initialized() =>
-[uDD::Log][2020-05-04 12:42:19]     ID    : 0
-[uDD::Log][2020-05-04 12:42:19]     Size  : (1920, 1080)
-[uDD::Log][2020-05-04 12:42:19]     DPI   : (141, 142)
-[uDD::Log][2020-05-04 12:42:19]     Rot   : Landscape
-[uDD::Log][2020-05-04 12:42:19] Duplicator::Initialize() => OK.
-[uDD::Log][2020-05-04 13:10:46] Duplicator::Duplicate() => DXGI_ERROR_ACCESS_LOST.
-[uDD::Err][2020-05-04 13:10:46] Duplicator::Duplicate() => DXGI_ERROR_INVALID_CALL.
-[uDD::Log][2020-05-04 13:18:17] MonitorManager::Reinitialize()
-[uDD::Log][2020-05-04 13:18:17] Graphics Card [0] : NVIDIA GeForce GTX 1070
-[uDD::Log][2020-05-04 13:18:17]   > Monitor[0] : \\.\DISPLAY1
-[uDD::Log][2020-05-04 13:18:17] Graphics Card [1] : Intel(R) HD Graphics 530
-[uDD::Log][2020-05-04 13:18:17] Graphics Card [2] : Microsoft Basic Render Driver
-[uDD::Log][2020-05-04 13:18:17] Monitor::Initialized() =>
-[uDD::Log][2020-05-04 13:18:17]     ID    : 0
-[uDD::Log][2020-05-04 13:18:17]     Size  : (1920, 1080)
-[uDD::Log][2020-05-04 13:18:17]     DPI   : (141, 142)
-[uDD::Log][2020-05-04 13:18:17]     Rot   : Landscape
-[uDD::Log][2020-05-04 13:18:17] Duplicator::Initialize() => OK.
-[uDD::Log][2020-05-04 15:19:10] Duplicator::UpdateMoveRects() => DXGI_ERROR_ACCESS_LOST.
-[uDD::Log][2020-05-04 15:19:10] Duplicator::UpdateDirtyRects() => DXGI_ERROR_ACCESS_LOST.
-[uDD::Log][2020-05-04 15:19:10] Duplicator::Duplicate() => DXGI_ERROR_ACCESS_LOST.
-[uDD::Err][2020-05-04 15:19:10] Duplicator::Duplicate() => DXGI_ERROR_INVALID_CALL.
-[uDD::Log][2020-05-04 15:28:13] Stop
+[uDD::Log][2020-05-04 17:56:42] Start
+[uDD::Log][2020-05-04 17:56:42] OS Version    : 10.0
+[uDD::Log][2020-05-04 17:56:42] Build Number  : 17763
+[uDD::Log][2020-05-04 17:56:42] Service Pack  : 
+[uDD::Log][2020-05-04 17:56:42] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-05-04 17:56:42]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-05-04 17:56:42] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-05-04 17:56:42] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-05-04 17:56:42] Monitor::Initialized() =>
+[uDD::Log][2020-05-04 17:56:42]     ID    : 0
+[uDD::Log][2020-05-04 17:56:42]     Size  : (1920, 1080)
+[uDD::Log][2020-05-04 17:56:42]     DPI   : (141, 142)
+[uDD::Log][2020-05-04 17:56:42]     Rot   : Landscape
+[uDD::Log][2020-05-04 17:56:42] Duplicator::Initialize() => OK.
+[uDD::Log][2020-05-04 18:00:28] Stop

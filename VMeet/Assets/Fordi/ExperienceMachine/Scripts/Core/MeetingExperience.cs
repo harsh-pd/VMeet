@@ -47,7 +47,6 @@ namespace VRExperience.Core
         public override void OnLoad()
         {
             base.OnLoad();
-            Debug.LogError("OnLoad");
             m_vrMenu.LoadRemoteDesktopView(m_insceneMenuItems);
             try
             {
