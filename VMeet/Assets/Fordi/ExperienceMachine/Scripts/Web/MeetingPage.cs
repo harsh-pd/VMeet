@@ -70,6 +70,8 @@ namespace VRExperience.Meetings.UI
 
         private INetwork m_network = null;
 
+        public static EventHandler MeetingAction = null;
+
         #region GENERAL_METHODS
 
         private int m_buttonRootLevel = 0;
@@ -86,12 +88,46 @@ namespace VRExperience.Meetings.UI
                 m_buttonRootLevel = 1;
             else
                 throw new InvalidDataException("Action button prefab not in proper format");
+            MeetingAction += OnMeetingAction;
         }
 
         protected override void OnDestroyOverride()
         {
             base.OnDestroyOverride();
             m_network.RoomListUpdateEvent -= RoomListUpdated;
+            MeetingAction -= OnMeetingAction;
+        }
+
+
+        private void OnMeetingAction(object sender, EventArgs e)
+        {
+            ReleaseActionButton(m_secondMeetingButton);
+            m_meetingButton.onClick.RemoveAllListeners();
+            var buttonLable = m_meetingButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            switch (m_meetingInfo.meetingType)
+            {
+                case MeetingCategory.CREATED:
+                    m_vrMenu.CloseLastScreen();
+                    break;
+                case MeetingCategory.INVITED:
+                    buttonLable.text = "Accept";
+                    m_meetingButton.onClick.AddListener(() => Accept());
+                    m_secondMeetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
+                    m_secondMeetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ignore";
+                    m_secondMeetingButton.onClick.AddListener(() => Ignore());
+                    break;
+                case MeetingCategory.REJECTED:
+                    buttonLable.text = "Accept";
+                    m_meetingButton.onClick.AddListener(() => Accept());
+                    break;
+                case MeetingCategory.ACCEPTED:
+                    buttonLable.text = "Reject";
+                    m_meetingButton.onClick.AddListener(() => Reject());
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void OnReset()
@@ -232,11 +268,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reject";
-                        m_meetingButton.onClick.RemoveAllListeners();
-                        m_meetingButton.onClick.AddListener(() => Reject());
-                        ReleaseActionButton(m_secondMeetingButton);
-
+                        MeetingAction?.Invoke(this, EventArgs.Empty);
 
                         if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
                         {
@@ -275,9 +307,8 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept";
-                        m_meetingButton.onClick.RemoveAllListeners();
-                        m_meetingButton.onClick.AddListener(() => Accept());
+                        MeetingAction?.Invoke(this, EventArgs.Empty);
+
                         //m_vrMenu.CloseLastScreen();
                         Error error = new Error(Error.OK);
                         error.ErrorText = "";
@@ -305,7 +336,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        m_vrMenu.CloseLastScreen();
+                        MeetingAction.Invoke(this, EventArgs.Empty);
                     }
                     else
                     {
@@ -329,14 +360,11 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept";
-                        m_meetingButton.onClick.RemoveAllListeners();
-                        m_meetingButton.onClick.AddListener(() => Accept());
+                        MeetingAction?.Invoke(this, EventArgs.Empty);
                         //m_vrMenu.CloseLastScreen();
                         Error error = new Error(Error.OK);
                         error.ErrorText = "";
                         m_vrMenu.DisplayResult(error);
-                        ReleaseActionButton(m_secondMeetingButton);
                     }
                     else
                     {
