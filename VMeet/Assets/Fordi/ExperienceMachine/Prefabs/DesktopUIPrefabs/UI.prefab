@@ -117,7 +117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3570385076192115411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1269,8 +1269,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611439043595696}
+  m_platform: 0
   image: {fileID: 3340611439043595662}
   selectable: {fileID: 3340611439043595663}
+  m_selectOnEnable: 0
 --- !u!1 &3340611439092675022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,8 +1858,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611439357099350}
+  m_platform: 0
   image: {fileID: 3340611439357099348}
   selectable: {fileID: 3340611439357099349}
+  m_selectOnEnable: 0
 --- !u!1 &3340611439359719816
 GameObject:
   m_ObjectHideFlags: 0
@@ -2388,6 +2392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611439545213217}
+  m_platform: 0
   image: {fileID: 3340611439545213247}
   selectable: {fileID: 3340611439545213216}
 --- !u!1 &3340611439656209717
@@ -2777,8 +2782,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611439746503216}
+  m_platform: 0
   image: {fileID: 3340611439746503182}
   selectable: {fileID: 3340611439746503183}
+  m_selectOnEnable: 0
 --- !u!1 &3340611439860012756
 GameObject:
   m_ObjectHideFlags: 0
@@ -3176,8 +3183,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611439889977424}
+  m_platform: 0
   image: {fileID: 3340611439889977390}
   selectable: {fileID: 3340611439889977391}
+  m_selectOnEnable: 0
 --- !u!1 &3340611439937949565
 GameObject:
   m_ObjectHideFlags: 0
@@ -3414,6 +3423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611439960308909}
+  m_platform: 0
   image: {fileID: 3340611439960308907}
   selectable: {fileID: 3340611439960308908}
 --- !u!1 &3340611440042908316
@@ -4602,6 +4612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611440482107201}
+  m_platform: 0
   image: {fileID: 3340611440482107231}
   selectable: {fileID: 3340611440482107200}
 --- !u!1 &3340611440482930213
@@ -4991,8 +5002,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611440530201001}
+  m_platform: 0
   image: {fileID: 3340611440530200999}
   selectable: {fileID: 3340611440530201000}
+  m_selectOnEnable: 0
 --- !u!1 &3340611440530697294
 GameObject:
   m_ObjectHideFlags: 0
@@ -5311,6 +5324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611440605687139}
+  m_platform: 0
   image: {fileID: 3340611440605687137}
   selectable: {fileID: 3340611440605687138}
 --- !u!1 &3340611440664236884
@@ -5786,6 +5800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611440751138466}
+  m_platform: 0
   image: {fileID: 3340611440751138464}
   selectable: {fileID: 3340611440751138465}
 --- !u!1 &3340611440780623164
@@ -5938,6 +5953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3340611440780623161}
+  m_platform: 0
   image: {fileID: 3340611440780623159}
   selectable: {fileID: 3340611440780623160}
 --- !u!1 &3340611440836481426
@@ -8423,6 +8439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 6790723329586911296}
+  m_platform: 0
   image: {fileID: 6790723329586911326}
   selectable: {fileID: 6790723329586911327}
 --- !u!1 &6790723329632852830
