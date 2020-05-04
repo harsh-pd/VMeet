@@ -3,12 +3,197 @@ guid: 22f81a9554193ac44ae26cd3499f39c5
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_001
+    second: {fileID: 2100000, guid: 787c5d917815fa345a88e28dac97e899, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_004
+    second: {fileID: 2100000, guid: 187b7cd891b4fb3428bc5b4b91c931d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_005
+    second: {fileID: 2100000, guid: 80dd6c1f941df8e4a9da2e0ea31c6211, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_009
+    second: {fileID: 2100000, guid: cc8c6aa267cbcf348a523e0f38f2e2c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_010
+    second: {fileID: 2100000, guid: cf4d0039e589a5a4eb2acad4d9174311, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_011
+    second: {fileID: 2100000, guid: 16833e684ebf22442afede06068c1e7d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_013
+    second: {fileID: 2100000, guid: 9d26ed6905710c34b95faf2df84e639b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_014
+    second: {fileID: 2100000, guid: 13ff62ac840a74d4a84a4bf981771a23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_016
+    second: {fileID: 2100000, guid: 38de62f71b239b441b908d244b656af9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_017
+    second: {fileID: 2100000, guid: 653105af0e25c924bb667ae2cece5d7b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_019
+    second: {fileID: 2100000, guid: 2d23eb0249b423f4a80aaecc13cbae45, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_021
+    second: {fileID: 2100000, guid: 049e7423324f4704693c6fd5f844a40c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_022
+    second: {fileID: 2100000, guid: 4a37de6fcd65f3546b88bb75a527036c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_023
+    second: {fileID: 2100000, guid: 5fc7e8ac9fab06845a89b22e469d83f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_032
+    second: {fileID: 2100000, guid: efd37353ff3faef43b6d8f688786d269, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_040
+    second: {fileID: 2100000, guid: bb2a483edf5823c44ab0db6a0fac3202, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_041
+    second: {fileID: 2100000, guid: a83fde7c1f900d647976fd66d7eda81f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_043
+    second: {fileID: 2100000, guid: 8a7d6eb0f79a7e6409a756db8457230f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_044
+    second: {fileID: 2100000, guid: c882a3eb5373a764a9a74ca7574da952, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_045
+    second: {fileID: 2100000, guid: ab71b67cc8fde4945afca2886d187215, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_046
+    second: {fileID: 2100000, guid: bb2a483edf5823c44ab0db6a0fac3202, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_047
+    second: {fileID: 2100000, guid: 365dfa68f8e54274fa6bcf414eeef007, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_048
+    second: {fileID: 2100000, guid: 5476daa05509c6d49a609aa004fdc1aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_049
+    second: {fileID: 2100000, guid: 9fdf56e36803b7c4b942213c29aedacc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_050
+    second: {fileID: 2100000, guid: 29c946646983c244f92581bfa1a22df5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_053
+    second: {fileID: 2100000, guid: 12f472bb2c17e994fb77d178e1f25f7e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_054
+    second: {fileID: 2100000, guid: c537d5048b895e244982820d28c1f50b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_056
+    second: {fileID: 2100000, guid: d590c6c4d553a174fb0b84b0a1f3547f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_057
+    second: {fileID: 2100000, guid: 5d571f21e51408f449bbab93143b7822, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_058
+    second: {fileID: 2100000, guid: 316e9a784492ac440adffe6bae6eb0b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_061
+    second: {fileID: 2100000, guid: a089f3b232e098e45909bf7f935ed6e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_065
+    second: {fileID: 2100000, guid: c54797e2456f3f54ba5ba97a679898ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_066
+    second: {fileID: 2100000, guid: da0a44772b7f59246adeafc9f62c2da6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_067
+    second: {fileID: 2100000, guid: 80ac0cbfe14c8b64c8764bad789f0578, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_069
+    second: {fileID: 2100000, guid: 286ba08ec6d73e346844a342e74880c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_070
+    second: {fileID: 2100000, guid: 51a6a80a94020ca43b22c3562b57e81c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CR_071
+    second: {fileID: 2100000, guid: 9e7a5a5883a72a946a1846d57571c723, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -43,7 +228,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -80,7 +265,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.001
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
