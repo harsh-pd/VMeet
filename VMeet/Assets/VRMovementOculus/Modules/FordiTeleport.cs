@@ -50,6 +50,8 @@ namespace VRExperience.Core
             if (anchor == null)
                 return;
 
+            //Debug.LogError("Waypoint teleport: " + anchor.position + " " + anchor.rotation.eulerAngles);
+
             refSystem.myFade.StartFadeIn(refSystem.fadeTime);
             Vector3 holder = anchor.position;
             holder.y += refSystem.GetHeight();
