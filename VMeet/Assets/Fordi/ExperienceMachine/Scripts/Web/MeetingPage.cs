@@ -69,17 +69,23 @@ namespace VRExperience.Meetings.UI
         #endregion
 
         private INetwork m_network = null;
-        private IWebInterface m_webInterface = null;
-
 
         #region GENERAL_METHODS
+
+        private int m_buttonRootLevel = 0;
 
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
-            m_webInterface = IOC.Resolve<IWebInterface>();
             m_network = IOC.Resolve<INetwork>();
             m_network.RoomListUpdateEvent += RoomListUpdated;
+            var button = m_actionButtonPrefab.GetComponentInChildren<Button>();
+            if (m_actionButtonPrefab.transform == button.transform)
+                m_buttonRootLevel = 0;
+            else if (m_actionButtonPrefab.transform == button.transform.parent)
+                m_buttonRootLevel = 1;
+            else
+                throw new InvalidDataException("Action button prefab not in proper format");
         }
 
         protected override void OnDestroyOverride()
@@ -93,6 +99,19 @@ namespace VRExperience.Meetings.UI
 
         }
 
+        private void ReleaseActionButton(Button button)
+        {
+            if (button == null)
+                return;
+
+            button.onClick.RemoveAllListeners();
+            if (m_buttonRootLevel == 0)
+                Destroy(button.gameObject);
+            else if (m_buttonRootLevel == 1)
+                Destroy(button.transform.parent.gameObject);
+            else
+                throw new InvalidDataException("Action button prefab not in proper format");
+        }
 
         private void RoomListUpdated(object sender, EventArgs e)
         {
@@ -101,7 +120,7 @@ namespace VRExperience.Meetings.UI
 
             if (PhotonNetwork.InRoom && m_roomButton != null)
             {
-                Destroy(m_roomButton.gameObject);
+                ReleaseActionButton(m_roomButton);
                 return;
             }
 
@@ -118,7 +137,7 @@ namespace VRExperience.Meetings.UI
             else
             {
                 if (m_meetingInfo.meetingType == MeetingCategory.ACCEPTED)
-                    Destroy(m_roomButton.gameObject);
+                    ReleaseActionButton(m_roomButton);
                 else
                 {
                     if (m_roomButton != null)
@@ -142,7 +161,7 @@ namespace VRExperience.Meetings.UI
         }
         #endregion
 
-        private Button m_roomButton, m_meetingButton;
+        private Button m_roomButton, m_meetingButton, m_secondMeetingButton = null;
 
         public void OpenMeeting(MeetingInfo meetingInfo)
         {
@@ -171,6 +190,9 @@ namespace VRExperience.Meetings.UI
                     m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
                     m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Accept";
                     m_meetingButton.onClick.AddListener(() => Accept());
+                    m_secondMeetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
+                    m_secondMeetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ignore";
+                    m_secondMeetingButton.onClick.AddListener(() => Ignore());
                     break;
                 case MeetingCategory.REJECTED:
                     m_meetingButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
@@ -213,7 +235,7 @@ namespace VRExperience.Meetings.UI
                         m_meetingButton.GetComponentInChildren<TextMeshProUGUI>().text = "Reject";
                         m_meetingButton.onClick.RemoveAllListeners();
                         m_meetingButton.onClick.AddListener(() => Reject());
-
+                        ReleaseActionButton(m_secondMeetingButton);
 
 
                         if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
@@ -314,6 +336,7 @@ namespace VRExperience.Meetings.UI
                         Error error = new Error(Error.OK);
                         error.ErrorText = "";
                         m_vrMenu.DisplayResult(error);
+                        ReleaseActionButton(m_secondMeetingButton);
                     }
                     else
                     {
