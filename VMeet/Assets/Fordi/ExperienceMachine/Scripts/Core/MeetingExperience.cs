@@ -47,9 +47,17 @@ namespace VRExperience.Core
         public override void OnLoad()
         {
             base.OnLoad();
+            Debug.LogError("OnLoad");
             m_vrMenu.LoadRemoteDesktopView(m_insceneMenuItems);
-            if (m_teleportAnchors.Length > PhotonNetwork.LocalPlayer.ActorNumber - 1)
-                m_player.DoWaypointTeleport(m_teleportAnchors[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
+            try
+            {
+                if (m_teleportAnchors.Length > PhotonNetwork.LocalPlayer.ActorNumber - 1)
+                    m_player.DoWaypointTeleport(m_teleportAnchors[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
+            }
+            catch
+            {
+
+            }
         }
     }
 }
