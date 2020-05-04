@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 0}
+  m_platform: 0
   image: {fileID: 2768605307239768669}
   selectable: {fileID: 3600117034699656308}
   m_page: {fileID: 3600117033518116087}
@@ -566,6 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 0}
+  m_platform: 0
   image: {fileID: 2768605308031021157}
   selectable: {fileID: 3600117033878003277}
   m_page: {fileID: 3600117034185544573}
@@ -932,6 +934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 0}
+  m_platform: 0
   image: {fileID: 2768605308116975059}
   selectable: {fileID: 3600117033838056434}
   m_page: {fileID: 3600117034675110181}
@@ -1092,6 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 0}
+  m_platform: 0
   image: {fileID: 2768605308173424040}
   selectable: {fileID: 3600117033752247193}
   m_page: {fileID: 3600117033402194038}
@@ -1587,6 +1591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 5190963502448072894}
+  m_platform: 0
   image: {fileID: 2498479490328156282}
   selectable: {fileID: 1446250659940211602}
 --- !u!1 &3585792720193413941
@@ -5191,6 +5196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 3600117033787939000}
+  m_platform: 0
   image: {fileID: 3600117033787939002}
   selectable: {fileID: 3600117033787939001}
 --- !u!1 &3600117033878577657
@@ -6791,10 +6797,10 @@ RectTransform:
   m_Father: {fileID: 3600117034530654192}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 50, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 18, y: 0}
+  m_SizeDelta: {x: 128, y: 96}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3600117034492473437
 CanvasRenderer:
@@ -8771,7 +8777,7 @@ MonoBehaviour:
   m_title: {fileID: 3585792720728360753}
   m_closeButton: {fileID: 0}
   m_okButton: {fileID: 0}
-  m_backButton: {fileID: 0}
+  m_backButton: {fileID: 3600117033787938981}
   m_preview: {fileID: 0}
   m_description: {fileID: 0}
   m_synchronizedElements:
@@ -9153,6 +9159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shadow: {fileID: 4729353550476377510}
+  m_platform: 0
   image: {fileID: 4729353550476377528}
   selectable: {fileID: 4729353550476377511}
 --- !u!114 &2379184501317972473
