@@ -35,7 +35,7 @@ namespace VRExperience.Core
         protected override void UpdateOverride()
         {
             base.UpdateOverride();
-            //WaypointTeleportInput();
+            WaypointTeleportInput();
         }
 
 
