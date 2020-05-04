@@ -2552,8 +2552,8 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Path: Meeting
-    Text: Meeting
+  - Path: My Meetings
+    Text: My Meetings
     Icon: {fileID: 0}
     Command: Meeting
     CommandType: 18
@@ -2567,8 +2567,8 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Path: Create
-    Text: Create
+  - Path: Create New
+    Text: Create New
     Icon: {fileID: 0}
     Command: 
     CommandType: 20
