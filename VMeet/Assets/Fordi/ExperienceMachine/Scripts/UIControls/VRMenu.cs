@@ -801,6 +801,7 @@ namespace VRExperience.UI.MenuControl
 
         public void BlockDesktop()
         {
+            return;
             if (m_desktopBlocker != null)
                 m_desktopBlocker.Reopen();
         }
@@ -988,6 +989,7 @@ namespace VRExperience.UI.MenuControl
             if (!m_settings.SelectedPreferences.DesktopMode)
                 UnblockDesktop();
             EnableDesktopModule();
+            m_dScreenRoot.localScale = Vector3.one;
         }
 
         void OnHMDMount()
@@ -1005,6 +1007,7 @@ namespace VRExperience.UI.MenuControl
 
             if (!m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
                 StartCoroutine(CoRecenter());
+            m_dScreenRoot.localScale = Vector3.zero;
         }
 
         private IEnumerator CoRecenter()
