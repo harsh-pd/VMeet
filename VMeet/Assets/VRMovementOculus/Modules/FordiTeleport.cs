@@ -29,7 +29,7 @@ namespace VRExperience.Core
         protected override void StartOverride()
         {
             base.StartOverride();
-            WaypointTeleport();
+            //WaypointTeleport();
         }
 
         protected override void UpdateOverride()

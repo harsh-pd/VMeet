@@ -233,6 +233,21 @@ namespace VRExperience.Core
         {
             base.OnLoad();
             ToggleMenu();
+            StartCoroutine(TakeASeat());
+        }
+
+        private IEnumerator TakeASeat()
+        {
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            //Debug.LogError(PhotonNetwork.LocalPlayer.ActorNumber);
+            
+            if (m_teleportAnchors.Length > 0)
+                m_player.DoWaypointTeleport(m_teleportAnchors[0]);
+            yield break;
         }
     }
 }
