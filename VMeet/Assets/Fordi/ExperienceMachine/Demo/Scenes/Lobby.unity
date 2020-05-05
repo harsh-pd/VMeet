@@ -734,13 +734,58 @@ PrefabInstance:
     - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: m_teleportAnchors.Array.size
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: m_teleportAnchors.Array.data[0]
       value: 
+      objectReference: {fileID: 7533661698266686070}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[1]
+      value: 
+      objectReference: {fileID: 7533661698266686069}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[2]
+      value: 
       objectReference: {fileID: 7533661698266686068}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[3]
+      value: 
+      objectReference: {fileID: 7533661698266686067}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[4]
+      value: 
+      objectReference: {fileID: 7533661698266686066}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[5]
+      value: 
+      objectReference: {fileID: 7533661698266686065}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[6]
+      value: 
+      objectReference: {fileID: 7533661698266686064}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[7]
+      value: 
+      objectReference: {fileID: 7533661698266686063}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[8]
+      value: 
+      objectReference: {fileID: 7533661698266686062}
+    - target: {fileID: 8311825173764635620, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_teleportAnchors.Array.data[9]
+      value: 
+      objectReference: {fileID: 7533661698266686061}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
 --- !u!224 &1042084678 stripped
