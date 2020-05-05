@@ -800,7 +800,7 @@ MonoBehaviour:
       Preview: {fileID: 0}
       LargePreview: {fileID: 0}
       SpecialCommand: 
-      Clip: {fileID: 0}
+      Clip: {fileID: 8300000, guid: 6787a6f406517f5489713590446f4328, type: 3}
       CommandType: 11
     - Name: Music
       Description: 
@@ -832,7 +832,7 @@ MonoBehaviour:
       Preview: {fileID: 0}
       LargePreview: {fileID: 0}
       SpecialCommand: 
-      Clip: {fileID: 8300000, guid: 1e4442ecee1e5cc4ba8d481908cab1f8, type: 3}
+      Clip: {fileID: 0}
       CommandType: 0
     - Name: Object
       Description: 
