@@ -238,6 +238,12 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1017516623084463619, guid: b678ee0cb846bec479dd1fd1966569ff,
+        type: 3}
+      propertyPath: m_remoteMonitorViewPrefab
+      value: 
+      objectReference: {fileID: 282526929035317315, guid: f92a8120acb1c1b41b3f604b50afa31f,
+        type: 3}
     - target: {fileID: 982188363917954350, guid: b678ee0cb846bec479dd1fd1966569ff,
         type: 3}
       propertyPath: m_LocalPosition.z
