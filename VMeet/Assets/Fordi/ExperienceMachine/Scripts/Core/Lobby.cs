@@ -232,7 +232,6 @@ namespace VRExperience.Core
         public override void OnLoad()
         {
             base.OnLoad();
-            ToggleMenu();
             StartCoroutine(TakeASeat());
         }
 
@@ -247,7 +246,7 @@ namespace VRExperience.Core
             
             if (m_teleportAnchors.Length > 0)
                 m_player.DoWaypointTeleport(m_teleportAnchors[0]);
-            yield break;
+            ToggleMenu();
         }
     }
 }

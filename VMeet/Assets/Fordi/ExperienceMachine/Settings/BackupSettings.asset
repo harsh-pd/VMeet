@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GraphicsQuality: 5
   AudioVolume: 0.5830012
-  MusicVolume: 0.15936619
+  MusicVolume: 0.3
   SFXVolume: 0.45655686
   AmbienceVolume: 1
   Animation: 1
   Particles: 1
   FadeColor: {r: 0, g: 0, b: 0, a: 1}
-  ShowTooltip: 1
+  ShowTooltip: 0
   DesktopMode: 0
+  ForcedDesktopMode: 0
+  annotationDelay: 0.25
