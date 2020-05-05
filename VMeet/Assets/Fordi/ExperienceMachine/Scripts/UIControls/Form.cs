@@ -173,6 +173,21 @@ namespace VRExperience.UI.MenuControl
                 int index = i;
                 m_inputs[i].onSelect.AddListener((val) => m_inputIndex = index);
             }
+
+            if (m_title.text.ToLower() == "login")
+            {
+                string[] commandArgs = System.Environment.GetCommandLineArgs();
+                //commandArgs = new string[] { "test1", "harsh", "haf;" };
+                if (commandArgs != null && commandArgs.Length == 3)
+                {
+                    m_inputs[0].text = commandArgs[0];
+                    m_inputs[1].text = commandArgs[1];
+                    m_inputs[2].text = commandArgs[2];
+                    if (m_actionButton.onClick != null)
+                        m_actionButton.onClick.Invoke();
+                }
+            }
+
         }
     }
 }
