@@ -128,7 +128,7 @@ namespace VRExperience.UI.MenuControl
 
         public virtual void OpenForm(FormArgs args, bool blocked, bool persist)
         {
-            Clear();
+            //Clear();
             Blocked = blocked;
             Persist = persist;
             gameObject.SetActive(true);

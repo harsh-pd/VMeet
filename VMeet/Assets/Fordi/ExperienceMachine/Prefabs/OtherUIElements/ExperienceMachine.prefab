@@ -2522,26 +2522,11 @@ MonoBehaviour:
   m_teleportAnchors: []
   m_usedButtons: []
   m_insceneMenuItems:
-  - Path: Music
-    Text: Music
+  - Path: Create New
+    Text: Create New
     Icon: {fileID: 0}
     Command: 
-    CommandType: 1
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Path: Settings
-    Text: Settings
-    Icon: {fileID: 0}
-    Command: 
-    CommandType: 11
+    CommandType: 20
     Action:
       m_PersistentCalls:
         m_Calls: []
@@ -2555,23 +2540,8 @@ MonoBehaviour:
   - Path: My Meetings
     Text: My Meetings
     Icon: {fileID: 0}
-    Command: Meeting
-    CommandType: 18
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Path: Create New
-    Text: Create New
-    Icon: {fileID: 0}
     Command: 
-    CommandType: 20
+    CommandType: 18
     Action:
       m_PersistentCalls:
         m_Calls: []
@@ -2597,11 +2567,41 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Path: Exit
-    Text: Exit
+  - Path: Settings
+    Text: Settings
     Icon: {fileID: 0}
-    Command: Exit
-    CommandType: 12
+    Command: Settings
+    CommandType: 11
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Path: Music
+    Text: Music
+    Icon: {fileID: 0}
+    Command: Music
+    CommandType: 1
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Path: Logout
+    Text: Logout
+    Icon: {fileID: 0}
+    Command: Logout
+    CommandType: 22
     Action:
       m_PersistentCalls:
         m_Calls: []
@@ -3979,16 +3979,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8836419666482888560, guid: 0d51a5f2230a64044baeda83fb8fb864,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2242943390396871805, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8221756217094948733}
+    - target: {fileID: 8836419666482888560, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d51a5f2230a64044baeda83fb8fb864, type: 3}
 --- !u!4 &8217348914538274388 stripped
