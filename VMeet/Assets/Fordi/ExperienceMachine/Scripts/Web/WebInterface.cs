@@ -33,7 +33,7 @@ namespace Cornea.Web
         List<UserInfo> ParseUserListJson(string userListJson);
         List<MeetingInfo> ParseMeetingListJson(string meetingListJson, MeetingCategory category);
         ExperienceResource[] GetResource(ResourceType resourceType, string category);
-        void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done);
+        void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done, bool requireWebRefresh = false);
         UserInfo UserInfo { get; }
     }
 
@@ -941,8 +941,9 @@ namespace Cornea.Web
             }
         }
 
-        public void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done)
+        public void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done, bool requireWebRefresh = false)
         {
+            m_requireMeetingListRefresh = requireWebRefresh;    
             //Debug.LogError("GetCategories: " + type.ToString());
 
             m_vrMenu.DisplayProgress("Hold on, fetching details...");
@@ -952,6 +953,7 @@ namespace Cornea.Web
                 case ResourceType.MEETING:
                     if (!m_requireMeetingListRefresh && m_meetings.Count == 4)
                     {
+                        m_vrMenu.DisplayResult(new Error(Error.OK));
                         done?.Invoke(Meetings);
                         break;
                     }
@@ -966,10 +968,19 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Created, allCreatedMeetings));
                             if (m_meetings.Count == 4)
                             {
+                                m_vrMenu.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
                             //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                        else
+                        {
+                            m_vrMenu.DisplayResult(new Error()
+                            {
+                                ErrorText = (string)result["error"]["message"],
+                                ErrorCode = Error.E_Exception
+                            });
                         }
                     });
                     ListAllMeetingDetails(MeetingFilter.Accepted).OnRequestComplete((isNetworkError, message) =>
@@ -982,10 +993,19 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Accepted, meetings));
                             if (m_meetings.Count == 4)
                             {
+                                m_vrMenu.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
                             //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                        else
+                        {
+                            m_vrMenu.DisplayResult(new Error()
+                            {
+                                ErrorText = (string)result["error"]["message"],
+                                ErrorCode = Error.E_Exception
+                            });
                         }
                     });
                     ListAllMeetingDetails(MeetingFilter.Invited).OnRequestComplete((isNetworkError, message) =>
@@ -998,10 +1018,19 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Invited, meetings));
                             if (m_meetings.Count == 4)
                             {
+                                m_vrMenu.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
                             //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                        else
+                        {
+                            m_vrMenu.DisplayResult(new Error()
+                            {
+                                ErrorText = (string)result["error"]["message"],
+                                ErrorCode = Error.E_Exception
+                            });
                         }
                     });
                     ListAllMeetingDetails(MeetingFilter.Rejected).OnRequestComplete((isNetworkError, message) =>
@@ -1014,16 +1043,26 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Rejected, meetings));
                             if (m_meetings.Count == 4)
                             {
+                                m_vrMenu.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
                             //Coordinator.instance.meetingInterface.CleanupCache();
+                        }
+                        else
+                        {
+                            m_vrMenu.DisplayResult(new Error()
+                            {
+                                ErrorText = (string)result["error"]["message"],
+                                ErrorCode = Error.E_Exception
+                            });
                         }
                     });
                     break;
                 case ResourceType.USER:
                     if (m_users.Count > 0)
                     {
+                        m_vrMenu.DisplayResult(new Error());
                         done?.Invoke(Users);
                         return;
                     }
@@ -1031,10 +1070,24 @@ namespace Cornea.Web
                     GetUsersByOrganization().OnRequestComplete(
                     (isNetworkError, message) =>
                     {
-                        //Debug.LogError(message);
-                        var userGroup = GetUserGroup(ParseUserListJson(message));
-                        m_users.Add(userGroup);
-                        done?.Invoke(Users);
+                    //Debug.LogError(message);
+
+                        JsonData result = JsonMapper.ToObject(message);
+                        if (result["success"].ToString() == "True")
+                        {
+                            var userGroup = GetUserGroup(ParseUserListJson(message));
+                            m_users.Add(userGroup);
+                            m_vrMenu.DisplayResult(new Error(Error.OK));
+                            done?.Invoke(Users);
+                        }
+                        else
+                        {
+                            m_vrMenu.DisplayResult(new Error()
+                            {
+                                ErrorText = (string)result["error"]["message"],
+                                ErrorCode = Error.E_Exception
+                            });
+                        }
                     });
                     break;
                 default:

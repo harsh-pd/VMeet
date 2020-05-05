@@ -46,7 +46,7 @@ namespace VRExperience.UI.MenuControl
         protected Button m_closeButton, m_okButton;
 
         [SerializeField]
-        private GameObject m_backButton;
+        private GameObject m_backButton, m_refreshButton;
 
         [SerializeField]
         protected Image m_preview;
@@ -252,10 +252,33 @@ namespace VRExperience.UI.MenuControl
             if (m_backButton != null)
                 m_backButton.gameObject.SetActive(backEnabled);
             m_refreshCategory = refreshCategory;
+            if (m_refreshCategory != null && m_refreshButton != null)
+                m_refreshButton.SetActive(true);
 
             if (m_title != null)
                 m_title.text = title;
             OpenMenu(items, blocked, persist);
+        }
+
+        public void WebRefresh()
+        {
+            if (m_refreshCategory == null)
+                return;
+
+            m_webInterface.GetCategories(ResourceType.MEETING, (val) =>
+            {
+                ExperienceResource[] resources = new ExperienceResource[] { };
+                resources = m_webInterface.GetResource(ResourceType.MEETING, m_refreshCategory);
+
+                MenuItemInfo[] items = ResourceToMenuItems(resources);
+                Clear();
+                m_menuItems.Clear();
+
+                //Debug.LogError("Refreshed: " + m_refreshCategory + " " + items.Length);
+
+                foreach (var item in items)
+                    SpawnMenuItem(item, m_menuItem, m_contentRoot);
+            }, true);
         }
 
         public virtual void Close()
