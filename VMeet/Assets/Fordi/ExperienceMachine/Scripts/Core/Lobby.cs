@@ -246,6 +246,8 @@ namespace VRExperience.Core
             
             if (m_teleportAnchors.Length > 0)
                 m_player.DoWaypointTeleport(m_teleportAnchors[0]);
+
+            yield return new WaitForSeconds(.2f);
             ToggleMenu();
         }
     }

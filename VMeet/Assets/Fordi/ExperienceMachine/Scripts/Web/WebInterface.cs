@@ -292,10 +292,14 @@ namespace Cornea.Web
 
         private bool m_requireMeetingListRefresh = true;
 
-        private string MacAddress { get {
-                //Debug.LogError(SystemInfo.deviceUniqueIdentifier);
+        private string MacAddress {
+            get
+            {
+                return "6dc53fb71be5e6b9762a4053e49fa0f28b3f54a4";
+                Debug.LogError(SystemInfo.deviceUniqueIdentifier);
                 return SystemInfo.deviceUniqueIdentifier;
-            } }
+            }
+        }
 
         public string AccessToken { get { return access_token; } }
 
