@@ -197,6 +197,18 @@ namespace VRExperience.Meeting
 
         }
 
+        public bool IsRelavant(string searchValue)
+        {
+            if (string.IsNullOrEmpty(searchValue))
+                return m_selectionToggle.isOn;
+            
+            var lowerName = m_userInfo.name.ToLower();
+            var lowerUserName = m_userInfo.userName.ToLower();
+            var lowerEmailAddress = m_userInfo.emailAddress.ToLower();
+            var lowerSearchValue = searchValue.ToLower();
+            return (lowerName.Contains(lowerSearchValue) || lowerUserName.Contains(lowerSearchValue)) || lowerEmailAddress.Contains(lowerSearchValue);
+        }
+
         protected MenuItemValidationArgs IsValid()
         {
             if (m_item == null)

@@ -12,6 +12,7 @@ using VRExperience.Meeting;
 using LitJson;
 using System.Linq;
 using Fordi.UI;
+using Fordi;
 
 namespace VRExperience.UI.MenuControl
 {
@@ -49,6 +50,8 @@ namespace VRExperience.UI.MenuControl
         private Fordi.Pool<OrganizationMember> memberPool;
         private List<OrganizationMember> memberList = new List<OrganizationMember>();
         private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
+
+        private string m_currentSearchValue = string.Empty;
 
         public string SelectedTime {
             get
@@ -149,7 +152,13 @@ namespace VRExperience.UI.MenuControl
 
         public void OpenForm(MenuItemInfo[] items)
         {
-            OpenMenu(items, false, true);
+            if (memberPool == null)
+                memberPool = new Pool<OrganizationMember>(m_contentRoot, m_menuItem);
+
+            OpenMenu("", false, true);
+
+            PopulateMemberList(items);
+
             var time = DateTime.Now.Add(new TimeSpan(0, 10, 0));
             m_hourPlaceholder = m_meetingHour.placeholder.GetComponent<TextMeshProUGUI>();
             m_hourPlaceholder.text = time.ToString("hh");
@@ -163,14 +172,14 @@ namespace VRExperience.UI.MenuControl
             m_datePlaceholder.text = DateTime.Now.ToString("yyyy/MM/dd");
         }
 
-        public void PopulateMemberList(List<UserInfo> users)
-        {
-            for (int i = 0; i < users.Count; i++)
-            {
-                if (users[i].emailAddress.Equals(m_webInterace.UserInfo.emailAddress))
-                    users.Remove(users[i]);
 
-                if (i >= users.Count)
+        public void PopulateMemberList(MenuItemInfo[] items)
+        {
+            for (int i = 0; i < items.Length; i++)
+            {
+                var userInfo = ((UserResource)items[i].Data).UserInfo;
+
+                if (i >= items.Length)
                     break;
 
                 if (memberList.Count > i)
@@ -183,14 +192,16 @@ namespace VRExperience.UI.MenuControl
                     var member = memberPool.FetchItem();
                     memberList.Add(member);
                 }
-                memberList[i].Init(users[i].name, users[i].emailAddress, users[i].id);
+                memberList[i].Item = items[i];
             }
 
-            for (int i = users.Count; i < memberList.Count; i++)
+            for (int i = items.Length; i < memberList.Count; i++)
             {
                 memberPool.Surrender(memberList[i]);
                 memberList.Remove(memberList[i]);
             }
+
+            SearchMembers("");
         }
 
         public void OpenCalendar()
@@ -199,6 +210,18 @@ namespace VRExperience.UI.MenuControl
                 Debug.LogError(date);
                 m_meetingDate.text = date;
             }, this);
+        }
+
+        public void SearchMembers(string searchValue)
+        {
+            m_currentSearchValue = searchValue;
+            foreach (var item in memberList)
+            {
+                if (item.IsRelavant(searchValue) && !item.gameObject.activeSelf)
+                    memberPool.Retrieve(item);
+                else if (!item.IsRelavant(searchValue) && item.gameObject.activeSelf)
+                    memberPool.Surrender(item);
+            }
         }
 
         public void Submit()
@@ -267,6 +290,7 @@ namespace VRExperience.UI.MenuControl
 
         public void OpenForm(FormArgs args, bool blocked, bool persist)
         {
+            memberPool = new Pool<OrganizationMember>(m_contentRoot, m_menuItem);
             OpenForm(args.FormItems);
         }
     }
