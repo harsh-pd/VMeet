@@ -243,7 +243,8 @@ namespace Cornea.Web
 
     public class WebInterface : MonoBehaviour, IWebInterface
     {
-        public const string vesApiBaseUrl = "https://corneaapi.caresoftglobal.com";        
+        public static string vesApiBaseUrl = "https://corneaapi.caresoftglobal.com";
+        //public const string vesApiBaseUrl = "http://vmeet.work";
         public const string isTenantAvailable = "/api/services/app/Account/IsTenantAvailable";
         public const string tokenAuth = "/api/TokenAuth/Authenticate";
 
@@ -261,6 +262,8 @@ namespace Cornea.Web
         public const string rejectMeeting = "/api/services/app/MeetingParticipants/rejectMeeting";
         public const string uploadFile = "/Meeting/UploadFileToBlobAsync";
         public const string downloadFile = "/Meeting/DownloadFileFromBlobAsync";
+
+        private const string APP_CONFIG = "app.config";
 
         [SerializeField]
         private Button meetingButton;
@@ -295,8 +298,8 @@ namespace Cornea.Web
         private string MacAddress {
             get
             {
-                return "6dc53fb71be5e6b9762a4053e49fa0f28b3f54a4";
-                Debug.LogError(SystemInfo.deviceUniqueIdentifier);
+                //return "6dc53fb71be5e6b9762a4053e49fa0f28b3f54a4";
+                //Debug.LogError(SystemInfo.deviceUniqueIdentifier);
                 return SystemInfo.deviceUniqueIdentifier;
             }
         }
@@ -315,6 +318,17 @@ namespace Cornea.Web
         {
             m_vrMenu = IOC.Resolve<IVRMenu>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+
+            var configFilePath = Path.Combine(Application.persistentDataPath, APP_CONFIG);
+            if (File.Exists(configFilePath))
+            {
+                vesApiBaseUrl = File.ReadAllText(configFilePath);
+                Debug.LogError("Using: " + vesApiBaseUrl);
+            }
+            else
+            {
+                File.WriteAllText(configFilePath, vesApiBaseUrl);
+            }
         }
 
         private void Start()
@@ -359,33 +373,44 @@ namespace Cornea.Web
                     (isNetworkError, message) =>
                     {
                         //Debug.LogError(message);
-                        JsonData tokenAuthResult = JsonMapper.ToObject(message);
-                        if (tokenAuthResult["success"].ToString() == "True")
+                        try
                         {
-                            var token = tokenAuthResult["result"]["accessToken"];
-                            if (token == null)
+                            JsonData tokenAuthResult = JsonMapper.ToObject(message);
+                            if (tokenAuthResult["success"].ToString() == "True")
                             {
-                                Error error = new Error(Error.E_Exception);
-                                error.ErrorText = "Login failed. Please change your password in web console first.";
-                                m_vrMenu.DisplayResult(error);
-                                //Coordinator.instance.screenManager.OnLoginFailure("Login failed. Please change your password in web console first.");
-                                return;
+                                var token = tokenAuthResult["result"]["accessToken"];
+                                if (token == null)
+                                {
+                                    Error error = new Error(Error.E_Exception);
+                                    error.ErrorText = "Login failed. Please change your password in web console first.";
+                                    m_vrMenu.DisplayResult(error);
+                                    //Coordinator.instance.screenManager.OnLoginFailure("Login failed. Please change your password in web console first.");
+                                    return;
+                                }
+                                access_token = token.ToString();
+                                ValidateUserLogin(organization, username, password);
                             }
-                            access_token = token.ToString();
-                            ValidateUserLogin(organization, username, password);
+                            else
+                            {
+
+
+                                var loginFailureMessage = TruncateString((string)tokenAuthResult["error"]["message"]);
+
+                                Error error = new Error(Error.E_Exception);
+                                error.ErrorText = loginFailureMessage;
+                                m_vrMenu.DisplayResult(error);
+
+                                //Coordinator.instance.screenManager.OnLoginFailure(loginFailureMessage);
+                                Debug.Log("Error " + tokenAuthResult["error"]["message"].ToString() + "Ok");
+                            }
                         }
-                        else
+                        catch(Exception e)
                         {
-                            
-
-                            var loginFailureMessage = TruncateString((string)tokenAuthResult["error"]["message"]);
-
-                            Error error = new Error(Error.E_Exception);
-                            error.ErrorText = loginFailureMessage;
-                            m_vrMenu.DisplayResult(error);
-
-                            //Coordinator.instance.screenManager.OnLoginFailure(loginFailureMessage);
-                            Debug.Log("Error " + tokenAuthResult["error"]["message"].ToString() + "Ok");
+                            m_vrMenu.DisplayResult(new Error()
+                            {
+                                ErrorCode = Error.E_NetworkIssue,
+                                ErrorText = e.Message
+                            });
                         }
                     }
             );
