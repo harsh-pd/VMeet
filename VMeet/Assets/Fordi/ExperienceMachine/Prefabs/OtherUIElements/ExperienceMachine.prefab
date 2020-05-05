@@ -624,21 +624,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_items:
-  - Path: Learn
-    Text: Learn
-    Icon: {fileID: 0}
-    Command: 
-    CommandType: 13
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Lobby
     Text: Lobby
     Icon: {fileID: 0}
@@ -654,11 +639,26 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - Path: Options
-    Text: Options
+  - Path: Settings
+    Text: Settings
     Icon: {fileID: 0}
     Command: 
     CommandType: 11
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: VRExperience.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - Path: Logout
+    Text: Logout
+    Icon: {fileID: 0}
+    Command: Logout
+    CommandType: 22
     Action:
       m_PersistentCalls:
         m_Calls: []
