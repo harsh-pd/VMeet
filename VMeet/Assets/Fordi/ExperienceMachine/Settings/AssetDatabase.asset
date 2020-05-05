@@ -487,14 +487,14 @@ MonoBehaviour:
       Preview: {fileID: 21300000, guid: 61ac8de751250474893f24854d0bd77c, type: 3}
       LargePreview: {fileID: 21300000, guid: 61ac8de751250474893f24854d0bd77c, type: 3}
       SpecialCommand: 
-      Clip: {fileID: 8300000, guid: 13f7cf002af20b24c84c1c166ba316ea, type: 3}
+      Clip: {fileID: 8300000, guid: d150e2ec9ffe871489d6e6c63503d28f, type: 3}
     - Name: Parallel
       Description: 
       ResourceType: 0
       Preview: {fileID: 21300000, guid: 13dc08963eedac4408d111f655e54ac6, type: 3}
       LargePreview: {fileID: 21300000, guid: 13dc08963eedac4408d111f655e54ac6, type: 3}
       SpecialCommand: 
-      Clip: {fileID: 8300000, guid: 13f7cf002af20b24c84c1c166ba316ea, type: 3}
+      Clip: {fileID: 8300000, guid: 3558e297eddbdea41a71000e20a76da9, type: 3}
   HomeMusic:
   - Name: Zen
     Description: 

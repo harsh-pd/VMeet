@@ -259,7 +259,10 @@ namespace VRExperience.UI.MenuControl
 
         private void PreviewSound(float volume, AudioType audioType)
         {
-            if (Pair == null)
+            if (Pair == null && m_vrMenu.ActiveModule != InputModule.STANDALONE)
+                return;
+
+            if (Pair != null && m_vrMenu.ActiveModule != InputModule.OCULUS)
                 return;
 
             var audioSource = m_audio.GetAudioSource(audioType);
