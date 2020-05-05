@@ -57,6 +57,12 @@ namespace VRExperience.UI
             AwakeOverride();
         }
 
+        protected virtual void Update()
+        {
+            if (!VRMenu.s_InputSelectedFlag && m_vrMenu.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)
+                BackClick();
+        }
+
         private void OnDestroy()
         {
             OnDestroyOverride();
