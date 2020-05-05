@@ -53,7 +53,7 @@ namespace VRExperience.UI.MenuControl
             if (m_inputs.Count == 0)
                 return;
 
-            if (!m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
+            if (m_vrMenu.ActiveModule == InputModule.STANDALONE && !m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
             {
                 m_inputIndex--;
                 if (m_inputIndex < 0)
@@ -61,8 +61,7 @@ namespace VRExperience.UI.MenuControl
                 m_inputs[m_inputIndex].Select();
                 return;
             }
-
-            if (!m_blocker.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab))
+            else if (m_vrMenu.ActiveModule == InputModule.STANDALONE && !m_blocker.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab))
             {
                 m_inputIndex++;
                 if (m_inputIndex > m_inputs.Count - 1)
@@ -167,6 +166,12 @@ namespace VRExperience.UI.MenuControl
             {
                 m_inputs[0].Select();
                 m_inputIndex = 0;
+            }
+
+            for (int i = 0; i < m_inputs.Count; i++)
+            {
+                int index = i;
+                m_inputs[i].onSelect.AddListener((val) => m_inputIndex = index);
             }
         }
     }

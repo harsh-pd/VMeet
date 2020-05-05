@@ -115,6 +115,16 @@ namespace Fordi.Networking
 
         public void CreateRoom(string roomName)
         {
+            if (!PhotonNetwork.IsConnectedAndReady)
+            {
+                m_vrMenu.DisplayResult(new Error()
+                {
+                    ErrorCode = Error.E_InvalidOperation,
+                    ErrorText = "Not connected to multiplayer server yet."
+                });
+                return;
+            }
+
             m_vrMenu.DisplayProgress("Creating room: " + roomName);
             RoomOptions options = new RoomOptions
             {
@@ -162,6 +172,16 @@ namespace Fordi.Networking
 
         public void JoinRoom(string roomName)
         {
+            if (!PhotonNetwork.IsConnectedAndReady)
+            {
+                m_vrMenu.DisplayResult(new Error()
+                {
+                    ErrorCode = Error.E_InvalidOperation,
+                    ErrorText = "Not connected to multiplayer server yet."
+                });
+                return;
+            }
+
             m_vrMenu.DisplayProgress("Joining room: " + roomName);
             PhotonNetwork.JoinRoom(roomName);
         }

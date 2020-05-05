@@ -96,7 +96,7 @@ namespace VRExperience.UI.MenuControl
             if (m_inputs.Count == 0)
                 return;
 
-            if (!m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
+            if (m_vrMenu.ActiveModule == InputModule.STANDALONE && !m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
             {
                 m_inputIndex--;
                 if (m_inputIndex < 0)
@@ -105,7 +105,7 @@ namespace VRExperience.UI.MenuControl
                 return;
             }
 
-            if (!m_blocker.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab))
+            if (m_vrMenu.ActiveModule == InputModule.STANDALONE && !m_blocker.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Tab))
             {
                 m_inputIndex++;
                 if (m_inputIndex > m_inputs.Count - 1)
@@ -130,6 +130,12 @@ namespace VRExperience.UI.MenuControl
                 minuteValidator.m_timeForm = this;
             m_inputs.Clear();
             m_inputs = new List<TMP_InputField>() { m_meetingTitle, m_meetingDate, m_meetingHour, m_meetingMinute, m_meetingDurationHour, m_meetingDurationMinute };
+
+            for (int i = 0; i < m_inputs.Count; i++)
+            {
+                int index = i;
+                m_inputs[i].onSelect.AddListener((val) => m_inputIndex = index);
+            }
         }
 
         public override IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
