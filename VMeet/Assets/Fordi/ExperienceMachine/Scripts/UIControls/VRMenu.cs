@@ -132,6 +132,8 @@ namespace VRExperience.UI.MenuControl
 
         public InputModule ActiveModule { get; private set; }
 
+        public static bool s_InputSelectedFlag = false;
+
         public bool IsOpen { get { return m_screenStack.Count != 0; } }
 
         public EventHandler AudioInterruptionEvent { get; set; }

@@ -70,20 +70,22 @@ namespace Fordi.UI
             string timeValue;
             string dateTimeString;
             int maximumVal;
-            int maximumHour;
+            //int maximumHour;
+
+            //Debug.LogError(val);
+            //return ch;
 
             switch (timeType)
             {
                 case TimeType.HOUR:
-                    if (Validate(text, pos, ch, 23, 0).Equals(emptyChar))
-                        return emptyChar;
                     maximumVal = GetMaximumValue(updatedText, 0, 23);
-                    if (val > maximumVal)
+                    if (maximumVal > 23)
                         return emptyChar;
-                    if (maximumVal >= 12)
+
+                    if (maximumVal > 12)
                     {
                         maximumVal -= 12;
-                        timeValue = maximumVal + ":" + m_timeForm.Minute + ":00 PM";
+                        timeValue = val + ":" + m_timeForm.Minute + ":00 PM";
                     }
                     else if (maximumVal == 12)
                         timeValue = "12:" + m_timeForm.Minute + ":00 PM";
@@ -92,18 +94,18 @@ namespace Fordi.UI
 
                     dateTimeString = m_timeForm.Date + " " + timeValue;
 
-                    //Debug.Log(dateTimeString);
+                    //Debug.LogError(dateTimeString);
                     if (Convert.ToDateTime(dateTimeString) < DateTime.Now)
                         return emptyChar;
                     break;
                 case TimeType.MINUTE:
-                    if (Validate(text, pos, ch, 59, 0).Equals(emptyChar))
-                        return emptyChar;
                     maximumVal = GetMaximumValue(updatedText, 0, 59);
-                    if (val > maximumVal)
+                    if (maximumVal > 59)
                         return emptyChar;
-                    maximumHour = m_timeForm.Hour;
-                    timeValue = (maximumHour < 13 ? maximumHour : maximumHour - 12) + ":" + maximumVal + (maximumHour < 12 ? ":00 AM" : ":00 PM");
+
+                    var hour = m_timeForm.Hour;
+                   
+                    timeValue = (hour > 12 ? hour -12 : hour ) + ":" + maximumVal + (hour < 12 ? ":00 AM" : ":00 PM");
                     dateTimeString = m_timeForm.Date + " " + timeValue;
                     //Debug.Log(dateTimeString);
                     if (Convert.ToDateTime(dateTimeString) < DateTime.Now)

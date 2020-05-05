@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using VRExperience.UI.MenuControl;
 
 namespace AL.UI
 {
@@ -50,6 +51,7 @@ namespace AL.UI
         // Disabled for now
         public virtual void OnSelect(BaseEventData eventData)
         {
+            VRMenu.s_InputSelectedFlag = true;
             HardSelect();
         }
 
@@ -69,6 +71,7 @@ namespace AL.UI
             //Hotkeys.HotKeyEnabled = true;
             ToggleOutlineHighlight(false);
             ToggleBackgroundHighlight(false);
+            VRMenu.s_InputSelectedFlag = false;
         }
     }
 }
