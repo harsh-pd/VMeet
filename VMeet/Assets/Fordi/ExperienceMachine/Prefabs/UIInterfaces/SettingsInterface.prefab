@@ -2945,6 +2945,7 @@ MonoBehaviour:
   m_closeButton: {fileID: 0}
   m_okButton: {fileID: 0}
   m_backButton: {fileID: 0}
+  m_refreshButton: {fileID: 0}
   m_preview: {fileID: 0}
   m_description: {fileID: 0}
   m_synchronizedElements:
@@ -7295,7 +7296,7 @@ PrefabInstance:
     - target: {fileID: 1402603448151917994, guid: c68db44361c71554cb64f8989f9aa345,
         type: 3}
       propertyPath: m_IsOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6273957253048122715, guid: c68db44361c71554cb64f8989f9aa345,
         type: 3}
@@ -8879,6 +8880,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: -4096549806511560182}
+    - target: {fileID: 6345109721531812697, guid: 798de0b4ce301bc45867f518f33dc668,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackClick
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 798de0b4ce301bc45867f518f33dc668, type: 3}
 --- !u!224 &4560010542129185056 stripped
