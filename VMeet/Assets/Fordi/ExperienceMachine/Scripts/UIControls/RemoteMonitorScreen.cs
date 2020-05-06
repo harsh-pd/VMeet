@@ -67,23 +67,23 @@ namespace Fordi.ScreenSharing
         public override void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
         {
             ToggleMonitor(false);
-            var toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
-            m_micToggle = toggleMenu.GetComponentInChildren<Toggle>();
-            m_micToggle.isOn = true;
-            m_micToggle.onValueChanged.AddListener(OnMicToggle);
-            toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Mic: ";
+            //var toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
+            //m_micToggle = toggleMenu.GetComponentInChildren<Toggle>();
+            //m_micToggle.isOn = true;
+            //m_micToggle.onValueChanged.AddListener(OnMicToggle);
+            //toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Mic: ";
 
-            toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
-            m_screenShareToggle = toggleMenu.GetComponentInChildren<Toggle>();
-            m_screenShareToggle.isOn = false;
-            m_screenShareToggle.onValueChanged.AddListener(ScreenSharingToggle);
-            toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Screen: ";
+            //toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
+            //m_screenShareToggle = toggleMenu.GetComponentInChildren<Toggle>();
+            //m_screenShareToggle.isOn = false;
+            //m_screenShareToggle.onValueChanged.AddListener(ScreenSharingToggle);
+            //toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Screen: ";
 
-            toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
-            m_chatToggle = toggleMenu.GetComponentInChildren<Toggle>();
-            m_chatToggle.isOn = false;
-            m_chatToggle.onValueChanged.AddListener(ToggleChat);
-            toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Chat: ";
+            //toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
+            //m_chatToggle = toggleMenu.GetComponentInChildren<Toggle>();
+            //m_chatToggle.isOn = false;
+            //m_chatToggle.onValueChanged.AddListener(ToggleChat);
+            //toggleMenu.GetComponentInChildren<TextMeshProUGUI>().text = "Chat: ";
 
 
             var border = Instantiate(m_menuBorderPrefab, m_contentRoot);
@@ -113,12 +113,12 @@ namespace Fordi.ScreenSharing
             m_chatToggle.isOn = false;
         }
 
-        private void OnMicToggle(bool val)
+        public void OnMicToggle(bool val)
         {
             m_voiceChat.ToggleMute(val);
         }
 
-        private void ScreenSharingToggle(bool val)
+        public void ScreenSharingToggle(bool val)
         {
             if (m_screenShare == null)
                 m_screenShare = IOC.Resolve<IScreenShare>();
@@ -148,7 +148,7 @@ namespace Fordi.ScreenSharing
             Debug.LogError(e.Streaming);
         }
 
-        private void ToggleChat(bool val)
+        public void ToggleChat(bool val)
         {
             if (!val)
             {
