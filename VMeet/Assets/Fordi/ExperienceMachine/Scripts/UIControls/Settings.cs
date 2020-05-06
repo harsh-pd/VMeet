@@ -30,6 +30,8 @@ namespace VRExperience.Core
         public bool MandalaParticles;
         [ProtoMember(8)]
         public bool Desktop;
+        [ProtoMember(9)]
+        public bool ShowVR;
 
         private ISettings m_settings;
 
@@ -46,6 +48,7 @@ namespace VRExperience.Core
             m_settings.SelectedPreferences.Animation = MandalaAnimation;
             m_settings.SelectedPreferences.Particles = MandalaParticles;
             m_settings.SelectedPreferences.DesktopMode = Desktop;
+            m_settings.SelectedPreferences.ShowVR = ShowVR;
         }
 
         public void Download()
@@ -61,6 +64,7 @@ namespace VRExperience.Core
             MandalaAnimation = m_settings.SelectedPreferences.Animation;
             MandalaParticles = m_settings.SelectedPreferences.Particles;
             Desktop = m_settings.SelectedPreferences.DesktopMode;
+            ShowVR = m_settings.SelectedPreferences.ShowVR;
         }
     }
 
@@ -154,6 +158,7 @@ namespace VRExperience.Core
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
                 m_vrMenu.SwitchToDesktopOnlyMode();
+            m_vrMenu.ShowVR(selectedPreferences.ShowVR);
             //m_player.ApplyTooltipSettings();
         }
 
@@ -177,6 +182,7 @@ namespace VRExperience.Core
             else
                 m_vrMenu.DisableDesktopOnlyMode();
             m_player.ApplyTooltipSettings();
+            m_vrMenu.ShowVR(selectedPreferences.ShowVR);
         }
 
         public void SyncSettingsWithDisk(Action done)

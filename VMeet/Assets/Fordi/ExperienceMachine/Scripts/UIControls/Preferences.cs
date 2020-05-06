@@ -34,7 +34,8 @@ namespace VRExperience.Core
 
         [Header("Others")]
         public Color FadeColor = Color.black;
-        public bool ShowTooltip = true;
+        public bool ShowVR = true;
+        public bool ShowTooltip = false;
 
         [Header("Mode")]
         public bool DesktopMode;

@@ -56,6 +56,7 @@ namespace VRExperience.UI.MenuControl
         void DisableDesktopOnlyMode();
         void SwitchStandaloneMenu();
         void LoadRemoteDesktopView(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
+        void ShowVR(bool val);
     }
 
     public class Sound
@@ -804,7 +805,8 @@ namespace VRExperience.UI.MenuControl
 
         public void BlockDesktop()
         {
-            return;
+            if (m_settings.SelectedPreferences.ShowVR)
+                return;
             if (m_desktopBlocker != null)
                 m_desktopBlocker.Reopen();
         }
@@ -992,7 +994,7 @@ namespace VRExperience.UI.MenuControl
             if (!m_settings.SelectedPreferences.DesktopMode)
                 UnblockDesktop();
             EnableDesktopModule();
-            m_dScreenRoot.localScale = Vector3.one;
+            ShowVR(false);
         }
 
         void OnHMDMount()
@@ -1010,7 +1012,7 @@ namespace VRExperience.UI.MenuControl
 
             if (!m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
                 StartCoroutine(CoRecenter());
-            m_dScreenRoot.localScale = Vector3.zero;
+            ShowVR(m_settings.SelectedPreferences.ShowVR);
         }
 
         private IEnumerator CoRecenter()
@@ -1143,6 +1145,15 @@ namespace VRExperience.UI.MenuControl
                 m_standAloneMenu.gameObject.SetActive(true);
             else
                 m_standAloneMenu =  Instantiate(m_standaloneMenuPrefab, m_dScreenRoot);
+        }
+
+        public void ShowVR(bool val)
+        {
+            m_dScreenRoot.localScale = val ? Vector3.zero : Vector3.one;
+            if (!val && !m_settings.SelectedPreferences.DesktopMode && ActiveModule == InputModule.OCULUS)
+                BlockDesktop();
+            else if(val && ActiveModule == InputModule.OCULUS)
+                UnblockDesktop();
         }
         #endregion
     }

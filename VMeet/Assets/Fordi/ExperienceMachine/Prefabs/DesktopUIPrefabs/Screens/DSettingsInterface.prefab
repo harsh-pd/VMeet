@@ -352,7 +352,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2768605307239768669}
   toggleTransition: 1
   graphic: {fileID: 3600117033586044744}
-  m_Group: {fileID: 8002294294194448361}
+  m_Group: {fileID: 3420384556737175252}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2768605308031021157}
   toggleTransition: 1
   graphic: {fileID: 3600117034616251210}
-  m_Group: {fileID: 8002294294194448361}
+  m_Group: {fileID: 3420384556737175252}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -988,7 +988,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2768605308116975059}
   toggleTransition: 1
   graphic: {fileID: 3600117034580990194}
-  m_Group: {fileID: 8002294294194448361}
+  m_Group: {fileID: 3420384556737175252}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2768605308173424040}
   toggleTransition: 1
   graphic: {fileID: 3600117034370444484}
-  m_Group: {fileID: 8002294294194448361}
+  m_Group: {fileID: 3420384556737175252}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4100,7 +4100,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'Tooltip:'
+  m_text: 'Show VR:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6383,7 +6383,7 @@ GameObject:
   - component: {fileID: 3600117034369561795}
   - component: {fileID: 3600117034369561797}
   - component: {fileID: 3600117034369561796}
-  - component: {fileID: 8002294294194448361}
+  - component: {fileID: 3420384556737175252}
   m_Layer: 5
   m_Name: InteractionPanel
   m_TagString: Untagged
@@ -6448,7 +6448,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &8002294294194448361
+--- !u!114 &3420384556737175252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

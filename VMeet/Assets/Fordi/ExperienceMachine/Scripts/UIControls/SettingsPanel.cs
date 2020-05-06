@@ -126,7 +126,7 @@ namespace VRExperience.UI.MenuControl
             if (m_blackTeleportToggle.isOn && m_settings.SelectedPreferences.FadeColor != Color.black)
                 changes = true;
 
-            changes = changes || m_settings.SelectedPreferences.ShowTooltip != m_showTooltip.isOn;
+            changes = changes || m_settings.SelectedPreferences.ShowVR != m_showTooltip.isOn;
 
             changes = changes || m_settings.SelectedPreferences.DesktopMode != m_desktopMode.isOn;
 
@@ -150,7 +150,7 @@ namespace VRExperience.UI.MenuControl
             m_whiteTeleportToggle.isOn = m_settings.SelectedPreferences.FadeColor == Color.white;
             m_blackTeleportToggle.isOn = m_settings.SelectedPreferences.FadeColor == Color.black;
 
-            m_showTooltip.isOn = m_settings.SelectedPreferences.ShowTooltip;
+            m_showTooltip.isOn = m_settings.SelectedPreferences.ShowVR;
 
             m_desktopMode.isOn = m_settings.SelectedPreferences.DesktopMode;
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
@@ -187,7 +187,7 @@ namespace VRExperience.UI.MenuControl
 
             m_settings.SelectedPreferences.FadeColor = m_whiteTeleportToggle.isOn ? Color.white : Color.black;
 
-            m_settings.SelectedPreferences.ShowTooltip = m_showTooltip.isOn;
+            m_settings.SelectedPreferences.ShowVR = m_showTooltip.isOn;
 
             m_settings.SelectedPreferences.DesktopMode = m_desktopMode.isOn;
 
@@ -213,7 +213,7 @@ namespace VRExperience.UI.MenuControl
             m_whiteTeleportToggle.isOn = m_settings.DefaultPreferences.FadeColor == Color.white;
             m_blackTeleportToggle.isOn = m_settings.DefaultPreferences.FadeColor == Color.black;
 
-            m_showTooltip.isOn = m_settings.DefaultPreferences.ShowTooltip;
+            m_showTooltip.isOn = m_settings.DefaultPreferences.ShowVR;
 
             m_desktopMode.isOn = m_settings.DefaultPreferences.DesktopMode;
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;

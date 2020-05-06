@@ -7216,6 +7216,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5857913186344828127, guid: e6dc5749f9522614e81443b0e4d254f0,
+        type: 3}
+      propertyPath: m_text
+      value: SHOW VR
+      objectReference: {fileID: 0}
     - target: {fileID: 9147564023254153695, guid: e6dc5749f9522614e81443b0e4d254f0,
         type: 3}
       propertyPath: m_LocalPosition.x
