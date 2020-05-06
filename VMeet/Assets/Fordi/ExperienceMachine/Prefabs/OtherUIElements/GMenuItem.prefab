@@ -267,12 +267,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_root: {fileID: 6529384011349155429}
+  m_platform: 1
   shadow: {fileID: 0}
   m_solidBackground: {fileID: 1959507190949851156}
   selection: {fileID: 796667671905342409}
   selectable: {fileID: 6539433333056228007}
   m_text: {fileID: 6539433333375879905}
-  m_image: {fileID: 0}
+  m_image: {fileID: 6539433333700080331}
   overriddenHighlight: {r: 0.2392157, g: 0.24705884, b: 0.2392157, a: 1}
   overrideColor: 0
   m_icon: {fileID: 6539433333700080331}
@@ -471,7 +472,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 5, y: 0}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6539433333700080330
 CanvasRenderer:
@@ -522,6 +523,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SolidBg
       objectReference: {fileID: 0}
+    - target: {fileID: 552394695812531713, guid: 82811ada954902e4fb43723d51633c50,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e89fd02b82c0257418115e35aadc3a13, type: 2}
     - target: {fileID: 5736251557896287245, guid: 82811ada954902e4fb43723d51633c50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -637,11 +643,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 30
       objectReference: {fileID: 0}
-    - target: {fileID: 552394695812531713, guid: 82811ada954902e4fb43723d51633c50,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e89fd02b82c0257418115e35aadc3a13, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82811ada954902e4fb43723d51633c50, type: 3}
 --- !u!1 &1959507190949851156 stripped

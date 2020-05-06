@@ -626,7 +626,7 @@ MonoBehaviour:
   m_items:
   - Path: Lobby
     Text: Lobby
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 4ad9e1ee773ce284b990908615c0d9a9, type: 3}
     Command: 
     CommandType: 16
     Action:
@@ -641,7 +641,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Settings
     Text: Settings
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 9a79de8f89df6af44b46fc24a215532a, type: 3}
     Command: 
     CommandType: 11
     Action:
@@ -656,7 +656,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Logout
     Text: Logout
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 1eaa873a43f328246957727eb7b25950, type: 3}
     Command: Logout
     CommandType: 22
     Action:
@@ -671,7 +671,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Exit
     Text: Exit
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: a75e33bd7120bdb47a93e25ebbcef864, type: 3}
     Command: Exit
     CommandType: 12
     Action:
@@ -2373,7 +2373,7 @@ MonoBehaviour:
   m_insceneMenuItems:
   - Path: Music
     Text: Music
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: eb3e31e25c3590548bd779d3944c0bed, type: 3}
     Command: 
     CommandType: 1
     Action:
@@ -2388,7 +2388,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Settings
     Text: Settings
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 9a79de8f89df6af44b46fc24a215532a, type: 3}
     Command: 
     CommandType: 11
     Action:
@@ -2403,7 +2403,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Lobby
     Text: Leave
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 315d69f256f3f49499fa2fc60419e30c, type: 3}
     Command: Leave
     CommandType: 16
     Action:
@@ -2418,7 +2418,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Annotation
     Text: Annotation
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 741000c94b292c34faaab6ab30247342, type: 3}
     Command: Annotation
     CommandType: 21
     Action:
@@ -2433,7 +2433,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Exit
     Text: Exit
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: a75e33bd7120bdb47a93e25ebbcef864, type: 3}
     Command: Exit
     CommandType: 12
     Action:
@@ -2493,7 +2493,7 @@ MonoBehaviour:
   m_items:
   - Path: Meeting
     Text: Meeting
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 0ceb7ce5cf447854f9ed91ace824d020, type: 3}
     Command: Meeting
     CommandType: 18
     Action:
@@ -2524,7 +2524,7 @@ MonoBehaviour:
   m_insceneMenuItems:
   - Path: Create New
     Text: Create New
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: efdd1506da06ea64b8868d7cecd8dcc8, type: 3}
     Command: 
     CommandType: 20
     Action:
@@ -2539,7 +2539,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: My Meetings
     Text: My Meetings
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 0ceb7ce5cf447854f9ed91ace824d020, type: 3}
     Command: 
     CommandType: 18
     Action:
@@ -2554,7 +2554,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Annotation
     Text: Annotation
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 741000c94b292c34faaab6ab30247342, type: 3}
     Command: Annotation
     CommandType: 21
     Action:
@@ -2569,7 +2569,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Settings
     Text: Settings
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 9a79de8f89df6af44b46fc24a215532a, type: 3}
     Command: Settings
     CommandType: 11
     Action:
@@ -2584,7 +2584,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Music
     Text: Music
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: eb3e31e25c3590548bd779d3944c0bed, type: 3}
     Command: Music
     CommandType: 1
     Action:
@@ -2599,7 +2599,7 @@ MonoBehaviour:
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - Path: Logout
     Text: Logout
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 1eaa873a43f328246957727eb7b25950, type: 3}
     Command: Logout
     CommandType: 22
     Action:
