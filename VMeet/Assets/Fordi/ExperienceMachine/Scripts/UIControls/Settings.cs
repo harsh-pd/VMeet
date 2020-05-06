@@ -158,7 +158,7 @@ namespace VRExperience.Core
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
                 m_vrMenu.SwitchToDesktopOnlyMode();
-            m_vrMenu.ShowVR(selectedPreferences.ShowVR);
+            m_vrMenu.ApplyShowVRSettings(selectedPreferences.ShowVR);
             //m_player.ApplyTooltipSettings();
         }
 
@@ -182,7 +182,7 @@ namespace VRExperience.Core
             else
                 m_vrMenu.DisableDesktopOnlyMode();
             m_player.ApplyTooltipSettings();
-            m_vrMenu.ShowVR(selectedPreferences.ShowVR);
+            m_vrMenu.ApplyShowVRSettings(selectedPreferences.ShowVR);
         }
 
         public void SyncSettingsWithDisk(Action done)

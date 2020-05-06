@@ -56,7 +56,7 @@ namespace VRExperience.UI.MenuControl
         void DisableDesktopOnlyMode();
         void SwitchStandaloneMenu();
         void LoadRemoteDesktopView(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
-        void ShowVR(bool val);
+        void ApplyShowVRSettings(bool val);
     }
 
     public class Sound
@@ -805,10 +805,12 @@ namespace VRExperience.UI.MenuControl
 
         public void BlockDesktop()
         {
-            if (m_settings.SelectedPreferences.ShowVR)
-                return;
             if (m_desktopBlocker != null)
+            {
                 m_desktopBlocker.Reopen();
+                m_desktopBlocker.transform.localScale = m_settings.SelectedPreferences.ShowVR ? Vector3.zero : Vector3.one;
+            }
+
         }
 
         public void UnblockDesktop()
@@ -952,7 +954,6 @@ namespace VRExperience.UI.MenuControl
                 m_sidePanelsRoot.SetActive(false);
             if (m_sidePanelButton)
                 m_sidePanelButton.interactable = false;
-
         }
 
         public void RefreshDesktopMode()
@@ -991,10 +992,10 @@ namespace VRExperience.UI.MenuControl
                 return;
             }
 
-            if (!m_settings.SelectedPreferences.DesktopMode)
-                UnblockDesktop();
+            UnblockDesktop();
+            m_dScreenRoot.localScale = Vector3.one;
+
             EnableDesktopModule();
-            ShowVR(false);
         }
 
         void OnHMDMount()
@@ -1007,12 +1008,15 @@ namespace VRExperience.UI.MenuControl
             }
 
             if (!m_settings.SelectedPreferences.DesktopMode)
+            {
+                m_dScreenRoot.localScale = m_settings.SelectedPreferences.ShowVR ? Vector3.zero : Vector3.one;
                 BlockDesktop();
+            }
+            
             EnableVRModule();
 
             if (!m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
                 StartCoroutine(CoRecenter());
-            ShowVR(m_settings.SelectedPreferences.ShowVR);
         }
 
         private IEnumerator CoRecenter()
@@ -1147,13 +1151,19 @@ namespace VRExperience.UI.MenuControl
                 m_standAloneMenu =  Instantiate(m_standaloneMenuPrefab, m_dScreenRoot);
         }
 
-        public void ShowVR(bool val)
+        public void ApplyShowVRSettings(bool val)
         {
-            m_dScreenRoot.localScale = val ? Vector3.zero : Vector3.one;
-            if (!val && !m_settings.SelectedPreferences.DesktopMode && ActiveModule == InputModule.OCULUS)
-                BlockDesktop();
-            else if(val && ActiveModule == InputModule.OCULUS)
+            if (val && !m_settings.SelectedPreferences.DesktopMode && ActiveModule == InputModule.OCULUS)
+            {
+                m_dScreenRoot.localScale = Vector3.zero;
                 UnblockDesktop();
+            }
+
+            if (!val && !m_settings.SelectedPreferences.DesktopMode && ActiveModule == InputModule.OCULUS)
+            {
+                m_dScreenRoot.localScale = Vector3.one;
+                BlockDesktop();
+            }
         }
         #endregion
     }
