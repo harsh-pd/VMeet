@@ -87,6 +87,8 @@ namespace VRExperience.UI.MenuControl
 
         protected List<IMenuItem> m_menuItems = new List<IMenuItem>();
 
+        public static EventHandler WebRefreshDone = null;
+
         void Awake()
         {
             m_settings = IOC.Resolve<ISettings>();
@@ -106,9 +108,15 @@ namespace VRExperience.UI.MenuControl
             AwakeOverride();
         }
 
-        protected virtual void OnEnable() { }
+        protected virtual void OnEnable()
+        {
+            WebRefreshDone += OnWebRefresh;
+        }
 
-        protected virtual void OnDisable() { }
+        protected virtual void OnDisable()
+        {
+            WebRefreshDone -= OnWebRefresh;
+        }
 
         protected virtual void Update()
         {
@@ -140,6 +148,24 @@ namespace VRExperience.UI.MenuControl
             Persist = persist;
         }
 
+
+        private void OnWebRefresh(object sender, EventArgs e)
+        {
+            if (m_refreshCategory == null)
+                return;
+
+            ExperienceResource[] resources = new ExperienceResource[] { };
+            resources = m_webInterface.GetResource(ResourceType.MEETING, m_refreshCategory);
+
+            MenuItemInfo[] items = ResourceToMenuItems(resources);
+            Clear();
+            m_menuItems.Clear();
+
+            //Debug.LogError("Refreshed: " + m_refreshCategory + " " + items.Length);
+
+            foreach (var item in items)
+                SpawnMenuItem(item, m_menuItem, m_contentRoot);
+        }
 
         public virtual void Deactivate()
         {
@@ -271,17 +297,7 @@ namespace VRExperience.UI.MenuControl
 
             m_webInterface.GetCategories(ResourceType.MEETING, (val) =>
             {
-                ExperienceResource[] resources = new ExperienceResource[] { };
-                resources = m_webInterface.GetResource(ResourceType.MEETING, m_refreshCategory);
-
-                MenuItemInfo[] items = ResourceToMenuItems(resources);
-                Clear();
-                m_menuItems.Clear();
-
-                //Debug.LogError("Refreshed: " + m_refreshCategory + " " + items.Length);
-
-                foreach (var item in items)
-                    SpawnMenuItem(item, m_menuItem, m_contentRoot);
+                WebRefreshDone?.Invoke(this, EventArgs.Empty);
             }, true);
         }
 
