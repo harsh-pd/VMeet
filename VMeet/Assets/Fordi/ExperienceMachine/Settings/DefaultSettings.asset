@@ -21,7 +21,6 @@ MonoBehaviour:
   Particles: 0
   FadeColor: {r: 0, g: 0, b: 0, a: 1}
   ShowVR: 0
-  ShowTooltip: 1
+  ShowTooltip: 0
   DesktopMode: 0
-  ForcedDesktopMode: 0
   annotationDelay: 0.25
