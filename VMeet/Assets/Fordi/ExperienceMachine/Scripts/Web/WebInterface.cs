@@ -1085,7 +1085,7 @@ namespace Cornea.Web
                     });
                     break;
                 case ResourceType.USER:
-                    if (m_users.Count > 0)
+                    if (!requireWebRefresh && m_users.Count > 0)
                     {
                         m_vrMenu.DisplayResult(new Error());
                         done?.Invoke(Users);

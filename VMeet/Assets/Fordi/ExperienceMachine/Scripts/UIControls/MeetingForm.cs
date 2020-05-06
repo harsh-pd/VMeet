@@ -293,5 +293,19 @@ namespace VRExperience.UI.MenuControl
             memberPool = new Pool<OrganizationMember>(m_contentRoot, m_menuItem);
             OpenForm(args.FormItems);
         }
+
+        public override void WebRefresh()
+        {
+            m_webInterface.GetCategories(ResourceType.USER, (val) =>
+            {
+                WebRefreshDone?.Invoke(this, EventArgs.Empty);
+            }, true);
+        }
+
+        protected override void OnWebRefresh(object sender, EventArgs e)
+        {
+            var users = m_webInterace.GetResource(ResourceType.USER, "").Where(item => ((UserResource)item).UserInfo.id != m_webInterace.UserInfo.id).ToArray();
+            PopulateMemberList(ResourceToMenuItems(users));
+        }
     }
 }

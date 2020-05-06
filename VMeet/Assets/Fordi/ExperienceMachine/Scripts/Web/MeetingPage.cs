@@ -70,8 +70,6 @@ namespace VRExperience.Meetings.UI
 
         private INetwork m_network = null;
 
-        public static EventHandler MeetingAction = null;
-
         #region GENERAL_METHODS
 
         private int m_buttonRootLevel = 0;
@@ -88,18 +86,16 @@ namespace VRExperience.Meetings.UI
                 m_buttonRootLevel = 1;
             else
                 throw new InvalidDataException("Action button prefab not in proper format");
-            MeetingAction += OnMeetingAction;
         }
 
         protected override void OnDestroyOverride()
         {
             base.OnDestroyOverride();
             m_network.RoomListUpdateEvent -= RoomListUpdated;
-            MeetingAction -= OnMeetingAction;
         }
 
 
-        private void OnMeetingAction(object sender, EventArgs e)
+        protected override void OnWebRefresh(object sender, EventArgs e)
         {
             ReleaseActionButton(m_secondMeetingButton);
             m_meetingButton.onClick.RemoveAllListeners();
@@ -268,7 +264,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        MeetingAction?.Invoke(this, EventArgs.Empty);
+                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
 
                         if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
                         {
@@ -307,7 +303,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        MeetingAction?.Invoke(this, EventArgs.Empty);
+                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
 
                         //m_vrMenu.CloseLastScreen();
                         Error error = new Error(Error.OK);
@@ -336,7 +332,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        MeetingAction.Invoke(this, EventArgs.Empty);
+                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
                     }
                     else
                     {
@@ -360,7 +356,8 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        MeetingAction?.Invoke(this, EventArgs.Empty);
+                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
+
                         //m_vrMenu.CloseLastScreen();
                         Error error = new Error(Error.OK);
                         error.ErrorText = "";

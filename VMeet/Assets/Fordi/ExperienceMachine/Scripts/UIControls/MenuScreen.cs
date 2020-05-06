@@ -149,7 +149,7 @@ namespace VRExperience.UI.MenuControl
         }
 
 
-        private void OnWebRefresh(object sender, EventArgs e)
+        protected virtual void OnWebRefresh(object sender, EventArgs e)
         {
             if (m_refreshCategory == null)
                 return;
@@ -290,7 +290,7 @@ namespace VRExperience.UI.MenuControl
             OpenMenu(items, blocked, persist);
         }
 
-        public void WebRefresh()
+        public virtual void WebRefresh()
         {
             if (m_refreshCategory == null)
                 return;
