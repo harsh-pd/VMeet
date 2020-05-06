@@ -7741,8 +7741,8 @@ GameObject:
   - component: {fileID: 3600117034769973922}
   - component: {fileID: 3600117034769973925}
   - component: {fileID: 3600117034769973924}
-  - component: {fileID: 7330617254443637434}
-  - component: {fileID: 7748855453333297593}
+  - component: {fileID: 1865930212550433609}
+  - component: {fileID: 4629971185411946206}
   m_Layer: 5
   m_Name: Interaction
   m_TagString: Untagged
@@ -7805,7 +7805,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &7330617254443637434
+--- !u!114 &1865930212550433609
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7818,7 +7818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 1
---- !u!114 &7748855453333297593
+--- !u!114 &4629971185411946206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7830,7 +7830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf73ced7c157c04d87a05eca19182ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 7330617254443637434}
+  m_Group: {fileID: 1865930212550433609}
   m_switchOffAllowed: 0
 --- !u!1 &3600117034814463042
 GameObject:
@@ -11313,7 +11313,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 7330617254443637434}
+      objectReference: {fileID: 1865930212550433609}
     - target: {fileID: 4703057576748270412, guid: 36e1cd25edd8f7c4bad89e57c7911aba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11962,13 +11962,13 @@ PrefabInstance:
     - target: {fileID: 5340090154165984422, guid: 36e1cd25edd8f7c4bad89e57c7911aba,
         type: 3}
       propertyPath: m_IsOn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5340090154165984422, guid: 36e1cd25edd8f7c4bad89e57c7911aba,
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 7330617254443637434}
+      objectReference: {fileID: 1865930212550433609}
     - target: {fileID: 4703057576748270412, guid: 36e1cd25edd8f7c4bad89e57c7911aba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -12288,7 +12288,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Group
       value: 
-      objectReference: {fileID: 7330617254443637434}
+      objectReference: {fileID: 1865930212550433609}
     - target: {fileID: 4703057576748270412, guid: 36e1cd25edd8f7c4bad89e57c7911aba,
         type: 3}
       propertyPath: m_LocalPosition.x

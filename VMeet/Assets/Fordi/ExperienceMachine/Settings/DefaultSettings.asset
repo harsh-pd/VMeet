@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: DefaultSettings
   m_EditorClassIdentifier: 
   GraphicsQuality: 5
-  AudioVolume: 0.48520422
-  MusicVolume: 0.40044072
-  SFXVolume: 0.6008887
-  AmbienceVolume: 0.8948744
-  Animation: 1
-  Particles: 1
+  AudioVolume: 0.33582968
+  MusicVolume: 0.20846659
+  SFXVolume: 0.40431637
+  AmbienceVolume: 0.81228775
+  Animation: 0
+  Particles: 0
   FadeColor: {r: 0, g: 0, b: 0, a: 1}
-  ShowTooltip: 0
+  ShowVR: 0
+  ShowTooltip: 1
   DesktopMode: 0
   ForcedDesktopMode: 0
   annotationDelay: 0.25
