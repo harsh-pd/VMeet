@@ -3920,6 +3920,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4193205560717487151, guid: c0784d9d8948f5a478c1bd51799dc6cf,
         type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_meetingPagePrefab
+      value: 
+      objectReference: {fileID: 4029748492899387519, guid: 7b35a9c320ce49e4985cd5f008361029,
+        type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
       propertyPath: m_Name

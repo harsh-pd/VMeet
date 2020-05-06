@@ -159,7 +159,7 @@ namespace VRExperience.UI.MenuControl
         private bool m_recenterFlag = false;
 
         private StandaloneMenu m_standAloneMenu = null;
-        private RemoteMonitorScreen m_remoteDesktopScreen = null;
+        private MenuScreen m_permanentDesktopScreen = null;
 
         private void Awake()
         {
@@ -250,6 +250,9 @@ namespace VRExperience.UI.MenuControl
 
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
+
+            if (m_permanentDesktopScreen != null)
+                return;
 
             var dMenu = Instantiate(m_dMainMenuPrefab, m_dScreenRoot);
             dMenu.OpenMenu(items, block, persist);
@@ -400,7 +403,7 @@ namespace VRExperience.UI.MenuControl
             m_screensRoot.gameObject.SetActive(true);
             var dMenu = Instantiate(m_dRemoteMonitorPrefab, m_dScreenRoot);
             dMenu.OpenMenu(items, block, persist);
-            m_remoteDesktopScreen = dMenu;
+            m_permanentDesktopScreen = dMenu;
         }
 
         public void OpenObjectInterface(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
@@ -469,7 +472,7 @@ namespace VRExperience.UI.MenuControl
             else
             {
                 m_screensRoot.gameObject.SetActive(false);
-                if (m_remoteDesktopScreen == null)
+                if (m_permanentDesktopScreen == null)
                     SwitchStandaloneMenu();
                 RefreshDesktopMode();
             }
@@ -502,7 +505,7 @@ namespace VRExperience.UI.MenuControl
             else
             {
                 m_screensRoot.gameObject.SetActive(false);
-                if (m_remoteDesktopScreen == null)
+                if (m_permanentDesktopScreen == null)
                     SwitchStandaloneMenu();
                 RefreshDesktopMode();
             }

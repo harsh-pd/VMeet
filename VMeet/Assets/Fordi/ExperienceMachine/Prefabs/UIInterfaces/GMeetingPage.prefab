@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Top: 2
+    m_Bottom: 2
   m_ChildAlignment: 4
   m_Spacing: 5
   m_ChildForceExpandWidth: 1
@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 40, y: -10}
-  m_SizeDelta: {x: -80, y: -20}
+  m_AnchoredPosition: {x: 55, y: -10}
+  m_SizeDelta: {x: -110, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1107543210352172675
 CanvasRenderer:
@@ -389,13 +389,14 @@ MonoBehaviour:
   m_closeButton: {fileID: 0}
   m_okButton: {fileID: 0}
   m_backButton: {fileID: 0}
+  m_refreshButton: {fileID: 0}
   m_preview: {fileID: 2378825217491950245}
   m_description: {fileID: 5214626248897159654}
   m_synchronizedElements: []
   m_loader: {fileID: 3776498391047497107}
   m_standaloneMenu: {fileID: 0}
   m_blocker: {fileID: 5385040317504148213}
-  m_actionButtonPrefab: {fileID: 6345109721831621500, guid: cfa585f53a091a742933bf4bfacaeadb,
+  m_actionButtonPrefab: {fileID: 6345109721831621500, guid: 5ff0a3a703c88694b977c7d69594c6fe,
     type: 3}
 --- !u!1 &4560010543527141141
 GameObject:
@@ -733,9 +734,9 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_textAlignment: 514
-  m_characterSpacing: 5
-  m_wordSpacing: 5
-  m_lineSpacing: 30
+  m_characterSpacing: 10
+  m_wordSpacing: 10
+  m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
