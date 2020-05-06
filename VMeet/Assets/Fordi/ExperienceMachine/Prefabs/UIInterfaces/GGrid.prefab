@@ -710,7 +710,7 @@ GameObject:
   - component: {fileID: 2771113611793518892}
   - component: {fileID: 8387665459879219872}
   - component: {fileID: 5140408765546067454}
-  - component: {fileID: 5026695315779685835}
+  - component: {fileID: 872554269701193565}
   m_Layer: 5
   m_Name: GGrid
   m_TagString: Untagged
@@ -791,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
---- !u!114 &5026695315779685835
+--- !u!114 &872554269701193565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4346586722170579653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f8c105c602a918488cbbcf417e90280, type: 3}
+  m_Script: {fileID: 11500000, guid: c6c3b0967adc6a64b9c0e8b90911e701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_contentRoot: {fileID: 524171075471106622}
@@ -2094,7 +2094,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5026695315779685835}
+      objectReference: {fileID: 0}
     - target: {fileID: 4180162965898521275, guid: f79fcf6e7377f02438f4989543cff4b9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -2240,7 +2240,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5026695315779685835}
+      objectReference: {fileID: 0}
     - target: {fileID: 4180162965898521275, guid: f79fcf6e7377f02438f4989543cff4b9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName

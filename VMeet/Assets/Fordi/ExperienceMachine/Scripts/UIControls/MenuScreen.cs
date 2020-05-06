@@ -106,6 +106,10 @@ namespace VRExperience.UI.MenuControl
             AwakeOverride();
         }
 
+        protected virtual void OnEnable() { }
+
+        protected virtual void OnDisable() { }
+
         protected virtual void Update()
         {
             if (!VRMenu.s_InputSelectedFlag && m_vrMenu.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)

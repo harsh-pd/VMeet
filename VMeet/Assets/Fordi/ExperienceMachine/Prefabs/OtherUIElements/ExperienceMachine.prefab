@@ -3882,7 +3882,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_gridMenuPrefab
       value: 
-      objectReference: {fileID: 5026695315779685835, guid: 59a6b25c68749354e8202f7d7c48a4df,
+      objectReference: {fileID: 872554269701193565, guid: 59a6b25c68749354e8202f7d7c48a4df,
         type: 3}
     - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
@@ -3913,6 +3913,12 @@ PrefabInstance:
       propertyPath: m_dRemoteMonitorPrefab
       value: 
       objectReference: {fileID: 2109265851013776062, guid: b1cb72d94de00a1478151194371a2295,
+        type: 3}
+    - target: {fileID: 8575598705849144265, guid: 0d51a5f2230a64044baeda83fb8fb864,
+        type: 3}
+      propertyPath: m_dGridMenuPrefab
+      value: 
+      objectReference: {fileID: 4193205560717487151, guid: c0784d9d8948f5a478c1bd51799dc6cf,
         type: 3}
     - target: {fileID: 2034961540062752603, guid: 0d51a5f2230a64044baeda83fb8fb864,
         type: 3}
