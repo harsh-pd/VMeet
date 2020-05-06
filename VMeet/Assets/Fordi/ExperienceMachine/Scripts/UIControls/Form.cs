@@ -178,11 +178,11 @@ namespace VRExperience.UI.MenuControl
             {
                 string[] commandArgs = System.Environment.GetCommandLineArgs();
                 //commandArgs = new string[] { "test1", "harsh", "haf;" };
-                if (commandArgs != null && commandArgs.Length == 3)
+                if (commandArgs != null && commandArgs.Length == 4)
                 {
-                    m_inputs[0].text = commandArgs[0];
-                    m_inputs[1].text = commandArgs[1];
-                    m_inputs[2].text = commandArgs[2];
+                    m_inputs[0].text = commandArgs[1];
+                    m_inputs[1].text = commandArgs[2];
+                    m_inputs[2].text = commandArgs[3];
                     if (m_actionButton.onClick != null)
                         m_actionButton.onClick.Invoke();
                 }
