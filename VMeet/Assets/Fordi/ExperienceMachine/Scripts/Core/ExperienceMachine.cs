@@ -135,7 +135,7 @@ namespace VRExperience.Core
         private bool m_clicked = false;
         #endregion
 
-        public static AppMode AppMode { get; set; }
+        public static AppMode AppMode { get; set; } = AppMode.APPLICATION;
 
         private ExperienceType m_currentExperienceType;
         public ExperienceType CurrentExperience { get { return m_currentExperienceType; } }
