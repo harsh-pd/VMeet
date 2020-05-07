@@ -198,6 +198,12 @@ namespace VRExperience.UI.MenuControl
 
         public void ResetToDefaultSettings()
         {
+            ExternalChangesDone?.Invoke(this, EventArgs.Empty);
+            Save();
+        }
+
+        protected override void OnExternalChanges(object sender, EventArgs e)
+        {
             m_mandalaAnimation.isOn = m_settings.DefaultPreferences.Animation;
             m_mandalaParticles.isOn = m_settings.DefaultPreferences.Particles;
 
@@ -220,8 +226,6 @@ namespace VRExperience.UI.MenuControl
 
             m_organization.text = "Organization: " + m_webInterace.UserInfo.organizationId.ToString();
             m_name.text = "Name: " + m_webInterace.UserInfo.name;
-
-            Save();
         }
 
         public override void BackClick()

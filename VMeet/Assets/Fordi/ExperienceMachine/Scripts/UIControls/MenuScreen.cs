@@ -87,7 +87,7 @@ namespace VRExperience.UI.MenuControl
 
         protected List<IMenuItem> m_menuItems = new List<IMenuItem>();
 
-        public static EventHandler WebRefreshDone = null;
+        public static EventHandler ExternalChangesDone = null;
 
         void Awake()
         {
@@ -110,12 +110,12 @@ namespace VRExperience.UI.MenuControl
 
         protected virtual void OnEnable()
         {
-            WebRefreshDone += OnWebRefresh;
+            ExternalChangesDone += OnExternalChanges;
         }
 
         protected virtual void OnDisable()
         {
-            WebRefreshDone -= OnWebRefresh;
+            ExternalChangesDone -= OnExternalChanges;
         }
 
         protected virtual void Update()
@@ -149,7 +149,7 @@ namespace VRExperience.UI.MenuControl
         }
 
 
-        protected virtual void OnWebRefresh(object sender, EventArgs e)
+        protected virtual void OnExternalChanges(object sender, EventArgs e)
         {
             if (m_refreshCategory == null)
                 return;
@@ -297,7 +297,7 @@ namespace VRExperience.UI.MenuControl
 
             m_webInterface.GetCategories(ResourceType.MEETING, (val) =>
             {
-                WebRefreshDone?.Invoke(this, EventArgs.Empty);
+                ExternalChangesDone?.Invoke(this, EventArgs.Empty);
             }, true);
         }
 

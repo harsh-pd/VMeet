@@ -95,7 +95,7 @@ namespace VRExperience.Meetings.UI
         }
 
 
-        protected override void OnWebRefresh(object sender, EventArgs e)
+        protected override void OnExternalChanges(object sender, EventArgs e)
         {
             ReleaseActionButton(m_secondMeetingButton);
             m_meetingButton.onClick.RemoveAllListeners();
@@ -264,7 +264,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
+                        ExternalChangesDone?.Invoke(this, EventArgs.Empty);
 
                         if (Array.FindIndex(Fordi.Networking.Network.Rooms, item => item.Name == m_meetingInfo.MeetingNumber) != -1)
                         {
@@ -303,7 +303,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
+                        ExternalChangesDone?.Invoke(this, EventArgs.Empty);
 
                         //m_vrMenu.CloseLastScreen();
                         Error error = new Error(Error.OK);
@@ -332,7 +332,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
+                        ExternalChangesDone?.Invoke(this, EventArgs.Empty);
                     }
                     else
                     {
@@ -356,7 +356,7 @@ namespace VRExperience.Meetings.UI
                     JsonData oututData = JsonMapper.ToObject(message);
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
-                        WebRefreshDone?.Invoke(this, EventArgs.Empty);
+                        ExternalChangesDone?.Invoke(this, EventArgs.Empty);
 
                         //m_vrMenu.CloseLastScreen();
                         Error error = new Error(Error.OK);

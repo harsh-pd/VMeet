@@ -298,11 +298,11 @@ namespace VRExperience.UI.MenuControl
         {
             m_webInterface.GetCategories(ResourceType.USER, (val) =>
             {
-                WebRefreshDone?.Invoke(this, EventArgs.Empty);
+                ExternalChangesDone?.Invoke(this, EventArgs.Empty);
             }, true);
         }
 
-        protected override void OnWebRefresh(object sender, EventArgs e)
+        protected override void OnExternalChanges(object sender, EventArgs e)
         {
             var users = m_webInterace.GetResource(ResourceType.USER, "").Where(item => ((UserResource)item).UserInfo.id != m_webInterace.UserInfo.id).ToArray();
             PopulateMemberList(ResourceToMenuItems(users));
