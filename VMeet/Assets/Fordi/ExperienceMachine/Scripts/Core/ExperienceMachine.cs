@@ -186,6 +186,7 @@ namespace VRExperience.Core
         {
             yield return null;
             m_currentExperience.OnLoad();
+            MinimumWindowSize.Set(1472, 828);
         }
 
         private void Update()
@@ -361,9 +362,10 @@ namespace VRExperience.Core
 
         private void OnApplicationQuit()
         {
-            #if !UNITY_EDITOR
+#if !UNITY_EDITOR
             System.Diagnostics.Process.GetCurrentProcess().Kill();
-            #endif
+#endif
+            MinimumWindowSize.Reset();
         }
 
         public Transform GetNextTeleportAnchor()
