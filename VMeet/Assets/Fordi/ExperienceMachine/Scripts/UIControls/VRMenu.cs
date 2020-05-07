@@ -27,6 +27,7 @@ namespace VRExperience.UI.MenuControl
         bool IsOpen { get; }
         EventHandler AudioInterruptionEvent { get; set; }
         EventHandler ScreenChangeInitiated { get; set; }
+        EventHandler InputModuleChangeEvent { get; set; }
         InputModule ActiveModule { get; }
         void OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
         void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
@@ -139,6 +140,7 @@ namespace VRExperience.UI.MenuControl
 
         public EventHandler AudioInterruptionEvent { get; set; }
         public EventHandler ScreenChangeInitiated { get; set; }
+        public EventHandler InputModuleChangeEvent { get; set; }
 
         private Stack<IScreen> m_screenStack = new Stack<IScreen>();
 
@@ -1039,6 +1041,7 @@ namespace VRExperience.UI.MenuControl
             m_desktopInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(false);
             ActiveModule = InputModule.STANDALONE;
+            InputModuleChangeEvent?.Invoke(this, EventArgs.Empty);
         }
 
         private void EnableVRModule()
@@ -1054,6 +1057,7 @@ namespace VRExperience.UI.MenuControl
             m_vrInputModule.enabled = true;
             m_laserPointer.gameObject.SetActive(true);
             ActiveModule = InputModule.OCULUS;
+            InputModuleChangeEvent?.Invoke(this, EventArgs.Empty);
         }
 
         public void OpenForm(FormArgs args, bool block = true, bool persist = true)

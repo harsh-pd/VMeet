@@ -75,6 +75,7 @@ namespace VRExperience.UI.MenuControl
             m_commonResource = IOC.Resolve<ICommonResource>();
             m_webInterace = IOC.Resolve<IWebInterface>();
             Init();
+            m_vrMenu.InputModuleChangeEvent += OnInputModuleChange;
         }
 
         private void Init()
@@ -100,6 +101,7 @@ namespace VRExperience.UI.MenuControl
                 item.onValueChanged.RemoveAllListeners();
             foreach (var item in m_sliders)
                 item.onValueChanged.RemoveAllListeners();
+            m_vrMenu.InputModuleChangeEvent -= OnInputModuleChange;
         }
 
         private void ToggleEdit(bool val)
@@ -303,6 +305,11 @@ namespace VRExperience.UI.MenuControl
             };
 
             m_audio.Stop(args);
+        }
+
+        private void OnInputModuleChange(object sender, EventArgs e)
+        {
+            OnVolumeSliderUp();
         }
 
         public override void Reopen()
