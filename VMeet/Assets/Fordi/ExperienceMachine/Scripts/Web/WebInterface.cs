@@ -968,15 +968,13 @@ namespace Cornea.Web
 
         public void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done, bool requireWebRefresh = false)
         {
-            m_requireMeetingListRefresh = requireWebRefresh;    
             //Debug.LogError("GetCategories: " + type.ToString());
 
             m_vrMenu.DisplayProgress("Hold on, fetching details...");
-            bool loaderCancelled = false;
             switch (type)
             {
                 case ResourceType.MEETING:
-                    if (!m_requireMeetingListRefresh && m_meetings.Count == 4)
+                    if (!m_requireMeetingListRefresh && !requireWebRefresh && m_meetings.Count == 4)
                     {
                         m_vrMenu.DisplayResult(new Error(Error.OK));
                         done?.Invoke(Meetings);

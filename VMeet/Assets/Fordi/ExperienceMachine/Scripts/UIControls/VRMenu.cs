@@ -583,7 +583,7 @@ namespace VRExperience.UI.MenuControl
                 m_screensRoot.gameObject.SetActive(false);
 
             RefreshDesktopMode();
-            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME)
+            if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && m_permanentDesktopScreen == null)
                 SwitchStandaloneMenu();
         }
 

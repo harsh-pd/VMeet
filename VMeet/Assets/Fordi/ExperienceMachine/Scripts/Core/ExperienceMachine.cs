@@ -161,12 +161,6 @@ namespace VRExperience.Core
             m_settings = IOC.Resolve<ISettings>();
             m_player = IOC.Resolve<IPlayer>();
 
-            if (SceneManager.GetActiveScene().name == MeetingScene)
-            {
-                m_menuSelection.Location = MeetingScene;
-                m_menuSelection.ExperienceType = ExperienceType.MEETING;
-            }
-
             SetExperience(GetExperience(m_menuSelection.ExperienceType));
             UIInteractionBase.OnClick += Click;
             ResetGuideConditions();

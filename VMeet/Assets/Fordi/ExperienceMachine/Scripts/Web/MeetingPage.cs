@@ -103,9 +103,6 @@ namespace VRExperience.Meetings.UI
 
             switch (m_meetingInfo.meetingType)
             {
-                case MeetingCategory.CREATED:
-                    m_vrMenu.CloseLastScreen();
-                    break;
                 case MeetingCategory.INVITED:
                     buttonLable.text = "Accept";
                     m_meetingButton.onClick.AddListener(() => Accept());
@@ -333,6 +330,7 @@ namespace VRExperience.Meetings.UI
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
                         ExternalChangesDone?.Invoke(this, EventArgs.Empty);
+                        m_vrMenu.CloseLastScreen();
                     }
                     else
                     {
