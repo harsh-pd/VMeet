@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VRExperience.Common;
-using VRExperience.Core;
-using VRExperience.Meeting;
+using Fordi.Common;
+using Fordi.Core;
+using Fordi.Meeting;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public interface IScreen
     {

@@ -1,8 +1,8 @@
 ﻿
 using UnityEngine;
 using System.Collections; // required for Coroutines
-using VRExperience.Core;
-using VRExperience.Common;
+using Fordi.Core;
+using Fordi.Common;
 
 public class VRFadeScript : MonoBehaviour
 {

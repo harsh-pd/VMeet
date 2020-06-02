@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VRExperience.Common;
-using VRExperience.Core;
+using Fordi.Common;
+using Fordi.Core;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public interface IForm : IScreen
     {

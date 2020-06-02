@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using Battlehub.Utils;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     [CustomEditor(typeof(Menu))]
     public class MenuEditor : Editor

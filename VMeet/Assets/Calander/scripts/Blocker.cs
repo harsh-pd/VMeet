@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public class Blocker : MonoBehaviour, IPointerClickHandler
     {

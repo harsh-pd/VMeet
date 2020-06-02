@@ -2,10 +2,10 @@
 using UnityEngine;
 using OVRTouchSample;
 using OculusSampleFramework;
-using VRExperience.UI.MenuControl;
-using VRExperience.Common;
+using Fordi.UI.MenuControl;
+using Fordi.Common;
 
-namespace VRExperience.ObjectControl
+namespace Fordi.ObjectControl
 {
     public class FordiGrabbable : DistanceGrabbable
     {

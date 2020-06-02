@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class VRToggleInteraction : VRUIInteraction
     {

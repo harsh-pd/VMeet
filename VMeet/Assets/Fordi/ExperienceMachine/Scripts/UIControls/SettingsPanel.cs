@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using VRExperience.Core;
-using VRExperience.Common;
-using AudioType = VRExperience.Core.AudioType;
+using Fordi.Core;
+using Fordi.Common;
+using AudioType = Fordi.Core.AudioType;
 using Cornea.Web;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public class SettingsPanel : MenuScreen
     {

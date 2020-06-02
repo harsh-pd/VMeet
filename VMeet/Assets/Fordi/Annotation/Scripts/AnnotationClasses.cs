@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Fordi.Annotation
+namespace Fordi.Annotations
 {
     public enum DrawMode
     {

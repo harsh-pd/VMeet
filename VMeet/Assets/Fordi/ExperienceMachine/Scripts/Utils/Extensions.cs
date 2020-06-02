@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VRExperience.Core;
+using Fordi.Core;
 
-namespace VRExperience.Common
+namespace Fordi.Common
 {
     public static class Extensions
     {

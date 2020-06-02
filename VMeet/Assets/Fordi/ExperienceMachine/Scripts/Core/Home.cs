@@ -4,10 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using VRExperience.Common;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public class Home : Experience
     {

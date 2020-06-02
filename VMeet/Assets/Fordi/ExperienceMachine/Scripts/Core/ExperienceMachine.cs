@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using VRExperience.Common;
-using VRExperience.UI;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.UI;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public enum AppMode
     {

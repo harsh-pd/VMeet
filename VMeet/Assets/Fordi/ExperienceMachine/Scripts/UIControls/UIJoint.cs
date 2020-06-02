@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using VRExperience.Common;
-using VRExperience.Core;
+using Fordi.Common;
+using Fordi.Core;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class UIJoint : MonoBehaviour
     {

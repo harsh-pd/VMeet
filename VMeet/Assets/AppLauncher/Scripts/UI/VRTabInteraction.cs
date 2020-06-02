@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class VRTabInteraction : VRToggleInteraction
     {

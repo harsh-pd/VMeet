@@ -7,12 +7,12 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System;
 using Fordi.Networking;
-using VRExperience.Common;
+using Fordi.Common;
 using Photon.Pun;
 using Photon.Voice.Unity;
 using Photon.Voice.DemoVoiceUI;
 
-namespace Fordi.VoiceChat
+namespace Fordi.Voice
 {
     public interface IVoiceChat
     {

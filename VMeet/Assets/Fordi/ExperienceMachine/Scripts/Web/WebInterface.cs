@@ -12,10 +12,10 @@ using System.Net;
 using System.IO;
 using UnityEngine.Events;
 using System.Text;
-using VRExperience.Meeting;
-using VRExperience.UI.MenuControl;
-using VRExperience.Common;
-using VRExperience.Core;
+using Fordi.Meeting;
+using Fordi.UI.MenuControl;
+using Fordi.Common;
+using Fordi.Core;
 
 namespace Cornea.Web
 {

@@ -21,10 +21,10 @@ namespace Fordi.Sync
 #endif
     using UnityEngine.UI;
     using TMPro;
-    using VRExperience.Common;
+    using Fordi.Common;
     using Fordi.Sync.UI;
-    using VRExperience.Core;
-    using VRExperience.UI.MenuControl;
+    using Fordi.Core;
+    using Fordi.UI.MenuControl;
 
 
 

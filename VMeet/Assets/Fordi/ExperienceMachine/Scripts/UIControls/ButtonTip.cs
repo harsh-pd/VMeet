@@ -6,7 +6,7 @@ using TMPro;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class ButtonTip : MonoBehaviour
     {

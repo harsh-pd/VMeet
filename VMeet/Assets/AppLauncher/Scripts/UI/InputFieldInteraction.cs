@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using VRExperience.UI.MenuControl;
+using Fordi.UI.MenuControl;
 
 namespace AL.UI
 {

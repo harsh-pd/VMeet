@@ -2,10 +2,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using VRExperience.Common;
-using VRExperience.Core;
+using Fordi.Common;
+using Fordi.Core;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class VRUIInteractionBase : UIInteractionBase
     {

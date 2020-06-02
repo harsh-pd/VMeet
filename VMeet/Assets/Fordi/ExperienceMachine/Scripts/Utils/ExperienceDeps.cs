@@ -1,16 +1,16 @@
 ﻿using Cornea.Web;
-using Fordi.Annotation;
+using Fordi.Annotations;
 using Fordi.Networking;
 using Fordi.ScreenSharing;
 using Fordi.Sync;
-using Fordi.VoiceChat;
+using Fordi.Voice;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using VRExperience.Common;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.UI.MenuControl;
 using Network = Fordi.Networking.Network;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     [DefaultExecutionOrder(-100)]
     public class ExperienceDeps : MonoBehaviour 

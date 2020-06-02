@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
-using VRExperience.Core;
-using VRExperience.Common;
+using Fordi.Core;
+using Fordi.Common;
 using Fordi;
 
 namespace AL.UI

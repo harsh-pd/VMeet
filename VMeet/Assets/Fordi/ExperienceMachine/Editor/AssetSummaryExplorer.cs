@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using VRExperience.Core;
+using Fordi.Core;
 using System.Collections.Generic;
 
 public class AssetSummaryExplorer : EditorWindow

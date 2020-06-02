@@ -4,10 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using VRExperience.Meeting;
-using VRExperience.UI.MenuControl;
+using Fordi.Meeting;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public class Lobby : Gameplay
     {

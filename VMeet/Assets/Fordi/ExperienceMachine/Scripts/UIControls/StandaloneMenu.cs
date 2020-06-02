@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRExperience.Common;
-using VRExperience.Core;
+using Fordi.Common;
+using Fordi.Core;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public class StandaloneMenu : MonoBehaviour
     {

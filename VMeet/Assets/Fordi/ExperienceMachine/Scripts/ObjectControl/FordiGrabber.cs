@@ -15,15 +15,15 @@ using OculusSampleFramework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using VRExperience.Common;
-using VRExperience.Core;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.Core;
+using Fordi.UI.MenuControl;
 using System;
 #if UNITY_EDITOR
 using UnityEngine.SceneManagement;
 #endif
 
-namespace VRExperience.ObjectControl
+namespace Fordi.ObjectControl
 {
     /// <summary>
     /// Allows grabbing and throwing of objects with the DistanceGrabbable component on them.

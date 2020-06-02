@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class CreditsPanel : MonoBehaviour
     {

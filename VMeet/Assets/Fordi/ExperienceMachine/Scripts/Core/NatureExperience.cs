@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRExperience.UI.MenuControl;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public class NatureExperience : Gameplay
     {

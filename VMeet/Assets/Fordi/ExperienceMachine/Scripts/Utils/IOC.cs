@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace VRExperience.Common
+namespace Fordi.Common
 {
     public class IOCContainer
     {

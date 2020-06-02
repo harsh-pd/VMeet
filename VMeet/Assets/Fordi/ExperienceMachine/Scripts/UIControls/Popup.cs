@@ -4,12 +4,12 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using VRExperience.Common;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.UI.MenuControl;
 using Fordi.Sync;
-using VRExperience.Core;
+using Fordi.Core;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public struct PopupInfo
     {

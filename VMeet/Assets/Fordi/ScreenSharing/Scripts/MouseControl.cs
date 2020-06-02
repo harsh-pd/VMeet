@@ -4,8 +4,8 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 using System.Windows;
 using UnityEngine.XR;
-using VRExperience.Core;
-using VRExperience.Common;
+using Fordi.Core;
+using Fordi.Common;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 

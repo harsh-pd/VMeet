@@ -5,14 +5,14 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.IO;
 using System;
-using VRExperience.Core;
-using VRExperience.Common;
+using Fordi.Core;
+using Fordi.Common;
 using UnityEngine.SceneManagement;
-using VRExperience.UI.MenuControl;
+using Fordi.UI.MenuControl;
 using System.Linq;
 using Fordi.ScreenSharing;
 using ExitGames.Client.Photon;
-using Fordi.Annotation;
+using Fordi.Annotations;
 using Cornea.Web;
 
 namespace Fordi.Networking
@@ -101,7 +101,7 @@ namespace Fordi.Networking
 
 
             ExitGames.Client.Photon.Hashtable playerCustomProperties = new ExitGames.Client.Photon.Hashtable();
-            playerCustomProperties.Add(OculusIDString, VRExperience.Core.Player.s_OculusID);
+            playerCustomProperties.Add(OculusIDString, Fordi.Core.Player.s_OculusID);
             playerCustomProperties.Add(ActorNumberString, PhotonNetwork.LocalPlayer.ActorNumber);
             PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
             PhotonNetwork.LocalPlayer.NickName = m_webInterface.UserInfo.userName;

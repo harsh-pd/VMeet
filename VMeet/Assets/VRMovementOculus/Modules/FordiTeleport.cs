@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using VRExperience.Core;
-using VRExperience.Common;
+using Fordi.Core;
+using Fordi.Common;
 using UnityEngine.EventSystems;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public class FordiTeleport : VROculusTeleport
     {

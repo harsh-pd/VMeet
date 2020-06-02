@@ -7,12 +7,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using VRExperience.Common;
-using VRExperience.Core;
+using Fordi.Common;
+using Fordi.Core;
 using Network = Fordi.Networking.Network;
 
 
-namespace Fordi.Annotation
+namespace Fordi.Annotations
 {
     [System.Serializable]
     public class AnnotationSettings

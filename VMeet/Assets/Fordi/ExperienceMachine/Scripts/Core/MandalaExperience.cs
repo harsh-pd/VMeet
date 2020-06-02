@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRExperience.UI.MenuControl;
-using VRExperience.Common;
+using Fordi.UI.MenuControl;
+using Fordi.Common;
 using ProtoBuf;
 using System.IO;
 using Papae.UnitySDK.Managers;
 using Random = UnityEngine.Random;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     [Serializable]
     public class MandalaGroup : ResourceComponent

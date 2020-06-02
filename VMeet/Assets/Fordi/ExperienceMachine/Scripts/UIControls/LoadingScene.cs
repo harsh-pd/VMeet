@@ -6,7 +6,7 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public class LoadingScene : MonoBehaviour
     {

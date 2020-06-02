@@ -4,13 +4,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using Fordi;
-using VRExperience.UI.MenuControl;
-using VRExperience.UI;
-using VRExperience.Core;
-using VRExperience.Common;
+using Fordi.UI.MenuControl;
+using Fordi.UI;
+using Fordi.Core;
+using Fordi.Common;
 using AL.UI;
 
-namespace VRExperience.Meeting
+namespace Fordi.Meeting
 {
     public class OrganizationMember : ToggleInteraction, IMenuItem, IResettable
     {

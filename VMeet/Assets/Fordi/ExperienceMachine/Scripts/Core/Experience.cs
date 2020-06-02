@@ -1,15 +1,15 @@
 ﻿using Cornea.Web;
-using Fordi.Annotation;
+using Fordi.Annotations;
 using Fordi.Networking;
 using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRExperience.Common;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public enum TooltipOperation
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     [CreateAssetMenu(fileName = "AssetDatabase", menuName = "Asset Database")]
     public class AssetDB : ScriptableObject

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using VRExperience.Common;
-using VRExperience.Core;
-using VRExperience.ObjectControl;
+using Fordi.Common;
+using Fordi.Core;
+using Fordi.ObjectControl;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public class ObjectItem : MenuItem
     {

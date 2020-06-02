@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Fordi.Annotation
+namespace Fordi.Annotations
 {
     public class UniqueIdentifier : MonoBehaviour
     {

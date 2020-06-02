@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public class ExperienceObject
     {

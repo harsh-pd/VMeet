@@ -4,17 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using VRExperience.Core;
-using VRExperience.Common;
-using AudioType = VRExperience.Core.AudioType;
+using Fordi.Core;
+using Fordi.Common;
+using AudioType = Fordi.Core.AudioType;
 using Cornea.Web;
-using VRExperience.Meeting;
+using Fordi.Meeting;
 using LitJson;
 using System.Linq;
 using Fordi.UI;
 using Fordi;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public interface ITimeForm : IForm
     {
@@ -260,7 +260,7 @@ namespace VRExperience.UI.MenuControl
 
         private string GenerateMeetingJson()
         {
-            VRExperience.Meeting.Meeting newMeeting = new VRExperience.Meeting.Meeting();
+            Fordi.Meeting.Meeting newMeeting = new Fordi.Meeting.Meeting();
             //if (fileSelectionScreen.EnteredUrl != null)
             //    newMeeting.fileLocation = fileSelectionScreen.EnteredUrl;
             //newMeeting.fileToBeReviewed = "Radial_Engine.jt.rtprefab.zip";

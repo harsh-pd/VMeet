@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using VRExperience.Core;
-using VRExperience.UI;
-using VRExperience.UI.MenuControl;
+using Fordi.Core;
+using Fordi.UI;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class ColorPreset : ColorPicker
     {

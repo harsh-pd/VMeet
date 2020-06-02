@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Photon.Pun;
-using VRExperience.Common;
+using Fordi.Common;
 
-namespace Fordi.Annotation
+namespace Fordi.Annotations
 {
     public enum TrailStatus
     {

@@ -1,11 +1,11 @@
-﻿using Fordi.Annotation;
+﻿using Fordi.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using VRExperience.Common;
+using Fordi.Common;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public class AnnotationInterface : MenuScreen
     {

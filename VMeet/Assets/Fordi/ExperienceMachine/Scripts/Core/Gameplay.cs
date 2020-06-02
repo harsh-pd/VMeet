@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRExperience.Common;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.UI.MenuControl;
 using System;
 using TMPro;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public abstract class Gameplay : Experience
     {

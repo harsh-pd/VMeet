@@ -4,9 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using VRExperience.Common;
+using Fordi.Common;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public enum AudioType
     {

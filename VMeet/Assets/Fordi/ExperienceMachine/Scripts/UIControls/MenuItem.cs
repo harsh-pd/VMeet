@@ -6,11 +6,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using VRExperience.Common;
-using VRExperience.Core;
-using AudioType = VRExperience.Core.AudioType;
+using Fordi.Common;
+using Fordi.Core;
+using AudioType = Fordi.Core.AudioType;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public delegate void MenuItemEventHandler(MenuItem menuItem);
 

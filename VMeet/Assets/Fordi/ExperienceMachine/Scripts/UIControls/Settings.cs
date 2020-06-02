@@ -4,11 +4,11 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.IO;
-using VRExperience.Common;
+using Fordi.Common;
 using ProtoBuf;
-using VRExperience.UI.MenuControl;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     [Serializable]
     [ProtoContract]

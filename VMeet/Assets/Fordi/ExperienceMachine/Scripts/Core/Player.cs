@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using VRExperience.Common;
-using VRExperience.ObjectControl;
-using VRExperience.UI;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.ObjectControl;
+using Fordi.UI;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     public interface IPlayer
     {

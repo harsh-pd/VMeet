@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VRExperience.Common;
-using VRExperience.Core;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.Core;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class ColorPicker : MonoBehaviour
     {

@@ -15,10 +15,10 @@ using Photon.Chat;
 using System.Collections;
 using TMPro;
 using Cornea.Web;
-using VRExperience.Common;
+using Fordi.Common;
 using Fordi.ScreenSharing;
-using VRExperience.UI.MenuControl;
-using VRExperience.Core;
+using Fordi.UI.MenuControl;
+using Fordi.Core;
 
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
@@ -403,7 +403,7 @@ namespace Fordi.ChatEngine
         public void OnConnected()
         {
             m_connectingSilently = false;
-            DisplayResult(new VRExperience.Core.Error());
+            DisplayResult(new Fordi.Core.Error());
 
             if (PhotonNetwork.InRoom)
                 this.chatClient.Subscribe(PhotonNetwork.CurrentRoom.Name, this.HistoryLengthToFetch);
@@ -445,7 +445,7 @@ namespace Fordi.ChatEngine
             Debug.LogError("OnDisconnected");
             //this.ConnectingLabel.SetActive(false);
             if (!m_connectingSilently)
-                DisplayResult(new VRExperience.Core.Error { ErrorCode = VRExperience.Core.Error.E_NetworkIssue, ErrorText = "Chat disconnected" });
+                DisplayResult(new Fordi.Core.Error { ErrorCode = Fordi.Core.Error.E_NetworkIssue, ErrorText = "Chat disconnected" });
             Connect(true);
         }
 

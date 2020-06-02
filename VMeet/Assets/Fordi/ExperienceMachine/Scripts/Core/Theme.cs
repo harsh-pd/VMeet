@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace VRExperience.Core
+namespace Fordi.Core
 {
     [CreateAssetMenu(fileName = "New Theme", menuName = "App Theme")]
     public class Theme : ScriptableObject

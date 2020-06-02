@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using VRExperience.Common;
-using VRExperience.UI.MenuControl;
+using Fordi.Common;
+using Fordi.UI.MenuControl;
 
-namespace VRExperience.UI
+namespace Fordi.UI
 {
     public class SolidBackground : MonoBehaviour
     {

@@ -11,15 +11,15 @@ using UnityEngine.XR;
 using System.Threading;
 using LitJson;
 using Fordi;
-using VRExperience.Meeting;
-using VRExperience.UI.MenuControl;
-using VRExperience.Common;
-using VRExperience.Core;
-using VRExperience.UI;
+using Fordi.Meeting;
+using Fordi.UI.MenuControl;
+using Fordi.Common;
+using Fordi.Core;
+using Fordi.UI;
 using Photon.Pun;
 using Fordi.Networking;
 
-namespace VRExperience.Meetings.UI
+namespace Fordi.Meetings.UI
 {
     public enum MeetingStatus
     {

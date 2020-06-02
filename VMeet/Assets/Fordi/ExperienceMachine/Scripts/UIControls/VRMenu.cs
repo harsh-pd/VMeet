@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using VRExperience.Common;
-using VRExperience.Core;
-using AudioType = VRExperience.Core.AudioType;
+using Fordi.Common;
+using Fordi.Core;
+using AudioType = Fordi.Core.AudioType;
 using UnityEngine.EventSystems;
 using UnityEngine.XR;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using VRExperience.Meeting;
-using VRExperience.Meetings.UI;
+using Fordi.Meeting;
+using Fordi.Meetings.UI;
 using Fordi.ScreenSharing;
 
-namespace VRExperience.UI.MenuControl
+namespace Fordi.UI.MenuControl
 {
     public enum InputModule
     {
