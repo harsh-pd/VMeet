@@ -132,20 +132,20 @@ namespace VRExperience.UI.MenuControl
         //    }
         //}
 
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
 
         private Transform m_root;
      
         private void Awake()
         {
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_root = transform.parent;
         }
 
         public void Open()
         {
             if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IVRMenu>();
+                m_vrMenu = IOC.Resolve<IUserInterface>();
             m_vrMenu.OpenMenu(m_items);
         }
 

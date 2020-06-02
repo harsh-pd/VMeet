@@ -126,7 +126,7 @@ namespace Cornea.Web
                 {
                     Error errorHandler = new Error(Error.E_NetworkIssue);
                     errorHandler.ErrorText = error;
-                    IOC.Resolve<IVRMenu>().DisplayResult(errorHandler, true);
+                    IOC.Resolve<IUserInterface>().DisplayResult(errorHandler, true);
                     //Coordinator.instance.webInterface.networkInterface.ActivateErrorScreen(error, this);
                 }
             }

@@ -99,7 +99,7 @@ namespace Fordi.ScreenSharing
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
 
             if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IVRMenu>();
+                m_vrMenu = IOC.Resolve<IUserInterface>();
 
             if (m_okButton != null)
                 m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());

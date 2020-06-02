@@ -81,7 +81,7 @@ namespace VRExperience.ObjectControl
         protected DistanceGrabbable m_target;
 
         private IPlayer m_player;
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
 
         private bool m_grabIntention = false;
 
@@ -99,7 +99,7 @@ namespace VRExperience.ObjectControl
             m_grabCount = 0;
             base.Start();
             m_player = IOC.Resolve<IPlayer>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             // Set up our max grab distance to be based on the player's max grab distance.
             // Adding a liberal margin of error here, because users can move away some from the 
             // OVRPlayerController, and also players have arms.
@@ -234,7 +234,7 @@ namespace VRExperience.ObjectControl
                 m_grabCount++;
                 m_player.RequestHaltMovement(true);
                 if (m_vrMenu == null)
-                    m_vrMenu = IOC.Resolve<IVRMenu>();
+                    m_vrMenu = IOC.Resolve<IUserInterface>();
                 m_vrMenu.DeactivateUI();
             }
         }

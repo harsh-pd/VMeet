@@ -140,7 +140,7 @@ namespace VRExperience.Core
         private bool m_initialized = false;
 
         private ISettings m_settings;
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
         private IAudio m_audio;
 
         [SerializeField]
@@ -155,7 +155,7 @@ namespace VRExperience.Core
         {
             //Debug.LogError(m_avatar.oculusUserID);
             m_settings = IOC.Resolve<ISettings>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_audio = IOC.Resolve<IAudio>();
             FordiGrabber.OnObjectDelete += OnObjectDelete;
 

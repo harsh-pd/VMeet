@@ -43,7 +43,7 @@ namespace Fordi.Networking
         public const string OculusIDString = "OculusID";
 
         private IPlayer m_player = null;
-        private IVRMenu m_vrMenu = null;
+        private IUserInterface m_vrMenu = null;
         private IMenuSelection m_menuSelection = null;
         private IExperienceMachine m_experienceMachine = null;
         private IScreenShare m_screenShare = null;
@@ -63,7 +63,7 @@ namespace Fordi.Networking
         private void Awake()
         {
             m_player = IOC.Resolve<IPlayer>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_screenShare = IOC.Resolve<IScreenShare>();

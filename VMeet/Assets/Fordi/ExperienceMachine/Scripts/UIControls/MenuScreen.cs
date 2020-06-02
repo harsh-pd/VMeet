@@ -66,7 +66,7 @@ namespace VRExperience.UI.MenuControl
         [SerializeField]
         protected Blocker m_blocker;
  
-        protected IVRMenu m_vrMenu;
+        protected IUserInterface m_vrMenu;
         protected IExperienceMachine m_experienceMachine;
         protected ISettings m_settings;
         protected IMenuSelection m_menuSelection;
@@ -92,7 +92,7 @@ namespace VRExperience.UI.MenuControl
         void Awake()
         {
             m_settings = IOC.Resolve<ISettings>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_webInterface = IOC.Resolve<IWebInterface>();
@@ -252,7 +252,7 @@ namespace VRExperience.UI.MenuControl
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
 
             if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IVRMenu>();
+                m_vrMenu = IOC.Resolve<IUserInterface>();
 
             if (m_okButton != null)
                 m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
@@ -269,7 +269,7 @@ namespace VRExperience.UI.MenuControl
             m_description.text = text;
 
             if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IVRMenu>();
+                m_vrMenu = IOC.Resolve<IUserInterface>();
 
             if (m_okButton != null)
                 m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());

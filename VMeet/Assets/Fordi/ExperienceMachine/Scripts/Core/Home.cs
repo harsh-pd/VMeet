@@ -237,7 +237,7 @@ namespace VRExperience.Core
         {
             if (m_vrMenu == null)
             {
-                m_vrMenu = IOC.Resolve<IVRMenu>();
+                m_vrMenu = IOC.Resolve<IUserInterface>();
             }
 
             if (!m_vrMenu.IsOpen)

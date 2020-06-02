@@ -83,7 +83,7 @@ namespace VRExperience.Core
 
         private IExperienceMachine m_experienceMachine;
         private IPlayer m_player;
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
 
         private const string ConfigFile = "ConfigFile.config";
 
@@ -107,7 +107,7 @@ namespace VRExperience.Core
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_player = IOC.Resolve<IPlayer>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
 
             DynamicSettings dynamicSettings = null;
             var configFilePath = Path.Combine(Application.persistentDataPath, ConfigFile);

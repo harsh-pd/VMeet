@@ -22,7 +22,7 @@ namespace VRExperience.UI.MenuControl
         OCULUS
     }
 
-    public interface IVRMenu
+    public interface IUserInterface
     {
         bool IsOpen { get; }
         EventHandler AudioInterruptionEvent { get; set; }
@@ -71,7 +71,7 @@ namespace VRExperience.UI.MenuControl
         }
     }
 
-    public class VRMenu : MonoBehaviour, IVRMenu
+    public class VRMenu : MonoBehaviour, IUserInterface
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
@@ -987,7 +987,7 @@ namespace VRExperience.UI.MenuControl
 
         void OnHMDUnmount()
         {
-            if (IOC.Resolve<IVRMenu>() != this)
+            if (IOC.Resolve<IUserInterface>() != this)
             {
                 OVRManager.HMDMounted -= this.OnHMDMount;
                 OVRManager.HMDUnmounted -= this.OnHMDUnmount;
@@ -1002,7 +1002,7 @@ namespace VRExperience.UI.MenuControl
 
         void OnHMDMount()
         {
-            if (IOC.Resolve<IVRMenu>() != this)
+            if (IOC.Resolve<IUserInterface>() != this)
             {
                 OVRManager.HMDMounted -= this.OnHMDMount;
                 OVRManager.HMDUnmounted -= this.OnHMDUnmount;
@@ -1030,7 +1030,7 @@ namespace VRExperience.UI.MenuControl
 
         private void EnableDesktopModule()
         {
-            if (IOC.Resolve<IVRMenu>() != this)
+            if (IOC.Resolve<IUserInterface>() != this)
             {
                 OVRManager.HMDMounted -= this.OnHMDMount;
                 OVRManager.HMDUnmounted -= this.OnHMDUnmount;
@@ -1046,7 +1046,7 @@ namespace VRExperience.UI.MenuControl
 
         private void EnableVRModule()
         {
-            if (IOC.Resolve<IVRMenu>() != this)
+            if (IOC.Resolve<IUserInterface>() != this)
             {
                 OVRManager.HMDMounted -= this.OnHMDMount;
                 OVRManager.HMDUnmounted -= this.OnHMDUnmount;

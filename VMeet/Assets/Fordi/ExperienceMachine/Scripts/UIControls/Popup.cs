@@ -36,7 +36,7 @@ namespace VRExperience.UI
 
         private Action m_closed = null;
         private Action m_ok = null;
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
 
         public GameObject Gameobject { get { return gameObject; } }
 
@@ -50,7 +50,7 @@ namespace VRExperience.UI
 
         private void Awake()
         {
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
 

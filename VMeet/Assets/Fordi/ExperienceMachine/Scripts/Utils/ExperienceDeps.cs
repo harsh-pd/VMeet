@@ -63,9 +63,9 @@ namespace VRExperience.Core
             }
         }
 
-        private IVRMenu m_vRMenu;
+        private IUserInterface m_vRMenu;
 
-        protected virtual IVRMenu VRMenu
+        protected virtual IUserInterface VRMenu
         {
             get
             {

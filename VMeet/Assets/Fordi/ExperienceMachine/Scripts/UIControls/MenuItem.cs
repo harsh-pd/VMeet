@@ -33,7 +33,7 @@ namespace VRExperience.UI.MenuControl
 
         private bool m_textScrollInitialized = false;
 
-        protected IVRMenu m_vrMenu;
+        protected IUserInterface m_vrMenu;
 
         protected IMenuSelection m_menuSelection;
 
@@ -44,7 +44,7 @@ namespace VRExperience.UI.MenuControl
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
         }
 

@@ -92,7 +92,7 @@ namespace Fordi.ChatEngine
         public GameObject Title;
 
         private IWebInterface m_webInterface = null;
-        private IVRMenu m_vrMenu = null;
+        private IUserInterface m_vrMenu = null;
         private RemoteMonitorScreen m_remoteMonitorScreen = null;
         private bool m_connectingSilently = false;
         private bool m_firstMessageFlag = false;
@@ -137,7 +137,7 @@ namespace Fordi.ChatEngine
             this.ChatPanel.gameObject.SetActive(false);
             //this.ConnectingLabel.SetActive(false);
             m_webInterface = IOC.Resolve<IWebInterface>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
 
             this.UserName = m_webInterface.UserInfo.name;
 

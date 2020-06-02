@@ -40,12 +40,12 @@ namespace VRExperience.UI
         private IScreen m_pair = null;
         public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
 
-        private IVRMenu m_vrMenu = null;
+        private IUserInterface m_vrMenu = null;
 
         private Vector3 m_localScale;
         private void Awake()
         {
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
 
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;

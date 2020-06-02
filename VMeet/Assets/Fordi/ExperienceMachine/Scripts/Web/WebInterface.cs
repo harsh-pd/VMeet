@@ -308,7 +308,7 @@ namespace Cornea.Web
 
         public UserInfo UserInfo { get { return m_userInfo; } }
 
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
 
         private IExperienceMachine m_experienceMachine;
 
@@ -316,7 +316,7 @@ namespace Cornea.Web
 
         private void Awake()
         {
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
 
             var configFilePath = Path.Combine(Application.persistentDataPath, APP_CONFIG);

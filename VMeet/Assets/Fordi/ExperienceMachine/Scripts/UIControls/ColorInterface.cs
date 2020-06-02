@@ -96,7 +96,7 @@ namespace VRExperience.UI.MenuControl
             gameObject.SetActive(true);
 
             if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IVRMenu>();
+                m_vrMenu = IOC.Resolve<IUserInterface>();
 
             if (m_okButton != null)
                 m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());

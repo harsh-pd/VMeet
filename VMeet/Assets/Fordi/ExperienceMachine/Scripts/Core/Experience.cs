@@ -131,7 +131,7 @@ namespace VRExperience.Core
     public abstract class Experience : MonoBehaviour, IExperience
     {
         protected IExperienceMachine m_experienceMachine;
-        protected IVRMenu m_vrMenu;
+        protected IUserInterface m_vrMenu;
         protected IMenuSelection m_menuSelection;
         protected ISettings m_settings;
         protected IAudio m_audio;
@@ -159,7 +159,7 @@ namespace VRExperience.Core
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_menu = GetComponent<Menu>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
             m_commonResource = IOC.Resolve<ICommonResource>();

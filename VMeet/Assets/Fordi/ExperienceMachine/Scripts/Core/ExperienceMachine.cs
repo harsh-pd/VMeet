@@ -122,7 +122,7 @@ namespace VRExperience.Core
         private IExperience m_home, m_nature, m_mandala, m_abstract, m_lobby, m_meeting, m_currentExperience;
         private IMenuSelection m_menuSelection;
         private IAudio m_audio;
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
         private ISettings m_settings;
         private IPlayer m_player;
 
@@ -157,7 +157,7 @@ namespace VRExperience.Core
            
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_settings = IOC.Resolve<ISettings>();
             m_player = IOC.Resolve<IPlayer>();
 

@@ -9,7 +9,7 @@ namespace VRExperience.ObjectControl
 {
     public class FordiGrabbable : DistanceGrabbable
     {
-        private IVRMenu m_vrMenu;
+        private IUserInterface m_vrMenu;
         private Rigidbody m_rigidbody;
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace VRExperience.ObjectControl
         protected override void Start()
         {
             base.Start();
-            m_vrMenu = IOC.Resolve<IVRMenu>();
+            m_vrMenu = IOC.Resolve<IUserInterface>();
         }
 
         protected override void AwakeOverride()
