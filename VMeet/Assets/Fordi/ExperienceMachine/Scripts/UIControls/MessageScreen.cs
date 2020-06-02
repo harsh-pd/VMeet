@@ -40,12 +40,13 @@ namespace Fordi.UI
         private IScreen m_pair = null;
         public IScreen Pair { get { return m_pair; } set { m_pair = value; } }
 
-        private IUserInterface m_vrMenu = null;
+        private IUIEngine m_uiEngine = null;
+        private IUserInterface m_interface = null;
 
         private Vector3 m_localScale;
         private void Awake()
         {
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
 
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
@@ -59,7 +60,7 @@ namespace Fordi.UI
 
         protected virtual void Update()
         {
-            if (!VRMenu.s_InputSelectedFlag && m_vrMenu.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)
+            if (!UIEngine.s_InputSelectedFlag && m_uiEngine.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)
                 BackClick();
         }
 
@@ -97,7 +98,7 @@ namespace Fordi.UI
 
         public void BackClick()
         {
-            m_vrMenu.GoBack();
+            m_interface.GoBack();
         }
 
         public void Reopen()
@@ -149,7 +150,7 @@ namespace Fordi.UI
 
         private void CloseSelf()
         {
-            m_vrMenu.Close(this);
+            m_interface.Close(this);
         }
 
         public void DisplayProgress(string text)

@@ -8,6 +8,7 @@ using ProtoBuf;
 using System.IO;
 using Papae.UnitySDK.Managers;
 using Random = UnityEngine.Random;
+using Fordi.UI;
 
 namespace Fordi.Core
 {
@@ -100,19 +101,23 @@ namespace Fordi.Core
 
         private bool m_audioInterruptionFlag = false;
 
+        private IUIEngine m_uiEngine = null;
+
+
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
             m_mandalas = m_commonResource.AssetDb.MandalaGroups;
             m_colors = m_commonResource.AssetDb.ColorGroups;
             m_music = m_commonResource.AssetDb.MandalaMusic;
-            m_vrMenu.AudioInterruptionEvent += AudioInterruption;        
+            m_uiEngine = IOC.Resolve<IUIEngine>();
+            m_uiEngine.AudioInterruptionEvent += AudioInterruption;        
             LoadCustomPresets();
         }
 
         protected override void OnDestroyOverride()
         {
-            m_vrMenu.AudioInterruptionEvent -= AudioInterruption;
+            m_uiEngine.AudioInterruptionEvent -= AudioInterruption;
         }
 
         private void AudioInterruption(object sender, EventArgs e)

@@ -75,7 +75,7 @@ namespace Fordi.UI.MenuControl
             m_commonResource = IOC.Resolve<ICommonResource>();
             m_webInterace = IOC.Resolve<IWebInterface>();
             Init();
-            m_vrMenu.InputModuleChangeEvent += OnInputModuleChange;
+            m_uiEngine.InputModuleChangeEvent += OnInputModuleChange;
         }
 
         private void Init()
@@ -101,7 +101,7 @@ namespace Fordi.UI.MenuControl
                 item.onValueChanged.RemoveAllListeners();
             foreach (var item in m_sliders)
                 item.onValueChanged.RemoveAllListeners();
-            m_vrMenu.InputModuleChangeEvent -= OnInputModuleChange;
+            m_uiEngine.InputModuleChangeEvent -= OnInputModuleChange;
         }
 
         private void ToggleEdit(bool val)
@@ -265,10 +265,10 @@ namespace Fordi.UI.MenuControl
 
         private void PreviewSound(float volume, AudioType audioType)
         {
-            if (Pair == null && m_vrMenu.ActiveModule != InputModule.STANDALONE)
+            if (Pair == null && m_uiEngine.ActiveModule != InputModule.STANDALONE)
                 return;
 
-            if (Pair != null && m_vrMenu.ActiveModule != InputModule.OCULUS)
+            if (Pair != null && m_uiEngine.ActiveModule != InputModule.OCULUS)
                 return;
 
             var audioSource = m_audio.GetAudioSource(audioType);

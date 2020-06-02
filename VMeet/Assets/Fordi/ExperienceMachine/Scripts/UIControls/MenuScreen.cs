@@ -67,6 +67,7 @@ namespace Fordi.UI.MenuControl
         protected Blocker m_blocker;
  
         protected IUserInterface m_vrMenu;
+        protected IUIEngine m_uiEngine;
         protected IExperienceMachine m_experienceMachine;
         protected ISettings m_settings;
         protected IMenuSelection m_menuSelection;
@@ -96,6 +97,7 @@ namespace Fordi.UI.MenuControl
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_webInterface = IOC.Resolve<IWebInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
 
             if (m_localScale == Vector3.zero)
                 m_localScale = transform.localScale;
@@ -120,7 +122,7 @@ namespace Fordi.UI.MenuControl
 
         protected virtual void Update()
         {
-            if (!VRMenu.s_InputSelectedFlag && m_vrMenu.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)
+            if (!UIEngine.s_InputSelectedFlag && m_uiEngine.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)
             {
                 if (m_blocker == null || !m_blocker.gameObject.activeInHierarchy)
                     BackClick();

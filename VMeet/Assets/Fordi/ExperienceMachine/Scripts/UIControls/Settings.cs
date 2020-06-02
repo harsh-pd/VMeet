@@ -7,6 +7,7 @@ using System.IO;
 using Fordi.Common;
 using ProtoBuf;
 using Fordi.UI.MenuControl;
+using Fordi.UI;
 
 namespace Fordi.Core
 {
@@ -83,7 +84,8 @@ namespace Fordi.Core
 
         private IExperienceMachine m_experienceMachine;
         private IPlayer m_player;
-        private IUserInterface m_vrMenu;
+        private IUIEngine m_uiEngine;
+        
 
         private const string ConfigFile = "ConfigFile.config";
 
@@ -107,7 +109,7 @@ namespace Fordi.Core
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_player = IOC.Resolve<IPlayer>();
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
 
             DynamicSettings dynamicSettings = null;
             var configFilePath = Path.Combine(Application.persistentDataPath, ConfigFile);
@@ -157,8 +159,8 @@ namespace Fordi.Core
             mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
-                m_vrMenu.SwitchToDesktopOnlyMode();
-            m_vrMenu.ApplyShowVRSettings(selectedPreferences.ShowVR);
+                m_uiEngine.SwitchToDesktopOnlyMode();
+            m_uiEngine.ApplyShowVRSettings(selectedPreferences.ShowVR);
             //m_player.ApplyTooltipSettings();
         }
 
@@ -178,11 +180,11 @@ namespace Fordi.Core
             mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
-                m_vrMenu.SwitchToDesktopOnlyMode();
+                m_uiEngine.SwitchToDesktopOnlyMode();
             else
-                m_vrMenu.DisableDesktopOnlyMode();
+                m_uiEngine.DisableDesktopOnlyMode();
             m_player.ApplyTooltipSettings();
-            m_vrMenu.ApplyShowVRSettings(selectedPreferences.ShowVR);
+            m_uiEngine.ApplyShowVRSettings(selectedPreferences.ShowVR);
         }
 
         public void SyncSettingsWithDisk(Action done)

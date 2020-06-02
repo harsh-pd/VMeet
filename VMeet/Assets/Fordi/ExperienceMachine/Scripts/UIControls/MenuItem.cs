@@ -34,6 +34,7 @@ namespace Fordi.UI.MenuControl
         private bool m_textScrollInitialized = false;
 
         protected IUserInterface m_vrMenu;
+        protected IUIEngine m_uiEngine;
 
         protected IMenuSelection m_menuSelection;
 
@@ -46,6 +47,7 @@ namespace Fordi.UI.MenuControl
             base.AwakeOverride();
             m_vrMenu = IOC.Resolve<IUserInterface>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
         }
 
         protected MenuItemInfo m_item;
@@ -323,14 +325,14 @@ namespace Fordi.UI.MenuControl
         protected override void OnEnableOverride()
         {
             base.OnEnableOverride();
-            m_vrMenu.ScreenChangeInitiated += ScreenChangeInitiated;
+            m_uiEngine.ScreenChangeInitiated += ScreenChangeInitiated;
         }
 
         protected override void OnDisableOverride()
         {
             base.OnDisableOverride();
 
-            m_vrMenu.ScreenChangeInitiated -= ScreenChangeInitiated;
+            m_uiEngine.ScreenChangeInitiated -= ScreenChangeInitiated;
 
             if (m_textScrollEnumerator != null)
             {

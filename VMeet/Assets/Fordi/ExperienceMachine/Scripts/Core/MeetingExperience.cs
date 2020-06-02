@@ -47,7 +47,6 @@ namespace Fordi.Core
         public override void OnLoad()
         {
             base.OnLoad();
-            m_vrMenu.LoadRemoteDesktopView(m_insceneMenuItems);
             StartCoroutine(TakeASeat());
         }
 

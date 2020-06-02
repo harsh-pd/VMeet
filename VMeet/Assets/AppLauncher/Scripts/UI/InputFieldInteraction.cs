@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Fordi.UI.MenuControl;
+using Fordi.UI;
 
 namespace AL.UI
 {
@@ -51,7 +52,7 @@ namespace AL.UI
         // Disabled for now
         public virtual void OnSelect(BaseEventData eventData)
         {
-            VRMenu.s_InputSelectedFlag = true;
+            UIEngine.s_InputSelectedFlag = true;
             HardSelect();
         }
 
@@ -71,7 +72,7 @@ namespace AL.UI
             //Hotkeys.HotKeyEnabled = true;
             ToggleOutlineHighlight(false);
             ToggleBackgroundHighlight(false);
-            VRMenu.s_InputSelectedFlag = false;
+            UIEngine.s_InputSelectedFlag = false;
         }
     }
 }
