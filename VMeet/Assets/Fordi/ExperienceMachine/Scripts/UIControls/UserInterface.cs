@@ -22,7 +22,6 @@ namespace Fordi.UI
         bool IsOpen { get; }
         IScreen OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
         IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
-        void Unblock();
         IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null);
         IScreen OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
         IScreen OpenColorInterface(ColorInterfaceArgs args);
@@ -36,6 +35,7 @@ namespace Fordi.UI
         IScreen OpenForm(FormArgs args, bool block = true, bool persist = true);
         IScreen DisplayResult(Error error, bool freshScreen = false);
         IScreen DisplayProgress(string text, bool freshScreen = false);
+        IScreen Block(string message);
         void CloseLastScreen();
         void Close(IScreen screen);
         void Close();
@@ -47,7 +47,7 @@ namespace Fordi.UI
         void ShowUI();
         void Hide();
         void Unhide();
-        IScreen Block(string message);
+        void Unblock();
     }
 
     public abstract class UserInterface : MonoBehaviour, IUserInterface
@@ -77,10 +77,6 @@ namespace Fordi.UI
         protected Popup m_popupPrefab;
         [SerializeField]
         protected Popup m_popup;
-        [SerializeField]
-        protected BaseInputModule m_inputModule;
-        [SerializeField]
-        private MenuScreen m_blocker;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -103,6 +99,8 @@ namespace Fordi.UI
         protected ICommonResource m_commonResource;
         protected ISettings m_settings;
         protected IUIEngine m_uiEngine = null;
+
+        private MenuScreen m_blocker;
 
         protected virtual void Awake()
         {
@@ -481,7 +479,7 @@ namespace Fordi.UI
 
         public virtual void Hide()
         {
-            //Debug.LogError("Switch to donly");
+            Debug.LogError("Hide");
             foreach (var item in m_screenStack)
                 item.Hide();
         }

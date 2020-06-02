@@ -57,7 +57,7 @@ namespace Fordi.Core
                 if (args.Data != null && args.Data is ExperienceResource experienceResource)
                     resourceType = experienceResource.ResourceType;
                 if (!(args.Data != null && (args.Data is ColorGroup || resourceType == ResourceType.EXPERIENCE)))
-                    m_vrMenu.CloseLastScreen();
+                    m_uiEngine.CloseLastScreen();
             }
 
 
@@ -77,7 +77,7 @@ namespace Fordi.Core
                 if (resourceComponent.SpecialCommand == MandalaExperience.ColorBasedAudioCommand)
                 {
                     m_menuSelection.VoiceOver = null;
-                    m_vrMenu.CloseLastScreen();
+                    m_uiEngine.CloseLastScreen();
                 }
                 else
                 {
@@ -134,7 +134,7 @@ namespace Fordi.Core
                             Title = "CHOOSE YOUR COLOR COMBINATION",
                             GuideClip = m_commonResource.GetGuideClip(MenuCommandType.COLOR)
                         };
-                        m_vrMenu.OpenColorInterface(colorInterfaceArgs);
+                        m_uiEngine.OpenColorInterface(colorInterfaceArgs);
                     }
                 }
                 else
@@ -236,12 +236,12 @@ namespace Fordi.Core
 
         public override void ToggleMenu()
         {
-            if (m_vrMenu == null)
+            if (m_uiEngine == null)
             {
-                m_vrMenu = IOC.Resolve<IUserInterface>();
+                m_uiEngine = IOC.Resolve<IUIEngine>();
             }
 
-            if (!m_vrMenu.IsOpen)
+            if (!m_uiEngine.IsOpen)
             {
                 base.ToggleMenu();
                 //m_glow.SetActive(true);
@@ -316,7 +316,7 @@ namespace Fordi.Core
 
             MenuItemInfo[] formItems = new MenuItemInfo[] {organizationInput, usernameInput, passwordInput };
             FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => { m_webInterace.ValidateUserLogin(inputs[0], inputs[1], inputs[2]); });
-            m_vrMenu.OpenForm(args);
+            m_uiEngine.OpenForm(args);
         }
     }
 }

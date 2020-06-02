@@ -29,7 +29,7 @@ namespace Fordi.Core
             {
                 var resourceType = ((ResourceComponent)args.Data).ResourceType;
                 if (resourceType == ResourceType.OBJECT)
-                    m_vrMenu.OpenObjectInterface(null, ResourceToMenuItems(m_commonResource.GetResource(resourceType, args.Command)), "PICK ITEM");
+                    m_uiEngine.OpenObjectInterface(null, ResourceToMenuItems(m_commonResource.GetResource(resourceType, args.Command)), "PICK ITEM");
                 else
                     m_menu.OpenGridMenu(null, ResourceToMenuItems(GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper(), true);
                 return;
@@ -46,7 +46,7 @@ namespace Fordi.Core
 
             else if (args.CommandType == MenuCommandType.SELECTION)
             {
-                m_vrMenu.Close();
+                m_uiEngine.Close();
                 AudioSelectionFlag = false;
             }
         }
@@ -80,7 +80,7 @@ namespace Fordi.Core
 
         public override void ToggleMenu()
         {
-            if (m_vrMenu.IsOpen)
+            if (m_uiEngine.IsOpen)
                 m_menu.Close();
             else
                 m_menu.Open(m_insceneMenuItems);

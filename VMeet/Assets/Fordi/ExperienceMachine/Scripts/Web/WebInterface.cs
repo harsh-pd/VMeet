@@ -309,7 +309,7 @@ namespace Cornea.Web
 
         public UserInfo UserInfo { get { return m_userInfo; } }
 
-        private IUserInterface m_vrMenu;
+        private IUIEngine m_uiEngine = null;
 
         private IExperienceMachine m_experienceMachine;
 
@@ -317,7 +317,7 @@ namespace Cornea.Web
 
         private void Awake()
         {
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
 
             var configFilePath = Path.Combine(Application.persistentDataPath, APP_CONFIG);
@@ -369,7 +369,7 @@ namespace Cornea.Web
                 downloadHandler = new DownloadHandlerBuffer()
             };
             loginReq.SetRequestHeader("Content-Type", "application/json");
-            m_vrMenu.DisplayProgress("Connecting to VMeet server...");
+            m_uiEngine.DisplayProgress("Connecting to VMeet server...");
             loginReq.Run(this).OnRequestComplete(
                     (isNetworkError, message) =>
                     {
@@ -384,7 +384,7 @@ namespace Cornea.Web
                                 {
                                     Error error = new Error(Error.E_Exception);
                                     error.ErrorText = "Login failed. Please change your password in web console first.";
-                                    m_vrMenu.DisplayResult(error);
+                                    m_uiEngine.DisplayResult(error);
                                     //Coordinator.instance.screenManager.OnLoginFailure("Login failed. Please change your password in web console first.");
                                     return;
                                 }
@@ -399,7 +399,7 @@ namespace Cornea.Web
 
                                 Error error = new Error(Error.E_Exception);
                                 error.ErrorText = loginFailureMessage;
-                                m_vrMenu.DisplayResult(error);
+                                m_uiEngine.DisplayResult(error);
 
                                 //Coordinator.instance.screenManager.OnLoginFailure(loginFailureMessage);
                                 Debug.Log("Error " + tokenAuthResult["error"]["message"].ToString() + "Ok");
@@ -407,7 +407,7 @@ namespace Cornea.Web
                         }
                         catch(Exception e)
                         {
-                            m_vrMenu.DisplayResult(new Error()
+                            m_uiEngine.DisplayResult(new Error()
                             {
                                 ErrorCode = Error.E_NetworkIssue,
                                 ErrorText = e.Message
@@ -441,7 +441,7 @@ namespace Cornea.Web
 
             MenuItemInfo[] formItems = new MenuItemInfo[] { organizationInput, keyInput };
             FormArgs args = new FormArgs(formItems, "ACTIVATE LICENSE", "Activate", (inputs) => { Debug.LogError("Form button click"); });
-            m_vrMenu.OpenForm(args);
+            m_uiEngine.OpenForm(args);
         }
 
         public void ValidateUserLogin(string organization, string username, string password)
@@ -462,7 +462,7 @@ namespace Cornea.Web
             };
             validateUserLoginRequest.SetRequestHeader("Content-Type", "application/json");
             validateUserLoginRequest.SetRequestHeader("Authorization", "Bearer " + access_token);
-            m_vrMenu.DisplayProgress("Validating user...");
+            m_uiEngine.DisplayProgress("Validating user...");
             validateUserLoginRequest.Run(this).OnRequestComplete(
                 (isNetworkError, message) =>
                 {
@@ -490,7 +490,7 @@ namespace Cornea.Web
 
                             Error error = new Error(Error.E_Exception);
                             error.ErrorText = loginFailureMessage;
-                            m_vrMenu.DisplayResult(error);
+                            m_uiEngine.DisplayResult(error);
 
                             //Coordinator.instance.screenManager.OnLoginFailure(loginFailureMessage);
                         }
@@ -528,7 +528,7 @@ namespace Cornea.Web
 
                         Error error = new Error();
                         error.ErrorText = "License has been successfully activated.";
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
 
                         //Coordinator.instance.screenManager.LicenseValidation(true, "License has been successfully activated.");
                     }
@@ -536,7 +536,7 @@ namespace Cornea.Web
                     {
                         Error error = new Error(Error.E_NotFound);
                         error.ErrorText = activateLicenseResult["error"]["message"].ToString();
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
 
                         Debug.LogFormat("Error", activateLicenseResult["error"]["message"].ToString(), "Ok");
 
@@ -589,7 +589,7 @@ namespace Cornea.Web
 
         public APIRequest CreateMeeting(string meetingJson)
         {
-            m_vrMenu.DisplayProgress("Submitting details. Please wait...");
+            m_uiEngine.DisplayProgress("Submitting details. Please wait...");
             var url = vesApiBaseUrl + saveMeeting;
             var jsonData = Encoding.ASCII.GetBytes(meetingJson);
 
@@ -878,7 +878,7 @@ namespace Cornea.Web
             {
                 ErrorText = errorMessage
             };
-            m_vrMenu.DisplayResult(error);
+            m_uiEngine.DisplayResult(error);
         }
 
         public void RemoveRequest(APIRequest req)
@@ -971,13 +971,13 @@ namespace Cornea.Web
         {
             //Debug.LogError("GetCategories: " + type.ToString());
 
-            m_vrMenu.DisplayProgress("Hold on, fetching details...");
+            m_uiEngine.DisplayProgress("Hold on, fetching details...");
             switch (type)
             {
                 case ResourceType.MEETING:
                     if (!m_requireMeetingListRefresh && !requireWebRefresh && m_meetings.Count == 4)
                     {
-                        m_vrMenu.DisplayResult(new Error(Error.OK));
+                        m_uiEngine.DisplayResult(new Error(Error.OK));
                         done?.Invoke(Meetings);
                         break;
                     }
@@ -992,7 +992,7 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Created, allCreatedMeetings));
                             if (m_meetings.Count == 4)
                             {
-                                m_vrMenu.DisplayResult(new Error(Error.OK));
+                                m_uiEngine.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
@@ -1000,7 +1000,7 @@ namespace Cornea.Web
                         }
                         else
                         {
-                            m_vrMenu.DisplayResult(new Error()
+                            m_uiEngine.DisplayResult(new Error()
                             {
                                 ErrorText = (string)result["error"]["message"],
                                 ErrorCode = Error.E_Exception
@@ -1017,7 +1017,7 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Accepted, meetings));
                             if (m_meetings.Count == 4)
                             {
-                                m_vrMenu.DisplayResult(new Error(Error.OK));
+                                m_uiEngine.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
@@ -1025,7 +1025,7 @@ namespace Cornea.Web
                         }
                         else
                         {
-                            m_vrMenu.DisplayResult(new Error()
+                            m_uiEngine.DisplayResult(new Error()
                             {
                                 ErrorText = (string)result["error"]["message"],
                                 ErrorCode = Error.E_Exception
@@ -1042,7 +1042,7 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Invited, meetings));
                             if (m_meetings.Count == 4)
                             {
-                                m_vrMenu.DisplayResult(new Error(Error.OK));
+                                m_uiEngine.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
@@ -1050,7 +1050,7 @@ namespace Cornea.Web
                         }
                         else
                         {
-                            m_vrMenu.DisplayResult(new Error()
+                            m_uiEngine.DisplayResult(new Error()
                             {
                                 ErrorText = (string)result["error"]["message"],
                                 ErrorCode = Error.E_Exception
@@ -1067,7 +1067,7 @@ namespace Cornea.Web
                             m_meetings.Add(GetMeetingGroup(MeetingFilter.Rejected, meetings));
                             if (m_meetings.Count == 4)
                             {
-                                m_vrMenu.DisplayResult(new Error(Error.OK));
+                                m_uiEngine.DisplayResult(new Error(Error.OK));
                                 done?.Invoke(Meetings);
                                 m_requireMeetingListRefresh = false;
                             }
@@ -1075,7 +1075,7 @@ namespace Cornea.Web
                         }
                         else
                         {
-                            m_vrMenu.DisplayResult(new Error()
+                            m_uiEngine.DisplayResult(new Error()
                             {
                                 ErrorText = (string)result["error"]["message"],
                                 ErrorCode = Error.E_Exception
@@ -1086,7 +1086,7 @@ namespace Cornea.Web
                 case ResourceType.USER:
                     if (!requireWebRefresh && m_users.Count > 0)
                     {
-                        m_vrMenu.DisplayResult(new Error());
+                        m_uiEngine.DisplayResult(new Error());
                         done?.Invoke(Users);
                         return;
                     }
@@ -1101,12 +1101,12 @@ namespace Cornea.Web
                         {
                             var userGroup = GetUserGroup(ParseUserListJson(message));
                             m_users.Add(userGroup);
-                            m_vrMenu.DisplayResult(new Error(Error.OK));
+                            m_uiEngine.DisplayResult(new Error(Error.OK));
                             done?.Invoke(Users);
                         }
                         else
                         {
-                            m_vrMenu.DisplayResult(new Error()
+                            m_uiEngine.DisplayResult(new Error()
                             {
                                 ErrorText = (string)result["error"]["message"],
                                 ErrorCode = Error.E_Exception

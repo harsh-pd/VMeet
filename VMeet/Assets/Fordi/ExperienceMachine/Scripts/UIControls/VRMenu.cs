@@ -39,8 +39,6 @@ namespace Fordi.UI.MenuControl
         [SerializeField]
         private LaserPointer.LaserBeamBehavior m_laserBeamBehavior;
         [SerializeField]
-        private MenuScreen m_desktopBlocker;
-        [SerializeField]
         private GameObject m_laserPointerObject;
         [SerializeField]
         private StandaloneMenu m_standaloneMenuPrefab;
@@ -92,8 +90,8 @@ namespace Fordi.UI.MenuControl
         protected override IScreen SpawnScreen(IScreen screenPrefab)
         {
             m_player.PrepareForSpawn();
-            var menu = Instantiate(m_meetingFormPrefab, m_player.PlayerCanvas);
-            BringInFront(menu.transform);
+            var menu = Instantiate(screenPrefab.Gameobject, m_player.PlayerCanvas).GetComponent<IScreen>();
+            BringInFront(menu.Gameobject.transform);
             m_screenStack.Push(menu);
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
@@ -205,21 +203,21 @@ namespace Fordi.UI.MenuControl
             return menu;
         }
 
-        public void BlockDesktop()
-        {
-            if (m_desktopBlocker != null)
-            {
-                m_desktopBlocker.Reopen();
-                m_desktopBlocker.transform.localScale = m_settings.SelectedPreferences.ShowVR ? Vector3.zero : Vector3.one;
-            }
+        //public void BlockDesktop()
+        //{
+        //    if (m_desktopBlocker != null)
+        //    {
+        //        m_desktopBlocker.Reopen();
+        //        m_desktopBlocker.transform.localScale = m_settings.SelectedPreferences.ShowVR ? Vector3.zero : Vector3.one;
+        //    }
 
-        }
+        //}
 
-        public void UnblockDesktop()
-        {
-            if (m_desktopBlocker != null)
-                m_desktopBlocker.Deactivate();
-        }
+        //public void UnblockDesktop()
+        //{
+        //    if (m_desktopBlocker != null)
+        //        m_desktopBlocker.Deactivate();
+        //}
         #endregion
 
         #region DESKTOP_VR_COORDINATION

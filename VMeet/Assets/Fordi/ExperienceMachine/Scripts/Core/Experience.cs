@@ -132,7 +132,6 @@ namespace Fordi.Core
     public abstract class Experience : MonoBehaviour, IExperience
     {
         protected IExperienceMachine m_experienceMachine;
-        protected IUserInterface m_vrMenu;
         protected IMenuSelection m_menuSelection;
         protected ISettings m_settings;
         protected IAudio m_audio;
@@ -140,6 +139,7 @@ namespace Fordi.Core
         protected IPlayer m_player;
         protected IWebInterface m_webInterace;
         protected INetwork m_network;
+        protected IUIEngine m_uiEngine;
 
         [SerializeField]
         protected Menu m_menu;
@@ -160,7 +160,6 @@ namespace Fordi.Core
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_menu = GetComponent<Menu>();
-            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
             m_commonResource = IOC.Resolve<ICommonResource>();
@@ -168,6 +167,7 @@ namespace Fordi.Core
             m_settings = IOC.Resolve<ISettings>();
             m_webInterace = IOC.Resolve<IWebInterface>();
             m_network = IOC.Resolve<INetwork>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
             AwakeOverride();
         }
 
@@ -342,7 +342,7 @@ namespace Fordi.Core
                     {
                         m_menuSelection.Location = args.Path;
                         m_menuSelection.ExperienceType = ExperienceType.LOBBY;
-                        m_vrMenu.Close();
+                        m_uiEngine.Close();
                         m_experienceMachine.LoadExperience();
                     });
                 }
@@ -350,19 +350,19 @@ namespace Fordi.Core
                 {
                     m_menuSelection.Location = args.Path;
                     m_menuSelection.ExperienceType = ExperienceType.LOBBY;
-                    m_vrMenu.Close();
+                    m_uiEngine.Close();
                     m_experienceMachine.LoadExperience();
                 }
             }
 
             if (args.CommandType == MenuCommandType.SETTINGS)
             {
-                m_vrMenu.OpenSettingsInterface(m_commonResource.GetGuideClip(MenuCommandType.SETTINGS));
+                m_uiEngine.OpenSettingsInterface(m_commonResource.GetGuideClip(MenuCommandType.SETTINGS));
             }
 
             if (args.CommandType == MenuCommandType.ANNOTATION)
             {
-                m_vrMenu.OpenAnnotationInterface(null, ResourceToMenuItems(m_commonResource.GetResource(ResourceType.COLOR, Annotation.AnnotationColorGroup)), "ANNOTATION COLORS");
+                m_uiEngine.OpenAnnotationInterface(null, ResourceToMenuItems(m_commonResource.GetResource(ResourceType.COLOR, Annotation.AnnotationColorGroup)), "ANNOTATION COLORS");
             }
 
             if (args.CommandType == MenuCommandType.INVENTORY)
@@ -372,7 +372,7 @@ namespace Fordi.Core
 
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
                 {
-                    m_vrMenu.OpenObjectInterface(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")), "PICK ITEM");
+                    m_uiEngine.OpenObjectInterface(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")), "PICK ITEM");
                 }
                 else
                 {
@@ -423,7 +423,7 @@ namespace Fordi.Core
 
         public virtual void ToggleMenu()
         {
-            if (m_vrMenu.IsOpen)
+            if (m_uiEngine.IsOpen)
                 m_menu.Close();
             else
                 m_menu.Open();
@@ -554,12 +554,12 @@ namespace Fordi.Core
 
             if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
             {
-                m_vrMenu.OpenObjectInterface(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")), "PICK ITEM");
+                m_uiEngine.OpenObjectInterface(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")), "PICK ITEM");
             }
             else
             {
                 MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                m_vrMenu.OpenInventory(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?", false);
+                m_uiEngine.OpenInventory(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?", false);
             }
         }
 

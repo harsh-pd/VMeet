@@ -146,7 +146,7 @@ namespace Fordi.Core
                 if (resourceComponent.SpecialCommand == ColorBasedAudioCommand)
                 {
                     m_menuSelection.VoiceOver = null;
-                    m_vrMenu.Close();
+                    m_uiEngine.Close();
                     AudioSelectionFlag = false;
                     return;
                 }

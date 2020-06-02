@@ -64,17 +64,6 @@ namespace Fordi.Core
             }
         }
 
-        private IUserInterface m_vRMenu;
-
-        protected virtual IUserInterface VRMenu
-        {
-            get
-            {
-                VRMenu vrMenu = FindObjectOfType<VRMenu>();
-                return vrMenu;
-            }
-        }
-
         private ISettings m_settings;
 
         protected virtual ISettings Settings
@@ -96,6 +85,24 @@ namespace Fordi.Core
             {
                 Player player = FindObjectOfType<Player>();
                 return player;
+            }
+        }
+
+        private IUIEngine m_uiEngine;
+
+        protected virtual IUIEngine UIEngine
+        {
+            get
+            {
+                UIEngine uiEngine = FindObjectOfType<UIEngine>();
+                if (uiEngine == null)
+                {
+                    var obj = new GameObject("Audio");
+                    uiEngine = obj.AddComponent<UIEngine>();
+                    uiEngine.transform.parent = transform;
+                    uiEngine.transform.localPosition = Vector3.zero;
+                }
+                return uiEngine;
             }
         }
 
@@ -256,7 +263,6 @@ namespace Fordi.Core
             m_experienceMachine = ExperienceMachine;
             m_appTheme = AppTheme;
             m_audio = Audio;
-            m_vRMenu = VRMenu;
             m_commonResource = CommonResource;
             m_player = Player;
             m_settings = Settings;
@@ -267,6 +273,8 @@ namespace Fordi.Core
             m_screenShare = ScreenShare;
             m_voiceChat = VoiceChat;
             m_annotation = Annotation;
+            m_settings = Settings;
+            m_uiEngine = UIEngine;
         }
 
         private void OnDestroy()
@@ -326,7 +334,6 @@ namespace Fordi.Core
         {
             IOC.RegisterFallback(() => Instance.m_experienceMachine);
             IOC.RegisterFallback(() => Instance.m_appTheme);
-            IOC.RegisterFallback(() => Instance.m_vRMenu);
             IOC.RegisterFallback(() => Instance.m_audio);
             IOC.RegisterFallback(() => Instance.m_commonResource);
             IOC.RegisterFallback(() => Instance.m_player);
@@ -338,6 +345,7 @@ namespace Fordi.Core
             IOC.RegisterFallback(() => Instance.m_screenShare);
             IOC.RegisterFallback(() => Instance.m_voiceChat);
             IOC.RegisterFallback(() => Instance.m_annotation);
+            IOC.RegisterFallback(() => Instance.m_uiEngine);
 
             if (IOC.Resolve<IMenuSelection>() == null)
                 IOC.Register<IMenuSelection>(new MenuSelection());

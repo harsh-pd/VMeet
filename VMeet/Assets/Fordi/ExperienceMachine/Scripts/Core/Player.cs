@@ -140,7 +140,7 @@ namespace Fordi.Core
         private bool m_initialized = false;
 
         private ISettings m_settings;
-        private IUserInterface m_vrMenu;
+        private IUIEngine m_uiEngine;
         private IAudio m_audio;
 
         [SerializeField]
@@ -155,7 +155,7 @@ namespace Fordi.Core
         {
             //Debug.LogError(m_avatar.oculusUserID);
             m_settings = IOC.Resolve<ISettings>();
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
             m_audio = IOC.Resolve<IAudio>();
             FordiGrabber.OnObjectDelete += OnObjectDelete;
 
@@ -377,7 +377,7 @@ namespace Fordi.Core
 
         public void RequestHaltMovement(bool val)
         {
-            if (m_vrMenu.IsOpen || m_rightGrabber.grabbedObject != null || m_leftGrabber.grabbedObject != null)
+            if (m_uiEngine.IsOpen || m_rightGrabber.grabbedObject != null || m_leftGrabber.grabbedObject != null)
             {
                 foreach (var item in m_movementButtonTips)
                     item.gameObject.SetActive(false);
@@ -405,7 +405,7 @@ namespace Fordi.Core
                 }
             }
 
-            if (!val && (m_vrMenu.IsOpen || FordiGrabber.GrabCount > 0))
+            if (!val && (m_uiEngine.IsOpen || FordiGrabber.GrabCount > 0))
             {
                 return;
             }
@@ -556,7 +556,7 @@ namespace Fordi.Core
             if (controller == OVRInput.Controller.RTouch)
                 m_rightGrabber.ForceGrab(grabbable);
             m_objectLoaded = true;
-            m_vrMenu.Close();
+            m_uiEngine.Close();
         }
 
         #region GUIDE_CONDITIONS

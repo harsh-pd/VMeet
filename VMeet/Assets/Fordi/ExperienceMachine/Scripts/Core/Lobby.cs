@@ -35,7 +35,7 @@ namespace Fordi.Core
             {
                 m_webInterace.GetCategories(ResourceType.USER, (users) =>
                 {
-                    m_vrMenu.OpenMeetingForm(ResourceToMenuItems(m_webInterace.GetResource(ResourceType.USER, "").Where(item => ((UserResource)item).UserInfo.id != m_webInterace.UserInfo.id).ToArray()), null);
+                    m_uiEngine.OpenMeetingForm(ResourceToMenuItems(m_webInterace.GetResource(ResourceType.USER, "").Where(item => ((UserResource)item).UserInfo.id != m_webInterace.UserInfo.id).ToArray()), null);
                 });
                
                 return;
@@ -72,11 +72,11 @@ namespace Fordi.Core
                     resourceType = experienceResource.ResourceType;
                 if (args.Data != null && args.Data is MeetingResource)
                 {
-                    m_vrMenu.OpenMeeting(((MeetingResource)args.Data).MeetingInfo);
+                    m_uiEngine.OpenMeeting(((MeetingResource)args.Data).MeetingInfo);
                     return;
                 }
                 if (!(args.Data != null && (args.Data is ColorGroup || resourceType == ResourceType.EXPERIENCE)))
-                    m_vrMenu.CloseLastScreen();
+                    m_uiEngine.CloseLastScreen();
             }
 
 
@@ -94,7 +94,7 @@ namespace Fordi.Core
                 if (resourceComponent.SpecialCommand == MandalaExperience.ColorBasedAudioCommand)
                 {
                     m_menuSelection.VoiceOver = null;
-                    m_vrMenu.CloseLastScreen();
+                    m_uiEngine.CloseLastScreen();
                 }
                 else
                 {
@@ -155,7 +155,7 @@ namespace Fordi.Core
                                 Title = "CHOOSE YOUR COLOR COMBINATION",
                                 GuideClip = m_commonResource.GetGuideClip(MenuCommandType.COLOR)
                             };
-                            m_vrMenu.OpenColorInterface(colorInterfaceArgs);
+                            m_uiEngine.OpenColorInterface(colorInterfaceArgs);
                         }
                     }
                     else
