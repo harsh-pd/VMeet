@@ -12,8 +12,7 @@ namespace Fordi
     public enum Platform
     {
         DESKTOP = 0,
-        VR = 1,
-        AR = 2
+        VR = 1
     }
 
     public class Pool<T> where T : MonoBehaviour, IResettable

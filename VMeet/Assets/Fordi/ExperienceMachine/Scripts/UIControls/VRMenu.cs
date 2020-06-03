@@ -22,6 +22,12 @@ namespace Fordi.UI.MenuControl
         OCULUS
     }
 
+    public enum Platform
+    {
+        STANDALONE,
+        OCULUS
+    }
+
     public class Sound
     {
         public float Time { get; set; }
@@ -61,8 +67,8 @@ namespace Fordi.UI.MenuControl
         {
             base.Awake();
             m_playerScreenOffset = (m_player.PlayerCanvas.position - m_screensRoot.position) / m_player.PlayerCanvas.localScale.z;
-            //OVRManager.HMDMounted += OnHMDMount;
-            //OVRManager.HMDUnmounted += OnHMDUnmount;
+            OVRManager.HMDMounted += OnHMDMount;
+            OVRManager.HMDUnmounted += OnHMDUnmount;
             //Debug.LogError("Awake");
         }
 
@@ -73,10 +79,10 @@ namespace Fordi.UI.MenuControl
             if (m_laserPointer != null)
                 m_laserPointer.laserBeamBehavior = m_laserBeamBehavior;
 
-            //if (XRDevice.userPresence == UserPresenceState.Present)
-            //    OnHMDMount();
-            //else
-            //    OnHMDUnmount();
+            if (XRDevice.userPresence == UserPresenceState.Present)
+                OnHMDMount();
+            else
+                OnHMDUnmount();
         }
 
         protected override void OnDestroy()
@@ -87,14 +93,18 @@ namespace Fordi.UI.MenuControl
         }
 
         #region CORE
-        protected override IScreen SpawnScreen(IScreen screenPrefab)
+        protected override IScreen SpawnScreen(IScreen screenPrefab, bool external = false)
         {
+            PrepareForNewScreen();
             m_player.PrepareForSpawn();
             var menu = Instantiate(screenPrefab.Gameobject, m_player.PlayerCanvas).GetComponent<IScreen>();
             BringInFront(menu.Gameobject.transform);
-            m_screenStack.Push(menu);
-            if (m_settings.SelectedPreferences.DesktopMode)
-                menu.Hide();
+            if (!external)
+            {
+                m_screenStack.Push(menu);
+                if (m_settings.SelectedPreferences.DesktopMode)
+                    menu.Hide();
+            }
             return menu;
         }
 
@@ -221,41 +231,19 @@ namespace Fordi.UI.MenuControl
         #endregion
 
         #region DESKTOP_VR_COORDINATION
-        //void OnHMDUnmount()
-        //{
-        //    if (IOC.Resolve<IUserInterface>() != this)
-        //    {
-        //        OVRManager.HMDMounted -= this.OnHMDMount;
-        //        OVRManager.HMDUnmounted -= this.OnHMDUnmount;
-        //        return;
-        //    }
+        void OnHMDUnmount()
+        {
+            m_uiEngine.ActivateInterface(Fordi.Platform.DESKTOP);
+        }
 
-        //    UnblockDesktop();
-        //    m_dScreenRoot.localScale = Vector3.one;
+        void OnHMDMount()
+        {
 
-        //    EnableDesktopModule();
-        //}
+            m_uiEngine.ActivateInterface(Fordi.Platform.VR);
 
-        //void OnHMDMount()
-        //{
-        //    if (IOC.Resolve<IUserInterface>() != this)
-        //    {
-        //        OVRManager.HMDMounted -= this.OnHMDMount;
-        //        OVRManager.HMDUnmounted -= this.OnHMDUnmount;
-        //        return;
-        //    }
-
-        //    if (!m_settings.SelectedPreferences.DesktopMode)
-        //    {
-        //        m_dScreenRoot.localScale = m_settings.SelectedPreferences.ShowVR ? Vector3.zero : Vector3.one;
-        //        BlockDesktop();
-        //    }
-            
-        //    EnableVRModule();
-
-        //    if (!m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
-        //        StartCoroutine(CoRecenter());
-        //}
+            if (!m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
+                StartCoroutine(CoRecenter());
+        }
 
         private IEnumerator CoRecenter()
         {

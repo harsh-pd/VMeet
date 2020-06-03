@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using AudioType = Fordi.Core.AudioType;
 
 namespace Fordi.UI
@@ -43,6 +44,9 @@ namespace Fordi.UI
         void ApplyShowVRSettings(bool showVR);
         void CloseLastScreen();
         void Close();
+        void GoBack();
+
+        void ActivateInterface(Platform platform);
     }
 
     public class UIEngine : MonoBehaviour, IUIEngine
@@ -68,6 +72,8 @@ namespace Fordi.UI
         public bool IsOpen { get { return m_standaloneInterface.IsOpen; } }
 
         protected Sound m_lastVo = null;
+
+        private HashSet<BaseInputModule> m_inputModules = new HashSet<BaseInputModule>();
 
         private void Awake()
         {
@@ -166,6 +172,13 @@ namespace Fordi.UI
         public void Close()
         {
             m_vrInterface.Close();
+            m_standaloneInterface.Close();
+        }
+
+        public void GoBack()
+        {
+            m_vrInterface.GoBack();
+            m_standaloneInterface.GoBack();
         }
 
         public void OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true)
@@ -242,8 +255,8 @@ namespace Fordi.UI
 
         public void OpenForm(FormArgs args, bool block = true, bool persist = true)
         {
-            m_standaloneInterface.OpenForm(args, block, persist);
             m_vrInterface?.OpenForm(args, block, persist);
+            m_standaloneInterface.OpenForm(args, block, persist);
         }
 
         public void DisplayResult(Error error, bool freshScreen = false)
@@ -262,6 +275,26 @@ namespace Fordi.UI
         {
             m_standaloneInterface.CloseLastScreen();
             m_vrInterface?.CloseLastScreen();
+        }
+
+        public void ActivateInterface(Platform platform)
+        {
+            if (platform == Platform.VR)
+            {
+                m_standaloneInterface.Block("PUT ON YOUR HEADSET");
+                m_vrInterface.Unblock();
+                m_standaloneInterface.InputModule.enabled = false;
+                m_vrInterface.InputModule.enabled = true;
+                ActiveModule = InputModule.OCULUS;
+            }
+            else
+            {
+                m_vrInterface.Block("DESKTOP MODE ACTIVE");
+                m_standaloneInterface.Unblock();
+                m_vrInterface.InputModule.enabled = false;
+                m_standaloneInterface.InputModule.enabled = true;
+                ActiveModule = InputModule.STANDALONE;
+            }
         }
     }
 }

@@ -206,7 +206,7 @@ namespace Fordi.UI.MenuControl
 
         public void OpenCalendar()
         {
-            m_vrMenu.OpenCalendar((date) => {
+            m_uiEngine.OpenCalendar((date) => {
                 Debug.LogError(date);
                 m_meetingDate.text = date;
             }, this);
@@ -241,7 +241,7 @@ namespace Fordi.UI.MenuControl
                     error.ErrorText = (string)result["error"]["message"];
                 }
                 //Debug.LogError(error.ErrorText);
-                m_vrMenu.DisplayResult(error);
+                m_uiEngine.DisplayResult(error);
                 Invoke("CloseSelf", 1.0f);
             });
         }
@@ -255,7 +255,7 @@ namespace Fordi.UI.MenuControl
 
         private void CloseSelf()
         {
-            m_vrMenu.CloseLastScreen();
+            m_uiEngine.CloseLastScreen();
         }
 
         private string GenerateMeetingJson()

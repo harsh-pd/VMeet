@@ -62,7 +62,7 @@ public class CalendarController : MenuScreen
 
     private void BlockerClicked(object sender, PointerEventData e)
     {
-        m_vrMenu.CloseLastScreen();
+        m_uiEngine.CloseLastScreen();
     }
 
     void CreateCalendar()
@@ -189,7 +189,7 @@ public class CalendarController : MenuScreen
         if (day.Length == 1)
             day = 0 + day;
         m_onClick?.Invoke(_yearNumText.text + "-" + month + "-" + day);
-        m_vrMenu.CloseLastScreen();
+        m_uiEngine.CloseLastScreen();
     }
 
     public override void Init(bool block, bool persist)

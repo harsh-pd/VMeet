@@ -66,7 +66,6 @@ namespace Fordi.UI.MenuControl
         [SerializeField]
         protected Blocker m_blocker;
  
-        protected IUserInterface m_vrMenu;
         protected IUIEngine m_uiEngine;
         protected IExperienceMachine m_experienceMachine;
         protected ISettings m_settings;
@@ -93,7 +92,6 @@ namespace Fordi.UI.MenuControl
         void Awake()
         {
             m_settings = IOC.Resolve<ISettings>();
-            m_vrMenu = IOC.Resolve<IUserInterface>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_webInterface = IOC.Resolve<IWebInterface>();
@@ -253,13 +251,13 @@ namespace Fordi.UI.MenuControl
             foreach (var item in items)
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
 
-            if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IUserInterface>();
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
 
             if (m_okButton != null)
-                m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_okButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
             if (m_closeButton != null)
-                m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_closeButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
         }
 
         public virtual void OpenMenu(string text, bool blocked, bool persist)
@@ -270,13 +268,13 @@ namespace Fordi.UI.MenuControl
             gameObject.SetActive(true);
             m_description.text = text;
 
-            if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IUserInterface>();
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
 
             if (m_okButton != null)
-                m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_okButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
             if (m_closeButton != null)
-                m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_closeButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
         }
 
         public virtual void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, string refreshCategory = null)
@@ -312,12 +310,12 @@ namespace Fordi.UI.MenuControl
 
         public void CloseAllScreen()
         {
-            m_vrMenu.Close();
+            m_uiEngine.Close();
         }
 
         public virtual void BackClick()
         {
-            m_vrMenu.GoBack();
+            m_uiEngine.GoBack();
         }
 
         public void ShowPreview(Sprite sprite)

@@ -154,13 +154,13 @@ namespace Fordi.UI.MenuControl
             m_resultText = Instantiate(m_resultTextPrefab, m_contentRoot);
             m_resultText.text = "";
 
-            if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IUserInterface>();
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
 
             if (m_okButton != null)
-                m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_okButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
             if (m_closeButton != null)
-                m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_closeButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
 
             if (m_inputs.Count > 0)
             {

@@ -122,9 +122,9 @@ namespace Fordi.Core
         private IExperience m_home, m_nature, m_mandala, m_abstract, m_lobby, m_meeting, m_currentExperience;
         private IMenuSelection m_menuSelection;
         private IAudio m_audio;
-        private IUserInterface m_vrMenu;
         private ISettings m_settings;
         private IPlayer m_player;
+        private IUIEngine m_uiEngine = null;
 
         public const string DynamicAmbienceTag = "DynamicAmbience";
         public const string CorrectTextColorStyle = "Correct";
@@ -157,7 +157,7 @@ namespace Fordi.Core
            
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
             m_settings = IOC.Resolve<ISettings>();
             m_player = IOC.Resolve<IPlayer>();
 
@@ -192,7 +192,7 @@ namespace Fordi.Core
                 ToggleMenu();
             if (FordiInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
             {
-                if (m_vrMenu.IsOpen)
+                if (m_uiEngine.IsOpen)
                     ToggleMenu();
                 else
                 {
@@ -349,7 +349,7 @@ namespace Fordi.Core
             };
             m_audio.Stop(voArgs);
 
-            m_vrMenu.DisplayProgress("Loading: " + m_menuSelection.Location, true);
+            m_uiEngine.DisplayProgress("Loading: " + m_menuSelection.Location, true);
             //SceneManager.LoadScene(m_menuSelection.Location);
         }
         #endregion
@@ -424,7 +424,7 @@ namespace Fordi.Core
 
         public void OpenSceneMenu()
         {
-            m_vrMenu.Close();
+            m_uiEngine.Close();
             ToggleMenu();
         }
     }

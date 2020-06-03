@@ -132,41 +132,41 @@ namespace Fordi.UI.MenuControl
         //    }
         //}
 
-        private IUserInterface m_vrMenu;
+        private IUIEngine m_uiEngine;
 
         private Transform m_root;
      
         private void Awake()
         {
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
             m_root = transform.parent;
         }
 
         public void Open()
         {
-            if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IUserInterface>();
-            m_vrMenu.OpenMenu(m_items);
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
+            m_uiEngine.OpenMenu(m_items);
         }
 
         public void Open(MenuItemInfo[] itemInfos)
         {
-            m_vrMenu.OpenMenu(itemInfos);
+            m_uiEngine.OpenMenu(itemInfos);
         }
 
         public void OpenGridMenu(AudioClip guide, MenuItemInfo[] itemInfos, string title, bool backEnabled = true)
         {
-            m_vrMenu.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true);
+            m_uiEngine.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true);
         }
 
         public void OpenGridMenu(AudioClip guide, MenuItemInfo[] itemInfos, string title, bool backEnabled = true, string refreshCategory = null)
         {
-            m_vrMenu.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true, refreshCategory);
+            m_uiEngine.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true, refreshCategory);
         }
 
         public void Close()
         {
-            m_vrMenu.Close();
+            m_uiEngine.Close();
         }
     }
 }

@@ -20,6 +20,8 @@ namespace Fordi.UI
     public interface IUserInterface
     {
         bool IsOpen { get; }
+        BaseInputModule InputModule { get; }
+
         IScreen OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
         IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
         IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null);
@@ -77,6 +79,8 @@ namespace Fordi.UI
         protected Popup m_popupPrefab;
         [SerializeField]
         protected Popup m_popup;
+        [SerializeField]
+        protected BaseInputModule m_inputModule = null;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -89,6 +93,8 @@ namespace Fordi.UI
         public EventHandler AudioInterruptionEvent { get; set; }
         public EventHandler ScreenChangeInitiated { get; set; }
         public EventHandler InputModuleChangeEvent { get; set; }
+
+        public BaseInputModule InputModule { get { return m_inputModule; } }
 
         protected Stack<IScreen> m_screenStack = new Stack<IScreen>();
 
@@ -145,11 +151,12 @@ namespace Fordi.UI
                 m_player = IOC.Resolve<IPlayer>();
         }
 
-        protected virtual IScreen SpawnScreen(IScreen screenPrefab)
+        protected virtual IScreen SpawnScreen(IScreen screenPrefab, bool external = false)
         {
             PrepareForNewScreen();
             var menu = Instantiate(screenPrefab.Gameobject, m_screensRoot).GetComponent<IScreen>();
-            m_screenStack.Push(menu);
+            if (!external)
+                m_screenStack.Push(menu);
             return menu;
         }
 
@@ -299,6 +306,8 @@ namespace Fordi.UI
 
             m_screenStack.Clear();
             m_menuOff = true;
+
+            m_uiEngine.RefreshDesktopMode();
         }
 
         public void GoBack()
@@ -479,14 +488,14 @@ namespace Fordi.UI
 
         public virtual void Hide()
         {
-            Debug.LogError("Hide");
+            //Debug.LogError("Hide");
             foreach (var item in m_screenStack)
                 item.Hide();
         }
 
         public virtual void Unhide()
         {
-            //Debug.LogError("Switch to donly");
+            //Debug.LogError("Unhide");
             foreach (var item in m_screenStack)
                 item.UnHide();
         }
@@ -495,24 +504,35 @@ namespace Fordi.UI
         {
             if (m_blocker != null)
                 m_blocker.Close();
+
+            if (m_screenStack.Count > 0)
+                m_screenStack.Peek().Reopen();
+
             if (m_screenStack.Count == 0)
                 m_menuOff = true;
         }
 
         public virtual IScreen Block(string message)
         {
-            if (m_blocker != null)
-                m_blocker.Close();
+
+            if (m_screenStack.Count > 0)
+                m_screenStack.Peek().Deactivate();
 
             m_screensRoot.gameObject.SetActive(true);
 
-            var menu =(MenuScreen)SpawnScreen(m_textBoxPrefab);
-            menu.OpenMenu(message, true, false);
-            m_blocker = menu;
-            //m_screenStack.Push(menu);
-            m_menuOn = true;
-
-            return menu;
+            if (m_blocker != null)
+            {
+                m_blocker.Reopen();
+                return m_blocker;
+            }
+            else
+            {
+                var menu = (MenuScreen)SpawnScreen(m_textBoxPrefab, true);
+                menu.OpenMenu(message, true, false);
+                m_blocker = menu;
+                m_menuOn = true;
+                return menu;
+            }
         }
     }
 }

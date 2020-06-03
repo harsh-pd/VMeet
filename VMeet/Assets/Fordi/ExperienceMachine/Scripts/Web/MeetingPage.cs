@@ -251,7 +251,7 @@ namespace Fordi.Meetings.UI
 
         public void Accept()
         {
-            m_vrMenu.DisplayProgress("Accepting Meeting: " + Info.MeetingNumber);
+            m_uiEngine.DisplayProgress("Accepting Meeting: " + Info.MeetingNumber);
 
             APIRequest rejectRequest = null;
             rejectRequest = m_webInterface.AcceptMeeting(Info.Id).OnRequestComplete(
@@ -273,16 +273,16 @@ namespace Fordi.Meetings.UI
                             m_roomButton.onClick.AddListener(() => Join());
                         }
 
-                        //m_vrMenu.CloseLastScreen();
+                        //m_uiEngine.CloseLastScreen();
                         Error error = new Error(Error.OK);
                         error.ErrorText = "";
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
                     }
                     else
                     {
                         Error error = new Error(Error.E_Exception);
                         error.ErrorText = (string)oututData["error"]["message"];
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
                     }
                 }
             );
@@ -290,7 +290,7 @@ namespace Fordi.Meetings.UI
 
         public void Reject()
         {
-            m_vrMenu.DisplayProgress("Rejecting Meeting: " + Info.MeetingNumber);
+            m_uiEngine.DisplayProgress("Rejecting Meeting: " + Info.MeetingNumber);
 
             APIRequest rejectRequest = null;
             rejectRequest = m_webInterface.RejectMeeting(Info.Id).OnRequestComplete(
@@ -302,16 +302,16 @@ namespace Fordi.Meetings.UI
                     {
                         ExternalChangesDone?.Invoke(this, EventArgs.Empty);
 
-                        //m_vrMenu.CloseLastScreen();
+                        //m_uiEngine.CloseLastScreen();
                         Error error = new Error(Error.OK);
                         error.ErrorText = "";
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
                     }
                     else
                     {
                         Error error = new Error(Error.E_Exception);
                         error.ErrorText = (string)oututData["error"]["message"];
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
                     }
                 }
             );
@@ -319,7 +319,7 @@ namespace Fordi.Meetings.UI
 
         public void Cancel()
         {
-            m_vrMenu.DisplayProgress("Cancelling Meeting: " + Info.MeetingNumber);
+            m_uiEngine.DisplayProgress("Cancelling Meeting: " + Info.MeetingNumber);
 
             APIRequest rejectRequest = null;
             rejectRequest = m_webInterface.CancelMeeting(Info.Id).OnRequestComplete(
@@ -330,13 +330,13 @@ namespace Fordi.Meetings.UI
                     if (!isNetworkError && (bool)oututData["success"] == true)
                     {
                         ExternalChangesDone?.Invoke(this, EventArgs.Empty);
-                        m_vrMenu.CloseLastScreen();
+                        m_uiEngine.CloseLastScreen();
                     }
                     else
                     {
                         Error error = new Error(Error.E_Exception);
                         error.ErrorText = (string)oututData["error"]["message"];
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
                     }
                 }
             );
@@ -344,7 +344,7 @@ namespace Fordi.Meetings.UI
 
         public void Ignore()
         {
-            m_vrMenu.DisplayProgress("Rejecting Meeting: " + Info.MeetingNumber);
+            m_uiEngine.DisplayProgress("Rejecting Meeting: " + Info.MeetingNumber);
 
             APIRequest rejectRequest = null;
             rejectRequest = m_webInterface.RejectMeeting(Info.Id).OnRequestComplete(
@@ -356,16 +356,16 @@ namespace Fordi.Meetings.UI
                     {
                         ExternalChangesDone?.Invoke(this, EventArgs.Empty);
 
-                        //m_vrMenu.CloseLastScreen();
+                        //m_uiEngine.CloseLastScreen();
                         Error error = new Error(Error.OK);
                         error.ErrorText = "";
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
                     }
                     else
                     {
                         Error error = new Error(Error.E_Exception);
                         error.ErrorText = (string)oututData["error"]["message"];
-                        m_vrMenu.DisplayResult(error);
+                        m_uiEngine.DisplayResult(error);
                     }
                 }
             );

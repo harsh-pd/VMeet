@@ -369,6 +369,8 @@ namespace Cornea.Web
                 downloadHandler = new DownloadHandlerBuffer()
             };
             loginReq.SetRequestHeader("Content-Type", "application/json");
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
             m_uiEngine.DisplayProgress("Connecting to VMeet server...");
             loginReq.Run(this).OnRequestComplete(
                     (isNetworkError, message) =>
@@ -470,7 +472,6 @@ namespace Cornea.Web
                     JsonData validateUserLoginResult = JsonMapper.ToObject(message);
                     if (validateUserLoginResult["success"].ToString() == "True")
                     {
-                        m_experienceMachine.OpenSceneMenu();
                         ZPlayerPrefs.SetInt("LoggedIn", 1);
                         SetUserData(validateUserLoginResult["result"]);
                         m_experienceMachine.OpenSceneMenu();
@@ -970,6 +971,8 @@ namespace Cornea.Web
         public void GetCategories(ResourceType type, UnityAction<ResourceComponent[]> done, bool requireWebRefresh = false)
         {
             //Debug.LogError("GetCategories: " + type.ToString());
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
 
             m_uiEngine.DisplayProgress("Hold on, fetching details...");
             switch (type)

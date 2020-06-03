@@ -23,8 +23,6 @@ namespace Fordi.Core
                     return m_desktopTheme;
                 case Platform.VR:
                     return m_vrTheme;
-                case Platform.AR:
-                    return m_arTheme;
                 default:
                     return null;
             }

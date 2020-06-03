@@ -99,13 +99,13 @@ namespace Fordi.ScreenSharing
             foreach (var item in items)
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
 
-            if (m_vrMenu == null)
-                m_vrMenu = IOC.Resolve<IUserInterface>();
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
 
             if (m_okButton != null)
-                m_okButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_okButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
             if (m_closeButton != null)
-                m_closeButton.onClick.AddListener(() => m_vrMenu.CloseLastScreen());
+                m_closeButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
 
         }
 

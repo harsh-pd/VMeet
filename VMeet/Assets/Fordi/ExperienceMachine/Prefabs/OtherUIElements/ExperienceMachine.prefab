@@ -2385,7 +2385,7 @@ MonoBehaviour:
     type: 3}
   m_popup: {fileID: -3279790470852022401, guid: 43bf18bcd53eaa647a48b69c7fed1a31,
     type: 3}
-  m_blocker: {fileID: 0}
+  m_inputModule: {fileID: 3731949770437832662}
   m_standaloneMenuPrefab: {fileID: -1492733784173120003, guid: 15b3320f2e7410e43b71334a7f19ac7e,
     type: 3}
 --- !u!1 &5548926878683972136
@@ -4991,7 +4991,7 @@ MonoBehaviour:
     type: 3}
   m_popup: {fileID: -3279790470852022401, guid: 43bf18bcd53eaa647a48b69c7fed1a31,
     type: 3}
-  m_blocker: {fileID: 0}
+  m_inputModule: {fileID: 1292034141}
   m_laserBeamBehavior: 2
   m_laserPointerObject: {fileID: 1038146019644532}
   m_standaloneMenuPrefab: {fileID: -1492733784173120003, guid: 15b3320f2e7410e43b71334a7f19ac7e,
