@@ -295,6 +295,36 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &6120327948762279405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3552954608219750635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1148804007043975701}
+          m_MethodName: OpenCalendar
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!1 &3585792720193413941
 GameObject:
   m_ObjectHideFlags: 0
@@ -4855,7 +4885,7 @@ PrefabInstance:
     - target: {fileID: 820187107052130535, guid: 771cea478700bbb4eae4e62cfe91ed48,
         type: 3}
       propertyPath: m_OnSelect.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 820187107052130535, guid: 771cea478700bbb4eae4e62cfe91ed48,
         type: 3}
@@ -5076,7 +5106,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 4192643102914383872}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3552954608219750635}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da0c512f12947e489f739169773d7ca, type: 3}
@@ -5085,6 +5115,12 @@ MonoBehaviour:
 --- !u!224 &3552954608219750634 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 820187107052130538, guid: 771cea478700bbb4eae4e62cfe91ed48,
+    type: 3}
+  m_PrefabInstance: {fileID: 4192643102914383872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3552954608219750635 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 820187107052130539, guid: 771cea478700bbb4eae4e62cfe91ed48,
     type: 3}
   m_PrefabInstance: {fileID: 4192643102914383872}
   m_PrefabAsset: {fileID: 0}

@@ -39,14 +39,9 @@ namespace Fordi.UI.MenuControl
 
         public override IScreen OpenCalendar(CalendarArgs args)
         {
-            if (m_screenStack.Count > 0 && m_screenStack.Peek() is CalendarController)
-            {
-                return null;
-            }
-
             m_screensRoot.gameObject.SetActive(true);
-
-            var menu = (CalendarController)SpawnScreen(m_calendarPrefab);
+            var menu = Instantiate(m_calendarPrefab, m_screensRoot);
+            m_screenStack.Push(menu);
             menu.OpenCalendar(this, args);
             return menu;
         }

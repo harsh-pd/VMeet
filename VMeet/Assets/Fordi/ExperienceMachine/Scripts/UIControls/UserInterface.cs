@@ -175,7 +175,7 @@ namespace Fordi.UI
                 m_player = IOC.Resolve<IPlayer>();
         }
 
-        protected virtual IScreen SpawnScreen(IScreen screenPrefab, bool external = false)
+        protected virtual IScreen SpawnScreen(IScreen screenPrefab, bool enlarge = false, bool external = false)
         {
             PrepareForNewScreen();
             var menu = Instantiate(screenPrefab.Gameobject, m_screensRoot).GetComponent<IScreen>();
@@ -186,7 +186,7 @@ namespace Fordi.UI
 
         public virtual IScreen OpenMenu(MenuArgs args)
         {
-            var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
+            var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab, args.Items.Length > 4, false);
             menu.OpenMenu(this, args);
             m_menuOn = true;
             return menu;
@@ -243,6 +243,7 @@ namespace Fordi.UI
             //{
             //    Debug.LogError("Closing: " + m_screenStack.Peek().Gameobject.name);
             //}
+
 
             ScreenChangeInitiated?.Invoke(this, EventArgs.Empty);
 
@@ -527,7 +528,7 @@ namespace Fordi.UI
             }
             else
             {
-                var menu = (MenuScreen)SpawnScreen(m_textBoxPrefab, true);
+                var menu = (MenuScreen)SpawnScreen(m_textBoxPrefab, false, true);
                 menu.OpenMenu(this, message, true, false);
                 m_blocker = menu;
                 m_menuOn = true;

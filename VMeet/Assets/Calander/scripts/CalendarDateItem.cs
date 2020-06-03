@@ -91,6 +91,4 @@ public class CalendarDateItem : MenuItem {
     {
         CalendarController._calendarInstance.OnDateItemClick(gameObject.GetComponentInChildren<TextMeshProUGUI>().text);
     }
-
-    
 }

@@ -54,14 +54,9 @@ namespace Fordi.UI.MenuControl
 
         private Vector3 m_playerScreenOffset;
 
-        private MenuScreen m_vrBlocker = null;
-
         private LaserPointer m_laserPointer;
 
         private bool m_recenterFlag = false;
-
-        private StandaloneMenu m_standAloneMenu = null;
-        private MenuScreen m_permanentDesktopScreen = null;
 
         protected IVRPlayer m_vrPlayer = null;
 
@@ -105,7 +100,7 @@ namespace Fordi.UI.MenuControl
         }
 
         #region CORE
-        protected override IScreen SpawnScreen(IScreen screenPrefab, bool external = false)
+        protected override IScreen SpawnScreen(IScreen screenPrefab, bool enlarge = false, bool external = false)
         {
             PrepareForNewScreen();
             m_vrPlayer.PrepareForSpawn();
@@ -201,18 +196,17 @@ namespace Fordi.UI.MenuControl
         //Not handled properly for VR screen
         public override IScreen OpenCalendar(CalendarArgs args)
         {
-            if (m_screenStack.Count > 0 && m_screenStack.Peek() is CalendarController)
-            {
-                return null;
-            }
-
             m_screensRoot.gameObject.SetActive(true);
 
-            var menu = (CalendarController)SpawnScreen(m_calendarPrefab);
-            menu.OpenCalendar(this, args);
+            m_vrPlayer.PrepareForSpawn();
+            var menu = Instantiate(m_calendarPrefab, m_vrPlayer.PlayerCanvas);
+            BringInFront(menu.transform);
 
+            menu.OpenCalendar(this, args);
+            m_screenStack.Push(menu);
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
+
             return menu;
         }
 
