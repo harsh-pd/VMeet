@@ -109,6 +109,7 @@ namespace Fordi.UI.MenuControl
         public Sprite Icon;
         [HideInInspector]
         public object Data = null;
+        public IUserInterface Interface;
 
         public string Command;
         public MenuCommandType CommandType;

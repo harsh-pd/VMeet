@@ -41,7 +41,6 @@ namespace Fordi.UI
         void CloseLastScreen();
         void Close(IScreen screen);
         void Close();
-        void Open(IScreen screen);
         void GoBack();
         void ShowTooltip(string text);
         void ShowPreview(Sprite sprite);
@@ -164,14 +163,13 @@ namespace Fordi.UI
         {
             var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
             menu.OpenMenu(items, block, persist);
-            m_screenStack.Push(menu);
             m_menuOn = true;
             return menu;
         }
 
         public virtual IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
         {
-            var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
+            var menu = (MenuScreen)SpawnScreen(m_gridMenuPrefab);
             menu.OpenGridMenu(items, title, block, persist, backEnabled);
             return menu;
         }
@@ -279,21 +277,6 @@ namespace Fordi.UI
                 m_screensRoot.gameObject.SetActive(false);
                m_uiEngine.RefreshDesktopMode();
             }
-        }
-
-        public virtual void Open(IScreen screen)
-        {
-            if (m_screenStack.Count > 0)
-            {
-                var lstScreen = m_screenStack.Peek();
-                if (screen.Persist)
-                    screen.Deactivate();
-                else
-                    m_screenStack.Pop().Close();
-            }
-
-            screen.Gameobject.transform.SetParent(m_screensRoot);
-            m_screenStack.Push(screen);
         }
 
         public virtual void Close()
@@ -451,7 +434,6 @@ namespace Fordi.UI
                 throw new InvalidOperationException();
 
             ((Form)menu).OpenForm(args, block, persist);
-            m_screenStack.Push(menu);
             m_menuOn = true;
             return menu;
         }
