@@ -47,6 +47,7 @@ namespace Fordi.UI
     {
         bool IsOpen { get; }
         BaseInputModule InputModule { get; }
+        Platform Platform { get; }
 
         IScreen OpenMenu(MenuArgs args);
         IScreen OpenGridMenu(GridArgs args);
@@ -105,6 +106,8 @@ namespace Fordi.UI
         protected Popup m_popup;
         [SerializeField]
         protected BaseInputModule m_inputModule = null;
+        [SerializeField]
+        protected Platform m_platform;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -117,6 +120,8 @@ namespace Fordi.UI
         public EventHandler AudioInterruptionEvent { get; set; }
         public EventHandler ScreenChangeInitiated { get; set; }
         public EventHandler InputModuleChangeEvent { get; set; }
+
+        public Platform Platform { get { return m_platform; } }
 
         public BaseInputModule InputModule { get { return m_inputModule; } }
 
@@ -199,9 +204,16 @@ namespace Fordi.UI
             return menu;
         }
 
+        public IScreen DisplayMessage(string message, bool desktop, bool block = true, bool persist = false)
+        {
+            var menu = (MessageScreen)SpawnScreen(m_genericLoader);
+            menu.Init(this, message, true, false, true);
+            return menu;
+        }
+
         public virtual IScreen OpenAnnotationInterface(GridArgs args)
         {
-            var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
+            var menu = (MenuScreen)SpawnScreen(m_annotationInterface);
             menu.OpenGridMenu(this, args);
             return menu;
         }
@@ -480,7 +492,7 @@ namespace Fordi.UI
                 m_screensRoot.gameObject.SetActive(true);
 
                 var menu = (MessageScreen)SpawnScreen(m_genericLoader);
-                menu.Init(text, true, false);
+                menu.Init(this, text, true, false);
                 return menu;
             }
             return null;

@@ -99,7 +99,7 @@ namespace Fordi.UI.MenuControl
             if (m_inputs.Count == 0)
                 return;
 
-            if (m_uiEngine.ActiveModule == InputModule.STANDALONE && !m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
+            if (m_userInterface.Platform == Platform.DESKTOP && m_uiEngine.ActiveModule == InputModule.STANDALONE && !m_blocker.gameObject.activeSelf && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Tab))
             {
                 m_inputIndex--;
                 if (m_inputIndex < 0)

@@ -88,8 +88,9 @@ namespace Fordi.UI
                 Pair.Deactivate();
         }
 
-        public void Init(string text, bool blocked = true, bool persist = false, bool backEnabled = false, Action okClick = null)
+        public void Init(IUserInterface userInterface, string text, bool blocked = true, bool persist = false, bool backEnabled = false, Action okClick = null)
         {
+            m_interface = userInterface;
             m_text.text = text;
             if (okClick != null && m_button != null)
                 m_button.onClick.AddListener(() => okClick.Invoke());

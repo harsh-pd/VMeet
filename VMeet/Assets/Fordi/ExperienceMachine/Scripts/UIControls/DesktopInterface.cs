@@ -45,6 +45,11 @@ namespace Fordi.UI.MenuControl
             menu.OpenCalendar(this, args);
             return menu;
         }
+
+        public override IScreen OpenAnnotationInterface(GridArgs args)
+        {
+            return DisplayMessage("Annotation interface activated in VR.", true);
+        }
         #endregion
 
         public override IScreen DisplayProgress(string text, bool freshScreen = false)

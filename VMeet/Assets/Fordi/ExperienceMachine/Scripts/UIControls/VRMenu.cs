@@ -22,12 +22,6 @@ namespace Fordi.UI.MenuControl
         OCULUS
     }
 
-    public enum Platform
-    {
-        STANDALONE,
-        OCULUS
-    }
-
     public class Sound
     {
         public float Time { get; set; }
