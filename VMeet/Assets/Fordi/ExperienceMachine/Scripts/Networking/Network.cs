@@ -44,7 +44,7 @@ namespace Fordi.Networking
         public const string OculusIDString = "OculusID";
 
         private IPlayer m_player = null;
-        private IUserInterface m_vrMenu = null;
+        private IUIEngine m_uiEngine = null;
         private IMenuSelection m_menuSelection = null;
         private IExperienceMachine m_experienceMachine = null;
         private IScreenShare m_screenShare = null;
@@ -64,7 +64,7 @@ namespace Fordi.Networking
         private void Awake()
         {
             m_player = IOC.Resolve<IPlayer>();
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             m_screenShare = IOC.Resolve<IScreenShare>();
@@ -118,7 +118,7 @@ namespace Fordi.Networking
         {
             if (!PhotonNetwork.IsConnectedAndReady)
             {
-                m_vrMenu.DisplayResult(new Error()
+                m_uiEngine.DisplayResult(new Error()
                 {
                     ErrorCode = Error.E_InvalidOperation,
                     ErrorText = "Not connected to multiplayer server yet."
@@ -126,7 +126,7 @@ namespace Fordi.Networking
                 return;
             }
 
-            m_vrMenu.DisplayProgress("Creating room: " + roomName);
+            m_uiEngine.DisplayProgress("Creating room: " + roomName);
             RoomOptions options = new RoomOptions
             {
                 IsVisible = true,
@@ -159,7 +159,7 @@ namespace Fordi.Networking
             base.OnCreateRoomFailed(returnCode, message);
             Error error = new Error(Error.E_Exception);
             error.ErrorText = message;
-            m_vrMenu.DisplayResult(error);
+            m_uiEngine.DisplayResult(error);
             Log(message);
         }
 
@@ -167,7 +167,7 @@ namespace Fordi.Networking
         {
             Error error = new Error(Error.E_Exception);
             error.ErrorText = message;
-            m_vrMenu.DisplayResult(error);
+            m_uiEngine.DisplayResult(error);
             base.OnJoinRoomFailed(returnCode, message);
         }
 
@@ -175,7 +175,7 @@ namespace Fordi.Networking
         {
             if (!PhotonNetwork.IsConnectedAndReady)
             {
-                m_vrMenu.DisplayResult(new Error()
+                m_uiEngine.DisplayResult(new Error()
                 {
                     ErrorCode = Error.E_InvalidOperation,
                     ErrorText = "Not connected to multiplayer server yet."
@@ -183,7 +183,7 @@ namespace Fordi.Networking
                 return;
             }
 
-            m_vrMenu.DisplayProgress("Joining room: " + roomName);
+            m_uiEngine.DisplayProgress("Joining room: " + roomName);
             PhotonNetwork.JoinRoom(roomName);
         }
 
@@ -240,7 +240,7 @@ namespace Fordi.Networking
             {
                 m_menuSelection.Location = LobbyRoom;
                 m_menuSelection.ExperienceType = ExperienceType.LOBBY;
-                m_vrMenu.Close();
+                m_uiEngine.Close();
                 m_experienceMachine.LoadExperience();
             }
 

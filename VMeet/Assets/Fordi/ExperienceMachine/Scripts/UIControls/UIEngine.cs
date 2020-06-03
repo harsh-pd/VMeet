@@ -20,19 +20,19 @@ namespace Fordi.UI
         EventHandler ScreenChangeInitiated { get; set; }
         EventHandler InputModuleChangeEvent { get; set; }
 
-        void OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
-        void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
-        void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null);
-        void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
+        void OpenMenu(MenuArgs args);
+        void OpenGridMenu(GridArgs args);
+        void OpenInventory(GridArgs args);
         void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
-        void OpenAnnotationInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
-        void OpenCalendar(Action<string> onClick, ITimeForm timeForm);
-        void OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false);
-        void OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip);
-        void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
+        void OpenAnnotationInterface(GridArgs args);
+        void OpenCalendar(CalendarArgs args);
+        void OpenMeeting(MeetingArgs args);
+        void OpenMeetingForm(FormArgs args);
+        void OpenObjectInterface(GridArgs args);
         void Popup(PopupInfo popupInfo);
-        void OpenForm(FormArgs args, bool block = true, bool persist = true);
+        void OpenForm(FormArgs args);
+
         void DisplayResult(Error error, bool freshScreen = false);
         void DisplayProgress(string text, bool freshScreen = false);
 
@@ -184,28 +184,22 @@ namespace Fordi.UI
             m_standaloneInterface.GoBack();
         }
 
-        public void OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true)
+        public void OpenMenu(MenuArgs args)
         {
-            m_standaloneInterface.OpenMenu(menuItemInfos, block, persist);
-            m_vrInterface?.OpenMenu(menuItemInfos, block, persist);
+            m_standaloneInterface.OpenMenu(args);
+            m_vrInterface?.OpenMenu(args);
         }
 
-        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public void OpenGridMenu(GridArgs args)
         {
-            m_standaloneInterface.OpenGridMenu(guide, menuItemInfos, title, backEnabled, block, persist);
-            m_vrInterface?.OpenGridMenu(guide, menuItemInfos, title, backEnabled, block, persist);
+            m_standaloneInterface.OpenGridMenu(args);
+            m_vrInterface?.OpenGridMenu(args);
         }
 
-        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null)
+        public void OpenInventory(GridArgs args)
         {
-            m_standaloneInterface.OpenGridMenu(guide, menuItemInfos, title, backEnabled, block, persist, refreshCategory);
-            m_vrInterface?.OpenGridMenu(guide, menuItemInfos, title, backEnabled, block, persist, refreshCategory);
-        }
-
-        public void OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
-        {
-            m_standaloneInterface.OpenInventory(guide, items, title, backEnabled, block, persist);
-            m_vrInterface?.OpenInventory(guide, items, title, backEnabled, block, persist);
+            m_standaloneInterface.OpenInventory(args);
+            m_vrInterface?.OpenInventory(args);
         }
 
         public void OpenColorInterface(ColorInterfaceArgs args)
@@ -220,34 +214,34 @@ namespace Fordi.UI
             m_vrInterface?.OpenSettingsInterface(clip);
         }
 
-        public void OpenAnnotationInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public void OpenAnnotationInterface(GridArgs args)
         {
-            m_standaloneInterface.OpenAnnotationInterface(guide, menuItemInfos, title, backEnabled, block, persist);
-            m_vrInterface?.OpenAnnotationInterface(guide, menuItemInfos, title, backEnabled, block, persist);
+            m_standaloneInterface.OpenAnnotationInterface(args);
+            m_vrInterface?.OpenAnnotationInterface(args);
         }
 
-        public void OpenCalendar(Action<string> onClick, ITimeForm timeForm)
+        public void OpenCalendar(CalendarArgs args)
         {
-            m_standaloneInterface.OpenCalendar(onClick, timeForm);
-            m_vrInterface?.OpenCalendar(onClick, timeForm);
+            m_standaloneInterface.OpenCalendar(args);
+            m_vrInterface?.OpenCalendar(args);
         }
 
-        public void OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false)
+        public void OpenMeeting(MeetingArgs args)
         {
-            m_standaloneInterface.OpenMeeting(meetingInfo, block, persist);
-            m_vrInterface?.OpenMeeting(meetingInfo, block, persist);
+            m_standaloneInterface.OpenMeeting(args);
+            m_vrInterface?.OpenMeeting(args);
         }
 
-        public void OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip)
+        public void OpenMeetingForm(FormArgs args)
         {
-            m_standaloneInterface.OpenMeetingForm(menuItemInfos, clip);
-            m_vrInterface?.OpenMeetingForm(menuItemInfos, clip);
+            m_standaloneInterface.OpenMeetingForm(args);
+            m_vrInterface?.OpenMeetingForm(args);
         }
 
-        public void OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true)
+        public void OpenObjectInterface(GridArgs args)
         {
-            m_standaloneInterface.OpenObjectInterface(guide, menuItemInfos, title, block, persist, backEnabled);
-            m_vrInterface?.OpenObjectInterface(guide, menuItemInfos, title, block, persist, backEnabled);
+            m_standaloneInterface.OpenObjectInterface(args);
+            m_vrInterface?.OpenObjectInterface(args);
         }
 
         public void Popup(PopupInfo popupInfo)
@@ -256,10 +250,10 @@ namespace Fordi.UI
             m_vrInterface?.Popup(popupInfo);
         }
 
-        public void OpenForm(FormArgs args, bool block = true, bool persist = true)
+        public void OpenForm(FormArgs args)
         {
-            m_vrInterface?.OpenForm(args, block, persist);
-            m_standaloneInterface.OpenForm(args, block, persist);
+            m_vrInterface?.OpenForm(args);
+            m_standaloneInterface.OpenForm(args);
         }
 
         public void DisplayResult(Error error, bool freshScreen = false)

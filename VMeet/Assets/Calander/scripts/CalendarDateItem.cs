@@ -20,8 +20,11 @@ public class CalendarDateItem : MenuItem {
 
     }
 
-    protected override void DataBind()
+    public override void DataBind(IUserInterface userInterface, MenuItemInfo item)
     {
+        m_item = item;
+        m_vrMenu = userInterface;
+
         if (m_appTheme == null)
             m_appTheme = IOC.Resolve<IAppTheme>();
         if (m_item != null)

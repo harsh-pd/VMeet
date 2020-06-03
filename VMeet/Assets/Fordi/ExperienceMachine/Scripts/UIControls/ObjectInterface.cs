@@ -34,16 +34,16 @@ namespace Fordi.UI.MenuControl
         public override IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
         {
             ObjectItem objectItem = Instantiate(prefab, parent, false).GetComponentInChildren<ObjectItem>();
-            objectItem.Item = menuItemInfo;
+            objectItem.DataBind(m_userInterface, menuItemInfo);
             m_objectItems.Add(objectItem);
             return objectItem;
             //m_scrollRect.enabled = m_objectItems.Count > 12;
         }
 
-        public override void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, string refreshCategory = null)
+        public override void OpenGridMenu(IUserInterface userInterface, GridArgs args)
         {
             m_objectItems.Clear();
-            base.OpenGridMenu(items, title, blocked, persist, backEnabled);
+            base.OpenGridMenu(userInterface, args);
 
             int emptyItemCount = m_dimentions.x - m_objectItems.Count % m_dimentions.x;
 

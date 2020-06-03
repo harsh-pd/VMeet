@@ -28,7 +28,7 @@ namespace Fordi.UI.MenuControl
         private MenuScreen m_permanentDesktopScreen = null;
 
         #region CORE
-        public void LoadRemoteDesktopView(MenuItemInfo[] items, bool block = true, bool persist = false)
+        public void LoadRemoteDesktopView(MenuArgs args)
         {
             throw new NotImplementedException();
             //m_screensRoot.gameObject.SetActive(true);
@@ -37,7 +37,7 @@ namespace Fordi.UI.MenuControl
             //m_permanentDesktopScreen = dMenu;
         }
 
-        public override IScreen OpenCalendar(Action<string> onClick, ITimeForm timeForm)
+        public override IScreen OpenCalendar(CalendarArgs args)
         {
             if (m_screenStack.Count > 0 && m_screenStack.Peek() is CalendarController)
             {
@@ -47,7 +47,7 @@ namespace Fordi.UI.MenuControl
             m_screensRoot.gameObject.SetActive(true);
 
             var menu = (CalendarController)SpawnScreen(m_calendarPrefab);
-            menu.OpenCalendar(null, timeForm);
+            menu.OpenCalendar(this, args);
             return menu;
         }
         #endregion

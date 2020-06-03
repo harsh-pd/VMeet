@@ -141,47 +141,38 @@ namespace Fordi.UI.MenuControl
             m_vrPlayer.RequestHaltMovement(true);
         }
 
-        public override IScreen OpenMenu(MenuItemInfo[] items, bool block = true, bool persist = false)
+        public override IScreen OpenMenu(MenuArgs args)
         {
             if (m_experienceMachine.CurrentExperience != ExperienceType.HOME && !m_recenterFlag && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present)
                 StartCoroutine(CoRecenter());
 
-            var menu = base.OpenMenu(items, block, persist);
+            var menu = base.OpenMenu(args);
             m_menuOn = true;
             return menu;
         }
 
-        public override IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public override IScreen OpenGridMenu(GridArgs args)
         {
-            var menu = base.OpenGridMenu(guide, items, title, backEnabled, block, persist);
+            var menu = base.OpenGridMenu(args);
 
-            if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
+            if (args.Items != null && args.Items.Length > 0 && args.Items[0].Data.GetType() == typeof(ObjectGroup))
                 m_inventoryOpen = true;
 
             return menu;
         }
 
-        public override IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null)
+        public override IScreen OpenAnnotationInterface(GridArgs args)
         {
-            var menu = base.OpenGridMenu(guide, items, title, backEnabled, block, persist, refreshCategory);
-
-            if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
-                m_inventoryOpen = true;
+            var menu = base.OpenAnnotationInterface(args);
             return menu;
         }
 
-        public override IScreen OpenAnnotationInterface(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public override IScreen OpenInventory(GridArgs args)
         {
-            var menu = base.OpenAnnotationInterface(guide, items, title, backEnabled, block, persist);
-            return menu;
-        }
-
-        public override IScreen OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
-        {
-            var menu = base.OpenInventory(guide, items, title, backEnabled, block, persist);
+            var menu = base.OpenInventory(args);
            
 
-            if (items != null && items.Length > 0 && items[0].Data.GetType() == typeof(ObjectGroup))
+            if (args.Items != null && args.Items.Length > 0 && args.Items[0].Data.GetType() == typeof(ObjectGroup))
                 m_inventoryOpen = true;
 
             return menu;
@@ -196,9 +187,9 @@ namespace Fordi.UI.MenuControl
                 m_vrPlayer.RequestHaltMovement(false);
         }
 
-        public override IScreen OpenMeetingForm(MenuItemInfo[] items, AudioClip clip)
+        public override IScreen OpenMeetingForm(FormArgs args)
         {
-            var menu = base.OpenMeetingForm(items, clip);
+            var menu = base.OpenMeetingForm(args);
 
             m_settings.SelectedPreferences.DesktopMode = true;
             m_settings.SelectedPreferences.ForcedDesktopMode = true;
@@ -208,7 +199,7 @@ namespace Fordi.UI.MenuControl
         }
 
         //Not handled properly for VR screen
-        public override IScreen OpenCalendar(Action<string> onClick, ITimeForm timeForm)
+        public override IScreen OpenCalendar(CalendarArgs args)
         {
             if (m_screenStack.Count > 0 && m_screenStack.Peek() is CalendarController)
             {
@@ -218,7 +209,7 @@ namespace Fordi.UI.MenuControl
             m_screensRoot.gameObject.SetActive(true);
 
             var menu = (CalendarController)SpawnScreen(m_calendarPrefab);
-            menu.OpenCalendar(null, timeForm);
+            menu.OpenCalendar(this, args);
 
             if (m_settings.SelectedPreferences.DesktopMode)
                 menu.Hide();
@@ -264,9 +255,9 @@ namespace Fordi.UI.MenuControl
             m_recenterFlag = true;
         }
 
-        public override IScreen OpenForm(FormArgs args, bool block = true, bool persist = true)
+        public override IScreen OpenForm(FormArgs args)
         {
-            var form = base.OpenForm(args, block, persist);
+            var form = base.OpenForm(args);
           
             m_settings.SelectedPreferences.DesktopMode = true;
             m_settings.SelectedPreferences.ForcedDesktopMode = true;

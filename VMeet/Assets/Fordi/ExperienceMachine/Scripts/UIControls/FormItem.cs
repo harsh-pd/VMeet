@@ -15,21 +15,24 @@ namespace Fordi.UI.MenuControl
         private Image m_icon;
         [SerializeField]
         private TextMeshProUGUI m_text;
+        
 
         public TMP_InputField InputField { get { return (TMP_InputField)selectable; } }
+
+        protected IUserInterface m_userInterface = null;
 
         protected MenuItemInfo m_item;
         public MenuItemInfo Item
         {
             get { return m_item; }
-            set
-            {
-                if (m_item != value)
-                {
-                    m_item = value;
-                    DataBind();
-                }
-            }
+            //set
+            //{
+            //    if (m_item != value)
+            //    {
+            //        m_item = value;
+            //        DataBind();
+            //    }
+            //}
         }
 
         protected IExperienceMachine m_experienceMachine;
@@ -40,8 +43,11 @@ namespace Fordi.UI.MenuControl
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
         }
 
-        protected virtual void DataBind()
+        public virtual void DataBind(IUserInterface userInterface, MenuItemInfo itemInfo)
         {
+            m_item = itemInfo;
+            m_userInterface = userInterface;
+
             if (m_item != null)
             {
                 m_icon.sprite = m_item.Icon;

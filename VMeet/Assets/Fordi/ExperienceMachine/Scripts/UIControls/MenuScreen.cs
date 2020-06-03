@@ -88,6 +88,7 @@ namespace Fordi.UI.MenuControl
         protected List<IMenuItem> m_menuItems = new List<IMenuItem>();
 
         public static EventHandler ExternalChangesDone = null;
+        protected IUserInterface m_userInterface = null;
 
         void Awake()
         {
@@ -142,8 +143,9 @@ namespace Fordi.UI.MenuControl
 
         }
 
-        public virtual void Init(bool block, bool persist)
+        public virtual void Init(IUserInterface userInterface, bool block, bool persist)
         {
+            m_userInterface = userInterface;
             Blocked = block;
             Persist = persist;
         }
@@ -225,7 +227,7 @@ namespace Fordi.UI.MenuControl
         {
             IMenuItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<IMenuItem>();
             //menuItem.name = "MenuItem";
-            menuItem.Item = menuItemInfo;
+            menuItem.DataBind(m_userInterface, menuItemInfo);
             m_menuItems.Add(menuItem);
             return menuItem;
         }
@@ -239,16 +241,18 @@ namespace Fordi.UI.MenuControl
             m_contentRoot.DetachChildren();
         }
 
-        public virtual void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
+        public virtual void OpenMenu(IUserInterface userInterface, MenuArgs args)
         {
+            m_userInterface = userInterface;
+
             if (m_experienceMachine.CurrentExperience == ExperienceType.HOME && m_standaloneMenu != null)
                 m_standaloneMenu.SetActive(false);
             Clear();
             m_menuItems.Clear();
-            Blocked = blocked;
-            Persist = persist;
+            Blocked = args.Block;
+            Persist = args.Persist;
             gameObject.SetActive(true);
-            foreach (var item in items)
+            foreach (var item in args.Items)
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
 
             if (m_uiEngine == null)
@@ -260,8 +264,9 @@ namespace Fordi.UI.MenuControl
                 m_closeButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
         }
 
-        public virtual void OpenMenu(string text, bool blocked, bool persist)
+        public virtual void OpenMenu(IUserInterface userInterface, string text, bool blocked, bool persist)
         {
+            m_userInterface = userInterface;
             Clear();
             Blocked = blocked;
             Persist = persist;
@@ -277,17 +282,18 @@ namespace Fordi.UI.MenuControl
                 m_closeButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
         }
 
-        public virtual void OpenGridMenu(MenuItemInfo[] items, string title, bool blocked, bool persist, bool backEnabled = true, string refreshCategory = null)
+        public virtual void OpenGridMenu(IUserInterface userInterface, GridArgs args)
         {
+            m_userInterface = userInterface;
             if (m_backButton != null)
-                m_backButton.gameObject.SetActive(backEnabled);
-            m_refreshCategory = refreshCategory;
+                m_backButton.gameObject.SetActive(args.BackEnabled);
+            m_refreshCategory = args.RefreshCategory;
             if (m_refreshCategory != null && m_refreshButton != null)
                 m_refreshButton.SetActive(true);
 
             if (m_title != null)
-                m_title.text = title;
-            OpenMenu(items, blocked, persist);
+                m_title.text = args.Title;
+            OpenMenu(userInterface, args);
         }
 
         public virtual void WebRefresh()

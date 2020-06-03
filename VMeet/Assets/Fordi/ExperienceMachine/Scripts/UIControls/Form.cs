@@ -11,19 +11,19 @@ namespace Fordi.UI.MenuControl
 {
     public interface IForm : IScreen
     {
-        void OpenForm(FormArgs args, bool blocked, bool persist);
+        void OpenForm(IUserInterface userInterface, FormArgs args);
     }
 
-    public class FormArgs
+    public class FormArgs : MenuArgs
     {
-        public MenuItemInfo[] FormItems = new MenuItemInfo[] { };
         public Action<string[]> OnClickAction;
-        public string Title;
         public string ActionName;
+
+        public FormArgs() { }
 
         public FormArgs(MenuItemInfo[] formItems, string title, string actionName, Action<string[]> onClickAction)
         {
-            FormItems = formItems;
+            Items = formItems;
             Title = title;
             OnClickAction = onClickAction;
             ActionName = actionName;
@@ -111,7 +111,7 @@ namespace Fordi.UI.MenuControl
         {
             FormItem menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<FormItem>();
             //menuItem.name = "MenuItem";
-            menuItem.Item = menuItemInfo;
+            menuItem.DataBind(m_userInterface, menuItemInfo);
             m_inputs.Add(((FormItem)menuItem).InputField);
             ((FormItem)menuItem).InputField.onEndEdit.AddListener(OnInputEnter);
             return menuItem;
@@ -126,13 +126,13 @@ namespace Fordi.UI.MenuControl
             }
         }
 
-        public virtual void OpenForm(FormArgs args, bool blocked, bool persist)
+        public virtual void OpenForm(IUserInterface userInterface, FormArgs args)
         {
             //Clear();
-            Blocked = blocked;
-            Persist = persist;
+            Blocked = args.Block;
+            Persist = args.Persist;
             gameObject.SetActive(true);
-            foreach (var item in args.FormItems)
+            foreach (var item in args.Items)
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
 
             m_title.text = args.Title;

@@ -84,7 +84,11 @@ namespace Fordi.Core
                     if (resourceComponent.ResourceType == ResourceType.AUDIO)
                         m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
                     var resourceType = resourceComponent.ResourceType;
-                    m_menu.OpenGridMenu(null, ResourceToMenuItems(experience.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper(), true);
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        Items = ResourceToMenuItems(experience.GetResource(resourceType, args.Command)),
+                        Title = "SELECT " + resourceType.ToString().ToUpper(),
+                    });
                     return;
                 }
             }
@@ -105,13 +109,18 @@ namespace Fordi.Core
                 {
                     if (resourceType != ResourceType.COLOR)
                     {
-                        m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)) , ResourceToMenuItems(experience.GetResource(sequence[sequenceIndex], "")), "SELECT " + sequence[sequenceIndex].ToString(), true);
+                        m_menu.OpenGridMenu(new GridArgs()
+                        {
+                            AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
+                            Items = ResourceToMenuItems(experience.GetResource(sequence[sequenceIndex], "")),
+                            Title = "SELECT " + sequence[sequenceIndex].ToString(),
+                        });
                     }
                     else
                     {
                         ColorInterfaceArgs colorInterfaceArgs = new ColorInterfaceArgs
                         {
-                            Blocked = false,
+                            Block = false,
                             Persist = true,
                             ColorGroup = new ColorGroup
                             {
@@ -132,7 +141,7 @@ namespace Fordi.Core
                                 Resources = m_menuSelection.MandalaResource.CustomPreset
                             },
                             Title = "CHOOSE YOUR COLOR COMBINATION",
-                            GuideClip = m_commonResource.GetGuideClip(MenuCommandType.COLOR)
+                            AudioClip = m_commonResource.GetGuideClip(MenuCommandType.COLOR)
                         };
                         m_uiEngine.OpenColorInterface(colorInterfaceArgs);
                     }
@@ -163,7 +172,13 @@ namespace Fordi.Core
                     }
 
                     MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, categoryDescription, true);
+
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
+                        Items = categoryItems,
+                        Title = categoryDescription,
+                    });
                 }
                 //m_menu.OpenGridMenu(sequence[++m_sequenceIterator], sequence[0][m_sequenceIterator - 1].Text);
             }

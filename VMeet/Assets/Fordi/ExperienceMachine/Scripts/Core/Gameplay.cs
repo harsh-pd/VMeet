@@ -5,6 +5,7 @@ using Fordi.Common;
 using Fordi.UI.MenuControl;
 using System;
 using TMPro;
+using Fordi.UI;
 
 namespace Fordi.Core
 {
@@ -29,9 +30,18 @@ namespace Fordi.Core
             {
                 var resourceType = ((ResourceComponent)args.Data).ResourceType;
                 if (resourceType == ResourceType.OBJECT)
-                    m_uiEngine.OpenObjectInterface(null, ResourceToMenuItems(m_commonResource.GetResource(resourceType, args.Command)), "PICK ITEM");
+                    m_uiEngine.OpenObjectInterface(new GridArgs()
+                    {
+                        AudioClip = null,
+                        Items = ResourceToMenuItems(m_commonResource.GetResource(resourceType, args.Command)),
+                        Title = "PICK ITEM",
+                    });
                 else
-                    m_menu.OpenGridMenu(null, ResourceToMenuItems(GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper(), true);
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        Items = ResourceToMenuItems(GetResource(resourceType, args.Command)),
+                        Title = "SELECT " + resourceType.ToString().ToUpper(),
+                    });
                 return;
             }
 
@@ -39,9 +49,19 @@ namespace Fordi.Core
             {
                 var categories = GetCategories(ResourceType.AUDIO);
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.VO), ResourceToMenuItems(GetResource(ResourceType.AUDIO, "")), "SELECT AUDIO", true);
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        AudioClip = m_commonResource.GetGuideClip(MenuCommandType.VO),
+                        Items = ResourceToMenuItems(GetResource(ResourceType.AUDIO, "")),
+                        Title = "SELECT AUDIO",
+                    });
                 else
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.VO), GetCategoryMenu(categories, ResourceType.AUDIO), "WHICH MEDITATION SUITS YOUR MOOD?", true);
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        AudioClip = m_commonResource.GetGuideClip(MenuCommandType.VO),
+                        Items = GetCategoryMenu(categories, ResourceType.AUDIO),
+                        Title = "WHICH MEDITATION SUITS YOUR MOOD?",
+                    });
             }
 
             else if (args.CommandType == MenuCommandType.SELECTION)

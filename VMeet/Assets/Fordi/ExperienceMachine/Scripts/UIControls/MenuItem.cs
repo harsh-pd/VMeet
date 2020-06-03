@@ -16,8 +16,9 @@ namespace Fordi.UI.MenuControl
 
     public interface IMenuItem
     {
-        MenuItemInfo Item { get; set; }
+        MenuItemInfo Item { get; }
         Selectable Selectable { get; }
+        void DataBind(IUserInterface userInterface, MenuItemInfo item);
     }
 
     public class MenuItem : VRButtonInteraction, IMenuItem
@@ -54,18 +55,21 @@ namespace Fordi.UI.MenuControl
         public MenuItemInfo Item
         {
             get { return m_item; }
-            set
-            {
-                if(m_item != value)
-                {
-                    m_item = value;
-                    DataBind();
-                }
-            }
+            //set
+            //{
+            //    if(m_item != value)
+            //    {
+            //        m_item = value;
+            //        DataBind();
+            //    }
+            //}
         }
 
-        protected virtual void DataBind()
+        public virtual void DataBind(IUserInterface userInterface, MenuItemInfo item)
         {
+            m_item = item;
+            m_vrMenu = userInterface;
+
             if(m_item != null)
             {
                 m_icon.sprite = m_item.Icon;

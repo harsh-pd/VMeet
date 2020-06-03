@@ -9,13 +9,9 @@ using Fordi.Core;
 
 namespace Fordi.UI.MenuControl
 {
-    public class ColorInterfaceArgs
+    public class ColorInterfaceArgs : MenuArgs
     {
-        public string Title;
-        public bool Blocked;
-        public bool Persist;
         public ColorGroup ColorGroup;
-        public AudioClip GuideClip;
         public ColorGroup Preset1, CustomPreset;
     }
 
@@ -58,7 +54,7 @@ namespace Fordi.UI.MenuControl
             m_menuSelection = IOC.Resolve<IMenuSelection>();
         }
 
-        public void OpenColorInterface(ColorInterfaceArgs args)
+        public void OpenColorInterface(IUserInterface userInterface, ColorInterfaceArgs args)
         {
             ColorGroup primaryColorGroup, secondaryColorGroup, tertiaryColorGroup;
             primaryColorGroup = new ColorGroup
@@ -91,7 +87,7 @@ namespace Fordi.UI.MenuControl
             if (m_title != null)
                 m_title.text = args.Title;
 
-            Blocked = args.Blocked;
+            Blocked = args.Block;
             Persist = args.Persist;
             gameObject.SetActive(true);
 

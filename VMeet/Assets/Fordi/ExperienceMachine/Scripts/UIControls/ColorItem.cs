@@ -36,8 +36,10 @@ namespace Fordi.UI.MenuControl
             }
         }
 
-        protected override void DataBind()
+        public override void DataBind(IUserInterface userInterface, MenuItemInfo item)
         {
+            m_vrMenu = userInterface;
+            m_item = item;
             if (m_item != null)
             {
                 m_icon.sprite = m_item.Icon;

@@ -145,19 +145,21 @@ namespace Fordi.UI.MenuControl
         {
             OrganizationMember menuItem = Instantiate(prefab, parent, false).GetComponentInChildren<OrganizationMember>();
             //menuItem.name = "MenuItem";
-            menuItem.Item = menuItemInfo;
+            menuItem.DataBind(m_userInterface, menuItemInfo);
             memberList.Add(menuItem);
             return menuItem;
         }
 
-        public void OpenForm(MenuItemInfo[] items)
+        public void OpenForm(IUserInterface userInterface, FormArgs args)
         {
+            m_userInterface = userInterface;
+
             if (memberPool == null)
                 memberPool = new Pool<OrganizationMember>(m_contentRoot, m_menuItem);
 
-            OpenMenu("", false, true);
+            OpenMenu(m_userInterface, "", false, true);
 
-            PopulateMemberList(items);
+            PopulateMemberList(args.Items);
 
             var time = DateTime.Now.Add(new TimeSpan(0, 10, 0));
             m_hourPlaceholder = m_meetingHour.placeholder.GetComponent<TextMeshProUGUI>();
@@ -192,7 +194,7 @@ namespace Fordi.UI.MenuControl
                     var member = memberPool.FetchItem();
                     memberList.Add(member);
                 }
-                memberList[i].Item = items[i];
+                memberList[i].DataBind(m_userInterface, items[i]);
             }
 
             for (int i = items.Length; i < memberList.Count; i++)
@@ -206,10 +208,13 @@ namespace Fordi.UI.MenuControl
 
         public void OpenCalendar()
         {
-            m_uiEngine.OpenCalendar((date) => {
-                Debug.LogError(date);
-                m_meetingDate.text = date;
-            }, this);
+            m_uiEngine.OpenCalendar(new CalendarArgs(){
+                OnClick= (date) => {
+                    Debug.LogError(date);
+                    m_meetingDate.text = date;
+                },
+                TimeForm = this,
+            });
         }
 
         public void SearchMembers(string searchValue)
@@ -286,12 +291,6 @@ namespace Fordi.UI.MenuControl
             string meetingJson = JsonMapper.ToJson(newMeeting);
             //Debug.LogError(meetingJson);
             return meetingJson;
-        }
-
-        public void OpenForm(FormArgs args, bool blocked, bool persist)
-        {
-            memberPool = new Pool<OrganizationMember>(m_contentRoot, m_menuItem);
-            OpenForm(args.FormItems);
         }
 
         public override void WebRefresh()

@@ -17,24 +17,49 @@ using Fordi.UI.MenuControl;
 
 namespace Fordi.UI
 {
+    public class MenuArgs
+    {
+        public MenuItemInfo[] Items = new MenuItemInfo[] { };
+        public AudioClip AudioClip = null;
+        public string Title = "";
+        public bool Block = false;
+        public bool BackEnabled = true;
+        public bool Persist = true;
+    }
+
+    public class GridArgs : MenuArgs
+    {
+        public string RefreshCategory = null;
+    }
+
+    public class MeetingArgs : MenuArgs
+    {
+        public MeetingInfo MeetingInfo;
+    }
+
+    public class CalendarArgs : MenuArgs
+    {
+        public ITimeForm TimeForm;
+        public Action<string> OnClick;
+    }
+
     public interface IUserInterface
     {
         bool IsOpen { get; }
         BaseInputModule InputModule { get; }
 
-        IScreen OpenMenu(MenuItemInfo[] menuItemInfos, bool block = true, bool persist = true);
-        IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
-        IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null);
-        IScreen OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true);
+        IScreen OpenMenu(MenuArgs args);
+        IScreen OpenGridMenu(GridArgs args);
+        IScreen OpenInventory(GridArgs args);
         IScreen OpenColorInterface(ColorInterfaceArgs args);
         IScreen OpenSettingsInterface(AudioClip clip);
-        IScreen OpenAnnotationInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool backEnabled = true, bool block = false, bool persist = true);
-        IScreen OpenCalendar(Action<string> onClick, ITimeForm timeForm);
-        IScreen OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false);
-        IScreen OpenMeetingForm(MenuItemInfo[] menuItemInfos, AudioClip clip);
-        IScreen OpenObjectInterface(AudioClip guide, MenuItemInfo[] menuItemInfos, string title, bool block = false, bool persist = true, bool backEnabled = true);
+        IScreen OpenAnnotationInterface(GridArgs args);
+        IScreen OpenCalendar(CalendarArgs args);
+        IScreen OpenMeeting(MeetingArgs args);
+        IScreen OpenMeetingForm(FormArgs args);
+        IScreen OpenObjectInterface(GridArgs args);
         IScreen Popup(PopupInfo popupInfo);
-        IScreen OpenForm(FormArgs args, bool block = true, bool persist = true);
+        IScreen OpenForm(FormArgs args);
         IScreen DisplayResult(Error error, bool freshScreen = false);
         IScreen DisplayProgress(string text, bool freshScreen = false);
         IScreen Block(string message);
@@ -159,56 +184,49 @@ namespace Fordi.UI
             return menu;
         }
 
-        public virtual IScreen OpenMenu(MenuItemInfo[] items, bool block = true, bool persist = false)
+        public virtual IScreen OpenMenu(MenuArgs args)
         {
             var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
-            menu.OpenMenu(items, block, persist);
+            menu.OpenMenu(this, args);
             m_menuOn = true;
             return menu;
         }
 
-        public virtual IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public virtual IScreen OpenGridMenu(GridArgs args)
         {
             var menu = (MenuScreen)SpawnScreen(m_gridMenuPrefab);
-            menu.OpenGridMenu(items, title, block, persist, backEnabled);
+            menu.OpenGridMenu(this, args);
             return menu;
         }
 
-        public virtual IScreen OpenGridMenu(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true, string refreshCategory = null)
-        {
-            var menu = (MenuScreen)SpawnScreen(m_gridMenuPrefab);
-            menu.OpenGridMenu(items, title, block, persist, backEnabled, refreshCategory);
-            return menu;
-        }
-
-        public virtual IScreen OpenAnnotationInterface(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public virtual IScreen OpenAnnotationInterface(GridArgs args)
         {
             var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
-            menu.OpenGridMenu(items, title, block, persist, backEnabled);
+            menu.OpenGridMenu(this, args);
             return menu;
         }
 
-        public virtual IScreen OpenInventory(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public virtual IScreen OpenInventory(GridArgs args)
         {
             var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
-            menu.OpenGridMenu(items, title, block, persist, backEnabled);
+            menu.OpenGridMenu(this, args);
             m_inventoryOpen = true;
             return menu;
         }
 
-        public virtual IScreen OpenMeeting(MeetingInfo meetingInfo, bool block = true, bool persist = false)
+        public virtual IScreen OpenMeeting(MeetingArgs args)
         {
             m_screensRoot.gameObject.SetActive(true);
             MeetingPage menu = (MeetingPage)SpawnScreen(m_meetingPagePrefab);
-            menu.OpenMeeting(meetingInfo);
+            menu.OpenMeeting(this, args);
             m_menuOn = true;
             return menu;
         }
 
-        public virtual IScreen OpenObjectInterface(AudioClip guide, MenuItemInfo[] items, string title, bool backEnabled = true, bool block = false, bool persist = true)
+        public virtual IScreen OpenObjectInterface(GridArgs args)
         {
             var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
-            menu.OpenGridMenu(items, title, block, persist, backEnabled);
+            menu.OpenGridMenu(this, args);
             return menu;
         }
 
@@ -321,7 +339,7 @@ namespace Fordi.UI
         public IScreen OpenColorInterface(ColorInterfaceArgs args)
         {
             var menu = (ColorInterface)SpawnScreen(m_colorInterfacePrefab);
-            menu.OpenColorInterface(args);
+            menu.OpenColorInterface(this, args);
             return menu;
         }
 
@@ -330,21 +348,34 @@ namespace Fordi.UI
            return OpenInterface(m_settingsInterfacePrefab, m_settingsInterfacePrefab);
         }
 
-        public virtual IScreen OpenMeetingForm(MenuItemInfo[] items, AudioClip clip)
+        public virtual IScreen OpenMeetingForm(FormArgs args)
         {
             var menu = (MeetingForm)SpawnScreen(m_meetingFormPrefab);
-            menu.OpenForm(items);
+            menu.OpenForm(this, args);
+            return menu;
+        }
+
+        public virtual IScreen OpenForm(FormArgs args)
+        {
+            m_screensRoot.gameObject.SetActive(true);
+
+            var menu = SpawnScreen(m_formPrefab);
+            if (!(menu is Form))
+                throw new InvalidOperationException();
+
+            ((Form)menu).OpenForm(this, args);
+            m_menuOn = true;
             return menu;
         }
 
         //Not handled properly for VR screen
-        public abstract IScreen OpenCalendar(Action<string> onClick, ITimeForm timeForm);
+        public abstract IScreen OpenCalendar(CalendarArgs args);
 
         private IScreen OpenInterface(MenuScreen screenPrefab, MenuScreen dScreenPrefab, bool block = true, bool persist = false)
         {
             m_screensRoot.gameObject.SetActive(true);
             var menu = (MenuScreen)SpawnScreen(screenPrefab);
-            menu.Init(block, persist);
+            menu.Init(this, block, persist);
             return menu;
         }
         #endregion
@@ -425,19 +456,6 @@ namespace Fordi.UI
         }
         #endregion
 
-        public virtual IScreen OpenForm(FormArgs args, bool block = true, bool persist = true)
-        {
-            m_screensRoot.gameObject.SetActive(true);
-
-            var menu = SpawnScreen(m_formPrefab);
-            if (!(menu is Form))
-                throw new InvalidOperationException();
-
-            ((Form)menu).OpenForm(args, block, persist);
-            m_menuOn = true;
-            return menu;
-        }
-
         public IScreen DisplayResult(Error error, bool freshScreen = false)
         {
             if (!freshScreen && m_screenStack.Count > 0)
@@ -510,7 +528,7 @@ namespace Fordi.UI
             else
             {
                 var menu = (MenuScreen)SpawnScreen(m_textBoxPrefab, true);
-                menu.OpenMenu(message, true, false);
+                menu.OpenMenu(this, message, true, false);
                 m_blocker = menu;
                 m_menuOn = true;
                 return menu;

@@ -39,8 +39,11 @@ namespace Fordi.UI.MenuControl
             }
         }
 
-        protected override void DataBind()
+        public override void DataBind(IUserInterface userInterface, MenuItemInfo item)
         {
+            m_item = item;
+            m_vrMenu = userInterface;
+
             if (m_item != null)
             {
                 m_text.text = m_item.Text;

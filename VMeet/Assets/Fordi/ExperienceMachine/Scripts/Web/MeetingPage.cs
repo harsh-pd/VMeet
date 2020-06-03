@@ -192,12 +192,12 @@ namespace Fordi.Meetings.UI
 
         private Button m_roomButton, m_meetingButton, m_secondMeetingButton = null;
 
-        public void OpenMeeting(MeetingInfo meetingInfo)
+        public void OpenMeeting(IUserInterface userInterface, MeetingArgs args)
         {
             m_title.text = "MEETING";
-            m_meetingInfo = meetingInfo;
+            m_meetingInfo = args.MeetingInfo;
 
-            switch (meetingInfo.meetingType)
+            switch (args.MeetingInfo.meetingType)
             {
                 case MeetingCategory.CREATED:
                     m_roomButton = Instantiate(m_actionButtonPrefab, m_contentRoot).GetComponentInChildren<Button>();
@@ -244,7 +244,7 @@ namespace Fordi.Meetings.UI
                     break;
             }
 
-            m_description.text = meetingInfo.MeetingNumber + "\n\n" + (string.IsNullOrEmpty(meetingInfo.Description) ? "" : string.IsNullOrEmpty(meetingInfo.Description) + "\n\n") + meetingInfo.MeetingTime + "\n\n" + meetingInfo.MeetingDurationInMinutes / 60 + " Hours, " + meetingInfo.MeetingDurationInMinutes % 60 + " Minutes";
+            m_description.text = args.MeetingInfo.MeetingNumber + "\n\n" + (string.IsNullOrEmpty(args.MeetingInfo.Description) ? "" : string.IsNullOrEmpty(args.MeetingInfo.Description) + "\n\n") + args.MeetingInfo.MeetingTime + "\n\n" + args.MeetingInfo.MeetingDurationInMinutes / 60 + " Hours, " + args.MeetingInfo.MeetingDurationInMinutes % 60 + " Minutes";
         }
 
         #region API

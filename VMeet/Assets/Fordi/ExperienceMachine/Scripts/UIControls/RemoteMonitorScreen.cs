@@ -65,7 +65,7 @@ namespace Fordi.ScreenSharing
             }
         }
 
-        public override void OpenMenu(MenuItemInfo[] items, bool blocked, bool persist)
+        public override void OpenMenu(IUserInterface userInterface, MenuArgs args)
         {
             ToggleMonitor(false);
             //var toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
@@ -93,10 +93,10 @@ namespace Fordi.ScreenSharing
             if (m_standaloneMenu != null)
                 m_standaloneMenu.SetActive(false);
             
-            Blocked = blocked;
-            Persist = persist;
+            Blocked = args.Block;
+            Persist = args.Persist;
             gameObject.SetActive(true);
-            foreach (var item in items)
+            foreach (var item in args.Items)
                 SpawnMenuItem(item, m_menuItem, m_contentRoot);
 
             if (m_uiEngine == null)

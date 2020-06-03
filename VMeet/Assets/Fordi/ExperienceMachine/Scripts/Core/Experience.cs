@@ -290,7 +290,13 @@ namespace Fordi.Core
         protected void OpenResourceWindow(AudioClip guide, ExperienceResource[] resources, string windowTitle)
         {
             MenuItemInfo[] menuItems = ResourceToMenuItems(resources);
-            m_menu.OpenGridMenu(guide, menuItems, windowTitle, true);
+            m_menu.OpenGridMenu(new GridArgs()
+            {
+                AudioClip = guide,
+                Items = menuItems,
+                Title = windowTitle,
+                BackEnabled = true
+            });
         }
 
         /// <summary>
@@ -362,7 +368,11 @@ namespace Fordi.Core
 
             if (args.CommandType == MenuCommandType.ANNOTATION)
             {
-                m_uiEngine.OpenAnnotationInterface(null, ResourceToMenuItems(m_commonResource.GetResource(ResourceType.COLOR, Annotation.AnnotationColorGroup)), "ANNOTATION COLORS");
+                m_uiEngine.OpenAnnotationInterface(new GridArgs()
+                {
+                    Items = ResourceToMenuItems(m_commonResource.GetResource(ResourceType.COLOR, Annotation.AnnotationColorGroup)),
+                    Title = "ANNOTATION COLORS",
+                });
             }
 
             if (args.CommandType == MenuCommandType.INVENTORY)
@@ -372,12 +382,23 @@ namespace Fordi.Core
 
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
                 {
-                    m_uiEngine.OpenObjectInterface(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")), "PICK ITEM");
+                    m_uiEngine.OpenObjectInterface(new GridArgs()
+                    {
+                        AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
+                        Items = ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")),
+                        Title = "PICK ITEM",
+                    });
                 }
                 else
                 {
                     MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?", true);
+
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
+                        Items = categoryItems,
+                        Title = "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?",
+                    });
                 }
             }
 
@@ -385,9 +406,19 @@ namespace Fordi.Core
             {
                 var categories = GetCategories(ResourceType.MUSIC);
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.MUSIC), ResourceToMenuItems(GetResource(ResourceType.MUSIC, "")), "SELECT MUSIC", true);
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        AudioClip = m_commonResource.GetGuideClip(MenuCommandType.MUSIC),
+                        Items = ResourceToMenuItems(GetResource(ResourceType.MUSIC, "")),
+                        Title = "SELECT MUSIC",
+                    });
                 else
-                    m_menu.OpenGridMenu(m_commonResource.GetGuideClip(MenuCommandType.MUSIC), GetCategoryMenu(categories, ResourceType.MUSIC), "WHAT MUSIC IS THE RIGHT FIT?", true);
+                    m_menu.OpenGridMenu(new GridArgs()
+                    {
+                        AudioClip = m_commonResource.GetGuideClip(MenuCommandType.MUSIC),
+                        Items = GetCategoryMenu(categories, ResourceType.MUSIC),
+                        Title = "WHAT MUSIC IS THE RIGHT FIT?",
+                    });
             }
             else if (args.CommandType == MenuCommandType.SELECTION)
             {
@@ -554,12 +585,23 @@ namespace Fordi.Core
 
             if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
             {
-                m_uiEngine.OpenObjectInterface(m_commonResource.GetGuideClip(GetCommandType(resourceType)), ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")), "PICK ITEM");
+                m_uiEngine.OpenObjectInterface(new GridArgs()
+                {
+                    AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
+                    Items = ResourceToMenuItems(m_commonResource.GetResource(resourceType, "")),
+                    Title = "PICK ITEM",
+                });
             }
             else
             {
                 MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                m_uiEngine.OpenInventory(m_commonResource.GetGuideClip(GetCommandType(resourceType)), categoryItems, "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?", false);
+                m_uiEngine.OpenInventory(new GridArgs()
+                {
+                    AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
+                    Items = categoryItems,
+                    Title = "WHAT KIND OF ITEM WOULD YOU LIKE TO LOAD?",
+                    BackEnabled = false
+                });
             }
         }
 

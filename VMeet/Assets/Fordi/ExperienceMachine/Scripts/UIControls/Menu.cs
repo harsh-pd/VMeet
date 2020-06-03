@@ -147,22 +147,17 @@ namespace Fordi.UI.MenuControl
         {
             if (m_uiEngine == null)
                 m_uiEngine = IOC.Resolve<IUIEngine>();
-            m_uiEngine.OpenMenu(m_items);
+            m_uiEngine.OpenMenu(new MenuArgs() { Items = m_items });
         }
 
         public void Open(MenuItemInfo[] itemInfos)
         {
-            m_uiEngine.OpenMenu(itemInfos);
+            m_uiEngine.OpenMenu(new MenuArgs() { Items = itemInfos });
         }
 
-        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] itemInfos, string title, bool backEnabled = true)
+        public void OpenGridMenu(GridArgs args)
         {
-            m_uiEngine.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true);
-        }
-
-        public void OpenGridMenu(AudioClip guide, MenuItemInfo[] itemInfos, string title, bool backEnabled = true, string refreshCategory = null)
-        {
-            m_uiEngine.OpenGridMenu(guide, itemInfos, title, backEnabled, false, true, refreshCategory);
+            m_uiEngine.OpenGridMenu(args);
         }
 
         public void Close()

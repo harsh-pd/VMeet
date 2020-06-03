@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Fordi.UI.MenuControl;
+using Fordi.UI;
 
 public class CalendarController : MenuScreen
 {
@@ -76,6 +77,7 @@ public class CalendarController : MenuScreen
         {
             MenuItemInfo itemInfo = new MenuItemInfo()
             {
+                Interface = m_userInterface,
                 IsValid = false,
                 Text = "",
                 Validate = new MenuItemValidationEvent()
@@ -128,7 +130,7 @@ public class CalendarController : MenuScreen
                
             }
 
-            _dateItems[i].Item = itemInfo;
+            _dateItems[i].DataBind(m_userInterface, itemInfo);
         }
         _yearNumText.text = _dateTime.Year.ToString();
         _monthNumText.text = _dateTime.Month.ToString();
@@ -192,18 +194,18 @@ public class CalendarController : MenuScreen
         m_uiEngine.CloseLastScreen();
     }
 
-    public override void Init(bool block, bool persist)
+    public override void Init(IUserInterface userInterface, bool block, bool persist)
     {
-        base.Init(block, persist);
+        base.Init(userInterface, block, persist);
         if (block && m_blocker != null)
             m_blocker.gameObject.SetActive(true);
     }
 
     private Action<string> m_onClick = null;
-    public void OpenCalendar(Action<string> OnClick, ITimeForm timeForm)
+    public void OpenCalendar(IUserInterface userInterface, CalendarArgs args)
     {
-        m_timeForm = timeForm;
-        m_onClick = OnClick;
-        Init(true, false);
+        m_timeForm = args.TimeForm;
+        m_onClick = args.OnClick;
+        Init(userInterface, true, false);
     }
 }

@@ -11,13 +11,10 @@ using Fordi.Core;
 
 namespace Fordi.UI
 {
-    public struct PopupInfo
+    public class PopupInfo : MenuArgs
     {
-        public string Title;
         public Sprite Preview;
         public string Content;
-        public bool Blocked;
-        public bool Persist;
     }
 
     public class Popup : MonoBehaviour, IScreen
@@ -65,7 +62,7 @@ namespace Fordi.UI
             gameObject.SetActive(true);
             m_ok = Ok;
 
-            Blocked = popupInfo.Blocked;
+            Blocked = popupInfo.Block;
             Persist = popupInfo.Persist;
 
             if (m_title != null && !string.IsNullOrEmpty(popupInfo.Title))

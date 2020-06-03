@@ -20,14 +20,14 @@ namespace Fordi.UI.MenuControl
         public MenuItemInfo Item
         {
             get { return m_item; }
-            set
-            {
-                if (m_item != value)
-                {
-                    m_item = value;
-                    DataBind();
-                }
-            }
+            //set
+            //{
+            //    if (m_item != value)
+            //    {
+            //        m_item = value;
+            //        DataBind();
+            //    }
+            //}
         }
 
         public GameObject Gameobject { get { return gameObject; } }
@@ -35,6 +35,7 @@ namespace Fordi.UI.MenuControl
         protected IExperienceMachine m_experienceMachine = null;
         protected IAnnotation m_annotation = null;
         protected Toggle m_selectionToggle = null;
+        protected IUserInterface m_userInterface = null;
 
         protected override void AwakeOverride()
         {
@@ -77,8 +78,11 @@ namespace Fordi.UI.MenuControl
             ((Toggle)selectable).onValueChanged.RemoveAllListeners();
         }
 
-        protected void DataBind()
+        public void DataBind(IUserInterface userInterface, MenuItemInfo item)
         {
+            m_userInterface = userInterface;
+            m_item = item;
+
             if (m_item != null)
             {
                 m_icon.sprite = m_item.Icon;
