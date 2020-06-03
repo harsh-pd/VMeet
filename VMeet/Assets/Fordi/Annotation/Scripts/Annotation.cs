@@ -66,7 +66,7 @@ namespace Fordi.Annotations
         public const string AnnotationColorGroup = "Annotation Colors";
 
         private ISettings m_settings;
-        private IPlayer m_player;
+        private IVRPlayer m_player;
         private INetwork m_network;
         private ICommonResource m_commonResource = null;
 
@@ -111,7 +111,15 @@ namespace Fordi.Annotations
 
         private void Awake()
         {
-            m_player = IOC.Resolve<IPlayer>();
+            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            if (m_player == null)
+                m_player = FindObjectOfType<Core.Player>();
+            if (m_player == null)
+            {
+                Destroy(gameObject);
+                throw new Exception("VR player not loaded into scene.");
+            }
+
             m_settings = IOC.Resolve<ISettings>();
             m_network = IOC.Resolve<INetwork>();
             m_commonResource = IOC.Resolve<ICommonResource>();

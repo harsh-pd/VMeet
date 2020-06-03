@@ -81,7 +81,7 @@ namespace Fordi.ObjectControl
 
         protected DistanceGrabbable m_target;
 
-        private IPlayer m_player;
+        private IVRPlayer m_player;
         private IUserInterface m_vrMenu;
 
         private bool m_grabIntention = false;
@@ -99,7 +99,12 @@ namespace Fordi.ObjectControl
         {
             m_grabCount = 0;
             base.Start();
-            m_player = IOC.Resolve<IPlayer>();
+            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            if (m_player == null)
+                m_player = FindObjectOfType<Player>();
+            if (m_player == null)
+                throw new Exception("VR player not loaded into scene.");
+
             m_vrMenu = IOC.Resolve<IUserInterface>();
             // Set up our max grab distance to be based on the player's max grab distance.
             // Adding a liberal margin of error here, because users can move away some from the 
@@ -352,6 +357,15 @@ namespace Fordi.ObjectControl
             return dgOut != null;
         }
 
+        private void EnsuerPlayerEntegrity()
+        {
+            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            if (m_player == null)
+                m_player = FindObjectOfType<Player>();
+            if (m_player == null)
+                throw new Exception("VR player not loaded into scene.");
+        }
+
         protected bool FindTargetWithSpherecast(out DistanceGrabbable dgOut, out Collider collOut)
         {
             dgOut = null;
@@ -366,8 +380,9 @@ namespace Fordi.ObjectControl
             // and if out of range, into another layer so it's ignored by FordiGrabber's SphereCast.
             // However, we're limiting the SphereCast by m_maxGrabDistance, so the optimization doesn't seem
             // essential.
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
+
+            EnsuerPlayerEntegrity();
+
             m_maxGrabDistance = m_player.CameraRig.leftEyeCamera.farClipPlane - m_player.CameraRig.leftEyeCamera.nearClipPlane;
 
             if (Physics.SphereCast(ray, m_spherecastRadius, out hitInfo, m_maxGrabDistance, 1 << m_grabObjectsInLayer))
@@ -425,8 +440,9 @@ namespace Fordi.ObjectControl
             // and if out of range, into another layer so it's ignored by FordiGrabber's SphereCast.
             // However, we're limiting the SphereCast by m_maxGrabDistance, so the optimization doesn't seem
             // essential.
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
+
+            EnsuerPlayerEntegrity();
+
             m_maxGrabDistance = m_player.CameraRig.leftEyeCamera.farClipPlane - m_player.CameraRig.leftEyeCamera.nearClipPlane;
 
             if (Physics.Raycast(ray, out hitInfo, m_maxGrabDistance, 1 << m_grabObjectsInLayer))
@@ -485,9 +501,8 @@ namespace Fordi.ObjectControl
 
         protected override void CheckForGrabOrRelease(float prevFlex)
         {
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
-            
+            EnsuerPlayerEntegrity();
+
             if (m_grabIntention && OVRInput.GetDown(OVRInput.Button.One, m_controller))
             {
                 m_player.ToogleGrabGuide(m_controller, false);

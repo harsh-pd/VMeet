@@ -63,10 +63,22 @@ namespace Fordi.UI.MenuControl
         private StandaloneMenu m_standAloneMenu = null;
         private MenuScreen m_permanentDesktopScreen = null;
 
+        protected IVRPlayer m_vrPlayer = null;
+
         protected override void Awake()
         {
             base.Awake();
-            m_playerScreenOffset = (m_player.PlayerCanvas.position - m_screensRoot.position) / m_player.PlayerCanvas.localScale.z;
+
+            m_vrPlayer = (IVRPlayer)IOC.Resolve<IPlayer>();
+            if (m_vrPlayer == null)
+                m_vrPlayer = FindObjectOfType<Core.Player>();
+            if (m_vrPlayer == null)
+            {
+                Destroy(gameObject);
+                throw new Exception("VR player not loaded into scene.");
+            }
+
+            m_playerScreenOffset = (m_vrPlayer.PlayerCanvas.position - m_screensRoot.position) / m_vrPlayer.PlayerCanvas.localScale.z;
             OVRManager.HMDMounted += OnHMDMount;
             OVRManager.HMDUnmounted += OnHMDUnmount;
             //Debug.LogError("Awake");
@@ -96,8 +108,8 @@ namespace Fordi.UI.MenuControl
         protected override IScreen SpawnScreen(IScreen screenPrefab, bool external = false)
         {
             PrepareForNewScreen();
-            m_player.PrepareForSpawn();
-            var menu = Instantiate(screenPrefab.Gameobject, m_player.PlayerCanvas).GetComponent<IScreen>();
+            m_vrPlayer.PrepareForSpawn();
+            var menu = Instantiate(screenPrefab.Gameobject, m_vrPlayer.PlayerCanvas).GetComponent<IScreen>();
             BringInFront(menu.Gameobject.transform);
             if (!external)
             {
@@ -126,7 +138,7 @@ namespace Fordi.UI.MenuControl
                 Vector3 localRotation = menuTransform.localRotation.eulerAngles;
                 menuTransform.localRotation = Quaternion.Euler(new Vector3(30, localRotation.y, localRotation.z));
             }
-            m_player.RequestHaltMovement(true);
+            m_vrPlayer.RequestHaltMovement(true);
         }
 
         public override IScreen OpenMenu(MenuItemInfo[] items, bool block = true, bool persist = false)
@@ -181,7 +193,7 @@ namespace Fordi.UI.MenuControl
             base.Close();
 
             if (m_experienceMachine.CurrentExperience != ExperienceType.HOME)
-                m_player.RequestHaltMovement(false);
+                m_vrPlayer.RequestHaltMovement(false);
         }
 
         public override IScreen OpenMeetingForm(MenuItemInfo[] items, AudioClip clip)

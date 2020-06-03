@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Fordi.Common;
 using Fordi.Core;
 using Fordi.ObjectControl;
+using System;
 
 namespace Fordi.UI.MenuControl
 {
@@ -19,7 +20,7 @@ namespace Fordi.UI.MenuControl
 
         private const string MaskPrefix = "Masked/";
 
-        private IPlayer m_player;
+        private IVRPlayer m_player;
 
         public RawImage RawImage { get { return m_rawImage; } }
 
@@ -114,7 +115,11 @@ namespace Fordi.UI.MenuControl
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
-            m_player = IOC.Resolve<IPlayer>();
+            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            if (m_player == null)
+                m_player = FindObjectOfType<Player>();
+            if (m_player == null)
+                throw new Exception("VR player not loaded into scene.");
         }
     }
 }

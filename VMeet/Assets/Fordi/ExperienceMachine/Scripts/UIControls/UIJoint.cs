@@ -40,7 +40,7 @@ namespace Fordi.UI
 
         private float m_speed = 6;
 
-        private IPlayer m_player;
+        private IVRPlayer m_player;
 
         private ToolTip m_tooltip;
         public ToolTip Tooltip
@@ -63,7 +63,15 @@ namespace Fordi.UI
 
         private IEnumerator Start()
         {
-            m_player = IOC.Resolve<IPlayer>();
+            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            if (m_player == null)
+                m_player = FindObjectOfType<Core.Player>();
+            if (m_player == null)
+            {
+                Destroy(gameObject);
+                throw new Exception("VR player not loaded into scene.");
+            }
+
             m_line.positionCount = m_numberOfSegments + 1;
 
             yield return null;

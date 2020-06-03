@@ -15,25 +15,18 @@ using Fordi.UI.MenuControl;
 
 namespace Fordi.Core
 {
-    public interface IPlayer
+    public interface IVRPlayer : IPlayer
     {
-        OVRPlayerController PlayerController { get; }
-        void RequestHaltMovement(bool val);
         Transform PlayerCanvas { get; }
         OVRCameraRig CameraRig { get; }
         Transform RightHand { get; }
         Transform LeftHand { get; }
-        int PlayerViewId { get; set; }
-        int AvatarViewId { get; set; }
         void PrepareForSpawn();
         void UpdateAdditionalRotation(float angle);
         float RootRotation { get; }
-        void StartTooltipRoutine(List<VRButtonGroup> buttonGroups);
-        void ApplyTooltipSettings();
         void Grab(DistanceGrabbable grabbable, OVRInput.Controller controller);
         void ToogleGrabGuide(OVRInput.Controller controller, bool val);
         bool GuideOn { get; }
-        void DoWaypointTeleport(Transform anchor);
         void FadeOut();
     }
 
@@ -73,7 +66,7 @@ namespace Fordi.Core
         NONE_ACTIVE
     }
 
-    public class Player : MonoBehaviour, IPlayer
+    public class Player : MonoBehaviour, IVRPlayer
     {
         [SerializeField]
         private ExperienceMachine m_experienceMachinePrefab;
@@ -121,7 +114,7 @@ namespace Fordi.Core
 
         public float RootRotation { get; private set; }
 
-        public OVRPlayerController PlayerController { get { return m_playerController; } }
+        public GameObject PlayerController { get { return m_playerController.gameObject; } }
         public Transform PlayerCanvas { get { return m_playerCanvas; } }
 
         [SerializeField]

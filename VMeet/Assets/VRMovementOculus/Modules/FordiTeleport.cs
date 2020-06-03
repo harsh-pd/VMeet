@@ -5,6 +5,7 @@ using DG.Tweening;
 using Fordi.Core;
 using Fordi.Common;
 using UnityEngine.EventSystems;
+using System;
 
 namespace Fordi.Core
 {
@@ -17,13 +18,17 @@ namespace Fordi.Core
         public OVRInput.Button WaypointTeleportButton { get { return m_waypointTeleportButton; } }
 
         private IExperienceMachine m_experienceMachine;
-        private IPlayer m_player;
+        private IVRPlayer m_player;
 
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
-            m_player = IOC.Resolve<IPlayer>();
+            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            if (m_player == null)
+                m_player = FindObjectOfType<Player>();
+            if (m_player == null)
+                throw new Exception("VR player not loaded into scene.");
         }
 
         protected override void StartOverride()
