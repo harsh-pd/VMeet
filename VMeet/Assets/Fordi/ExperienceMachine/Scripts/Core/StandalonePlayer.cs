@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Fordi.Common;
 using OculusSampleFramework;
 using Photon.Pun;
 using UnityEngine;
@@ -45,6 +46,17 @@ namespace Fordi.Core
         public int AvatarViewId { get { return m_avatarPhotonView.ViewID; } set { m_avatarPhotonView.ViewID = value; } }
 
         public GameObject PlayerController { get { return m_playerController; } }
+
+        private void Awake()
+        {
+            if (IOC.Resolve<IPlayer>() == null)
+                IOC.Register<IPlayer>(this);
+        }
+
+        private void OnDestroy()
+        {
+            IOC.Unregister<IPlayer>(this);
+        }
 
         public void ApplyTooltipSettings()
         {

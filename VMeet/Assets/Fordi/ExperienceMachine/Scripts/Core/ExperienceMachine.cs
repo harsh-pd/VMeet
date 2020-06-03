@@ -341,6 +341,8 @@ namespace Fordi.Core
             };
             m_audio.Stop(args);
 
+            if (m_player == null)
+                m_player = IOC.Resolve<IPlayer>();
             m_player.FadeOut();
 
             AudioArgs voArgs = new AudioArgs(null, AudioType.VO)

@@ -662,10 +662,10 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8094136904859359820, guid: 2a7e3c1abf054f745bb1480314b29966,
+    - target: {fileID: 4034657687562783752, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 95602350606921892, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
@@ -794,6 +794,21 @@ PrefabInstance:
       propertyPath: m_teleportAnchors.Array.data[9]
       value: 
       objectReference: {fileID: 7533661698266686061}
+    - target: {fileID: 8094136904859359820, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919736195604701921, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: viewIdField
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7631006697562178596, guid: 2a7e3c1abf054f745bb1480314b29966,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a7e3c1abf054f745bb1480314b29966, type: 3}
 --- !u!224 &1042084678 stripped
