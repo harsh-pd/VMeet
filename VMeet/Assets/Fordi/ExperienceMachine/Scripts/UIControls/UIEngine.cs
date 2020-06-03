@@ -108,8 +108,11 @@ namespace Fordi.UI
         {
             m_settings.SelectedPreferences.ForcedDesktopMode = false;
             m_settings.SelectedPreferences.DesktopMode = false;
-            m_vrInterface.Unhide();
-            m_vrInterface.Unblock();
+            if (m_vrInterface != null)
+            {
+                m_vrInterface.Unhide();
+                m_vrInterface.Unblock();
+            }
         }
 
         public void ApplyShowVRSettings(bool val)
@@ -171,13 +174,13 @@ namespace Fordi.UI
 
         public void Close()
         {
-            m_vrInterface.Close();
+            m_vrInterface?.Close();
             m_standaloneInterface.Close();
         }
 
         public void GoBack()
         {
-            m_vrInterface.GoBack();
+            m_vrInterface?.GoBack();
             m_standaloneInterface.GoBack();
         }
 
@@ -281,6 +284,11 @@ namespace Fordi.UI
         {
             if (platform == Platform.VR)
             {
+                if (m_vrInterface == null)
+                {
+                    return;
+                }
+
                 m_standaloneInterface.Block("PUT ON YOUR HEADSET");
                 m_vrInterface.Unblock();
                 m_standaloneInterface.InputModule.enabled = false;
@@ -289,9 +297,10 @@ namespace Fordi.UI
             }
             else
             {
-                m_vrInterface.Block("DESKTOP MODE ACTIVE");
+                m_vrInterface?.Block("DESKTOP MODE ACTIVE");
                 m_standaloneInterface.Unblock();
-                m_vrInterface.InputModule.enabled = false;
+                if (m_vrInterface != null)
+                    m_vrInterface.InputModule.enabled = false;
                 m_standaloneInterface.InputModule.enabled = true;
                 ActiveModule = InputModule.STANDALONE;
             }
