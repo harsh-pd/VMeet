@@ -37,13 +37,13 @@ namespace Fordi.UI.MenuControl
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
-        private LaserPointer.LaserBeamBehavior m_laserBeamBehavior;
-        [SerializeField]
         private GameObject m_laserPointerObject;
         [SerializeField]
         private StandaloneMenu m_standaloneMenuPrefab;
         [SerializeField]
         private SolidBackground m_solidBackgroundPrefab = null;
+        [SerializeField]
+        private LaserPointer.LaserBeamBehavior m_laserBeamBehavior;
         #endregion
 
         private Vector3 m_playerScreenOffset;

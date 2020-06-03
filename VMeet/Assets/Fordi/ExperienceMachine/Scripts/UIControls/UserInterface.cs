@@ -81,6 +81,8 @@ namespace Fordi.UI
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
+        protected Platform m_platform;
+        [SerializeField]
         protected MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab, m_annotationInterface;
         [SerializeField]
         protected ColorInterface m_colorInterfacePrefab;
@@ -106,8 +108,6 @@ namespace Fordi.UI
         protected Popup m_popup;
         [SerializeField]
         protected BaseInputModule m_inputModule = null;
-        [SerializeField]
-        protected Platform m_platform;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -135,7 +135,7 @@ namespace Fordi.UI
         protected ISettings m_settings;
         protected IUIEngine m_uiEngine = null;
 
-        private MenuScreen m_blocker;
+        private IScreen m_blocker;
 
         protected virtual void Awake()
         {
@@ -518,6 +518,8 @@ namespace Fordi.UI
             if (m_blocker != null)
                 m_blocker.Close();
 
+            m_blocker = null;
+
             if (m_screenStack.Count > 0)
                 m_screenStack.Peek().Reopen();
 
@@ -540,8 +542,8 @@ namespace Fordi.UI
             }
             else
             {
-                var menu = (MenuScreen)SpawnScreen(m_textBoxPrefab, false, true);
-                menu.OpenMenu(this, message, true, false);
+                var menu = (MessageScreen)SpawnScreen(m_genericLoader, false, true);
+                menu.Init(this, message, true, false);
                 m_blocker = menu;
                 m_menuOn = true;
                 return menu;
