@@ -333,7 +333,10 @@ namespace Fordi.Core
             };
 
             MenuItemInfo[] formItems = new MenuItemInfo[] {organizationInput, usernameInput, passwordInput };
-            FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => { m_webInterace.ValidateUserLogin(inputs[0], inputs[1], inputs[2]); });
+            FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => { m_webInterace.ValidateUserLogin(inputs[0], inputs[1], inputs[2]); })
+            {
+                FormType = FormType.LOGIN
+            };
             m_uiEngine.OpenForm(args);
         }
     }

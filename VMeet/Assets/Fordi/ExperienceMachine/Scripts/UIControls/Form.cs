@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Fordi.Common;
 using Fordi.Core;
+using UniRx;
+using UniRx.Triggers;
 
 namespace Fordi.UI.MenuControl
 {
@@ -14,10 +16,17 @@ namespace Fordi.UI.MenuControl
         void OpenForm(IUserInterface userInterface, FormArgs args);
     }
 
+    public enum FormType
+    {
+        LICENSE = 0,
+        LOGIN = 1
+    }
+
     public class FormArgs : MenuArgs
     {
         public Action<string[]> OnClickAction;
         public string ActionName;
+        public FormType FormType;
 
         public FormArgs() { }
 
@@ -47,6 +56,8 @@ namespace Fordi.UI.MenuControl
         private List<TMP_InputField> m_inputs = new List<TMP_InputField>();
 
         private int m_inputIndex = 0;
+
+        private FormType m_formType;
 
         protected override void Update()
         {
@@ -129,6 +140,7 @@ namespace Fordi.UI.MenuControl
         public virtual void OpenForm(IUserInterface userInterface, FormArgs args)
         {
             //Clear();
+            m_userInterface = userInterface;
             Blocked = args.Block;
             Persist = args.Persist;
             gameObject.SetActive(true);
@@ -162,11 +174,14 @@ namespace Fordi.UI.MenuControl
             if (m_closeButton != null)
                 m_closeButton.onClick.AddListener(() => m_uiEngine.CloseLastScreen());
 
-            if (m_inputs.Count > 0)
+            Observable.TimerFrame(3).Subscribe(_ =>
             {
-                m_inputs[0].Select();
-                m_inputIndex = 0;
-            }
+                if (m_inputs.Count > 0)
+                {
+                    m_inputs[0].Select();
+                    m_inputIndex = 0;
+                }
+            });
 
             for (int i = 0; i < m_inputs.Count; i++)
             {

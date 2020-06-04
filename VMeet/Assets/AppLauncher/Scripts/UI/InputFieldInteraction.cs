@@ -25,15 +25,15 @@ namespace AL.UI
         public override void OnDisable()
         {
             base.OnDisable();
-            if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
-                UIEngine.s_InputSelectedFlag = false;
-        }
+            try
+            {
+                if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
+                    UIEngine.s_InputSelectedFlag = false;
+            }
+            catch
+            {
 
-        protected override void OnDestroyOverride()
-        {
-            base.OnDestroyOverride();
-            if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
-                UIEngine.s_InputSelectedFlag = false;
+            }
         }
 
         public override void Init()

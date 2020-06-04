@@ -11,6 +11,12 @@ using Fordi.UI.MenuControl;
 
 namespace Fordi.UI
 {
+    public class MessageArgs : MenuArgs
+    {
+        public Action OkClick = null;
+        public string Text;
+    }
+
     public class MessageScreen : MonoBehaviour, IScreen
     {
         [SerializeField]
@@ -34,6 +40,8 @@ namespace Fordi.UI
         public bool Blocked { get; private set; }
 
         public bool Persist { get; private set; }
+
+        public bool BackEnabled { get; private set; }
 
         public GameObject Gameobject { get { return gameObject; } }
 
@@ -88,13 +96,17 @@ namespace Fordi.UI
                 Pair.Deactivate();
         }
 
-        public void Init(IUserInterface userInterface, string text, bool blocked = true, bool persist = false, bool backEnabled = false, Action okClick = null)
+        public void Init(IUserInterface userInterface, MessageArgs args)
         {
+            Persist = args.Persist;
+            Blocked = args.Block;
+            BackEnabled = args.BackEnabled;
+
             m_interface = userInterface;
-            m_text.text = text;
-            if (okClick != null && m_button != null)
-                m_button.onClick.AddListener(() => okClick.Invoke());
-            m_header.SetActive(backEnabled);
+            m_text.text = args.Text;
+            if (args.OkClick != null && m_button != null)
+                m_button.onClick.AddListener(() => args.OkClick.Invoke());
+            m_header.SetActive(args.BackEnabled);
         }
 
         public void BackClick()
@@ -146,7 +158,8 @@ namespace Fordi.UI
             if (Pair != null)
                 Pair.DisplayResult(error);
 
-            Invoke("CloseSelf", 2.0f);
+            if (BackEnabled)
+                Invoke("CloseSelf", 2.0f);
         }
 
         private void CloseSelf()

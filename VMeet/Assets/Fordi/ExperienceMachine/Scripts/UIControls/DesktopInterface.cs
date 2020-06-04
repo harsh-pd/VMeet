@@ -48,7 +48,13 @@ namespace Fordi.UI.MenuControl
 
         public override IScreen OpenAnnotationInterface(GridArgs args)
         {
-            return DisplayMessage("Annotation interface activated in VR.", true);
+            return DisplayMessage(new MessageArgs()
+            {
+                Persist = true,
+                Block = true,
+                Text = "Annotation interface activated in VR.",
+                BackEnabled = true
+            });
         }
         #endregion
 

@@ -150,12 +150,6 @@ namespace Fordi.UI.MenuControl
             return menu;
         }
 
-        public override IScreen OpenAnnotationInterface(GridArgs args)
-        {
-            var menu = base.OpenAnnotationInterface(args);
-            return menu;
-        }
-
         public override IScreen OpenInventory(GridArgs args)
         {
             var menu = base.OpenInventory(args);
@@ -245,12 +239,30 @@ namespace Fordi.UI.MenuControl
 
         public override IScreen OpenForm(FormArgs args)
         {
-            var form = base.OpenForm(args);
-          
-            m_settings.SelectedPreferences.DesktopMode = true;
+            var message = string.Empty;
+            switch (args.FormType)
+            {
+                case FormType.LICENSE:
+                    message = "Please activate license on desktop to continue.";
+                    break;
+                case FormType.LOGIN:
+                    message = "Please login on desktop to continue.";
+                    break;
+                default:
+                    break;
+            }
+
+            var screen = DisplayMessage(new MessageArgs()
+            {
+                Persist = true,
+                Block = true,
+                Text = message,
+                BackEnabled = false
+            });
+
             m_settings.SelectedPreferences.ForcedDesktopMode = true;
             m_uiEngine.SwitchToDesktopOnlyMode();
-            return form;
+            return screen;
         }
 
         //public void DisplayMessage(string text)

@@ -442,7 +442,10 @@ namespace Cornea.Web
             };
 
             MenuItemInfo[] formItems = new MenuItemInfo[] { organizationInput, keyInput };
-            FormArgs args = new FormArgs(formItems, "ACTIVATE LICENSE", "Activate", (inputs) => { Debug.LogError("Form button click"); });
+            FormArgs args = new FormArgs(formItems, "ACTIVATE LICENSE", "Activate", (inputs) => { Debug.LogError("Form button click"); })
+            {
+                FormType = FormType.LICENSE
+            };
             m_uiEngine.OpenForm(args);
         }
 

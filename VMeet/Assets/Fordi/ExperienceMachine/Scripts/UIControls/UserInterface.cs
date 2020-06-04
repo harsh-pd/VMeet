@@ -63,7 +63,7 @@ namespace Fordi.UI
         IScreen OpenForm(FormArgs args);
         IScreen DisplayResult(Error error, bool freshScreen = false);
         IScreen DisplayProgress(string text, bool freshScreen = false);
-        IScreen Block(string message);
+        IScreen Block(string message, bool includeRoot = false);
         void CloseLastScreen();
         void Close(IScreen screen);
         void Close();
@@ -74,7 +74,7 @@ namespace Fordi.UI
         void ShowUI();
         void Hide();
         void Unhide();
-        void Unblock();
+        void Unblock(bool includeRoot = false);
     }
 
     public abstract class UserInterface : MonoBehaviour, IUserInterface
@@ -204,10 +204,10 @@ namespace Fordi.UI
             return menu;
         }
 
-        public IScreen DisplayMessage(string message, bool desktop, bool block = true, bool persist = false)
+        public IScreen DisplayMessage(MessageArgs args)
         {
             var menu = (MessageScreen)SpawnScreen(m_genericLoader);
-            menu.Init(this, message, true, false, true);
+            menu.Init(this, args);
             return menu;
         }
 
@@ -492,7 +492,13 @@ namespace Fordi.UI
                 m_screensRoot.gameObject.SetActive(true);
 
                 var menu = (MessageScreen)SpawnScreen(m_genericLoader);
-                menu.Init(this, text, true, false);
+                menu.Init(this, new MessageArgs()
+                {
+                    Persist = false,
+                    Block = true,
+                    Text = text,
+                    BackEnabled = false
+                });
                 return menu;
             }
             return null;
@@ -513,8 +519,11 @@ namespace Fordi.UI
                 item.UnHide();
         }
 
-        public virtual void Unblock()
+        public virtual void Unblock(bool includeRoot = false)
         {
+            if (includeRoot)
+                m_screensRoot.localScale = Vector3.zero;
+
             if (m_blocker != null)
                 m_blocker.Close();
 
@@ -527,11 +536,10 @@ namespace Fordi.UI
                 m_menuOff = true;
         }
 
-        public virtual IScreen Block(string message)
+        public virtual IScreen Block(string message, bool includeRoot = false)
         {
-
-            if (m_screenStack.Count > 0)
-                m_screenStack.Peek().Deactivate();
+            if (includeRoot)
+                m_screensRoot.localScale = Vector3.one;
 
             m_screensRoot.gameObject.SetActive(true);
 
@@ -543,7 +551,14 @@ namespace Fordi.UI
             else
             {
                 var menu = (MessageScreen)SpawnScreen(m_genericLoader, false, true);
-                menu.Init(this, message, true, false);
+                menu.Init(this, new MessageArgs()
+                {
+                    Persist = false,
+                    Block = true,
+                    Text = message,
+                    BackEnabled = false
+                });
+
                 m_blocker = menu;
                 m_menuOn = true;
                 return menu;
