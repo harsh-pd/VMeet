@@ -32,6 +32,7 @@ namespace Fordi.UI
         void OpenObjectInterface(GridArgs args);
         void Popup(PopupInfo popupInfo);
         void OpenForm(FormArgs args);
+        void LoadRemoteDesktopView(MenuArgs args);
 
         void DisplayResult(Error error, bool freshScreen = false);
         void DisplayProgress(string text, bool freshScreen = false);
@@ -293,6 +294,11 @@ namespace Fordi.UI
                 m_standaloneInterface.InputModule.enabled = true;
                 ActiveModule = InputModule.STANDALONE;
             }
+        }
+
+        public void LoadRemoteDesktopView(MenuArgs args)
+        {
+            ((IStandaloneInterface)m_standaloneInterface).LoadRemoteDesktopView(args);
         }
     }
 }

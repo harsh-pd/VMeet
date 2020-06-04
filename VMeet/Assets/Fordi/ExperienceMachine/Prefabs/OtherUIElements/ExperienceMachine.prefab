@@ -2393,6 +2393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87df4e372366bfd498cc36e88aabaac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_platform: 0
   m_mainMenuPrefab: {fileID: 5695633906648011728, guid: 552cdba41fe8086469dc742d40441f39,
     type: 3}
   m_gridMenuPrefab: {fileID: 4193205560717487151, guid: c0784d9d8948f5a478c1bd51799dc6cf,
@@ -2405,7 +2406,6 @@ MonoBehaviour:
     type: 3}
   m_annotationInterface: {fileID: 0}
   m_colorInterfacePrefab: {fileID: 0}
-  m_remoteMonitorView: {fileID: 0}
   m_meetingPagePrefab: {fileID: -3174474922240902517, guid: 9e5b5246437fb524ab622beebaa83b47,
     type: 3}
   m_meetingFormPrefab: {fileID: 1148804007043975701, guid: 1aada44c7b47d954f9b6888dd16ce797,
@@ -2424,8 +2424,9 @@ MonoBehaviour:
   m_popup: {fileID: -3279790470852022401, guid: 43bf18bcd53eaa647a48b69c7fed1a31,
     type: 3}
   m_inputModule: {fileID: 3731949770437832662}
-  m_platform: 0
   m_standaloneMenuPrefab: {fileID: -1492733784173120003, guid: 15b3320f2e7410e43b71334a7f19ac7e,
+    type: 3}
+  m_remoteMonitorScreen: {fileID: 2109265851013776062, guid: b1cb72d94de00a1478151194371a2295,
     type: 3}
 --- !u!1 &5522829587157529544
 GameObject:
@@ -5023,6 +5024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e1ad31ac08c454fa8a2fcda255e785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_platform: 1
   m_mainMenuPrefab: {fileID: 7613397718039046533, guid: ba9d21d96326986429a1c772b4506f29,
     type: 3}
   m_gridMenuPrefab: {fileID: 872554269701193565, guid: 59a6b25c68749354e8202f7d7c48a4df,
@@ -5037,7 +5039,6 @@ MonoBehaviour:
     type: 3}
   m_colorInterfacePrefab: {fileID: 8032556723288048074, guid: 3e35dc56849befa48a35c4761fd14e62,
     type: 3}
-  m_remoteMonitorView: {fileID: 0}
   m_meetingPagePrefab: {fileID: 4029748492899387519, guid: 7b35a9c320ce49e4985cd5f008361029,
     type: 3}
   m_meetingFormPrefab: {fileID: 1148804007043975701, guid: 1aada44c7b47d954f9b6888dd16ce797,
@@ -5056,13 +5057,12 @@ MonoBehaviour:
   m_popup: {fileID: -3279790470852022401, guid: 43bf18bcd53eaa647a48b69c7fed1a31,
     type: 3}
   m_inputModule: {fileID: 1292034141}
-  m_platform: 1
-  m_laserBeamBehavior: 2
   m_laserPointerObject: {fileID: 1038146019644532}
   m_standaloneMenuPrefab: {fileID: -1492733784173120003, guid: 15b3320f2e7410e43b71334a7f19ac7e,
     type: 3}
   m_solidBackgroundPrefab: {fileID: 8492008055334251151, guid: a83bb93eb41e5b44e9c915b9fd674c2d,
     type: 3}
+  m_laserBeamBehavior: 2
 --- !u!1 &8222949450196352522
 GameObject:
   m_ObjectHideFlags: 0

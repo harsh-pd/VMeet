@@ -121,11 +121,6 @@ namespace Fordi.UI.MenuControl
 
         protected virtual void Update()
         {
-            if (m_uiEngine == null)
-                m_uiEngine = IOC.Resolve<IUIEngine>();
-            if (m_uiEngine == null)
-                return;
-
             if (!UIEngine.s_InputSelectedFlag && m_userInterface.Platform == Platform.DESKTOP && m_uiEngine.ActiveModule == InputModule.STANDALONE && Input.GetKeyDown(KeyCode.Backspace) && m_backButton != null)
             {
                 if (m_blocker == null || !m_blocker.gameObject.activeInHierarchy)

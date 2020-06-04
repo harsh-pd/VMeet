@@ -196,6 +196,7 @@ namespace Fordi.Meetings.UI
         {
             m_title.text = "MEETING";
             m_meetingInfo = args.MeetingInfo;
+            m_userInterface = userInterface;
 
             switch (args.MeetingInfo.meetingType)
             {

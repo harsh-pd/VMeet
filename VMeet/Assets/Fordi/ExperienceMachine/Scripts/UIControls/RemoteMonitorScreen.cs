@@ -67,6 +67,7 @@ namespace Fordi.ScreenSharing
 
         public override void OpenMenu(IUserInterface userInterface, MenuArgs args)
         {
+            m_userInterface = userInterface;
             ToggleMonitor(false);
             //var toggleMenu = Instantiate(m_TogglePrefab, m_contentRoot);
             //m_micToggle = toggleMenu.GetComponentInChildren<Toggle>();

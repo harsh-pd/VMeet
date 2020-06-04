@@ -87,8 +87,6 @@ namespace Fordi.UI
         [SerializeField]
         protected ColorInterface m_colorInterfacePrefab;
         [SerializeField]
-        private RemoteMonitorScreen m_remoteMonitorView;
-        [SerializeField]
         protected MeetingPage m_meetingPagePrefab;
         [SerializeField]
         protected MeetingForm m_meetingFormPrefab;
@@ -306,7 +304,7 @@ namespace Fordi.UI
             else
             {
                 m_screensRoot.gameObject.SetActive(false);
-               m_uiEngine.RefreshDesktopMode();
+                m_uiEngine.RefreshDesktopMode();
             }
         }
 

@@ -16,11 +16,19 @@ using Fordi.ScreenSharing;
 
 namespace Fordi.UI.MenuControl
 {
-    public class DesktopInterface : UserInterface
+
+    public interface IStandaloneInterface
+    {
+        IScreen LoadRemoteDesktopView(MenuArgs args);
+    }
+
+    public class DesktopInterface : UserInterface, IStandaloneInterface
     {
         #region INSPECTOR_REFRENCES
         [SerializeField]
         private StandaloneMenu m_standaloneMenuPrefab;
+        [SerializeField]
+        private RemoteMonitorScreen m_remoteMonitorScreen;
         #endregion
 
 
@@ -28,13 +36,13 @@ namespace Fordi.UI.MenuControl
         private MenuScreen m_permanentDesktopScreen = null;
 
         #region CORE
-        public void LoadRemoteDesktopView(MenuArgs args)
+        public IScreen LoadRemoteDesktopView(MenuArgs args)
         {
-            throw new NotImplementedException();
-            //m_screensRoot.gameObject.SetActive(true);
-            //var dMenu = Instantiate(m_dRemoteMonitorPrefab, m_dScreenRoot);
-            //dMenu.OpenMenu(items, block, persist);
-            //m_permanentDesktopScreen = dMenu;
+
+            var menu = (MenuScreen)SpawnScreen(m_remoteMonitorScreen);
+            menu.OpenMenu(this, args);
+            m_permanentDesktopScreen = menu;
+            return menu;
         }
 
         public override IScreen OpenCalendar(CalendarArgs args)
@@ -90,6 +98,27 @@ namespace Fordi.UI.MenuControl
                 m_menuOn = true;
                 return menu;
             }
+        }
+
+        public override void CloseLastScreen()
+        {
+            base.CloseLastScreen();
+            if (m_permanentDesktopScreen == null)
+                SwitchStandaloneMenu();
+        }
+
+        public override void Close(IScreen screenToBeClosed)
+        {
+            base.Close(screenToBeClosed);
+            if (m_permanentDesktopScreen == null)
+                SwitchStandaloneMenu();
+        }
+
+        public override void Close()
+        {
+            base.Close();
+            if (m_permanentDesktopScreen == null)
+                SwitchStandaloneMenu();
         }
 
         public void SwitchStandaloneMenu()

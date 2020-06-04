@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fordi.Common;
 using Fordi.UI.MenuControl;
+using Fordi.UI;
 
 namespace Fordi.Core
 {
@@ -47,6 +48,10 @@ namespace Fordi.Core
         public override void OnLoad()
         {
             base.OnLoad();
+            m_uiEngine.LoadRemoteDesktopView(new MenuArgs()
+            {
+                Items = m_insceneMenuItems
+            });
             StartCoroutine(TakeASeat());
         }
 
