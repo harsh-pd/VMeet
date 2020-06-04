@@ -89,8 +89,8 @@ namespace Fordi.UI.MenuControl
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            //OVRManager.HMDMounted -= OnHMDUnmount;
-            //OVRManager.HMDUnmounted -= OnHMDMount;
+            OVRManager.HMDMounted -= OnHMDMount;
+            OVRManager.HMDUnmounted -= OnHMDUnmount;
         }
 
         #region CORE

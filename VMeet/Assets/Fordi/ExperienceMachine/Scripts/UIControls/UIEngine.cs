@@ -49,6 +49,7 @@ namespace Fordi.UI
         void ActivateInterface(Platform platform);
     }
 
+    [DefaultExecutionOrder(-50)]
     public class UIEngine : MonoBehaviour, IUIEngine
     {
         private bool m_isMenuOpen = false;
@@ -83,6 +84,7 @@ namespace Fordi.UI
             m_audio = IOC.Resolve<IAudio>();
             m_vrInterface = FindObjectOfType<VRMenu>();
             m_standaloneInterface = FindObjectOfType<DesktopInterface>();
+            s_InputSelectedFlag = false;
         }
 
         public void SwitchToDesktopOnlyMode()

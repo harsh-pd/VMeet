@@ -22,6 +22,20 @@ namespace AL.UI
             }
         }
 
+        public override void OnDisable()
+        {
+            base.OnDisable();
+            if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
+                UIEngine.s_InputSelectedFlag = false;
+        }
+
+        protected override void OnDestroyOverride()
+        {
+            base.OnDestroyOverride();
+            if (EventSystem.current.currentSelectedGameObject == selectable.gameObject)
+                UIEngine.s_InputSelectedFlag = false;
+        }
+
         public override void Init()
         {
             if (!m_selectOnEnable)
