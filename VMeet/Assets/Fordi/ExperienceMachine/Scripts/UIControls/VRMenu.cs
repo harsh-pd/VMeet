@@ -111,7 +111,6 @@ namespace Fordi.UI.MenuControl
 
         private void BringInFront(Transform menuTransform, bool enlarge = false, bool solidInGameplay = true)
         {
-            m_screensRoot.gameObject.SetActive(true);
             Vector3 offset = menuTransform.localPosition / 100.0f;
             menuTransform.transform.localPosition = Vector3.zero;
             menuTransform.transform.localRotation = Quaternion.identity;
@@ -184,8 +183,6 @@ namespace Fordi.UI.MenuControl
         //Not handled properly for VR screen
         public override IScreen OpenCalendar(CalendarArgs args)
         {
-            m_screensRoot.gameObject.SetActive(true);
-
             m_vrPlayer.PrepareForSpawn();
             var menu = Instantiate(m_calendarPrefab, m_vrPlayer.PlayerCanvas);
             BringInFront(menu.transform);

@@ -56,7 +56,6 @@ namespace Fordi.UI.MenuControl
 
         public override IScreen OpenCalendar(CalendarArgs args)
         {
-            m_screensRoot.gameObject.SetActive(true);
             var menu = Instantiate(m_calendarPrefab, m_screensRoot);
             m_screenStack.Push(menu);
             menu.OpenCalendar(this, args);
@@ -69,7 +68,7 @@ namespace Fordi.UI.MenuControl
             {
                 Persist = true,
                 Block = true,
-                Text = "Annotation interface activated in VR.",
+                Text = "Annotation available in VR.",
                 BackEnabled = true
             });
         }
@@ -84,8 +83,6 @@ namespace Fordi.UI.MenuControl
         {
              if (includeRoot)
                 m_screensRoot.localScale = Vector3.zero;
-
-            m_screensRoot.gameObject.SetActive(true);
 
             if (m_blocker != null)
             {
@@ -112,21 +109,21 @@ namespace Fordi.UI.MenuControl
         public override void CloseLastScreen()
         {
             base.CloseLastScreen();
-            if (m_permanentDesktopScreen == null)
+            if (!IsOpen)
                 SwitchStandaloneMenu();
         }
 
         public override void Close(IScreen screenToBeClosed)
         {
             base.Close(screenToBeClosed);
-            if (m_permanentDesktopScreen == null)
+            if (!IsOpen)
                 SwitchStandaloneMenu();
         }
 
         public override void Close()
         {
             base.Close();
-            if (m_permanentDesktopScreen == null)
+            if (!IsOpen)
                 SwitchStandaloneMenu();
         }
 

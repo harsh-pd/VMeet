@@ -183,6 +183,7 @@ namespace Fordi.UI
 
         protected virtual IScreen SpawnScreen(IScreen screenPrefab, bool enlarge = false, bool external = false)
         {
+            m_screensRoot.gameObject.SetActive(true);
             PrepareForNewScreen();
             var menu = Instantiate(screenPrefab.Gameobject, m_screensRoot).GetComponent<IScreen>();
             if (!external)
@@ -229,7 +230,6 @@ namespace Fordi.UI
 
         public virtual IScreen OpenMeeting(MeetingArgs args)
         {
-            m_screensRoot.gameObject.SetActive(true);
             MeetingPage menu = (MeetingPage)SpawnScreen(m_meetingPagePrefab);
             menu.OpenMeeting(this, args);
             m_menuOn = true;
@@ -275,7 +275,6 @@ namespace Fordi.UI
             }
             else
             {
-                m_screensRoot.gameObject.SetActive(false);
                 m_uiEngine.RefreshDesktopMode();
             }
         }
@@ -306,7 +305,6 @@ namespace Fordi.UI
             }
             else
             {
-                m_screensRoot.gameObject.SetActive(false);
                 m_uiEngine.RefreshDesktopMode();
             }
         }
@@ -371,8 +369,6 @@ namespace Fordi.UI
 
         public virtual IScreen OpenForm(FormArgs args)
         {
-            m_screensRoot.gameObject.SetActive(true);
-
             var menu = SpawnScreen(m_formPrefab);
             if (!(menu is Form))
                 throw new InvalidOperationException();
@@ -387,7 +383,6 @@ namespace Fordi.UI
 
         private IScreen OpenInterface(MenuScreen screenPrefab, MenuScreen dScreenPrefab, bool block = true, bool persist = false)
         {
-            m_screensRoot.gameObject.SetActive(true);
             var menu = (MenuScreen)SpawnScreen(screenPrefab);
             menu.Init(this, block, persist);
             return menu;
@@ -490,8 +485,6 @@ namespace Fordi.UI
             }
             else if (freshScreen)
             {
-                m_screensRoot.gameObject.SetActive(true);
-
                 var menu = (MessageScreen)SpawnScreen(m_genericLoader);
                 menu.Init(this, new MessageArgs()
                 {
@@ -540,8 +533,6 @@ namespace Fordi.UI
         {
             if (includeRoot)
                 m_screensRoot.localScale = Vector3.zero;
-
-            m_screensRoot.gameObject.SetActive(true);
 
             if (m_blocker != null)
             {
