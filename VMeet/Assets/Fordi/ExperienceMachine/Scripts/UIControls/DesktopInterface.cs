@@ -35,11 +35,20 @@ namespace Fordi.UI.MenuControl
         private StandaloneMenu m_standAloneMenu = null;
         private MenuScreen m_permanentDesktopScreen = null;
 
+        public override bool IsOpen { get { return m_screenStack.Count > 0 || m_permanentDesktopScreen != null; } }
+
         #region CORE
+        public override IScreen OpenMenu(MenuArgs args)
+        {
+            if (m_permanentDesktopScreen != null)
+                return null;
+
+            return base.OpenMenu(args);
+        }
+
         public IScreen LoadRemoteDesktopView(MenuArgs args)
         {
-
-            var menu = (MenuScreen)SpawnScreen(m_remoteMonitorScreen);
+            var menu = Instantiate(m_remoteMonitorScreen, m_screensRoot);
             menu.OpenMenu(this, args);
             m_permanentDesktopScreen = menu;
             return menu;

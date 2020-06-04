@@ -113,7 +113,7 @@ namespace Fordi.UI
         private const string FACEBOOK_PAGE = "http://telecomatics.com/";
         private const string INSTAGRAM_PAGE = "http://telecomatics.com/";
 
-        public bool IsOpen { get { return m_screenStack.Count != 0; } }
+        public virtual bool IsOpen { get { return m_screenStack.Count != 0; } }
 
         public EventHandler AudioInterruptionEvent { get; set; }
         public EventHandler ScreenChangeInitiated { get; set; }
@@ -135,8 +135,11 @@ namespace Fordi.UI
 
         protected IScreen m_blocker;
 
+        private Vector3 m_screenRootScale;
+
         protected virtual void Awake()
         {
+            m_screenRootScale = m_screensRoot.localScale;
             m_player = IOC.Resolve<IPlayer>();
             m_audio = IOC.Resolve<IAudio>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
@@ -519,7 +522,7 @@ namespace Fordi.UI
 
         public virtual void Unblock()
         {
-            m_screensRoot.localScale = Vector3.one;
+            m_screensRoot.localScale = m_screenRootScale;
 
             if (m_blocker != null)
                 m_blocker.Close();

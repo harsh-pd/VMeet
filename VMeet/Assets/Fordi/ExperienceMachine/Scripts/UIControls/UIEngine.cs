@@ -71,7 +71,14 @@ namespace Fordi.UI
         public EventHandler ScreenChangeInitiated { get; set; }
         public EventHandler InputModuleChangeEvent { get; set; }
 
-        public bool IsOpen { get { return m_standaloneInterface.IsOpen; } }
+        public bool IsOpen {
+            get
+            {
+                if (m_vrInterface != null)
+                    return m_vrInterface.IsOpen;
+                return m_standaloneInterface.IsOpen;
+            }
+        }
 
         protected Sound m_lastVo = null;
 
