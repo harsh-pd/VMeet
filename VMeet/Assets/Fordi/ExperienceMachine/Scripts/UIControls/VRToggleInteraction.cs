@@ -69,7 +69,16 @@ namespace Fordi.UI
 
             if (m_image != null)
                 m_image.gameObject.SetActive(val);
-            EventSystem.current.SetSelectedGameObject(null);
+
+            try
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+            catch (System.Exception)
+            {
+
+                
+            }
         }
 
         protected override void OnDisableOverride()
@@ -82,8 +91,15 @@ namespace Fordi.UI
                 ToggleBackgroundHighlight(false);
                 Pop(false);
             }
-            if (EventSystem.current != null)
+            try
+            {
                 EventSystem.current.SetSelectedGameObject(null);
+            }
+            catch (System.Exception)
+            {
+
+
+            }
         }
     }
 }

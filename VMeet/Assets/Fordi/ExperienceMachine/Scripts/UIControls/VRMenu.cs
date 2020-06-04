@@ -99,7 +99,7 @@ namespace Fordi.UI.MenuControl
             PrepareForNewScreen();
             m_vrPlayer.PrepareForSpawn();
             var menu = Instantiate(screenPrefab.Gameobject, m_vrPlayer.PlayerCanvas).GetComponent<IScreen>();
-            BringInFront(menu.Gameobject.transform);
+            BringInFront(menu.Gameobject.transform, enlarge);
             if (!external)
             {
                 m_screenStack.Push(menu);
@@ -109,7 +109,7 @@ namespace Fordi.UI.MenuControl
             return menu;
         }
 
-        private void BringInFront(Transform menuTransform, bool solidInGameplay = true, bool enlarge = false)
+        private void BringInFront(Transform menuTransform, bool enlarge = false, bool solidInGameplay = true)
         {
             m_screensRoot.gameObject.SetActive(true);
             Vector3 offset = menuTransform.localPosition / 100.0f;

@@ -63,10 +63,34 @@ namespace Fordi.UI.MenuControl
             return base.DisplayProgress(text.Style(ExperienceMachine.ProgressTextColorStyle), freshScreen);
         }
 
-        //public void DisplayMessage(string text)
-        //{
+        public override IScreen Block(string message, bool includeRoot = false)
+        {
+             if (includeRoot)
+                m_screensRoot.localScale = Vector3.zero;
 
-        //}
+            m_screensRoot.gameObject.SetActive(true);
+
+            if (m_blocker != null)
+            {
+                m_blocker.Reopen();
+                return m_blocker;
+            }
+            else
+            {
+                var menu = Instantiate(m_genericLoader, m_screensRoot);
+                menu.Init(this, new MessageArgs()
+                {
+                    Persist = false,
+                    Block = true,
+                    Text = message,
+                    BackEnabled = false
+                });
+
+                m_blocker = menu;
+                m_menuOn = true;
+                return menu;
+            }
+        }
 
         public void SwitchStandaloneMenu()
         {

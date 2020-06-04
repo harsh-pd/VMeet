@@ -111,7 +111,7 @@ namespace Fordi.UI
 
         public void BackClick()
         {
-            m_interface.GoBack();
+            m_uiEngine.GoBack();
         }
 
         public void Reopen()

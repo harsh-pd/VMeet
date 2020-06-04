@@ -467,6 +467,9 @@ namespace Cornea.Web
             };
             validateUserLoginRequest.SetRequestHeader("Content-Type", "application/json");
             validateUserLoginRequest.SetRequestHeader("Authorization", "Bearer " + access_token);
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
+
             m_uiEngine.DisplayProgress("Validating user...");
             validateUserLoginRequest.Run(this).OnRequestComplete(
                 (isNetworkError, message) =>

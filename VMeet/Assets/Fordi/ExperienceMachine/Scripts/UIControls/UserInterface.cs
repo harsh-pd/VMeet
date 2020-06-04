@@ -74,7 +74,7 @@ namespace Fordi.UI
         void ShowUI();
         void Hide();
         void Unhide();
-        void Unblock(bool includeRoot = false);
+        void Unblock();
     }
 
     public abstract class UserInterface : MonoBehaviour, IUserInterface
@@ -135,7 +135,7 @@ namespace Fordi.UI
         protected ISettings m_settings;
         protected IUIEngine m_uiEngine = null;
 
-        private IScreen m_blocker;
+        protected IScreen m_blocker;
 
         protected virtual void Awake()
         {
@@ -358,7 +358,7 @@ namespace Fordi.UI
 
         public IScreen OpenSettingsInterface(AudioClip clip)
         {
-           return OpenInterface(m_settingsInterfacePrefab, m_settingsInterfacePrefab);
+           return OpenInterface(m_settingsInterfacePrefab, m_settingsInterfacePrefab, true, true);
         }
 
         public virtual IScreen OpenMeetingForm(FormArgs args)
@@ -519,10 +519,9 @@ namespace Fordi.UI
                 item.UnHide();
         }
 
-        public virtual void Unblock(bool includeRoot = false)
+        public virtual void Unblock()
         {
-            if (includeRoot)
-                m_screensRoot.localScale = Vector3.zero;
+            m_screensRoot.localScale = Vector3.one;
 
             if (m_blocker != null)
                 m_blocker.Close();
@@ -539,7 +538,7 @@ namespace Fordi.UI
         public virtual IScreen Block(string message, bool includeRoot = false)
         {
             if (includeRoot)
-                m_screensRoot.localScale = Vector3.one;
+                m_screensRoot.localScale = Vector3.zero;
 
             m_screensRoot.gameObject.SetActive(true);
 

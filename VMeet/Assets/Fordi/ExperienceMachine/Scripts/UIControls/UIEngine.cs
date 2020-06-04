@@ -121,7 +121,7 @@ namespace Fordi.UI
         public void ApplyShowVRSettings(bool val)
         {
             if (val && !m_settings.SelectedPreferences.DesktopMode && ActiveModule == InputModule.OCULUS)
-                m_standaloneInterface.Unblock(true);
+                m_standaloneInterface.Unblock();
 
             if (!val && !m_settings.SelectedPreferences.DesktopMode && ActiveModule == InputModule.OCULUS)
                 m_standaloneInterface.Block("PUT ON YOUR HEADSET", true);
@@ -279,7 +279,7 @@ namespace Fordi.UI
                     return;
                 }
 
-                m_standaloneInterface.Block("PUT ON YOUR HEADSET");
+                m_standaloneInterface.Block("PUT ON YOUR HEADSET", m_settings.SelectedPreferences.ShowVR);
                 m_vrInterface.Unblock();
                 m_standaloneInterface.InputModule.enabled = false;
                 m_vrInterface.InputModule.enabled = true;
