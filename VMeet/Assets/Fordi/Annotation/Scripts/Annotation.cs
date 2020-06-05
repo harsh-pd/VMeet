@@ -111,26 +111,6 @@ namespace Fordi.Annotations
 
         private void Awake()
         {
-            try
-            {
-                m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            }
-            catch(InvalidCastException)
-            {
-                Destroy(gameObject);
-                throw new Exception("VR player not loaded into scene.");
-            }
-
-            if (m_player == null)
-            {
-                m_player = FindObjectOfType<Core.Player>();
-                if (m_player == null || m_player.GetType() != typeof(IVRPlayer))
-                {
-                    Destroy(gameObject);
-                    throw new Exception("VR player not loaded into scene.");
-                }
-            }
-
             m_settings = IOC.Resolve<ISettings>();
             m_network = IOC.Resolve<INetwork>();
             m_commonResource = IOC.Resolve<ICommonResource>();
@@ -200,6 +180,26 @@ namespace Fordi.Annotations
 
         private void EnsureGameobjectIntegrity()
         {
+            try
+            {
+                m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            }
+            catch (InvalidCastException)
+            {
+                Destroy(gameObject);
+                throw new Exception("VR player not loaded into scene.");
+            }
+
+            if (m_player == null)
+            {
+                m_player = FindObjectOfType<Core.Player>();
+                if (m_player == null || m_player.GetType() != typeof(IVRPlayer))
+                {
+                    Destroy(gameObject);
+                    throw new Exception("VR player not loaded into scene.");
+                }
+            }
+
             m_pen = Instantiate(m_penPrefab, m_player.RightHand);
             m_pinchTrailAnchor = Instantiate(m_pinchTrailAnchorPrefab, m_player.RightHand);
             m_penTrailAnchor = Instantiate(m_penTrailAnchorPrefab, m_player.RightHand);
