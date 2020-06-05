@@ -86,6 +86,7 @@ namespace Fordi.Core
         ExperienceType CurrentExperience { get; }
         bool IsRunning { get; }
         void RegisterPlatform(IPlatformModule module);
+        IPlayer Player { get; }
     }
 
     /// <summary>
@@ -122,6 +123,8 @@ namespace Fordi.Core
         private bool m_isRunning = false;
         public bool IsRunning { get { return m_isRunning; } }
 
+        public IPlayer Player { get { return m_player; } }
+
         private const string MeetingScene = "Meeting";
 
         private void Awake()
@@ -138,7 +141,6 @@ namespace Fordi.Core
             m_audio = IOC.Resolve<IAudio>();
             m_uiEngine = IOC.Resolve<IUIEngine>();
             m_settings = IOC.Resolve<ISettings>();
-            m_player = IOC.Resolve<IPlayer>();
 
             SetExperience(GetExperience(m_menuSelection.ExperienceType));
             UIInteractionBase.OnClick += Click;
@@ -153,7 +155,6 @@ namespace Fordi.Core
         private void OnDestroy()
         {
             UIInteractionBase.OnClick -= Click;
-            IOC.Unregister(m_player);
         }
 
         private IEnumerator Start()
@@ -320,9 +321,7 @@ namespace Fordi.Core
                 }
             };
             m_audio.Stop(args);
-
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
+           
             m_player.FadeOut();
 
             AudioArgs voArgs = new AudioArgs(null, AudioType.VO)
@@ -412,15 +411,12 @@ namespace Fordi.Core
 
         public void RegisterPlatform(IPlatformModule module)
         {
-            m_player = IOC.Resolve<IPlayer>();
-            if (module.Platform != Platform.DESKTOP)
-            {
-                m_player.GameObject.SetActive(false);
-                IOC.Unregister(m_player);
-            }
 
-            module.Player.GameObject.SetActive(true);
-            IOC.Register(module.Player);
+            if (m_player != null)
+                m_player.GameObject.SetActive(false);
+
+            m_player = module.Player;
+            m_player.GameObject.SetActive(true);
 
             m_uiEngine.RegisterInterface(module.UserInterface);
         }

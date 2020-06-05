@@ -81,8 +81,8 @@ namespace Fordi.ObjectControl
 
         protected DistanceGrabbable m_target;
 
-        private IVRPlayer m_player;
         private IUserInterface m_vrMenu;
+        private IExperienceMachine m_experienceMachine;
 
         private bool m_grabIntention = false;
 
@@ -99,19 +99,15 @@ namespace Fordi.ObjectControl
         {
             m_grabCount = 0;
             base.Start();
-            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            if (m_player == null)
-                m_player = FindObjectOfType<Player>();
-            if (m_player == null)
-                throw new Exception("VR player not loaded into scene.");
 
             m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             // Set up our max grab distance to be based on the player's max grab distance.
             // Adding a liberal margin of error here, because users can move away some from the 
             // OVRPlayerController, and also players have arms.
             // Note that there's no major downside to making this value too high, as objects
             // outside the player's grabbable trigger volume will not be eligible targets regardless.
-            SphereCollider sc = m_player.PlayerController.GetComponentInChildren<SphereCollider>();
+            SphereCollider sc = m_experienceMachine.Player.PlayerController.GetComponentInChildren<SphereCollider>();
             m_maxGrabDistance = sc.radius + 3.0f;
 
             if (m_parentHeldObject == false)
@@ -229,7 +225,7 @@ namespace Fordi.ObjectControl
 
                 if (m_parentHeldObject)
                 {
-                    m_grabbedObj.transform.rotation = Quaternion.Euler(new Vector3(0, m_player.CameraRig.transform.rotation.eulerAngles.y, 0));
+                    m_grabbedObj.transform.rotation = Quaternion.Euler(new Vector3(0, ((IVRPlayer)m_experienceMachine.Player).CameraRig.transform.rotation.eulerAngles.y, 0));
                     m_grabbedObj.transform.parent = transform;
                 }
 
@@ -238,7 +234,7 @@ namespace Fordi.ObjectControl
                 FordiInput.Block(OVRInput.Button.One, OVRInput.Controller.RTouch);
                 FordiInput.Block(OVRInput.Button.Two, OVRInput.Controller.RTouch);
                 m_grabCount++;
-                m_player.RequestHaltMovement(true);
+                m_experienceMachine.Player.RequestHaltMovement(true);
                 if (m_vrMenu == null)
                     m_vrMenu = IOC.Resolve<IUserInterface>();
                 m_vrMenu.DeactivateUI();
@@ -357,15 +353,6 @@ namespace Fordi.ObjectControl
             return dgOut != null;
         }
 
-        private void EnsuerPlayerEntegrity()
-        {
-            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            if (m_player == null)
-                m_player = FindObjectOfType<Player>();
-            if (m_player == null)
-                throw new Exception("VR player not loaded into scene.");
-        }
-
         protected bool FindTargetWithSpherecast(out DistanceGrabbable dgOut, out Collider collOut)
         {
             dgOut = null;
@@ -381,9 +368,7 @@ namespace Fordi.ObjectControl
             // However, we're limiting the SphereCast by m_maxGrabDistance, so the optimization doesn't seem
             // essential.
 
-            EnsuerPlayerEntegrity();
-
-            m_maxGrabDistance = m_player.CameraRig.leftEyeCamera.farClipPlane - m_player.CameraRig.leftEyeCamera.nearClipPlane;
+            m_maxGrabDistance = ((IVRPlayer)m_experienceMachine.Player).CameraRig.leftEyeCamera.farClipPlane - ((IVRPlayer)m_experienceMachine.Player).CameraRig.leftEyeCamera.nearClipPlane;
 
             if (Physics.SphereCast(ray, m_spherecastRadius, out hitInfo, m_maxGrabDistance, 1 << m_grabObjectsInLayer))
             {
@@ -441,9 +426,7 @@ namespace Fordi.ObjectControl
             // However, we're limiting the SphereCast by m_maxGrabDistance, so the optimization doesn't seem
             // essential.
 
-            EnsuerPlayerEntegrity();
-
-            m_maxGrabDistance = m_player.CameraRig.leftEyeCamera.farClipPlane - m_player.CameraRig.leftEyeCamera.nearClipPlane;
+            m_maxGrabDistance = ((IVRPlayer)m_experienceMachine.Player).CameraRig.leftEyeCamera.farClipPlane - ((IVRPlayer)m_experienceMachine.Player).CameraRig.leftEyeCamera.nearClipPlane;
 
             if (Physics.Raycast(ray, out hitInfo, m_maxGrabDistance, 1 << m_grabObjectsInLayer))
             {
@@ -501,11 +484,9 @@ namespace Fordi.ObjectControl
 
         protected override void CheckForGrabOrRelease(float prevFlex)
         {
-            EnsuerPlayerEntegrity();
-
             if (m_grabIntention && OVRInput.GetDown(OVRInput.Button.One, m_controller))
             {
-                m_player.ToogleGrabGuide(m_controller, false);
+                ((IVRPlayer)m_experienceMachine.Player).ToogleGrabGuide(m_controller, false);
                 GrabBegin();
             }
 
@@ -514,13 +495,13 @@ namespace Fordi.ObjectControl
                 if (m_grabbedObj == null && m_target != null)
                 {
                     m_grabIntention = true;
-                    m_player.ToogleGrabGuide(m_controller, true);
+                    ((IVRPlayer)m_experienceMachine.Player).ToogleGrabGuide(m_controller, true);
                 }
             }
             else if ((m_prevFlex <= grabEnd) && (prevFlex > grabEnd))
             {
                 m_grabIntention = false;
-                m_player.ToogleGrabGuide(m_controller, false);
+                ((IVRPlayer)m_experienceMachine.Player).ToogleGrabGuide(m_controller, false);
 
                 GrabEnd();
             }
@@ -528,7 +509,7 @@ namespace Fordi.ObjectControl
             if (m_target == null)
             {
                 m_grabIntention = false;
-                m_player.ToogleGrabGuide(m_controller, false);
+                ((IVRPlayer)m_experienceMachine.Player).ToogleGrabGuide(m_controller, false);
             }
         }
 
@@ -648,7 +629,7 @@ namespace Fordi.ObjectControl
             FordiInput.Unblock(OVRInput.Button.Two, OVRInput.Controller.RTouch);
             if (m_grabCount > 0)
                 m_grabCount--;
-            m_player.RequestHaltMovement(false);
+            m_experienceMachine.Player.RequestHaltMovement(false);
             m_vrMenu.ShowUI();
         }
     }

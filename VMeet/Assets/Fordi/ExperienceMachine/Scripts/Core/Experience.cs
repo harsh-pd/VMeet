@@ -160,7 +160,6 @@ namespace Fordi.Core
         protected ISettings m_settings;
         protected IAudio m_audio;
         protected ICommonResource m_commonResource;
-        protected IPlayer m_player;
         protected IWebInterface m_webInterace;
         protected INetwork m_network;
         protected IUIEngine m_uiEngine;
@@ -187,7 +186,6 @@ namespace Fordi.Core
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
             m_commonResource = IOC.Resolve<ICommonResource>();
-            m_player = IOC.Resolve<IPlayer>();
             m_settings = IOC.Resolve<ISettings>();
             m_webInterace = IOC.Resolve<IWebInterface>();
             m_network = IOC.Resolve<INetwork>();
@@ -547,12 +545,10 @@ namespace Fordi.Core
                 m_audio = IOC.Resolve<IAudio>();
             if (m_experienceMachine == null)
                 m_experienceMachine = IOC.Resolve<IExperienceMachine>();
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
             if (m_commonResource == null)
                 m_commonResource = IOC.Resolve<ICommonResource>();
             if (ExperienceMachine.AppMode == AppMode.TRAINING)
-                m_player.StartTooltipRoutine(m_usedButtons);
+                m_experienceMachine.Player.StartTooltipRoutine(m_usedButtons);
 
             var musicCategories = GetCategories(ResourceType.MUSIC);
             if (musicCategories == null || musicCategories.Length == 0)

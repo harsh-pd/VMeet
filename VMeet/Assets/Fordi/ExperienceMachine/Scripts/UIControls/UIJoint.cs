@@ -40,7 +40,7 @@ namespace Fordi.UI
 
         private float m_speed = 6;
 
-        private IVRPlayer m_player;
+        private IExperienceMachine m_experienceMachine;
 
         private ToolTip m_tooltip;
         public ToolTip Tooltip
@@ -63,14 +63,7 @@ namespace Fordi.UI
 
         private IEnumerator Start()
         {
-            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            if (m_player == null)
-                m_player = FindObjectOfType<Core.Player>();
-            if (m_player == null)
-            {
-                Destroy(gameObject);
-                throw new Exception("VR player not loaded into scene.");
-            }
+            m_experienceMachine = IOC.Resolve<IExperienceMachine>();
 
             m_line.positionCount = m_numberOfSegments + 1;
 
@@ -79,7 +72,7 @@ namespace Fordi.UI
             m_offset = m_uiHandle.localPosition / 100;
             m_archRadius = Vector3.Magnitude(new Vector3(m_offset.x, 0, m_offset.z));
 
-            m_uiHandle.SetParent(m_player.PlayerCanvas);
+            m_uiHandle.SetParent(((IVRPlayer)m_experienceMachine.Player).PlayerCanvas);
             m_uiHandle.localRotation = Quaternion.identity;
 
            

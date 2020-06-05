@@ -18,7 +18,6 @@ namespace Fordi.Core
         public OVRInput.Button WaypointTeleportButton { get { return m_waypointTeleportButton; } }
 
         private IExperienceMachine m_experienceMachine;
-        private IVRPlayer m_player;
 
         protected override void AwakeOverride()
         {
@@ -28,11 +27,6 @@ namespace Fordi.Core
 
         protected override void StartOverride()
         {
-            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            if (m_player == null)
-                m_player = FindObjectOfType<Player>();
-            if (m_player == null)
-                throw new Exception("VR player not loaded into scene.");
             base.StartOverride();
             //WaypointTeleport();
         }
@@ -61,14 +55,14 @@ namespace Fordi.Core
             Vector3 holder = anchor.position;
             holder.y += refSystem.GetHeight();
 
-            float rootRotation = m_player.RootRotation;
+            float rootRotation = ((IVRPlayer)m_experienceMachine.Player).RootRotation;
             float angle = anchor.transform.rotation.eulerAngles.y - rootRotation;
 
 
             refSystem.yourRig.enabled = false;
             refSystem.yourRig.transform.DOMove(holder, .1f).OnComplete(() =>
             {
-                m_player.UpdateAdditionalRotation(angle);
+                ((IVRPlayer)m_experienceMachine.Player).UpdateAdditionalRotation(angle);
                 refSystem.yourRig.enabled = true;
             });
 
@@ -90,14 +84,14 @@ namespace Fordi.Core
             Vector3 holder = anchor.position;
             holder.y += refSystem.GetHeight();
 
-            float rootRotation = m_player.RootRotation;
+            float rootRotation = ((IVRPlayer)m_experienceMachine.Player).RootRotation;
             float angle = anchor.transform.rotation.eulerAngles.y - rootRotation;
 
 
             refSystem.yourRig.enabled = false;
             refSystem.yourRig.transform.DOMove(holder, .1f).OnComplete(() =>
             {
-                m_player.UpdateAdditionalRotation(angle);
+                ((IVRPlayer)m_experienceMachine.Player).UpdateAdditionalRotation(angle);
                 refSystem.yourRig.enabled = true;
             });
 

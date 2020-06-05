@@ -52,8 +52,6 @@ namespace Fordi.UI.MenuControl
 
         private bool m_recenterFlag = false;
 
-        protected IVRPlayer m_vrPlayer = null;
-
         public override BaseInputModule InputModule
         {
             get
@@ -89,16 +87,7 @@ namespace Fordi.UI.MenuControl
                 throw new Exception("VR input module not found.");
             }
 
-            m_vrPlayer = (IVRPlayer)IOC.Resolve<IPlayer>();
-            if (m_vrPlayer == null)
-                m_vrPlayer = FindObjectOfType<Core.Player>();
-            if (m_vrPlayer == null)
-            {
-                Destroy(gameObject);
-                throw new Exception("VR player not loaded into scene.");
-            }
-
-            m_playerScreenOffset = (m_vrPlayer.PlayerCanvas.position - m_screensRoot.position) / m_vrPlayer.PlayerCanvas.localScale.z;
+            m_playerScreenOffset = (((IVRPlayer)m_experienceMachine.Player).PlayerCanvas.position - m_screensRoot.position) / ((IVRPlayer)m_experienceMachine.Player).PlayerCanvas.localScale.z;
 
             if (m_laserPointer == null)
                 m_laserPointer = m_laserPointerObject.GetComponent<LaserPointer>();
@@ -123,8 +112,8 @@ namespace Fordi.UI.MenuControl
         {
             m_screensRoot.gameObject.SetActive(true);
             PrepareForNewScreen();
-            m_vrPlayer.PrepareForSpawn();
-            var menu = Instantiate(screenPrefab.Gameobject, m_vrPlayer.PlayerCanvas).GetComponent<IScreen>();
+            ((IVRPlayer)m_experienceMachine.Player).PrepareForSpawn();
+            var menu = Instantiate(screenPrefab.Gameobject, ((IVRPlayer)m_experienceMachine.Player).PlayerCanvas).GetComponent<IScreen>();
             BringInFront(menu.Gameobject.transform, enlarge);
             if (!external)
             {
@@ -152,7 +141,7 @@ namespace Fordi.UI.MenuControl
                 Vector3 localRotation = menuTransform.localRotation.eulerAngles;
                 menuTransform.localRotation = Quaternion.Euler(new Vector3(30, localRotation.y, localRotation.z));
             }
-            m_vrPlayer.RequestHaltMovement(true);
+            ((IVRPlayer)m_experienceMachine.Player).RequestHaltMovement(true);
         }
 
         public override IScreen OpenMenu(MenuArgs args)
@@ -192,7 +181,7 @@ namespace Fordi.UI.MenuControl
             base.Close();
 
             if (m_experienceMachine.CurrentExperience != ExperienceType.HOME)
-                m_vrPlayer.RequestHaltMovement(false);
+                ((IVRPlayer)m_experienceMachine.Player).RequestHaltMovement(false);
         }
 
         public override IScreen OpenMeetingForm(FormArgs args)
@@ -209,8 +198,8 @@ namespace Fordi.UI.MenuControl
         //Not handled properly for VR screen
         public override IScreen OpenCalendar(CalendarArgs args)
         {
-            m_vrPlayer.PrepareForSpawn();
-            var menu = Instantiate(m_calendarPrefab, m_vrPlayer.PlayerCanvas);
+            ((IVRPlayer)m_experienceMachine.Player).PrepareForSpawn();
+            var menu = Instantiate(m_calendarPrefab, ((IVRPlayer)m_experienceMachine.Player).PlayerCanvas);
             BringInFront(menu.transform);
 
             menu.OpenCalendar(this, args);

@@ -66,11 +66,11 @@ namespace Fordi.Core
             if (PhotonNetwork.LocalPlayer.ActorNumber < 1)
             {
                 if (m_teleportAnchors.Length > 0)
-                    m_player.DoWaypointTeleport(m_teleportAnchors[0]);
+                    m_experienceMachine.Player.DoWaypointTeleport(m_teleportAnchors[0]);
                 yield break;
             }
             if (m_teleportAnchors.Length > PhotonNetwork.LocalPlayer.ActorNumber - 1)
-                m_player.DoWaypointTeleport(m_teleportAnchors[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
+                m_experienceMachine.Player.DoWaypointTeleport(m_teleportAnchors[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
         }
     }
 }

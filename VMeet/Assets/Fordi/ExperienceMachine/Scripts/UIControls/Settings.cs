@@ -83,7 +83,6 @@ namespace Fordi.Core
         private Preferences selectedPreferences, defaultPreferences;
 
         private IExperienceMachine m_experienceMachine;
-        private IPlayer m_player;
         private IUIEngine m_uiEngine;
         
 
@@ -108,7 +107,6 @@ namespace Fordi.Core
         private void Awake()
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
-            m_player = IOC.Resolve<IPlayer>();
             m_uiEngine = IOC.Resolve<IUIEngine>();
 
             DynamicSettings dynamicSettings = null;
@@ -161,7 +159,7 @@ namespace Fordi.Core
             if (selectedPreferences.DesktopMode)
                 m_uiEngine.SwitchToDesktopOnlyMode();
             m_uiEngine.ApplyShowVRSettings(selectedPreferences.ShowVR);
-            //m_player.ApplyTooltipSettings();
+            //m_experienceMachine.Player.ApplyTooltipSettings();
         }
 
         public void SaveSettings()
@@ -183,7 +181,7 @@ namespace Fordi.Core
                 m_uiEngine.SwitchToDesktopOnlyMode();
             else
                 m_uiEngine.DisableDesktopOnlyMode();
-            m_player.ApplyTooltipSettings();
+            m_experienceMachine.Player.ApplyTooltipSettings();
             m_uiEngine.ApplyShowVRSettings(selectedPreferences.ShowVR);
         }
 

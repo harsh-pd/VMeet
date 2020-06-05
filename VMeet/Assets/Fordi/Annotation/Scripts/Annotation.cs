@@ -66,9 +66,9 @@ namespace Fordi.Annotations
         public const string AnnotationColorGroup = "Annotation Colors";
 
         private ISettings m_settings;
-        private IVRPlayer m_player;
         private INetwork m_network;
         private ICommonResource m_commonResource = null;
+        private IExperienceMachine m_experienceMachine = null;
 
         public GameObject WhiteBoard { get { return whiteboard; } }
 
@@ -114,6 +114,8 @@ namespace Fordi.Annotations
             m_settings = IOC.Resolve<ISettings>();
             m_network = IOC.Resolve<INetwork>();
             m_commonResource = IOC.Resolve<ICommonResource>();
+            m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+
             finishedAnnotationHolder = transform;
             whiteboard = GameObject.FindGameObjectWithTag(WhiteBoardTag);
             if (whiteboard)
@@ -141,10 +143,10 @@ namespace Fordi.Annotations
 
             if (controller == OVRInput.Controller.RTouch)
             {
-                trailOrigin = m_player.RightHand;
+                trailOrigin = ((IVRPlayer)m_experienceMachine.Player).RightHand;
             }
             else
-                trailOrigin = m_player.LeftHand;
+                trailOrigin = ((IVRPlayer)m_experienceMachine.Player).LeftHand;
         }
 
         void Update()
@@ -180,29 +182,9 @@ namespace Fordi.Annotations
 
         private void EnsureGameobjectIntegrity()
         {
-            try
-            {
-                m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            }
-            catch (InvalidCastException)
-            {
-                Destroy(gameObject);
-                throw new Exception("VR player not loaded into scene.");
-            }
-
-            if (m_player == null)
-            {
-                m_player = FindObjectOfType<Core.Player>();
-                if (m_player == null || m_player.GetType() != typeof(IVRPlayer))
-                {
-                    Destroy(gameObject);
-                    throw new Exception("VR player not loaded into scene.");
-                }
-            }
-
-            m_pen = Instantiate(m_penPrefab, m_player.RightHand);
-            m_pinchTrailAnchor = Instantiate(m_pinchTrailAnchorPrefab, m_player.RightHand);
-            m_penTrailAnchor = Instantiate(m_penTrailAnchorPrefab, m_player.RightHand);
+            m_pen = Instantiate(m_penPrefab, ((IVRPlayer)m_experienceMachine.Player).RightHand);
+            m_pinchTrailAnchor = Instantiate(m_pinchTrailAnchorPrefab, ((IVRPlayer)m_experienceMachine.Player).RightHand);
+            m_penTrailAnchor = Instantiate(m_penTrailAnchorPrefab, ((IVRPlayer)m_experienceMachine.Player).RightHand);
             currentDefaultTrail = m_pinchTrailAnchor.GetComponentInChildren<Trail>();
         }
 

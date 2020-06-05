@@ -293,10 +293,7 @@ namespace Fordi.Core
             m_menuSelection.VoiceOver = null;
             base.OnLoad();
             Invoke("OpenLoginPage", .1f);
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
-
-            m_player.RequestHaltMovement(true);
+            m_experienceMachine.Player.RequestHaltMovement(true);
         }
 
 

@@ -43,7 +43,6 @@ namespace Fordi.Networking
         public const string ActorNumberString = "ActorNumber";
         public const string OculusIDString = "OculusID";
 
-        private IPlayer m_player = null;
         private IUIEngine m_uiEngine = null;
         private IMenuSelection m_menuSelection = null;
         private IExperienceMachine m_experienceMachine = null;
@@ -63,7 +62,6 @@ namespace Fordi.Networking
         #region INITIALIZATIONS
         private void Awake()
         {
-            m_player = IOC.Resolve<IPlayer>();
             m_uiEngine = IOC.Resolve<IUIEngine>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
@@ -304,7 +302,7 @@ namespace Fordi.Networking
         public void RaiseSecondHandPlayerSpawnEvent(int targetPlayerId)
         {
             var targetPlayer = Array.Find(PhotonNetwork.PlayerList, item => item.ActorNumber == targetPlayerId);
-            photonView.RPC("RPC_SpawnPlayer", targetPlayer, PhotonNetwork.LocalPlayer.ActorNumber, m_player.PlayerViewId, m_player.AvatarViewId, false);
+            photonView.RPC("RPC_SpawnPlayer", targetPlayer, PhotonNetwork.LocalPlayer.ActorNumber, m_experienceMachine.Player.PlayerViewId, m_experienceMachine.Player.AvatarViewId, false);
         }
 
         public void RaisePlayerSpawnEvent()
@@ -315,10 +313,10 @@ namespace Fordi.Networking
 
             try
             {
-                var playerSync = m_player.PlayerController.GetComponent<OvrPlayerSync>();
+                var playerSync = m_experienceMachine.Player.PlayerController.GetComponent<OvrPlayerSync>();
                 playerSync.Init(true, false, PhotonNetwork.LocalPlayer.ActorNumber);
-                m_player.PlayerViewId = viewPlayerId;
-                m_player.AvatarViewId = viewAvatarId;
+                m_experienceMachine.Player.PlayerViewId = viewPlayerId;
+                m_experienceMachine.Player.AvatarViewId = viewAvatarId;
             }
             catch (NullReferenceException)
             {

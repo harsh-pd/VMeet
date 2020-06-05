@@ -123,7 +123,6 @@ namespace Fordi.UI
 
         protected Stack<IScreen> m_screenStack = new Stack<IScreen>();
 
-        protected IPlayer m_player;
         protected IAudio m_audio;
         protected IMenuSelection m_menuSelection;
         protected IExperienceMachine m_experienceMachine;
@@ -140,7 +139,6 @@ namespace Fordi.UI
         protected virtual void Awake()
         {
             m_screenRootScale = m_screensRoot.localScale;
-            m_player = IOC.Resolve<IPlayer>();
             m_audio = IOC.Resolve<IAudio>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
@@ -176,9 +174,6 @@ namespace Fordi.UI
                 else
                     m_screenStack.Pop().Close();
             }
-
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
         }
 
         protected virtual IScreen SpawnScreen(IScreen screenPrefab, bool enlarge = false, bool external = false)

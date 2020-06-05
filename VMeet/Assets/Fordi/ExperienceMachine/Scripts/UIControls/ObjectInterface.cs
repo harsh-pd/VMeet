@@ -21,14 +21,12 @@ namespace Fordi.UI.MenuControl
 
         private List<ObjectItem> m_objectItems = new List<ObjectItem>();
 
-        private IPlayer m_player;
 
         private ObjectGrid m_objectGrid = null;
 
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
-            m_player = IOC.Resolve<IPlayer>();
         }
 
         public override IMenuItem SpawnMenuItem(MenuItemInfo menuItemInfo, GameObject prefab, Transform parent)
@@ -49,9 +47,6 @@ namespace Fordi.UI.MenuControl
 
             if (m_objectItems.Count + emptyItemCount < m_dimentions.x * m_dimentions.y)
                 emptyItemCount += m_dimentions.x * m_dimentions.y - (m_objectItems.Count + emptyItemCount);
-
-            if (m_player == null)
-                m_player = IOC.Resolve<IPlayer>();
 
             for (int i = 0; i < emptyItemCount; i++)
                 Instantiate(m_emptyItemPrefab, m_contentRoot);

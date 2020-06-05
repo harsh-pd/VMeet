@@ -20,8 +20,6 @@ namespace Fordi.UI.MenuControl
 
         private const string MaskPrefix = "Masked/";
 
-        private IVRPlayer m_player;
-
         public RawImage RawImage { get { return m_rawImage; } }
 
         public GameObject Object { get; private set; }
@@ -31,11 +29,11 @@ namespace Fordi.UI.MenuControl
             base.UpdateOverride();
             if (pointerHovering && (FordiInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch)))
             {
-                var prop = Instantiate(((ObjectResource)Item.Data).ObjectPrefab, m_player.RightHand);
+                var prop = Instantiate(((ObjectResource)Item.Data).ObjectPrefab, ((IVRPlayer)m_experienceMachine.Player).RightHand);
                 prop.transform.position = Object.transform.position;
                 var grabbable = prop.GetComponent<DistanceGrabbable>();
                 if (grabbable != null)
-                    m_player.Grab(grabbable, OVRInput.Controller.RTouch);
+                    ((IVRPlayer)m_experienceMachine.Player).Grab(grabbable, OVRInput.Controller.RTouch);
             }
         }
 
@@ -113,16 +111,6 @@ namespace Fordi.UI.MenuControl
                 foreach (var material in item.materials)
                     material.shader = Shader.Find(MaskPrefix + material.shader.name);
             }
-        }
-
-        protected override void AwakeOverride()
-        {
-            base.AwakeOverride();
-            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            if (m_player == null)
-                m_player = FindObjectOfType<Player>();
-            if (m_player == null)
-                throw new Exception("VR player not loaded into scene.");
         }
     }
 }
