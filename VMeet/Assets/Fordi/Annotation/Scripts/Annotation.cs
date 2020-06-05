@@ -111,13 +111,24 @@ namespace Fordi.Annotations
 
         private void Awake()
         {
-            m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
-            if (m_player == null)
-                m_player = FindObjectOfType<Core.Player>();
-            if (m_player == null)
+            try
+            {
+                m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
+            }
+            catch(InvalidCastException)
             {
                 Destroy(gameObject);
                 throw new Exception("VR player not loaded into scene.");
+            }
+
+            if (m_player == null)
+            {
+                m_player = FindObjectOfType<Core.Player>();
+                if (m_player == null || m_player.GetType() != typeof(IVRPlayer))
+                {
+                    Destroy(gameObject);
+                    throw new Exception("VR player not loaded into scene.");
+                }
             }
 
             m_settings = IOC.Resolve<ISettings>();

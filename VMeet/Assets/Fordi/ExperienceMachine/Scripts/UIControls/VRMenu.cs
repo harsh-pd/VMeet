@@ -54,9 +54,40 @@ namespace Fordi.UI.MenuControl
 
         protected IVRPlayer m_vrPlayer = null;
 
+        public override BaseInputModule InputModule
+        {
+            get
+            {
+                if (m_inputModule == null)
+                {
+                    m_inputModule = FindObjectOfType<FordiInputModule>();
+                    if (m_inputModule == null)
+                    {
+                        Destroy(gameObject);
+                        throw new Exception("VR input module not found.");
+                    }
+                }
+                return m_inputModule;
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
+            //Debug.LogError("Awake");
+        }
+
+        protected override void StartOverride()
+        {
+            OVRManager.HMDMounted += OnHMDMount;
+            OVRManager.HMDUnmounted += OnHMDUnmount;
+
+            m_inputModule = FindObjectOfType<FordiInputModule>();
+            if (m_inputModule == null)
+            {
+                Destroy(gameObject);
+                throw new Exception("VR input module not found.");
+            }
 
             m_vrPlayer = (IVRPlayer)IOC.Resolve<IPlayer>();
             if (m_vrPlayer == null)
@@ -68,13 +99,7 @@ namespace Fordi.UI.MenuControl
             }
 
             m_playerScreenOffset = (m_vrPlayer.PlayerCanvas.position - m_screensRoot.position) / m_vrPlayer.PlayerCanvas.localScale.z;
-            OVRManager.HMDMounted += OnHMDMount;
-            OVRManager.HMDUnmounted += OnHMDUnmount;
-            //Debug.LogError("Awake");
-        }
 
-        protected override void StartOverride()
-        {
             if (m_laserPointer == null)
                 m_laserPointer = m_laserPointerObject.GetComponent<LaserPointer>();
             if (m_laserPointer != null)
@@ -96,6 +121,7 @@ namespace Fordi.UI.MenuControl
         #region CORE
         protected override IScreen SpawnScreen(IScreen screenPrefab, bool enlarge = false, bool external = false)
         {
+            m_screensRoot.gameObject.SetActive(true);
             PrepareForNewScreen();
             m_vrPlayer.PrepareForSpawn();
             var menu = Instantiate(screenPrefab.Gameobject, m_vrPlayer.PlayerCanvas).GetComponent<IScreen>();

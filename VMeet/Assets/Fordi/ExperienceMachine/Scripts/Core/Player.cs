@@ -144,6 +144,8 @@ namespace Fordi.Core
 
         public static string s_OculusID = "";
 
+        public GameObject GameObject { get { return gameObject; } }
+
         private void Awake()
         {
             //Debug.LogError(m_avatar.oculusUserID);

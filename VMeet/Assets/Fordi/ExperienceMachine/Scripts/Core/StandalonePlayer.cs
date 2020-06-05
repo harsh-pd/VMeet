@@ -10,6 +10,7 @@ namespace Fordi.Core
     public interface IPlayer
     {
         GameObject PlayerController { get; }
+        GameObject GameObject { get; }
         //void RequestHaltMovement(bool val);
         //Transform PlayerCanvas { get; }
         //OVRCameraRig CameraRig { get; }
@@ -46,6 +47,8 @@ namespace Fordi.Core
         public int AvatarViewId { get { return m_avatarPhotonView.ViewID; } set { m_avatarPhotonView.ViewID = value; } }
 
         public GameObject PlayerController { get { return m_playerController; } }
+
+        public GameObject GameObject { get { return gameObject; } }
 
         private void Awake()
         {

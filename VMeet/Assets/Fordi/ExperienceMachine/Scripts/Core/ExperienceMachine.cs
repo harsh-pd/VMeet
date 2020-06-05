@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using Fordi.Common;
 using Fordi.UI;
 using Fordi.UI.MenuControl;
+using Fordi.Platforms;
+using System;
 
 namespace Fordi.Core
 {
@@ -32,30 +34,6 @@ namespace Fordi.Core
         NONE,
         PAUSED,
         RUNNING,
-    }
-
-    public interface IExperience
-    {
-        List<ResourceType> MenuSequence { get; }
-        List<ResourceType> LearnMenuSequence { get; }
-        ExperienceResource[] GetResource(ResourceType resourceType, string category);
-        bool CanExecuteMenuCommand(string cmd);
-        void ExecuteMenuCommand(MenuClickArgs args);
-        void Play();
-        void ResumeGuide();
-        void Pause();
-        void Resume();
-        void Stop();
-        void ToggleMenu();
-        void GoBack();
-        void OpenMenu();
-        void OpenGridMenu(MenuCommandType commandType);
-        void UpdateResourceSelection(MenuClickArgs args);
-        void OnLoad();
-        void ToggleInventory();
-        Transform GetNextTeleportAnchor();
-        ResourceComponent[] GetCategories(ResourceType resourceType);
-        Experience experience { get; }
     }
 
     public class Error
@@ -107,6 +85,7 @@ namespace Fordi.Core
         void OpenSceneMenu();
         ExperienceType CurrentExperience { get; }
         bool IsRunning { get; }
+        void RegisterPlatform(IPlatformModule module);
     }
 
     /// <summary>
@@ -428,6 +407,21 @@ namespace Fordi.Core
         {
             m_uiEngine.Close();
             ToggleMenu();
+        }
+
+        public void RegisterPlatform(IPlatformModule module)
+        {
+            m_player = IOC.Resolve<IPlayer>();
+            if (module.Platform != Platform.DESKTOP)
+            {
+                m_player.GameObject.SetActive(false);
+                IOC.Unregister(m_player);
+            }
+
+            module.Player.GameObject.SetActive(true);
+            IOC.Register(module.Player);
+
+            m_uiEngine.RegisterInterface(module.UserInterface);
         }
     }
 }

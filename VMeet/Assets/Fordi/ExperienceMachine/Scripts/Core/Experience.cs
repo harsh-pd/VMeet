@@ -128,6 +128,30 @@ namespace Fordi.Core
         //public AudioClip Clip;
     }
 
+    public interface IExperience
+    {
+        List<ResourceType> MenuSequence { get; }
+        List<ResourceType> LearnMenuSequence { get; }
+        ExperienceResource[] GetResource(ResourceType resourceType, string category);
+        bool CanExecuteMenuCommand(string cmd);
+        void ExecuteMenuCommand(MenuClickArgs args);
+        void Play();
+        void ResumeGuide();
+        void Pause();
+        void Resume();
+        void Stop();
+        void ToggleMenu();
+        void GoBack();
+        void OpenMenu();
+        void OpenGridMenu(MenuCommandType commandType);
+        void UpdateResourceSelection(MenuClickArgs args);
+        void OnLoad();
+        void ToggleInventory();
+        Transform GetNextTeleportAnchor();
+        ResourceComponent[] GetCategories(ResourceType resourceType);
+        Experience experience { get; }
+    }
+
     [RequireComponent(typeof(Menu))]
     public abstract class Experience : MonoBehaviour, IExperience
     {

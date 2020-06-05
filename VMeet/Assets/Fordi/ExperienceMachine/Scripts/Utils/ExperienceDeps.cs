@@ -77,17 +77,6 @@ namespace Fordi.Core
             }
         }
 
-        private IPlayer m_player;
-
-        protected virtual IPlayer Player
-        {
-            get
-            {
-                Player player = FindObjectOfType<Player>();
-                return player;
-            }
-        }
-
         private IUIEngine m_uiEngine;
 
         protected virtual IUIEngine UIEngine
@@ -264,7 +253,6 @@ namespace Fordi.Core
             m_appTheme = AppTheme;
             m_audio = Audio;
             m_commonResource = CommonResource;
-            m_player = Player;
             m_settings = Settings;
             m_fordiNetwork = FordiNetwork;
             m_webInterface = WebInterface;
@@ -336,7 +324,6 @@ namespace Fordi.Core
             IOC.RegisterFallback(() => Instance.m_appTheme);
             IOC.RegisterFallback(() => Instance.m_audio);
             IOC.RegisterFallback(() => Instance.m_commonResource);
-            IOC.RegisterFallback(() => Instance.m_player);
             IOC.RegisterFallback(() => Instance.m_settings);
             IOC.RegisterFallback(() => Instance.m_fordiNetwork);
             IOC.RegisterFallback(() => Instance.m_webInterface);

@@ -37,6 +37,23 @@ namespace Fordi.UI.MenuControl
 
         public override bool IsOpen { get { return m_screenStack.Count > 0 || m_permanentDesktopScreen != null; } }
 
+        public override BaseInputModule InputModule
+        {
+            get
+            {
+                if (m_inputModule == null)
+                {
+                    m_inputModule = FindObjectOfType<StandaloneInputModule>();
+                    if (m_inputModule == null)
+                    {
+                        Destroy(gameObject);
+                        throw new Exception("VR input module not found.");
+                    }
+                }
+                return m_inputModule;
+            }
+        }
+
         #region CORE
         public override IScreen OpenMenu(MenuArgs args)
         {

@@ -47,6 +47,12 @@ namespace UnityEngine.EventSystems
         /// <returns></returns>
         override protected MouseState GetGazePointerData()
         {
+            if (m_Cursor == null)
+            {
+                m_Cursor = FindObjectOfType<LaserPointer>();
+                if (m_Cursor == null)
+                    return m_MouseState;
+            }
             // Get the OVRRayPointerEventData reference
             OVRPointerEventData leftData;
             GetPointerData(kMouseLeftId, out leftData, true);

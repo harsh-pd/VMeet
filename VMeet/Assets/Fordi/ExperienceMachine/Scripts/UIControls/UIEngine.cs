@@ -48,6 +48,7 @@ namespace Fordi.UI
         void GoBack();
 
         void ActivateInterface(Platform platform);
+        void RegisterInterface(IUserInterface userInterface);
     }
 
     [DefaultExecutionOrder(-50)]
@@ -306,6 +307,14 @@ namespace Fordi.UI
         public void LoadRemoteDesktopView(MenuArgs args)
         {
             ((IStandaloneInterface)m_standaloneInterface).LoadRemoteDesktopView(args);
+        }
+
+        public void RegisterInterface(IUserInterface userInterface)
+        {
+            if (userInterface.Platform == Platform.VR)
+                m_vrInterface = userInterface;
+            if (userInterface.Platform == Platform.DESKTOP)
+                m_standaloneInterface = userInterface;
         }
     }
 }

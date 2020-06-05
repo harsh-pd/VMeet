@@ -104,8 +104,6 @@ namespace Fordi.UI
         protected Popup m_popupPrefab;
         [SerializeField]
         protected Popup m_popup;
-        [SerializeField]
-        protected BaseInputModule m_inputModule = null;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -121,7 +119,7 @@ namespace Fordi.UI
 
         public Platform Platform { get { return m_platform; } }
 
-        public BaseInputModule InputModule { get { return m_inputModule; } }
+        public abstract BaseInputModule InputModule { get; }
 
         protected Stack<IScreen> m_screenStack = new Stack<IScreen>();
 
@@ -136,6 +134,8 @@ namespace Fordi.UI
         protected IScreen m_blocker;
 
         private Vector3 m_screenRootScale;
+
+        protected BaseInputModule m_inputModule = null;
 
         protected virtual void Awake()
         {

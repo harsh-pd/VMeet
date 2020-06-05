@@ -24,15 +24,15 @@ namespace Fordi.Core
         {
             base.AwakeOverride();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+        }
+
+        protected override void StartOverride()
+        {
             m_player = (IVRPlayer)IOC.Resolve<IPlayer>();
             if (m_player == null)
                 m_player = FindObjectOfType<Player>();
             if (m_player == null)
                 throw new Exception("VR player not loaded into scene.");
-        }
-
-        protected override void StartOverride()
-        {
             base.StartOverride();
             //WaypointTeleport();
         }
