@@ -20,6 +20,8 @@ namespace Fordi.Core
 
         private IEnumerator Start()
         {
+            yield return null;
+            MinimumWindowSize.Set(1472, 828);
             Color titleColor = m_title.color;
             Color clearTitleColor = new Color(titleColor.r, titleColor.g, titleColor.b, 0);
             m_title.color = clearTitleColor;
@@ -41,7 +43,6 @@ namespace Fordi.Core
             while (ao.progress < .9f)
                 yield return null;
             ao.allowSceneActivation = true;
-            MinimumWindowSize.Set(1472, 828);
         }
     }
 }
