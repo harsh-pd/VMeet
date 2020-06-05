@@ -7,6 +7,7 @@ using UnityEngine;
 using Fordi.Meeting;
 using Fordi.UI.MenuControl;
 using Fordi.UI;
+using Fordi.Common;
 
 namespace Fordi.Core
 {
@@ -264,8 +265,9 @@ namespace Fordi.Core
             yield return null;
             yield return null;
             yield return null;
-            //Debug.LogError(PhotonNetwork.LocalPlayer.ActorNumber);
-            
+
+            m_player = IOC.Resolve<IPlayer>();
+
             if (m_teleportAnchors.Length > 0)
                 m_player.DoWaypointTeleport(m_teleportAnchors[0]);
 
