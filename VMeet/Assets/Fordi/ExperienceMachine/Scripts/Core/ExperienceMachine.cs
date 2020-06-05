@@ -153,6 +153,7 @@ namespace Fordi.Core
         private void OnDestroy()
         {
             UIInteractionBase.OnClick -= Click;
+            IOC.Unregister(m_player);
         }
 
         private IEnumerator Start()
