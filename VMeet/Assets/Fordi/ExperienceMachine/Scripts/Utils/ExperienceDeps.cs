@@ -218,23 +218,23 @@ namespace Fordi.Core
             }
         }
 
-        private IAnnotation m_annotation;
+        //private IAnnotation m_annotation;
 
-        protected virtual IAnnotation Annotation
-        {
-            get
-            {
-                Annotation annotation = FindObjectOfType<Annotation>();
-                if (annotation == null)
-                {
-                    var obj = new GameObject("Annotation");
-                    annotation = obj.AddComponent<Annotation>();
-                    annotation.transform.parent = transform;
-                    annotation.transform.localPosition = Vector3.zero;
-                }
-                return annotation;
-            }
-        }
+        //protected virtual IAnnotation Annotation
+        //{
+        //    get
+        //    {
+        //        Annotation annotation = FindObjectOfType<Annotation>();
+        //        if (annotation == null)
+        //        {
+        //            var obj = new GameObject("Annotation");
+        //            annotation = obj.AddComponent<Annotation>();
+        //            annotation.transform.parent = transform;
+        //            annotation.transform.localPosition = Vector3.zero;
+        //        }
+        //        return annotation;
+        //    }
+        //}
 
         private void Awake()
         {
@@ -260,7 +260,7 @@ namespace Fordi.Core
             m_mouseControl = MouseControl;
             m_screenShare = ScreenShare;
             m_voiceChat = VoiceChat;
-            m_annotation = Annotation;
+            //m_annotation = Annotation;
             m_settings = Settings;
             m_uiEngine = UIEngine;
         }
@@ -331,7 +331,7 @@ namespace Fordi.Core
             IOC.RegisterFallback(() => Instance.m_mouseControl);
             IOC.RegisterFallback(() => Instance.m_screenShare);
             IOC.RegisterFallback(() => Instance.m_voiceChat);
-            IOC.RegisterFallback(() => Instance.m_annotation);
+            //IOC.RegisterFallback(() => Instance.m_annotation);
             IOC.RegisterFallback(() => Instance.m_uiEngine);
 
             if (IOC.Resolve<IMenuSelection>() == null)

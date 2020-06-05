@@ -111,6 +111,7 @@ namespace Fordi.Annotations
 
         private void Awake()
         {
+            IOC.Register<IAnnotation>(this);
             m_settings = IOC.Resolve<ISettings>();
             m_network = IOC.Resolve<INetwork>();
             m_commonResource = IOC.Resolve<ICommonResource>();
@@ -120,6 +121,14 @@ namespace Fordi.Annotations
             whiteboard = GameObject.FindGameObjectWithTag(WhiteBoardTag);
             if (whiteboard)
                 whiteboardLayerMask = 1 << LayerMask.NameToLayer(WhiteBoardLayer);
+
+            m_experienceMachine.OnModuleRegistration += OnModuleLoad;
+        }
+
+        private void OnDestroy()
+        {
+            IOC.Unregister<IAnnotation>(this);
+            m_experienceMachine.OnModuleRegistration -= OnModuleLoad;
         }
 
         private IEnumerator Start()
@@ -127,26 +136,10 @@ namespace Fordi.Annotations
             if (settings == null)
                 settings = new AnnotationSettings();
             instance = this;
-
-            yield return null;
             yield return null;
 
-            EnsureGameobjectIntegrity();
-
-            var colorResources = m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup);
-            var colorIndex = Array.FindIndex(colorResources, item => ((ColorResource)item).Color == s_selectedColor);
-            if (colorIndex == -1)
-                colorIndex = 0;
-            ColorSelection(((ColorResource)m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup)[colorIndex]).Color);
-
-            ChangeTrailThickness(settings.SelectedThickness);
-
-            if (controller == OVRInput.Controller.RTouch)
-            {
-                trailOrigin = ((IVRPlayer)m_experienceMachine.Player).RightHand;
-            }
-            else
-                trailOrigin = ((IVRPlayer)m_experienceMachine.Player).LeftHand;
+            if (m_experienceMachine.Player is IVRPlayer)
+                OnModuleLoad(null, EventArgs.Empty);
         }
 
         void Update()
@@ -178,6 +171,31 @@ namespace Fordi.Annotations
             {
                 DeletePreviousTrail();
             }
+        }
+
+        private void OnModuleLoad(object sender, EventArgs e)
+        {
+            if (!(m_experienceMachine.Player is IVRPlayer))
+                return;
+
+            if (settings == null)
+                settings = new AnnotationSettings();
+            EnsureGameobjectIntegrity();
+
+            var colorResources = m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup);
+            var colorIndex = Array.FindIndex(colorResources, item => ((ColorResource)item).Color == s_selectedColor);
+            if (colorIndex == -1)
+                colorIndex = 0;
+            ColorSelection(((ColorResource)m_commonResource.GetResource(ResourceType.COLOR, AnnotationColorGroup)[colorIndex]).Color);
+
+            ChangeTrailThickness(settings.SelectedThickness);
+
+            if (controller == OVRInput.Controller.RTouch)
+            {
+                trailOrigin = ((IVRPlayer)m_experienceMachine.Player).RightHand;
+            }
+            else
+                trailOrigin = ((IVRPlayer)m_experienceMachine.Player).LeftHand;
         }
 
         private void EnsureGameobjectIntegrity()

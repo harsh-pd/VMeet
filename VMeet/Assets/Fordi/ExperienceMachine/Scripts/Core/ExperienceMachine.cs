@@ -87,6 +87,7 @@ namespace Fordi.Core
         bool IsRunning { get; }
         void RegisterPlatform(IPlatformModule module);
         IPlayer Player { get; }
+        EventHandler OnModuleRegistration { get; set; }
     }
 
     /// <summary>
@@ -124,6 +125,8 @@ namespace Fordi.Core
         public bool IsRunning { get { return m_isRunning; } }
 
         public IPlayer Player { get { return m_player; } }
+
+        public EventHandler OnModuleRegistration { get; set; }
 
         private const string MeetingScene = "Meeting";
 
@@ -422,6 +425,8 @@ namespace Fordi.Core
             }
 
             m_uiEngine.RegisterInterface(module.UserInterface);
+
+            OnModuleRegistration?.Invoke(this, EventArgs.Empty);
         }
     }
 }

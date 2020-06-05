@@ -16,7 +16,45 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 238dd6e01c4b4ea4f83fbc2a6b2541c3
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 2aa59d1700f7cf243be5b93e573ac7c5
+    m_Address: Assets/Fordi/Annotation/Whiteboard/Whiteboard.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1197534744048104, guid: 2aa59d1700f7cf243be5b93e573ac7c5,
+      type: 3}
+    m_TargetAsset: {fileID: 1197534744048104, guid: 2aa59d1700f7cf243be5b93e573ac7c5,
+      type: 3}
+  - m_GUID: 675510cebd8075a4bb770c1b85ddafcf
+    m_Address: Assets/Fordi/ExperienceMachine/Demo/Scenes/LightingDone/Meeting/Laptops.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 197012445942971493, guid: 675510cebd8075a4bb770c1b85ddafcf,
+      type: 3}
+    m_TargetAsset: {fileID: 197012445942971493, guid: 675510cebd8075a4bb770c1b85ddafcf,
+      type: 3}
+  - m_GUID: 7cb9eefa04c2f5545b10e149baeb10cb
+    m_Address: Assets/Fordi/PlatformModules/VR/Prefabs/VRModule.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 4559168619124265075, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
+      type: 3}
+    m_TargetAsset: {fileID: 4559168619124265075, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
+      type: 3}
+  - m_GUID: 7e361ea6e1d57a34cb89bbee994688b9
+    m_Address: Assets/Fordi/ExperienceMachine/Demo/Scenes/LightingDone/Meeting/Environment.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 3239003375465428309, guid: 7e361ea6e1d57a34cb89bbee994688b9,
+      type: 3}
+    m_TargetAsset: {fileID: 3239003375465428309, guid: 7e361ea6e1d57a34cb89bbee994688b9,
+      type: 3}
+  - m_GUID: de65dcbb0f07b4942b7d3498b7b05b4d
+    m_Address: Assets/Fordi/PlatformModules/VR/Prefabs/VRModuleHome.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 34d532655797d694cb01f097db831fc5, type: 2}
   m_SchemaSet:

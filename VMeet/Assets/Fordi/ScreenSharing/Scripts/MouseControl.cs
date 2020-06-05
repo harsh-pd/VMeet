@@ -64,15 +64,16 @@ namespace Fordi.ScreenSharing
 
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return new WaitForSeconds(5);
             if (m_laserPointer == null)
                 m_laserPointer = FindObjectOfType<LaserPointer>();
         }
 
         void Update()
         {
-            if (XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present && m_activeMonitor != null && m_laserPointer.HitMonitor)
+            if (m_laserPointer != null && XRDevice.isPresent && XRDevice.userPresence == UserPresenceState.Present && m_activeMonitor != null && m_laserPointer.HitMonitor)
             {
                 var cursorPosition = WorldToMouseCoordinates(m_laserPointer.EndPoint);
                 SetCursorPos(cursorPosition.x, cursorPosition.y);
