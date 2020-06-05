@@ -162,7 +162,6 @@ namespace Fordi.Core
             yield return null;
             yield return null;
             m_currentExperience.OnLoad();
-            MinimumWindowSize.Set(1472, 828);
         }
 
         private void Update()

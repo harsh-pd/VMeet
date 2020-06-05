@@ -41,6 +41,7 @@ namespace Fordi.Core
             while (ao.progress < .9f)
                 yield return null;
             ao.allowSceneActivation = true;
+            MinimumWindowSize.Set(1472, 828);
         }
     }
 }

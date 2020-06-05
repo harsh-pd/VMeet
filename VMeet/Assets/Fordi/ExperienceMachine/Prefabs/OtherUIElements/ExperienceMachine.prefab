@@ -1403,7 +1403,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3784244457426656231}
   - {fileID: 8245975656637323880}
   m_Father: {fileID: 8221756215893366404}
   m_RootOrder: 0
@@ -1723,66 +1722,6 @@ MonoBehaviour:
         m_Calls: []
       m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
---- !u!1 &7578471704806823611
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3784244457426656231}
-  - component: {fileID: 1272406225593023800}
-  m_Layer: 0
-  m_Name: Annotation
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3784244457426656231
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7578471704806823611}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4587444760784802594}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1272406225593023800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7578471704806823611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc69a85bff81e845959ff0a2a9649ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trailOrigin: {fileID: 0}
-  trailObject: {fileID: 1383092242097550, guid: 6f99b14df8610954a9d1cf911889955e,
-    type: 3}
-  AnnotationRootPrefab: {fileID: 1283008063288006, guid: 59854f835c59344459ebe4e5e1e20ee1,
-    type: 3}
-  trails: []
-  m_penPrefab: {fileID: 1203885869333448, guid: 9171cea9868518a4bbc3b92b0360ecf0,
-    type: 3}
-  m_pinchTrailAnchorPrefab: {fileID: 3910699292949888923, guid: ea00ddb772d24cf4999d21cefe7e0fb5,
-    type: 3}
-  m_penTrailAnchorPrefab: {fileID: 4782537289517553224, guid: 25c0f7decfeeaca47881972ed29675f7,
-    type: 3}
-  currentDefaultTrail: {fileID: 0}
-  controller: 2
-  currentAnnotationRoot: {fileID: 0}
-  drawMode: 1
-  whiteboard: {fileID: 0}
 --- !u!1 &7673973076804688855
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,7 +1751,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4587444760784802594}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7364971764191595898
 MonoBehaviour:
@@ -2055,12 +1994,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa3af26843e4ce54c8869239c60718a5, type: 3}
---- !u!1 &3296404355680562186 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2703608650879783962, guid: aa3af26843e4ce54c8869239c60718a5,
-    type: 3}
-  m_PrefabInstance: {fileID: 592799451056125968}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3296404355680562189 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2703608650879783965, guid: aa3af26843e4ce54c8869239c60718a5,
@@ -2079,6 +2012,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91175dcc15224463780e01a8a98b1b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3296404355680562186 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2703608650879783962, guid: aa3af26843e4ce54c8869239c60718a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 592799451056125968}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3337932777771441963
 PrefabInstance:
   m_ObjectHideFlags: 0
