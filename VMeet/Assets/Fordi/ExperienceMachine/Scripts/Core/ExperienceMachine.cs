@@ -160,6 +160,7 @@ namespace Fordi.Core
         private IEnumerator Start()
         {
             yield return null;
+            yield return null;
             m_currentExperience.OnLoad();
             MinimumWindowSize.Set(1472, 828);
         }
@@ -411,12 +412,15 @@ namespace Fordi.Core
 
         public void RegisterPlatform(IPlatformModule module)
         {
+            if (m_player == null || module.Platform == Platform.VR)
+            {
 
-            if (m_player != null)
-                m_player.GameObject.SetActive(false);
+                if (m_player != null)
+                    m_player.GameObject.SetActive(false);
 
-            m_player = module.Player;
-            m_player.GameObject.SetActive(true);
+                m_player = module.Player;
+                m_player.GameObject.SetActive(true);
+            }
 
             m_uiEngine.RegisterInterface(module.UserInterface);
         }
