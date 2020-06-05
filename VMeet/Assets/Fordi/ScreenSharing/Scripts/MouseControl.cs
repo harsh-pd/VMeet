@@ -8,6 +8,7 @@ using Fordi.Core;
 using Fordi.Common;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 namespace Fordi.ScreenSharing
 {
@@ -43,6 +44,7 @@ namespace Fordi.ScreenSharing
         private bool m_windowActive = true;
 
         private ISettings m_settings;
+        private IExperienceMachine m_experienceMachine = null;
 
         private const string MonitorLayer = "Monitor";
         private int m_monitorSortingLayer;
@@ -52,6 +54,8 @@ namespace Fordi.ScreenSharing
         private void Awake()
         {
             m_settings = IOC.Resolve<ISettings>();
+            m_experienceMachine = IOC.Resolve<IExperienceMachine>();
+            m_experienceMachine.OnModuleRegistration += ModuleLoaded;
             m_monitorSortingLayer = SortingLayer.NameToID(MonitorLayer);
 
 #if UNITY_EDITOR
@@ -64,11 +68,9 @@ namespace Fordi.ScreenSharing
 
         }
 
-        private IEnumerator Start()
+        private void OnDestroy()
         {
-            yield return new WaitForSeconds(5);
-            if (m_laserPointer == null)
-                m_laserPointer = FindObjectOfType<LaserPointer>();
+            m_experienceMachine.OnModuleRegistration -= ModuleLoaded;
         }
 
         void Update()
@@ -78,6 +80,12 @@ namespace Fordi.ScreenSharing
                 var cursorPosition = WorldToMouseCoordinates(m_laserPointer.EndPoint);
                 SetCursorPos(cursorPosition.x, cursorPosition.y);
             }
+        }
+
+        private void ModuleLoaded(object sender, EventArgs e)
+        {
+            if (m_laserPointer == null)
+                m_laserPointer = FindObjectOfType<LaserPointer>();
         }
 
         private void OnApplicationFocus(bool active)

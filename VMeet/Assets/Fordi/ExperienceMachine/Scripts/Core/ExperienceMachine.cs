@@ -9,6 +9,7 @@ using Fordi.UI;
 using Fordi.UI.MenuControl;
 using Fordi.Platforms;
 using System;
+using UnityEngine.XR;
 
 namespace Fordi.Core
 {
@@ -427,6 +428,22 @@ namespace Fordi.Core
             m_uiEngine.RegisterInterface(module.UserInterface);
 
             OnModuleRegistration?.Invoke(this, EventArgs.Empty);
+
+            if (module.Platform == Platform.VR && !XRSettings.enabled)
+            {
+                StartCoroutine(LoadDevice("Oculus"));
+            }
+        }
+
+        IEnumerator LoadDevice(string newDevice)
+        {
+            if (String.Compare(XRSettings.loadedDeviceName, newDevice, true) != 0)
+            {
+                XRSettings.LoadDeviceByName(newDevice);
+                yield return null;
+                XRSettings.enabled = true;
+                Debug.LogError("Loaded: " + newDevice);
+            }
         }
     }
 }

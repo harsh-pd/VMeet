@@ -67,11 +67,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3260008412662633640, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3201573031374110670, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -87,30 +82,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.01
       objectReference: {fileID: 0}
-    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
+    - target: {fileID: 3260008412662633640, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
         type: 3}
-      propertyPath: m_mainMenuPrefab
-      value: 
-      objectReference: {fileID: 7613397718039046533, guid: ba42d0499c6b85e4eb10abd2bf4e0371,
-        type: 3}
-    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
-        type: 3}
-      propertyPath: m_gridMenuPrefab
-      value: 
-      objectReference: {fileID: 3755642124876080749, guid: d3ae80023cf88bd498951d308f769f14,
-        type: 3}
-    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
-        type: 3}
-      propertyPath: m_annotationInterface
-      value: 
-      objectReference: {fileID: 1044593747824488069, guid: 1faa7a13884ed934199aabd2c88c600b,
-        type: 3}
-    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
-        type: 3}
-      propertyPath: m_settingsInterfacePrefab
-      value: 
-      objectReference: {fileID: -4096549806511560182, guid: 6ee5e2114db61a844be58d1373091dce,
-        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6807135870100817106, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -136,6 +112,30 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
+        type: 3}
+      propertyPath: m_mainMenuPrefab
+      value: 
+      objectReference: {fileID: 7613397718039046533, guid: ba42d0499c6b85e4eb10abd2bf4e0371,
+        type: 3}
+    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
+        type: 3}
+      propertyPath: m_gridMenuPrefab
+      value: 
+      objectReference: {fileID: 3755642124876080749, guid: d3ae80023cf88bd498951d308f769f14,
+        type: 3}
+    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
+        type: 3}
+      propertyPath: m_annotationInterface
+      value: 
+      objectReference: {fileID: 1044593747824488069, guid: 1faa7a13884ed934199aabd2c88c600b,
+        type: 3}
+    - target: {fileID: 3840586685365089654, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
+        type: 3}
+      propertyPath: m_settingsInterfacePrefab
+      value: 
+      objectReference: {fileID: -4096549806511560182, guid: 6ee5e2114db61a844be58d1373091dce,
+        type: 3}
     - target: {fileID: 3807466926731032920, guid: 7cb9eefa04c2f5545b10e149baeb10cb,
         type: 3}
       propertyPath: m_IsActive
