@@ -146,6 +146,12 @@ namespace Fordi.Core
             m_uiEngine = IOC.Resolve<IUIEngine>();
             m_settings = IOC.Resolve<ISettings>();
 
+            if (SceneManager.GetActiveScene().name == Networking.Network.MeetingRoom)
+            {
+                m_menuSelection.Location = Networking.Network.MeetingRoom;
+                m_menuSelection.ExperienceType = ExperienceType.MEETING;
+            }
+
             SetExperience(GetExperience(m_menuSelection.ExperienceType));
             UIInteractionBase.OnClick += Click;
             ResetGuideConditions();

@@ -39,8 +39,8 @@ namespace Fordi.Networking
         public const byte deletePreviousTrail = 139;
         public const byte whiteboardNoteBegan = 140;
 
-        private const string MeetingRoom = "Meeting";
-        private const string LobbyRoom = "Lobby";
+        public const string MeetingRoom = "Meeting";
+        public const string LobbyRoom = "Lobby";
         public const string ActorNumberString = "ActorNumber";
         public const string OculusIDString = "OculusID";
 
@@ -146,15 +146,11 @@ namespace Fordi.Networking
         public override void OnJoinedRoom()
         {
             base.OnJoinedRoom();
-            Log("OnJoinedRoom");
+            Debug.LogError("OnJoinedRoom");
+            m_menuSelection.Location = MeetingRoom;
+            m_menuSelection.ExperienceType = ExperienceType.MEETING;
             if (PhotonNetwork.IsMasterClient)
-            {
-                photonView.RPC("RPC_BeforeLevelLoad", RpcTarget.All);
-                Observable.TimerFrame(2).Subscribe(_ =>
-                {
-                    m_experienceMachine.LoadExperience();
-                });
-            }
+                m_experienceMachine.LoadExperience();
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
@@ -289,17 +285,6 @@ namespace Fordi.Networking
             if (m_debug)
                 Debug.LogError(message);
         }
-        #endregion
-
-        #region RPC
-
-        [PunRPC]
-        private void RPC_BeforeLevelLoad()
-        {
-            m_menuSelection.Location = MeetingRoom;
-            m_menuSelection.ExperienceType = ExperienceType.MEETING;
-        }
-
         #endregion
 
         #region SPAWN
