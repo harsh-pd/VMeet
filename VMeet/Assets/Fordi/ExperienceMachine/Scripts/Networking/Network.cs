@@ -15,6 +15,7 @@ using ExitGames.Client.Photon;
 using Fordi.Annotations;
 using Cornea.Web;
 using Fordi.UI;
+using UniRx;
 
 namespace Fordi.Networking
 {
@@ -104,12 +105,12 @@ namespace Fordi.Networking
             playerCustomProperties.Add(ActorNumberString, PhotonNetwork.LocalPlayer.ActorNumber);
             PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
             PhotonNetwork.LocalPlayer.NickName = m_webInterface.UserInfo.userName;
-            //if (PhotonNetwork.CountOfRooms > 0)
-            //{
-            //    JoinRoom("Test");
-            //}
-            //else
-            //    CreateRoom("Test");
+            if (PhotonNetwork.CountOfRooms > 0)
+            {
+                JoinRoom("Test");
+            }
+            else
+                CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
@@ -146,10 +147,14 @@ namespace Fordi.Networking
         {
             base.OnJoinedRoom();
             Log("OnJoinedRoom");
-            m_menuSelection.Location = MeetingRoom;
-            m_menuSelection.ExperienceType = ExperienceType.MEETING;
             if (PhotonNetwork.IsMasterClient)
-                m_experienceMachine.LoadExperience();
+            {
+                photonView.RPC("RPC_BeforeLevelLoad", RpcTarget.All);
+                Observable.TimerFrame(2).Subscribe(_ =>
+                {
+                    m_experienceMachine.LoadExperience();
+                });
+            }
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
@@ -286,6 +291,17 @@ namespace Fordi.Networking
         }
         #endregion
 
+        #region RPC
+
+        [PunRPC]
+        private void RPC_BeforeLevelLoad()
+        {
+            m_menuSelection.Location = MeetingRoom;
+            m_menuSelection.ExperienceType = ExperienceType.MEETING;
+        }
+
+        #endregion
+
         #region SPAWN
         [PunRPC]
         private void RPC_SpawnPlayer(int senderId, int playerViewId, int avatarViewId, bool firstHand)
@@ -296,9 +312,9 @@ namespace Fordi.Networking
             m_remotePlayers[senderId] = remotePlayer;
             if (firstHand)
                 RaiseSecondHandPlayerSpawnEvent(senderId);
-            
+
         }
-        
+
         public void RaiseSecondHandPlayerSpawnEvent(int targetPlayerId)
         {
             var targetPlayer = Array.Find(PhotonNetwork.PlayerList, item => item.ActorNumber == targetPlayerId);
