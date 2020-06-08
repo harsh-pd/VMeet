@@ -41,6 +41,7 @@ MonoBehaviour:
   - RPC_StopScreenShare
   - RPC_RemoteScreenShareNotification
   - RPC_OnReceivedTrajectoryUpdate
+  - RPC_BeforeLevelLoad
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
