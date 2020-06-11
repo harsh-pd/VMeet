@@ -10,6 +10,8 @@ using Fordi.Common;
 using Fordi.UI.MenuControl;
 using Network = Fordi.Networking.Network;
 using Fordi.UI;
+using Fordi.AssetManagement;
+using Fordi.Plugins;
 
 namespace Fordi.Core
 {
@@ -57,7 +59,7 @@ namespace Fordi.Core
                 {
                     var obj = new GameObject("Audio");
                     audio = obj.AddComponent<Audio>();
-                    audio.transform.parent = transform;
+                    audio.transform.parent = m_modulesRoot;
                     audio.transform.localPosition = Vector3.zero;
                 }
                 return audio;
@@ -86,12 +88,49 @@ namespace Fordi.Core
                 UIEngine uiEngine = FindObjectOfType<UIEngine>();
                 if (uiEngine == null)
                 {
-                    var obj = new GameObject("Audio");
+                    var obj = new GameObject("UIEngine");
                     uiEngine = obj.AddComponent<UIEngine>();
-                    uiEngine.transform.parent = transform;
+                    uiEngine.transform.parent = m_modulesRoot;
                     uiEngine.transform.localPosition = Vector3.zero;
                 }
                 return uiEngine;
+            }
+        }
+
+        private IAssetLoader m_assetLoader;
+
+        protected virtual IAssetLoader AssetLoader
+        {
+            get
+            {
+                AssetLoader assetLoader = FindObjectOfType<AssetLoader>();
+                if (assetLoader == null)
+                {
+                    var obj = new GameObject("AssetLoader");
+                    assetLoader = obj.AddComponent<AssetLoader>();
+                    assetLoader.transform.parent = m_modulesRoot;
+                    assetLoader.transform.localPosition = Vector3.zero;
+                }
+                return assetLoader;
+            }
+        }
+
+
+        private IPluginHook m_pluginHook;
+
+        protected virtual IPluginHook PluginHook
+        {
+            get
+            {
+                PluginHook dep = FindObjectOfType<PluginHook>();
+                if (dep == null)
+                {
+                    var obj = new GameObject("PluginHook");
+                    dep = obj.AddComponent<PluginHook>();
+                    dep.transform.parent = m_modulesRoot;
+                    dep.transform.localPosition = Vector3.zero;
+                }
+                return dep;
             }
         }
 
@@ -106,7 +145,7 @@ namespace Fordi.Core
                 {
                     var obj = new GameObject("CommonResource");
                     commonResource = obj.AddComponent<CommonResource>();
-                    commonResource.transform.parent = transform;
+                    commonResource.transform.parent = m_modulesRoot;
                     commonResource.transform.localPosition = Vector3.zero;
                 }
                 return commonResource;
@@ -124,7 +163,7 @@ namespace Fordi.Core
                 {
                     var obj = new GameObject("FordiNetwork");
                     fordiNetwork = obj.AddComponent<FordiNetwork>();
-                    fordiNetwork.transform.parent = transform;
+                    fordiNetwork.transform.parent = m_modulesRoot;
                     fordiNetwork.transform.localPosition = Vector3.zero;
                 }
                 return fordiNetwork;
@@ -142,7 +181,7 @@ namespace Fordi.Core
                 {
                     var obj = new GameObject("WebInterface");
                     webInterface = obj.AddComponent<WebInterface>();
-                    webInterface.transform.parent = transform;
+                    webInterface.transform.parent = m_modulesRoot;
                     webInterface.transform.localPosition = Vector3.zero;
                 }
                 return webInterface;
@@ -160,7 +199,7 @@ namespace Fordi.Core
                 {
                     var obj = new GameObject("Network");
                     network = obj.AddComponent<Network>();
-                    network.transform.parent = transform;
+                    network.transform.parent = m_modulesRoot;
                     network.transform.localPosition = Vector3.zero;
                 }
                 return network;
@@ -178,7 +217,7 @@ namespace Fordi.Core
                 {
                     var obj = new GameObject("MouseControl");
                     mouseControl = obj.AddComponent<MouseControl>();
-                    mouseControl.transform.parent = transform;
+                    mouseControl.transform.parent = m_modulesRoot;
                     mouseControl.transform.localPosition = Vector3.zero;
                 }
                 return mouseControl;
@@ -196,7 +235,7 @@ namespace Fordi.Core
                 {
                     var obj = new GameObject("ScreenShare");
                     screenShare = obj.AddComponent<ScreenShare>();
-                    screenShare.transform.parent = transform;
+                    screenShare.transform.parent = m_modulesRoot;
                     screenShare.transform.localPosition = Vector3.zero;
                 }
                 return screenShare;
@@ -229,12 +268,14 @@ namespace Fordi.Core
         //        {
         //            var obj = new GameObject("Annotation");
         //            annotation = obj.AddComponent<Annotation>();
-        //            annotation.transform.parent = transform;
+        //            annotation.transform.parent = m_modulesRoot;
         //            annotation.transform.localPosition = Vector3.zero;
         //        }
         //        return annotation;
         //    }
         //}
+
+        private Transform m_modulesRoot = null;
 
         private void Awake()
         {
@@ -243,6 +284,10 @@ namespace Fordi.Core
                 Debug.LogWarning("AnotherInstance of ExperienceDeps exists");
             }
             m_instance = this;
+
+            var modules = GameObject.Find("Modules");
+            if (modules != null)
+                m_modulesRoot = modules.transform;
 
             AwakeOverride();
         }
@@ -263,6 +308,8 @@ namespace Fordi.Core
             //m_annotation = Annotation;
             m_settings = Settings;
             m_uiEngine = UIEngine;
+            m_assetLoader = AssetLoader;
+            m_pluginHook = PluginHook;
         }
 
         private void OnDestroy()
@@ -331,6 +378,8 @@ namespace Fordi.Core
             IOC.RegisterFallback(() => Instance.m_mouseControl);
             IOC.RegisterFallback(() => Instance.m_screenShare);
             IOC.RegisterFallback(() => Instance.m_voiceChat);
+            IOC.RegisterFallback(() => Instance.m_assetLoader);
+            IOC.RegisterFallback(() => Instance.m_pluginHook);
             //IOC.RegisterFallback(() => Instance.m_annotation);
             IOC.RegisterFallback(() => Instance.m_uiEngine);
 

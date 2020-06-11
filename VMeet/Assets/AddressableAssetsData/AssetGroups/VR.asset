@@ -41,6 +41,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}
     m_TargetAsset: {fileID: 0}
+  - m_GUID: 7723c6a301c4c404d99a27a6bf62a29e
+    m_Address: Assets/Fordi/PlatformModules/VR/Prefabs/VRDepsHome.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 7cb9eefa04c2f5545b10e149baeb10cb
     m_Address: Assets/Fordi/PlatformModules/VR/Prefabs/VRModule.prefab
     m_ReadOnly: 0
@@ -49,6 +55,12 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 0}
   - m_GUID: a277535d6efd39243bd05ec7ab0a7bf0
     m_Address: Assets/Fordi/ExperienceMachine/Models/Chairs.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: c05fee30e5be7384ba058cac9776385a
+    m_Address: Assets/Fordi/PlatformModules/VR/Prefabs/VRDeps.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 0}

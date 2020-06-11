@@ -7,10 +7,21 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Fordi.AssetManagement
 {
-    public class Spawner : MonoBehaviour
+    public class Deps : MonoBehaviour
     {
         [SerializeField]
         private List<AssetReference> m_deps;
+
+        //#region TEMP
+        //[SerializeField]
+        //private AssetReference m_self;
+
+        //public AssetReference Self { get { return m_self; } }
+        //#endregion
+
+
+        public List<AssetReference> Dependencies { get { return m_deps; } }
+        
 
         private readonly Dictionary<AssetReference, AsyncOperationHandle<GameObject>> m_asyncOperationHandles = new Dictionary<AssetReference, AsyncOperationHandle<GameObject>>();
         private Dictionary<AssetReference, List<GameObject>> m_spawnedObjects = new Dictionary<AssetReference, List<GameObject>>();
