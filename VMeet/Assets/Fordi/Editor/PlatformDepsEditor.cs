@@ -5,14 +5,14 @@ using Fordi.AssetManagement;
 
 namespace Fordi.UnityEditor
 {
-    [CustomEditor(typeof(Deps))]
+    [CustomEditor(typeof(PlatformDeps))]
     [CanEditMultipleObjects]
-    public class DepsEditor : Editor
+    public class PlatformDepsEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            Deps deps = (Deps)target;
+            PlatformDeps deps = (PlatformDeps)target;
             if (GUILayout.Button("Print Key"))
             {
                 if (deps.Dependencies.Count > 0)

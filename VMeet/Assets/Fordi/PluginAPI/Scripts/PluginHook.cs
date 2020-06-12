@@ -14,6 +14,7 @@ namespace Fordi.Plugins
 {
     public interface IPluginHook
     {
+        EventHandler AllPlatformDependenciesLoaded { get; set; }
     }
 
     public class PluginHook : MonoBehaviour, IPluginHook
@@ -21,7 +22,24 @@ namespace Fordi.Plugins
         [ImportMany(typeof(IFordiComponent))]
         Lazy<IFordiComponent, Dictionary<string, object>>[] loggers { get; set; }
 
+        public EventHandler AllPlatformDependenciesLoaded { get; set; }
+
         private IAssetLoader m_assetLoader = null;
+
+        private void Awake()
+        {
+            PlatformDeps.AllDependenciesLoaded += AllPlatformDependencies;
+        }
+
+        private void OnDestroy()
+        {
+            PlatformDeps.AllDependenciesLoaded -= AllPlatformDependencies;
+        }
+
+        private void AllPlatformDependencies(object sender, EventArgs e)
+        {
+            AllPlatformDependenciesLoaded?.Invoke(this, EventArgs.Empty);
+        }
 
         private void Start()
         {
@@ -32,6 +50,8 @@ namespace Fordi.Plugins
 
         private void Init()
         {
+            if (loggers.Length == 0)
+                AllPlatformDependenciesLoaded?.Invoke(this, EventArgs.Empty);
             foreach (var item in loggers)
                 LoadDependency(item.Value.DepsKey);
         }
@@ -62,7 +82,8 @@ namespace Fordi.Plugins
                 return;
 
             Debug.LogError("LoadDependency: " + key);
-            m_assetLoader.LoadAndSpawn<GameObject>(new AssetArgs(key, false));
+            AssetArgs args = new AssetArgs(key, false);
+            m_assetLoader.LoadAndSpawn<GameObject>(args);
         }
     }
 }

@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_deps:
-  - m_AssetGUID: c05fee30e5be7384ba058cac9776385a
-    m_SubObjectName: 
+  - AssetReference:
+      m_AssetGUID: 7723c6a301c4c404d99a27a6bf62a29e
+      m_SubObjectName: 
+    UnloadOnDestroy: 0

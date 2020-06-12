@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Fordi.Common;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -7,59 +9,31 @@ using UnityEngine.ResourceManagement.ResourceLocations;
 
 namespace Fordi.AssetManagement
 {
+    [System.Serializable]
+    public class AssetReferenceWrapper
+    {
+        public AssetReference AssetReference;
+        public bool UnloadOnDestroy = false;
+    }
+
     public class Deps : MonoBehaviour
     {
         [SerializeField]
-        private List<AssetReference> m_deps;
+        protected List<AssetReferenceWrapper> m_deps;
 
-        //#region TEMP
-        //[SerializeField]
-        //private AssetReference m_self;
+        protected IAssetLoader m_assetLoader = null;
 
-        //public AssetReference Self { get { return m_self; } }
-        //#endregion
+        public List<AssetReferenceWrapper> Dependencies { get { return m_deps; } }
 
-
-        public List<AssetReference> Dependencies { get { return m_deps; } }
-        
-
-        private readonly Dictionary<AssetReference, AsyncOperationHandle<GameObject>> m_asyncOperationHandles = new Dictionary<AssetReference, AsyncOperationHandle<GameObject>>();
-        private Dictionary<AssetReference, List<GameObject>> m_spawnedObjects = new Dictionary<AssetReference, List<GameObject>>();
-
-        private void Start()
+        private void Awake()
         {
-            foreach (var item in m_deps)
-                LoadAndSpawn(item);
+            m_assetLoader = IOC.Resolve<IAssetLoader>();
         }
 
-        private void LoadAndSpawn(AssetReference assetRef)
+        protected virtual void Start()
         {
-            var op = Addressables.LoadAssetAsync<GameObject>(assetRef);
-
-            m_asyncOperationHandles[assetRef] = op;
-            op.Completed += (operation) =>
-            {
-                assetRef.InstantiateAsync().Completed += (asyncOpHandle) =>
-                {
-                    Debug.LogError("Spawn operation status: " + asyncOpHandle.Status.ToString());
-                    if (!m_spawnedObjects.ContainsKey(assetRef))
-                        m_spawnedObjects[assetRef] = new List<GameObject>();
-                    m_spawnedObjects[assetRef].Add(asyncOpHandle.Result);
-                    var obj = asyncOpHandle.Result;
-                    obj.AddComponent<NotifyOnDestroy>().Destroyed += (sender, args) =>
-                    {
-                        Addressables.ReleaseInstance(obj);
-                        Debug.LogError("Released: " + obj.name);
-                        m_spawnedObjects[assetRef].Remove(obj);
-                        if (m_spawnedObjects[assetRef].Count == 0)
-                        {
-                            Debug.LogError("Unloaded: " + m_asyncOperationHandles[assetRef].DebugName);
-                            Addressables.Release(m_asyncOperationHandles[assetRef]);
-                            m_asyncOperationHandles.Remove(assetRef);
-                        }
-                    };
-                };
-            };
+            foreach (var item in m_deps)
+                m_assetLoader.LoadAndSpawn<GameObject>(new AssetArgs(item.AssetReference.RuntimeKey.ToString(), item.UnloadOnDestroy));
         }
     }
 }

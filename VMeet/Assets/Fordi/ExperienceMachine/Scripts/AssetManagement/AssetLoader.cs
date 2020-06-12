@@ -1,15 +1,18 @@
 ﻿using Fordi.AssetManagement;
+using Fordi.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using Object = UnityEngine.Object;
 
 namespace Fordi.AssetManagement
 {
     public interface IAssetLoader
     {
-        void LoadAndSpawn<TObject>(AssetArgs args) where TObject : Object;
+        void LoadAndSpawn<TObject>(AssetArgs args, Action<OperationResult> Completed = null) where TObject : Object;
         void LoadAndSpawn<TObject>(AssetReference assetRef, bool unloadOnDestroy = false) where TObject : Object;
     }
 
@@ -18,10 +21,24 @@ namespace Fordi.AssetManagement
         public string Key;
         public bool AutoUnload;
 
-        public AssetArgs(string key, bool unloadOnDestroy) : this()
+        public AssetArgs(string key, bool unloadOnDestroy)
         {
             this.Key = key;
             this.AutoUnload = unloadOnDestroy;
+        }
+    }
+
+    public class OperationResult
+    {
+        public Exception OperationException = null;
+        public Object Result = null;
+        public AsyncOperationStatus Status = AsyncOperationStatus.None;
+
+        public OperationResult(Exception operationException, Object result, AsyncOperationStatus status)
+        {
+            OperationException = operationException;
+            Result = result;
+            Status = status;
         }
     }
 
@@ -31,18 +48,40 @@ namespace Fordi.AssetManagement
         private readonly Dictionary<AssetArgs, AsyncOperationHandle<Object>> m_asyncOperationHandles = new Dictionary<AssetArgs, AsyncOperationHandle<Object>>();
         private Dictionary<string, List<GameObject>> m_spawnedObjects = new Dictionary<string, List<GameObject>>();
 
-        public void LoadAndSpawn<TObject>(AssetArgs args) where TObject : Object
+        public void LoadAndSpawn<TObject>(AssetArgs args, Action<OperationResult> OnComplete = null) where TObject : Object
         {
+            //args.Key = "7723c6a301c4c404d99a27a6bf62a291";
+            var assetRef = new AssetReference(args.Key);
+
+            if (!assetRef.RuntimeKeyIsValid())
+            {
+                Debug.LogError("Invalid asset guid: " + args.Key);
+                return;
+            }
+
             var op = Addressables.LoadAssetAsync<Object>(args.Key);
 
             m_asyncOperationHandles[args] = op;
 
             op.Completed += (operation) =>
             {
+                if (op.OperationException != null || op.Status == AsyncOperationStatus.Failed || op.Status == AsyncOperationStatus.None)
+                {
+                    OnComplete?.Invoke(new OperationResult(op.OperationException, op.Result, op.Status));
+                    return;
+                }
+
                 if (op.Result is GameObject)
                 {
                     Addressables.InstantiateAsync(args.Key).Completed += (asyncOpHandle) =>
                     {
+
+                        if (asyncOpHandle.OperationException != null || asyncOpHandle.Status == AsyncOperationStatus.Failed || asyncOpHandle.Status == AsyncOperationStatus.None)
+                        {
+                            OnComplete?.Invoke(new OperationResult(asyncOpHandle.OperationException, asyncOpHandle.Result, asyncOpHandle.Status));
+                            return;
+                        }
+
                         Debug.LogError("Spawn operation status: " + asyncOpHandle.Status.ToString());
                         if (!m_spawnedObjects.ContainsKey(args.Key))
                             m_spawnedObjects[args.Key] = new List<GameObject>();
@@ -60,13 +99,24 @@ namespace Fordi.AssetManagement
                                 m_asyncOperationHandles.Remove(args);
                             }
                         };
+
+                        OnComplete?.Invoke(new OperationResult(asyncOpHandle.OperationException, asyncOpHandle.Result, asyncOpHandle.Status));
+
                     };
                 }
+                else
+                    OnComplete?.Invoke(new OperationResult(op.OperationException, op.Result, op.Status));
             };
         }
 
         public void LoadAndSpawn<TObject>(AssetReference assetRef, bool unloadOnDestroy = false) where TObject: Object
         {
+            if (!assetRef.RuntimeKeyIsValid())
+            {
+                Debug.LogError("Invalid asset guid: " + assetRef.RuntimeKey.ToString());
+                return;
+            }
+
             LoadAndSpawn<TObject>(new AssetArgs(assetRef.RuntimeKey.ToString(), unloadOnDestroy));
         }
     }

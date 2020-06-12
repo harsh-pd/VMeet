@@ -10,6 +10,9 @@ using Fordi.UI.MenuControl;
 using Fordi.Platforms;
 using System;
 using UnityEngine.XR;
+using Fordi.AssetManagement;
+using UniRx;
+using Fordi.Plugins;
 
 namespace Fordi.Core
 {
@@ -71,6 +74,11 @@ namespace Fordi.Core
         }
     }
 
+    public class ModuleArgs : EventArgs
+    {
+        public IPlatformModule PlatformModule;
+    }
+
     public interface IExperienceMachine
     {
         void ExecuteMenuCommand(MenuClickArgs args);
@@ -88,7 +96,7 @@ namespace Fordi.Core
         bool IsRunning { get; }
         void RegisterPlatform(IPlatformModule module);
         IPlayer Player { get; }
-        EventHandler OnModuleRegistration { get; set; }
+        EventHandler<ModuleArgs> OnModuleRegistration { get; set; }
     }
 
     /// <summary>
@@ -107,6 +115,7 @@ namespace Fordi.Core
         private ISettings m_settings;
         private IPlayer m_player;
         private IUIEngine m_uiEngine = null;
+        private IPluginHook m_pluginHook = null;
 
         public const string DynamicAmbienceTag = "DynamicAmbience";
         public const string CorrectTextColorStyle = "Correct";
@@ -127,7 +136,7 @@ namespace Fordi.Core
 
         public IPlayer Player { get { return m_player; } }
 
-        public EventHandler OnModuleRegistration { get; set; }
+        public EventHandler<ModuleArgs> OnModuleRegistration { get; set; }
 
         private const string MeetingScene = "Meeting";
 
@@ -145,6 +154,7 @@ namespace Fordi.Core
             m_audio = IOC.Resolve<IAudio>();
             m_uiEngine = IOC.Resolve<IUIEngine>();
             m_settings = IOC.Resolve<ISettings>();
+            m_pluginHook = IOC.Resolve<IPluginHook>();
 
             if (SceneManager.GetActiveScene().name == Networking.Network.MeetingRoom)
             {
@@ -155,24 +165,21 @@ namespace Fordi.Core
             SetExperience(GetExperience(m_menuSelection.ExperienceType));
             UIInteractionBase.OnClick += Click;
             ResetGuideConditions();
-        }
-
-        private void ResetGuideConditions()
-        {
-            m_clicked = false;
+            m_pluginHook.AllPlatformDependenciesLoaded += AllPlatformDependenciesLoaded;
         }
 
         private void OnDestroy()
         {
             UIInteractionBase.OnClick -= Click;
+            m_pluginHook.AllPlatformDependenciesLoaded -= AllPlatformDependenciesLoaded;
         }
 
-        private IEnumerator Start()
-        {
-            yield return null;
-            yield return null;
-            m_currentExperience.OnLoad();
-        }
+        //private IEnumerator Start()
+        //{
+        //    yield return null;
+        //    yield return null;
+        //    m_currentExperience.OnLoad();
+        //}
 
         private void Update()
         {
@@ -192,6 +199,19 @@ namespace Fordi.Core
                     //ExecuteMenuCommand(new MenuClickArgs("", "", "", MenuCommandType.INVENTORY, null));
                 }
             }
+        }
+
+        private void AllPlatformDependenciesLoaded(object sender, EventArgs e)
+        {
+            Observable.TimerFrame(2).Subscribe(_ =>
+            {
+                m_currentExperience.OnLoad();
+            });
+        }
+
+        private void ResetGuideConditions()
+        {
+            m_clicked = false;
         }
 
         public IExperience GetExperience(ExperienceType experience)
@@ -433,7 +453,7 @@ namespace Fordi.Core
 
             m_uiEngine.RegisterInterface(module.UserInterface);
 
-            OnModuleRegistration?.Invoke(this, EventArgs.Empty);
+            OnModuleRegistration?.Invoke(this, new ModuleArgs() { PlatformModule = module });
 
             if (module.Platform == Platform.VR && !XRSettings.enabled)
             {

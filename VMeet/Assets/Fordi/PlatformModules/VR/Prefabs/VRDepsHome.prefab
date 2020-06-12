@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8115606968624282434}
-  - component: {fileID: 8115606968624282435}
+  - component: {fileID: -6433769481535886235}
   m_Layer: 0
   m_Name: VRDepsHome
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8115606968624282435
+--- !u!114 &-6433769481535886235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,9 +40,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8115606968624282436}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dbf0fddd102c8746a8da09ef3500e1b, type: 3}
+  m_Script: {fileID: 11500000, guid: c513d9ce6954b83428fa815f20a98bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_deps:
-  - m_AssetGUID: de65dcbb0f07b4942b7d3498b7b05b4d
-    m_SubObjectName: 
+  - AssetReference:
+      m_AssetGUID: de65dcbb0f07b4942b7d3498b7b05b4d
+      m_SubObjectName: 
+    UnloadOnDestroy: 0
