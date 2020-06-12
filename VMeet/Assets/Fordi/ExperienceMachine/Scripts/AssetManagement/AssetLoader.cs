@@ -45,7 +45,7 @@ namespace Fordi.AssetManagement
     public class AssetLoader : MonoBehaviour, IAssetLoader
     {
 
-        private readonly Dictionary<AssetArgs, AsyncOperationHandle<Object>> m_asyncOperationHandles = new Dictionary<AssetArgs, AsyncOperationHandle<Object>>();
+        private static Dictionary<AssetArgs, AsyncOperationHandle<Object>> m_asyncOperationHandles = new Dictionary<AssetArgs, AsyncOperationHandle<Object>>();
         private Dictionary<string, List<GameObject>> m_spawnedObjects = new Dictionary<string, List<GameObject>>();
 
         public void LoadAndSpawn<TObject>(AssetArgs args, Action<OperationResult> OnComplete = null) where TObject : Object
@@ -59,19 +59,9 @@ namespace Fordi.AssetManagement
                 return;
             }
 
-            var op = Addressables.LoadAssetAsync<Object>(args.Key);
-
-            m_asyncOperationHandles[args] = op;
-
-            op.Completed += (operation) =>
+            Action<AsyncOperationHandle<Object>> spawnAction = (asyncOp) =>
             {
-                if (op.OperationException != null || op.Status == AsyncOperationStatus.Failed || op.Status == AsyncOperationStatus.None)
-                {
-                    OnComplete?.Invoke(new OperationResult(op.OperationException, op.Result, op.Status));
-                    return;
-                }
-
-                if (op.Result is GameObject)
+                if (asyncOp.Result is GameObject)
                 {
                     Addressables.InstantiateAsync(args.Key).Completed += (asyncOpHandle) =>
                     {
@@ -105,7 +95,35 @@ namespace Fordi.AssetManagement
                     };
                 }
                 else
+                    OnComplete?.Invoke(new OperationResult(asyncOp.OperationException, asyncOp.Result, asyncOp.Status));
+            };
+
+            var op = Addressables.LoadAssetAsync<Object>(args.Key);
+
+            if (m_asyncOperationHandles.ContainsKey(args))
+            {
+                var operation = m_asyncOperationHandles[args];
+                if (operation.Result != null && operation.Result is GameObject)
+                {
+                    //Debug.LogError("Asset: " + operation.Result.name + " already loaded in memory, instantiating");
+                    spawnAction.Invoke(m_asyncOperationHandles[args]);
+                }
+                return;
+            }
+
+
+            op.Completed += (operation) =>
+            {
+                if (op.OperationException != null || op.Status == AsyncOperationStatus.Failed || op.Status == AsyncOperationStatus.None)
+                {
                     OnComplete?.Invoke(new OperationResult(op.OperationException, op.Result, op.Status));
+                    Addressables.Release(op);
+                    return;
+                }
+
+                m_asyncOperationHandles[args] = op;
+
+                spawnAction.Invoke(op);
             };
         }
 
