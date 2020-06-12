@@ -108,7 +108,7 @@ namespace Fordi.UI.MenuControl
             }
             else
             {
-                var menu = Instantiate(m_genericLoader, m_screensRoot);
+                var menu = Instantiate(m_genericLoader, m_screensRoot.parent);
                 menu.Init(this, new MessageArgs()
                 {
                     Persist = false,
