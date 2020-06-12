@@ -80,7 +80,7 @@ namespace Fordi.AssetManagement
                         obj.AddComponent<NotifyOnDestroy>().Destroyed += (sender, eventArgs) =>
                         {
                             Addressables.ReleaseInstance(obj);
-                            Debug.LogError("Released: " + obj.name);
+                            //Debug.LogError("Released: " + obj.name);
                             m_spawnedObjects[args.Key].Remove(obj);
                             if (args.AutoUnload && m_spawnedObjects[args.Key].Count == 0)
                             {

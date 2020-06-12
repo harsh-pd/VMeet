@@ -22,7 +22,7 @@ namespace Fordi.VMeet.Oculus
             {
                 var experienceMachine = IOC.Resolve<IExperienceMachine>();
                 var experienceType = experienceMachine.CurrentExperience;
-                Debug.LogError("Requesting deps for: " + experienceType.ToString());
+                //Debug.LogError("Requesting deps for: " + experienceType.ToString());
 
                 switch (experienceType)
                 {
