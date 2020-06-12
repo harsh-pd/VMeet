@@ -232,7 +232,7 @@ namespace Fordi.Core
                 m_currentExperienceType = ExperienceType.MEETING;
         }
 
-        #region EXPERIENCE_INTERFACE
+#region EXPERIENCE_INTERFACE
         public void CanExecuteMenuCommand(MenuItemValidationArgs args)
         {
             args.IsValid = m_currentExperience.CanExecuteMenuCommand(args.Command);
@@ -343,7 +343,7 @@ namespace Fordi.Core
             m_uiEngine.DisplayProgress("Loading: " + m_menuSelection.Location, true);
             //SceneManager.LoadScene(m_menuSelection.Location);
         }
-        #endregion
+#endregion
 
         private void OnApplicationQuit()
         {

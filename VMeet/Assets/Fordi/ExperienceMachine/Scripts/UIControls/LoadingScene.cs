@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 namespace Fordi.Core
 {
@@ -22,6 +23,13 @@ namespace Fordi.Core
         {
             yield return null;
             MinimumWindowSize.Set(1472, 828);
+            yield return null;
+
+#if !UNITY_EDITOR
+            XRSettings.LoadDeviceByName("");
+            yield return null;
+            XRSettings.enabled = false;
+#endif
             Color titleColor = m_title.color;
             Color clearTitleColor = new Color(titleColor.r, titleColor.g, titleColor.b, 0);
             m_title.color = clearTitleColor;
