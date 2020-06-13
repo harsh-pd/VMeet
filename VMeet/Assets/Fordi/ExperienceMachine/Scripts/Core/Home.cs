@@ -7,6 +7,7 @@ using UnityEngine;
 using Fordi.Common;
 using Fordi.UI.MenuControl;
 using Fordi.UI;
+using UniRx;
 
 namespace Fordi.Core
 {
@@ -23,21 +24,11 @@ namespace Fordi.Core
         {
             base.AwakeOverride();
             m_music = m_commonResource.AssetDb.HomeMusic;
-            m_experienceMachine.OnModuleRegistration += OnModuleLoad;
         }
 
         protected override void OnDestroyOverride()
         {
             base.OnDestroyOverride();
-            m_experienceMachine.OnModuleRegistration -= OnModuleLoad;
-        }
-
-        private void OnModuleLoad(object sender, ModuleArgs e)
-        {
-            if (e.PlatformModule.Platform == Platform.VR)
-            {
-                //m_experienceMachine.Player.RequestHaltMovement(true);
-            }
         }
 
         public override void ExecuteMenuCommand(MenuClickArgs args)
@@ -307,7 +298,8 @@ namespace Fordi.Core
         {
             m_menuSelection.VoiceOver = null;
             base.OnLoad();
-            Invoke("OpenLoginPage", .1f);
+            //Observable.TimerFrame(20).Subscribe(_ => OpenLoginPage());
+            Observable.TimerFrame(20).Subscribe(_ => ToggleMenu());
             m_experienceMachine.Player.RequestHaltMovement(true);
         }
 

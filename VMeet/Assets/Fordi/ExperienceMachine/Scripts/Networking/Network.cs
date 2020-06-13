@@ -105,12 +105,12 @@ namespace Fordi.Networking
             playerCustomProperties.Add(ActorNumberString, PhotonNetwork.LocalPlayer.ActorNumber);
             PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
             PhotonNetwork.LocalPlayer.NickName = m_webInterface.UserInfo.userName;
-            if (PhotonNetwork.CountOfRooms > 0)
-            {
-                JoinRoom("Test");
-            }
-            else
-                CreateRoom("Test");
+            //if (PhotonNetwork.CountOfRooms > 0)
+            //{
+            //    JoinRoom("Test");
+            //}
+            //else
+            //    CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
