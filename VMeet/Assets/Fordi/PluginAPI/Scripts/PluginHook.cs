@@ -31,15 +31,15 @@ namespace Fordi.Plugins
 
         private void Awake()
         {
-            PlatformDeps.AllDependenciesLoaded += AllPlatformDependencies;
+            PlatformDeps.AllDependenciesLoaded += AllDependenciesLoaded;
         }
 
         private void OnDestroy()
         {
-            PlatformDeps.AllDependenciesLoaded -= AllPlatformDependencies;
+            PlatformDeps.AllDependenciesLoaded -= AllDependenciesLoaded;
         }
 
-        private void AllPlatformDependencies(object sender, EventArgs e)
+        private void AllDependenciesLoaded(object sender, EventArgs e)
         {
             AllPlatformDependenciesLoaded?.Invoke(this, EventArgs.Empty);
         }
