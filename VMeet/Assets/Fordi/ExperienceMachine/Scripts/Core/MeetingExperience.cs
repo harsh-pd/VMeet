@@ -50,7 +50,7 @@ namespace Fordi.Core
             base.OnLoad();
             m_uiEngine.LoadRemoteDesktopView(new MenuArgs()
             {
-                Items = m_insceneMenuItems
+                Items = m_menu.Items
             });
             StartCoroutine(TakeASeat());
         }

@@ -152,9 +152,6 @@ namespace Fordi.Core
         private void InitSettings()
         {
             m_experienceMachine.SetQualityLevel(selectedPreferences.GraphicsQuality);
-            MandalaExperience mandalaExperience = (MandalaExperience)m_experienceMachine.GetExperience(ExperienceType.MANDALA).experience;
-            mandalaExperience.AllowAnimation = selectedPreferences.Animation;
-            mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
                 m_uiEngine.SwitchToDesktopOnlyMode();
@@ -173,9 +170,6 @@ namespace Fordi.Core
             }
 
             m_experienceMachine.SetQualityLevel(selectedPreferences.GraphicsQuality);
-            MandalaExperience mandalaExperience = (MandalaExperience)m_experienceMachine.GetExperience(ExperienceType.MANDALA).experience;
-            mandalaExperience.AllowAnimation = selectedPreferences.Animation;
-            mandalaExperience.AllowParticles = selectedPreferences.Particles;
             m_experienceMachine.SetAmbienceAudioVolume(selectedPreferences.AmbienceVolume);
             if (selectedPreferences.DesktopMode)
                 m_uiEngine.SwitchToDesktopOnlyMode();

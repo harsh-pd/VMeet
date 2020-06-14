@@ -37,6 +37,13 @@ namespace Fordi.Core
         public AudioResource[] Resources;
     }
 
+
+    [Serializable]
+    public class ColorGroup : ResourceComponent
+    {
+        public ColorResource[] Resources;
+    }
+
     [Serializable]
     public class VOGroup: AudioGroup
     {

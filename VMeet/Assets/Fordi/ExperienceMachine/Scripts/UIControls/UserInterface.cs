@@ -52,7 +52,6 @@ namespace Fordi.UI
         IScreen OpenMenu(MenuArgs args);
         IScreen OpenGridMenu(GridArgs args);
         IScreen OpenInventory(GridArgs args);
-        IScreen OpenColorInterface(ColorInterfaceArgs args);
         IScreen OpenSettingsInterface(AudioClip clip);
         IScreen OpenAnnotationInterface(GridArgs args);
         IScreen OpenCalendar(CalendarArgs args);
@@ -84,8 +83,6 @@ namespace Fordi.UI
         protected Platform m_platform;
         [SerializeField]
         protected MenuScreen m_mainMenuPrefab, m_gridMenuPrefab, m_inventoryMenuPrefab, m_textBoxPrefab, m_formPrefab, m_annotationInterface;
-        [SerializeField]
-        protected ColorInterface m_colorInterfacePrefab;
         [SerializeField]
         protected MeetingPage m_meetingPagePrefab;
         [SerializeField]
@@ -341,13 +338,6 @@ namespace Fordi.UI
             {
                 m_screenStack.Peek().ShowPreview(sprite);
             }
-        }
-
-        public IScreen OpenColorInterface(ColorInterfaceArgs args)
-        {
-            var menu = (ColorInterface)SpawnScreen(m_colorInterfacePrefab);
-            menu.OpenColorInterface(this, args);
-            return menu;
         }
 
         public IScreen OpenSettingsInterface(AudioClip clip)

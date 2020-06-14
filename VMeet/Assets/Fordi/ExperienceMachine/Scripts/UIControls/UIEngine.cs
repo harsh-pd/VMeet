@@ -23,7 +23,6 @@ namespace Fordi.UI
         void OpenMenu(MenuArgs args);
         void OpenGridMenu(GridArgs args);
         void OpenInventory(GridArgs args);
-        void OpenColorInterface(ColorInterfaceArgs args);
         void OpenSettingsInterface(AudioClip clip);
         void OpenAnnotationInterface(GridArgs args);
         void OpenCalendar(CalendarArgs args);
@@ -205,12 +204,6 @@ namespace Fordi.UI
         {
             m_standaloneInterface.OpenInventory(args);
             m_vrInterface?.OpenInventory(args);
-        }
-
-        public void OpenColorInterface(ColorInterfaceArgs args)
-        {
-            m_standaloneInterface.OpenColorInterface(args);
-            m_vrInterface?.OpenColorInterface(args);
         }
 
         public void OpenSettingsInterface(AudioClip clip)

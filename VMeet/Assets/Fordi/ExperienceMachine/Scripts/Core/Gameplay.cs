@@ -11,9 +11,6 @@ namespace Fordi.Core
 {
     public abstract class Gameplay : Experience
     {
-        [SerializeField]
-        protected MenuItemInfo[] m_insceneMenuItems = new MenuItemInfo[] { };
-
         public override void ExecuteMenuCommand(MenuClickArgs args)
         {
             base.ExecuteMenuCommand(args);
@@ -37,7 +34,7 @@ namespace Fordi.Core
                         Title = "PICK ITEM",
                     });
                 else
-                    m_menu.OpenGridMenu(new GridArgs()
+                    m_uiEngine.OpenGridMenu(new GridArgs()
                     {
                         Items = ResourceToMenuItems(GetResource(resourceType, args.Command)),
                         Title = "SELECT " + resourceType.ToString().ToUpper(),
@@ -49,14 +46,14 @@ namespace Fordi.Core
             {
                 var categories = GetCategories(ResourceType.AUDIO);
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
-                    m_menu.OpenGridMenu(new GridArgs()
+                    m_uiEngine.OpenGridMenu(new GridArgs()
                     {
                         AudioClip = m_commonResource.GetGuideClip(MenuCommandType.VO),
                         Items = ResourceToMenuItems(GetResource(ResourceType.AUDIO, "")),
                         Title = "SELECT AUDIO",
                     });
                 else
-                    m_menu.OpenGridMenu(new GridArgs()
+                    m_uiEngine.OpenGridMenu(new GridArgs()
                     {
                         AudioClip = m_commonResource.GetGuideClip(MenuCommandType.VO),
                         Items = GetCategoryMenu(categories, ResourceType.AUDIO),
@@ -96,14 +93,6 @@ namespace Fordi.Core
             //Apply selection to gameplay.
             //Selection can be accessed from m_menuSelection object.
 
-        }
-
-        public override void ToggleMenu()
-        {
-            if (m_uiEngine.IsOpen)
-                m_menu.Close();
-            else
-                m_menu.Open(m_insceneMenuItems);
         }
 
         public override void OnLoad()

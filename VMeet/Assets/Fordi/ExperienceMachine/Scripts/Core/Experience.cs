@@ -152,7 +152,6 @@ namespace Fordi.Core
         Experience experience { get; }
     }
 
-    [RequireComponent(typeof(Menu))]
     public abstract class Experience : MonoBehaviour, IExperience
     {
         protected IExperienceMachine m_experienceMachine;
@@ -182,7 +181,6 @@ namespace Fordi.Core
         protected void Awake()
         {
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
-            m_menu = GetComponent<Menu>();
             m_menuSelection = IOC.Resolve<IMenuSelection>();
             m_audio = IOC.Resolve<IAudio>();
             m_commonResource = IOC.Resolve<ICommonResource>();
@@ -221,10 +219,6 @@ namespace Fordi.Core
                     case MenuCommandType.VO:
                         MenuSequence.Add(ResourceType.AUDIO);
                         break;
-                    case MenuCommandType.MANDALA:
-                        MenuSequence.Add(ResourceType.MANDALA);
-                        LearnMenuSequence.Add(ResourceType.MANDALA);
-                        break;
                     case MenuCommandType.COLOR:
                         MenuSequence.Add(ResourceType.COLOR);
                         LearnMenuSequence.Add(ResourceType.COLOR);
@@ -257,8 +251,6 @@ namespace Fordi.Core
                     return MenuCommandType.MUSIC;
                 case ResourceType.COLOR:
                     return MenuCommandType.COLOR;
-                case ResourceType.MANDALA:
-                    return MenuCommandType.MANDALA;
                 case ResourceType.LOCATION:
                     return MenuCommandType.LOCATION;
                 case ResourceType.AUDIO:
@@ -280,8 +272,6 @@ namespace Fordi.Core
                     return ResourceType.MUSIC;
                 case MenuCommandType.COLOR:
                     return ResourceType.COLOR;
-                case MenuCommandType.MANDALA:
-                    return ResourceType.MANDALA;
                 case MenuCommandType.LOCATION:
                     return ResourceType.LOCATION;
                 case MenuCommandType.VO:
@@ -312,7 +302,7 @@ namespace Fordi.Core
         protected void OpenResourceWindow(AudioClip guide, ExperienceResource[] resources, string windowTitle)
         {
             MenuItemInfo[] menuItems = ResourceToMenuItems(resources);
-            m_menu.OpenGridMenu(new GridArgs()
+            m_uiEngine.OpenGridMenu(new GridArgs()
             {
                 AudioClip = guide,
                 Items = menuItems,
@@ -415,7 +405,7 @@ namespace Fordi.Core
                 {
                     MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
 
-                    m_menu.OpenGridMenu(new GridArgs()
+                    m_uiEngine.OpenGridMenu(new GridArgs()
                     {
                         AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
                         Items = categoryItems,
@@ -428,14 +418,14 @@ namespace Fordi.Core
             {
                 var categories = GetCategories(ResourceType.MUSIC);
                 if (categories.Length == 0 || (categories.Length == 1 && string.IsNullOrEmpty(categories[0].Name)))
-                    m_menu.OpenGridMenu(new GridArgs()
+                    m_uiEngine.OpenGridMenu(new GridArgs()
                     {
                         AudioClip = m_commonResource.GetGuideClip(MenuCommandType.MUSIC),
                         Items = ResourceToMenuItems(GetResource(ResourceType.MUSIC, "")),
                         Title = "SELECT MUSIC",
                     });
                 else
-                    m_menu.OpenGridMenu(new GridArgs()
+                    m_uiEngine.OpenGridMenu(new GridArgs()
                     {
                         AudioClip = m_commonResource.GetGuideClip(MenuCommandType.MUSIC),
                         Items = GetCategoryMenu(categories, ResourceType.MUSIC),
@@ -477,20 +467,20 @@ namespace Fordi.Core
         public virtual void ToggleMenu()
         {
             if (m_uiEngine.IsOpen)
-                m_menu.Close();
+                m_uiEngine.Close();
             else
-                m_menu.Open();
+                m_uiEngine.OpenMenu(new MenuArgs() { Items = m_menu.Items });
         }
 
         public void GoBack()
         {
-            m_menu.Close();
-            m_menu.Open();
+            m_uiEngine.Close();
+            m_uiEngine.OpenMenu(new MenuArgs() { Items = m_menu.Items });
         }
 
         public virtual void OpenMenu()
         {
-            m_menu.Open();
+            m_uiEngine.OpenMenu(new MenuArgs() { Items = m_menu.Items });
         }
 
         public void OpenGridMenu(MenuCommandType commandType)

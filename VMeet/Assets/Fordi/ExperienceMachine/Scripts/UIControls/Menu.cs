@@ -42,12 +42,11 @@ namespace Fordi.UI.MenuControl
     /// </summary>
     public enum MenuCommandType
     {
-        EXPERIENCE,
+        EXPERIENCE = 0,
         MUSIC,
         VO,
         LOCATION,
-        MANDALA,
-        COLOR,
+        COLOR = 5,
         SELECTION,
         HOME,
         MAIN,
@@ -118,7 +117,8 @@ namespace Fordi.UI.MenuControl
         public MenuItemValidationEvent Validate;
     }
 
-    public class Menu : MonoBehaviour
+    [CreateAssetMenu(fileName = "New Menu", menuName = "Scene Menu")]
+    public class Menu : ScriptableObject
     {
         [SerializeField]
         private MenuItemInfo[] m_items = null;
@@ -134,35 +134,5 @@ namespace Fordi.UI.MenuControl
         //}
 
         private IUIEngine m_uiEngine;
-
-        private Transform m_root;
-     
-        private void Awake()
-        {
-            m_uiEngine = IOC.Resolve<IUIEngine>();
-            m_root = transform.parent;
-        }
-
-        public void Open()
-        {
-            if (m_uiEngine == null)
-                m_uiEngine = IOC.Resolve<IUIEngine>();
-            m_uiEngine.OpenMenu(new MenuArgs() { Items = m_items });
-        }
-
-        public void Open(MenuItemInfo[] itemInfos)
-        {
-            m_uiEngine.OpenMenu(new MenuArgs() { Items = itemInfos });
-        }
-
-        public void OpenGridMenu(GridArgs args)
-        {
-            m_uiEngine.OpenGridMenu(args);
-        }
-
-        public void Close()
-        {
-            m_uiEngine.Close();
-        }
     }
 }

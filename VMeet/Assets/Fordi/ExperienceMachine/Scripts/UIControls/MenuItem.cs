@@ -241,8 +241,6 @@ namespace Fordi.UI.MenuControl
 
                 if (!(m_item.Data is ColorResource))
                     m_item.Action.AddListener(m_experienceMachine.ExecuteMenuCommand);
-                else if(sender is ColorPicker colorPicker)
-                    m_item.Action.AddListener(colorPicker.ClickColor);
 
                 ((Button)selectable).onClick.AddListener(() => m_item.Action.Invoke(new MenuClickArgs(m_item.Path, m_item.Text, m_item.Command, m_item.CommandType, m_item.Data)));
                

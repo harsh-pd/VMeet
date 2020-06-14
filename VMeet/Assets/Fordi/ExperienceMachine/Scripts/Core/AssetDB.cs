@@ -9,9 +9,7 @@ namespace Fordi.Core
     {
         #region UI
         [Header("Mandala")]
-        public MandalaGroup[] MandalaGroups;
         public ColorGroup[] ColorGroups;
-        public VOGroup MandalaColorCategory;
         [Header("Audio")]
         public AudioGroup[] MusicGroups;
         public AudioGroup[] NatureMusic;

@@ -109,7 +109,7 @@ namespace Fordi.Core
         [SerializeField]
         private OvrAvatar m_avatarPrefab;
 
-        private IExperience m_home, m_nature, m_mandala, m_abstract, m_lobby, m_meeting, m_currentExperience;
+        private IExperience m_home, m_lobby, m_meeting, m_currentExperience;
         private IMenuSelection m_menuSelection;
         private IAudio m_audio;
         private ISettings m_settings;
@@ -144,9 +144,6 @@ namespace Fordi.Core
         {
             m_isRunning = true;
             m_home = GetComponentInChildren<Home>();
-            m_nature = GetComponentInChildren<NatureExperience>();
-            m_mandala = GetComponentInChildren<MandalaExperience>();
-            m_abstract = GetComponentInChildren<AbstractExperience>();
             m_lobby = GetComponentInChildren<Lobby>();
             m_meeting = GetComponentInChildren<MeetingExperience>();
            
@@ -220,12 +217,6 @@ namespace Fordi.Core
             {
                 case ExperienceType.HOME:
                     return m_home;
-                case ExperienceType.NATURE:
-                    return m_nature;
-                case ExperienceType.MANDALA:
-                    return m_mandala;
-                case ExperienceType.ABSTRACT:
-                    return m_abstract;
                 case ExperienceType.MEETING:
                     return m_meeting;
                 case ExperienceType.LOBBY:
@@ -240,12 +231,6 @@ namespace Fordi.Core
             m_currentExperience = experience;
             if (m_currentExperience == m_home)
                 m_currentExperienceType = ExperienceType.HOME;
-            if (m_currentExperience == m_mandala)
-                m_currentExperienceType = ExperienceType.MANDALA;
-            if (m_currentExperience == m_nature)
-                m_currentExperienceType = ExperienceType.NATURE;
-            if (m_currentExperience == m_abstract)
-                m_currentExperienceType = ExperienceType.ABSTRACT;
             if (m_currentExperience == m_lobby)
                 m_currentExperienceType = ExperienceType.LOBBY;
             if (m_currentExperience == m_meeting)
@@ -299,12 +284,6 @@ namespace Fordi.Core
             {
                 case "home":
                     return m_home;
-                case "nature":
-                    return m_nature;
-                case "mandala":
-                    return m_mandala;
-                case "abstract":
-                    return m_abstract;
                 case "meeting":
                     return m_meeting;
                 case "lobby":

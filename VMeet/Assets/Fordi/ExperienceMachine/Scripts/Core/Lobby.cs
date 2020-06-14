@@ -61,7 +61,7 @@ namespace Fordi.Core
                 //    if (resourceComponent.ResourceType == ResourceType.AUDIO)
                 //        m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
                 //    var resourceType = resourceComponent.ResourceType;
-                //    m_menu.OpenGridMenu(null, ResourceToMenuItems(experience.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper());
+                //    m_uiEngine.OpenGridMenu(null, ResourceToMenuItems(experience.GetResource(resourceType, args.Command)), "SELECT " + resourceType.ToString().ToUpper());
 
                 //    OpenResourceWindow(m_commonResource.GetGuideClip(MenuCommandType.EXPERIENCE), m_webInterace.Meetings, "WHICH TYPE OF MEDITATION ARE YOU UP FOR?");
                 //});
@@ -99,24 +99,16 @@ namespace Fordi.Core
             {
                 ResourceComponent resourceComponent = (ResourceComponent)args.Data;
 
-                if (resourceComponent.SpecialCommand == MandalaExperience.ColorBasedAudioCommand)
+                if (resourceComponent.ResourceType == ResourceType.AUDIO)
+                    m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
+                var resourceType = resourceComponent.ResourceType;
+                m_uiEngine.OpenGridMenu(new GridArgs()
                 {
-                    m_menuSelection.VoiceOver = null;
-                    m_uiEngine.CloseLastScreen();
-                }
-                else
-                {
-                    if (resourceComponent.ResourceType == ResourceType.AUDIO)
-                        m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
-                    var resourceType = resourceComponent.ResourceType;
-                    m_menu.OpenGridMenu(new GridArgs()
-                    {
-                        Items = ResourceToMenuItems(m_webInterace.GetResource(resourceType, args.Command)),
-                        Title = "SELECT " + resourceType.ToString().ToUpper(),
-                        RefreshCategory = args.Command
-                    });
-                    return;
-                }
+                    Items = ResourceToMenuItems(m_webInterace.GetResource(resourceType, args.Command)),
+                    Title = "SELECT " + resourceType.ToString().ToUpper(),
+                    RefreshCategory = args.Command
+                });
+                return;
             }
 
             //Debug.LogError(args.Data.GetType().ToString());
@@ -139,41 +131,12 @@ namespace Fordi.Core
                     {
                         if (resourceType != ResourceType.COLOR)
                         {
-                            m_menu.OpenGridMenu(new GridArgs()
+                            m_uiEngine.OpenGridMenu(new GridArgs()
                             {
                                 AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
                                 Items = ResourceToMenuItems(m_webInterace.GetResource(sequence[sequenceIndex], "")),
                                 Title = "SELECT " + sequence[sequenceIndex].ToString(),
                             });
-                        }
-                        else
-                        {
-                            ColorInterfaceArgs colorInterfaceArgs = new ColorInterfaceArgs
-                            {
-                                Block = false,
-                                Persist = true,
-                                ColorGroup = new ColorGroup
-                                {
-                                    ResourceType = ResourceType.COLOR,
-                                    Preview = null,
-                                    Resources = (ColorResource[])m_experienceMachine.GetExperience(ExperienceType.MANDALA).GetResource(ResourceType.COLOR, MandalaExperience.MainColor)
-                                },
-                                Preset1 = new ColorGroup
-                                {
-                                    ResourceType = ResourceType.COLOR,
-                                    Preview = null,
-                                    Resources = m_menuSelection.MandalaResource.Preset1
-                                },
-                                CustomPreset = new ColorGroup
-                                {
-                                    ResourceType = ResourceType.COLOR,
-                                    Preview = null,
-                                    Resources = m_menuSelection.MandalaResource.CustomPreset
-                                },
-                                Title = "CHOOSE YOUR COLOR COMBINATION",
-                                AudioClip = m_commonResource.GetGuideClip(MenuCommandType.COLOR)
-                            };
-                            m_uiEngine.OpenColorInterface(colorInterfaceArgs);
                         }
                     }
                     else
@@ -205,14 +168,14 @@ namespace Fordi.Core
                         }
 
                         MenuItemInfo[] categoryItems = GetCategoryMenu(categories, resourceType);
-                        m_menu.OpenGridMenu(new GridArgs()
+                        m_uiEngine.OpenGridMenu(new GridArgs()
                         {
                             AudioClip = m_commonResource.GetGuideClip(GetCommandType(resourceType)),
                             Items = categoryItems,
                             Title = categoryDescription,
                         });
                     }
-                });//m_menu.OpenGridMenu(sequence[++m_sequenceIterator], sequence[0][m_sequenceIterator - 1].Text);
+                });//m_uiEngine.OpenGridMenu(sequence[++m_sequenceIterator], sequence[0][m_sequenceIterator - 1].Text);
             }
             else
             {

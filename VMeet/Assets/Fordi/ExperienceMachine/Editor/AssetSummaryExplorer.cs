@@ -237,24 +237,6 @@ public class AssetSummaryExplorer : EditorWindow
         m_mandala = EditorGUILayout.Foldout(m_mandala, "Mandala");
         if (m_mandala)
         {
-            if (m_assetDb.MandalaGroups.Length == 0 || (m_assetDb.MandalaGroups.Length == 1 && string.IsNullOrEmpty(m_assetDb.MandalaGroups[0].Name)))
-            {
-                if (GUILayout.Button("Mandalas"))
-                {
-                    AssetExplorer.Init(ExperienceType.MANDALA, ResourceType.MANDALA, "");
-                }
-            }
-            else
-            {
-                foreach (var item in m_assetDb.MandalaGroups)
-                {
-                    if (GUILayout.Button(item.Name + " Mandalas"))
-                    {
-                        AssetExplorer.Init(ExperienceType.MANDALA, ResourceType.MANDALA, item.Name);
-                    }
-                }
-            }
-
             EditorGUILayout.LabelField("", EditorStyles.label);
             if (m_assetDb.ColorGroups.Length == 0 || (m_assetDb.ColorGroups.Length == 1 && string.IsNullOrEmpty(m_assetDb.ColorGroups[0].Name)))
             {

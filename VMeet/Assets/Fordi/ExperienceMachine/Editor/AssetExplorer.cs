@@ -59,13 +59,6 @@ public class AssetExplorer : EditorWindow
                 }
                 break;
             case ExperienceType.MANDALA:
-                if (resourceType == ResourceType.MANDALA)
-                {
-                    MandalaGroup group = Array.Find(m_assetDb.MandalaGroups, item => item.Name == category);
-                    if (group != null)
-                        m_resources = group.Resources;
-                }
-
                 if (resourceType == ResourceType.COLOR)
                 {
                     ColorGroup group = Array.Find(m_assetDb.ColorGroups, item => item.Name == category);

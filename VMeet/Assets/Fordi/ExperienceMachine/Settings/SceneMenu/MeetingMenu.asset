@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a13baa5024169499691048927374ce, type: 3}
+  m_Name: MeetingMenu
+  m_EditorClassIdentifier: 
+  m_items:
+  - Path: Music
+    Text: Music
+    Icon: {fileID: 21300000, guid: eb3e31e25c3590548bd779d3944c0bed, type: 3}
+    Command: Music
+    CommandType: 1
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - Path: Settings
+    Text: Settings
+    Icon: {fileID: 21300000, guid: 9a79de8f89df6af44b46fc24a215532a, type: 3}
+    Command: Settings
+    CommandType: 11
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - Path: Lobby
+    Text: Leave
+    Icon: {fileID: 21300000, guid: 315d69f256f3f49499fa2fc60419e30c, type: 3}
+    Command: Leave
+    CommandType: 16
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - Path: Annotation
+    Text: Annotation
+    Icon: {fileID: 21300000, guid: 741000c94b292c34faaab6ab30247342, type: 3}
+    Command: Annotation
+    CommandType: 21
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+  - Path: Exit
+    Text: Exit
+    Icon: {fileID: 21300000, guid: a75e33bd7120bdb47a93e25ebbcef864, type: 3}
+    Command: Exit
+    CommandType: 12
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
