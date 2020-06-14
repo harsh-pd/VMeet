@@ -57,6 +57,8 @@ namespace Fordi.Plugins
                 AllPlatformDependenciesLoaded?.Invoke(this, EventArgs.Empty);
             foreach (var item in Platforms)
                 LoadDependency(item.Value.DepsKey);
+            foreach (var item in Modules)
+                Debug.LogError(item.Value.Version);
         }
 
         private void Compose()
