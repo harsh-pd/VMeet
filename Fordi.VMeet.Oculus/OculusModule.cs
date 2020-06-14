@@ -11,9 +11,9 @@ using UnityEngine;
 
 namespace Fordi.VMeet.Oculus
 {
-    [Export(typeof(IFordiComponent))]
+    [Export(typeof(IPlatformComponent))]
     [ExportMetadata("name", "VMeetOculusModule")]
-    public class OculusModule : IFordiComponent
+    public class OculusModule : IPlatformComponent
     {
         public string Version { get { return "v1.0.0"; } }
         public string DepsKey

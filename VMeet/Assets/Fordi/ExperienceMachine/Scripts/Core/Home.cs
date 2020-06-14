@@ -15,8 +15,6 @@ namespace Fordi.Core
     {
         [SerializeField]
         private ExperienceResource[] m_experiences;
-        [SerializeField]
-        private GameObject m_glow;
 
         public const string HOME_SCENE = "Home";
 

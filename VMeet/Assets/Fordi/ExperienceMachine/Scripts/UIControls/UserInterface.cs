@@ -63,6 +63,7 @@ namespace Fordi.UI
         IScreen DisplayResult(Error error, bool freshScreen = false);
         IScreen DisplayProgress(string text, bool freshScreen = false);
         IScreen Block(string message, bool includeRoot = false);
+
         void CloseLastScreen();
         void Close(IScreen screen);
         void Close();

@@ -19,8 +19,11 @@ namespace Fordi.Plugins
 
     public class PluginHook : MonoBehaviour, IPluginHook
     {
-        [ImportMany(typeof(IFordiComponent))]
-        Lazy<IFordiComponent, Dictionary<string, object>>[] loggers { get; set; }
+        [ImportMany(typeof(IPlatformComponent))]
+        Lazy<IPlatformComponent, Dictionary<string, object>>[] Platforms { get; set; }
+
+        [ImportMany(typeof(IFordiModule))]
+        Lazy<IFordiModule, Dictionary<string, object>>[] Modules { get; set; }
 
         public EventHandler AllPlatformDependenciesLoaded { get; set; }
 
@@ -50,9 +53,9 @@ namespace Fordi.Plugins
 
         private void Init()
         {
-            if (loggers.Length == 0)
+            if (Platforms.Length == 0)
                 AllPlatformDependenciesLoaded?.Invoke(this, EventArgs.Empty);
-            foreach (var item in loggers)
+            foreach (var item in Platforms)
                 LoadDependency(item.Value.DepsKey);
         }
 
