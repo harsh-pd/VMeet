@@ -33,6 +33,8 @@ namespace Fordi.UI
         void OpenForm(FormArgs args);
         void LoadRemoteDesktopView(MenuArgs args);
 
+        Canvas GetRootCanvas(Platform platform);
+
         void DisplayResult(Error error, bool freshScreen = false);
         void DisplayProgress(string text, bool freshScreen = false);
 
@@ -308,6 +310,16 @@ namespace Fordi.UI
                 m_vrInterface = userInterface;
             if (userInterface.Platform == Platform.DESKTOP)
                 m_standaloneInterface = userInterface;
+        }
+
+        public Canvas GetRootCanvas(Platform platform)
+        {
+            if (platform == Platform.DESKTOP)
+                return m_standaloneInterface.RootCanvas;
+            else if (m_vrInterface != null)
+                return m_vrInterface.RootCanvas;
+            else
+                throw new InvalidOperationException("VR Module not available");
         }
     }
 }

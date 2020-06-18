@@ -48,6 +48,7 @@ namespace Fordi.UI
         bool IsOpen { get; }
         BaseInputModule InputModule { get; }
         Platform Platform { get; }
+        Canvas RootCanvas { get; }
 
         IScreen OpenMenu(MenuArgs args);
         IScreen OpenGridMenu(GridArgs args);
@@ -102,6 +103,8 @@ namespace Fordi.UI
         protected Popup m_popupPrefab;
         [SerializeField]
         protected Popup m_popup;
+        [SerializeField]
+        protected Canvas m_rootCanvas;
         #endregion
 
         private const string YOUTUBE_PAGE = "https://www.youtube.com/telecomatics";
@@ -118,6 +121,8 @@ namespace Fordi.UI
         public Platform Platform { get { return m_platform; } }
 
         public abstract BaseInputModule InputModule { get; }
+
+        public Canvas RootCanvas { get { return m_rootCanvas; } }
 
         protected Stack<IScreen> m_screenStack = new Stack<IScreen>();
 

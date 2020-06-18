@@ -1,15 +1,15 @@
-[uDD::Log][2020-06-18 21:10:25] Start
-[uDD::Log][2020-06-18 21:10:25] OS Version    : 10.0
-[uDD::Log][2020-06-18 21:10:25] Build Number  : 18363
-[uDD::Log][2020-06-18 21:10:25] Service Pack  : 
-[uDD::Log][2020-06-18 21:10:25] Graphics Card [0] : NVIDIA GeForce GTX 1070
-[uDD::Log][2020-06-18 21:10:25]   > Monitor[0] : \\.\DISPLAY1
-[uDD::Log][2020-06-18 21:10:25] Graphics Card [1] : Intel(R) HD Graphics 530
-[uDD::Log][2020-06-18 21:10:25] Graphics Card [2] : Microsoft Basic Render Driver
-[uDD::Log][2020-06-18 21:10:25] Monitor::Initialized() =>
-[uDD::Log][2020-06-18 21:10:25]     ID    : 0
-[uDD::Log][2020-06-18 21:10:25]     Size  : (1920, 1080)
-[uDD::Log][2020-06-18 21:10:25]     DPI   : (141, 142)
-[uDD::Log][2020-06-18 21:10:25]     Rot   : Landscape
-[uDD::Log][2020-06-18 21:10:25] Duplicator::Initialize() => OK.
-[uDD::Log][2020-06-18 21:10:58] Stop
+[uDD::Log][2020-06-19 04:39:04] Start
+[uDD::Log][2020-06-19 04:39:04] OS Version    : 10.0
+[uDD::Log][2020-06-19 04:39:04] Build Number  : 18363
+[uDD::Log][2020-06-19 04:39:04] Service Pack  : 
+[uDD::Log][2020-06-19 04:39:04] Graphics Card [0] : NVIDIA GeForce GTX 1070
+[uDD::Log][2020-06-19 04:39:04]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2020-06-19 04:39:04] Graphics Card [1] : Intel(R) HD Graphics 530
+[uDD::Log][2020-06-19 04:39:04] Graphics Card [2] : Microsoft Basic Render Driver
+[uDD::Log][2020-06-19 04:39:04] Monitor::Initialized() =>
+[uDD::Log][2020-06-19 04:39:04]     ID    : 0
+[uDD::Log][2020-06-19 04:39:04]     Size  : (1920, 1080)
+[uDD::Log][2020-06-19 04:39:04]     DPI   : (141, 142)
+[uDD::Log][2020-06-19 04:39:04]     Rot   : Landscape
+[uDD::Log][2020-06-19 04:39:04] Duplicator::Initialize() => OK.
+[uDD::Log][2020-06-19 04:39:35] Stop

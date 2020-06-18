@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Fordi.Common;
 using Fordi.Core;
+using System;
 
 namespace Fordi.UI
 {
@@ -13,10 +14,53 @@ namespace Fordi.UI
         protected TextMeshProUGUI m_text;
         [SerializeField]
         protected Image m_image;
+        [SerializeField]
+        protected GameObject m_customBlockerPrefab;
+
+        IUIEngine m_uiEngine;
 
         public Color overriddenHighlight = Color.white;
 
         public bool overrideColor = false;
+
+        TMP_Dropdown m_dropdown;
+
+        protected override void AwakeOverride()
+        {
+            base.AwakeOverride();
+            m_uiEngine = IOC.Resolve<IUIEngine>();
+            m_dropdown = (TMP_Dropdown)selectable;
+            m_dropdown.OnHide += OnOptionsHide;
+            m_dropdown.OnShow += OnOptionsShow;
+        }
+
+        protected override void OnDestroyOverride()
+        {
+            base.OnDestroyOverride();
+            m_dropdown.OnHide -= OnOptionsHide;
+            m_dropdown.OnShow -= OnOptionsShow;
+            if (m_blocker != null)
+                Destroy(m_blocker);
+        }
+
+        private void OnOptionsShow(object sender, EventArgs e)
+        {
+            var rootCanvas = m_uiEngine.GetRootCanvas(m_platform);
+            if (rootCanvas != null && m_blocker == null)
+            {
+                m_blocker = Instantiate(m_customBlockerPrefab, transform);
+                m_blocker.transform.SetParent(rootCanvas.transform);
+                m_blocker.gameObject.SetActive(true);
+            }
+            if (m_blocker != null)
+                m_blocker.gameObject.SetActive(true);
+        }
+
+        private void OnOptionsHide(object sender, EventArgs e)
+        {
+            if (m_blocker != null)
+                m_blocker.gameObject.SetActive(false);
+        }
 
         public override void ToggleOutlineHighlight(bool val)
         {
@@ -64,13 +108,14 @@ namespace Fordi.UI
             }
         }
 
+        private GameObject m_blocker = null;
+
         public override void OnPointerClick(PointerEventData eventData)
         {
             base.OnPointerClick(eventData);
             //print("selectable.interactable: true " + "OnPointerClick");
             //m_audio.PlaySFX(Audio.PointerClick);
             EventSystem.current.SetSelectedGameObject(null);
-            return;
         }
 
         private void OnTriggerEnter(Collider other)

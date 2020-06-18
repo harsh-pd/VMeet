@@ -2509,8 +2509,6 @@ MonoBehaviour:
     type: 3}
   m_annotationInterface: {fileID: 1044593747824488069, guid: 8a4e4475b2a52b241a7c08202a82d6bf,
     type: 3}
-  m_colorInterfacePrefab: {fileID: 8032556723288048074, guid: 3e35dc56849befa48a35c4761fd14e62,
-    type: 3}
   m_meetingPagePrefab: {fileID: 4029748492899387519, guid: 7b35a9c320ce49e4985cd5f008361029,
     type: 3}
   m_meetingFormPrefab: {fileID: 1148804007043975701, guid: 1aada44c7b47d954f9b6888dd16ce797,
@@ -2528,6 +2526,7 @@ MonoBehaviour:
     type: 3}
   m_popup: {fileID: -3279790470852022401, guid: 43bf18bcd53eaa647a48b69c7fed1a31,
     type: 3}
+  m_rootCanvas: {fileID: 6732509304737075906}
   m_laserPointerObject: {fileID: 3201484865714090104}
   m_standaloneMenuPrefab: {fileID: -1492733784173120003, guid: 15b3320f2e7410e43b71334a7f19ac7e,
     type: 3}
