@@ -75,6 +75,8 @@ namespace Fordi.Sync
                     toggle.onValueChanged.AddListener((val) => OnValueChanged(toggle, val));
                 if (((IFordiObservable)item).Selectable is Slider slider)
                     slider.onValueChanged.AddListener(OnValueChanged);
+                if (((IFordiObservable)item).Selectable is TMP_Dropdown dropdown)
+                    dropdown.onValueChanged.AddListener(OnValueChanged);
             }
         }
 
@@ -271,6 +273,16 @@ namespace Fordi.Sync
         }
 
         private void OnValueChanged(float value)
+        {
+            if (m_remoteValueChange)
+            {
+                m_remoteValueChange = false;
+                return;
+            }
+            m_fordiNetwork.OnValueChanged(this, ViewId, value);
+        }
+
+        private void OnValueChanged(int value)
         {
             if (m_remoteValueChange)
             {
