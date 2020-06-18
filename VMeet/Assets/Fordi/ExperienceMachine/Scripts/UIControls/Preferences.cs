@@ -47,5 +47,8 @@ namespace Fordi.Core
         [Header("Annotation")]
         [Range(0, 1)]
         public float annotationDelay = .25f;
+
+        [Header("Devices")]
+        public string SelectedMicrophone = "";
     }
 }

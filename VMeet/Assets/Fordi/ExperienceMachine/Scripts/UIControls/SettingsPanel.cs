@@ -37,6 +37,10 @@ namespace Fordi.UI.MenuControl
         [SerializeField]
         private Slider m_audioVolume;
 
+        [Header("Devices")]
+        [SerializeField]
+        private TMP_Dropdown m_microphoneDropdown;
+
         [Header("Others")]
         [SerializeField]
         private GameObject m_saveButton;
@@ -61,6 +65,8 @@ namespace Fordi.UI.MenuControl
         [SerializeField]
         private List<Slider> m_sliders;
         [SerializeField]
+        private List<TMP_Dropdown> m_dropDowns;
+        [SerializeField]
         private Toggle m_accountTab;
 
         private const string SampleSound = "Sample";
@@ -80,12 +86,16 @@ namespace Fordi.UI.MenuControl
 
         private void Init()
         {
+            m_microphoneDropdown.AddOptions(new List<string>(Microphone.devices));
             ResetToPreviousSettings();
             foreach (var item in m_toggles)
                 item.onValueChanged.AddListener((val) => ValueChange());
             foreach (var item in m_sliders)
                 item.onValueChanged.AddListener((val) => ValueChange());
-            
+            foreach (var item in m_dropDowns)
+                item.onValueChanged.AddListener((val) => ValueChange());
+
+
             m_ambienceVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.AMBIENCE));
             m_musicVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.MUSIC));
             m_sfxVolume.onValueChanged.AddListener((val) => PreviewSound(val, AudioType.SFX));
@@ -101,6 +111,8 @@ namespace Fordi.UI.MenuControl
                 item.onValueChanged.RemoveAllListeners();
             foreach (var item in m_sliders)
                 item.onValueChanged.RemoveAllListeners();
+            foreach (var item in m_dropDowns)
+                item.onValueChanged.RemoveAllListeners();
             m_uiEngine.InputModuleChangeEvent -= OnInputModuleChange;
         }
 
@@ -115,6 +127,8 @@ namespace Fordi.UI.MenuControl
 
             changes = changes || m_settings.SelectedPreferences.Animation != m_mandalaAnimation.isOn;
             changes = changes || m_settings.SelectedPreferences.Particles != m_mandalaParticles.isOn;
+
+            changes = changes || m_settings.SelectedPreferences.SelectedMicrophone != m_microphoneDropdown.options[m_microphoneDropdown.value].text;
 
             if (m_highQuality.isOn)
                 changes = changes || m_settings.SelectedPreferences.GraphicsQuality != GraphicsQuality.HIGH;
@@ -139,6 +153,8 @@ namespace Fordi.UI.MenuControl
         {
             m_mandalaAnimation.isOn = m_settings.SelectedPreferences.Animation;
             m_mandalaParticles.isOn = m_settings.SelectedPreferences.Particles;
+
+            m_microphoneDropdown.value = m_microphoneDropdown.options.FindIndex(item => item.text == m_settings.SelectedPreferences.SelectedMicrophone);
 
             m_highQuality.isOn = m_settings.SelectedPreferences.GraphicsQuality == GraphicsQuality.HIGH;
             m_mediumQuality.isOn = m_settings.SelectedPreferences.GraphicsQuality == GraphicsQuality.MEDIUM;
@@ -180,6 +196,8 @@ namespace Fordi.UI.MenuControl
             m_settings.SelectedPreferences.Animation = m_mandalaAnimation.isOn;
             m_settings.SelectedPreferences.Particles = m_mandalaParticles.isOn;
 
+            m_settings.SelectedPreferences.SelectedMicrophone = m_microphoneDropdown.options[m_microphoneDropdown.value].text;
+
             if (m_highQuality.isOn)
                 m_settings.SelectedPreferences.GraphicsQuality = GraphicsQuality.HIGH;
             if (m_mediumQuality.isOn)
@@ -208,6 +226,8 @@ namespace Fordi.UI.MenuControl
         {
             m_mandalaAnimation.isOn = m_settings.DefaultPreferences.Animation;
             m_mandalaParticles.isOn = m_settings.DefaultPreferences.Particles;
+            m_microphoneDropdown.value = m_microphoneDropdown.options.FindIndex(item => item.text == m_settings.DefaultPreferences.SelectedMicrophone);
+
 
             m_highQuality.isOn = m_settings.DefaultPreferences.GraphicsQuality == GraphicsQuality.HIGH;
             m_mediumQuality.isOn = m_settings.DefaultPreferences.GraphicsQuality == GraphicsQuality.MEDIUM;

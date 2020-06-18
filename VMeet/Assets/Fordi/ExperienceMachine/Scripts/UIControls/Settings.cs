@@ -33,6 +33,8 @@ namespace Fordi.Core
         public bool Desktop;
         [ProtoMember(9)]
         public bool ShowVR;
+        [ProtoMember(10)]
+        public string SelectedMicrophone;
 
         private ISettings m_settings;
 
@@ -50,6 +52,7 @@ namespace Fordi.Core
             m_settings.SelectedPreferences.Particles = MandalaParticles;
             m_settings.SelectedPreferences.DesktopMode = Desktop;
             m_settings.SelectedPreferences.ShowVR = ShowVR;
+            m_settings.SelectedPreferences.SelectedMicrophone = SelectedMicrophone;
         }
 
         public void Download()
@@ -66,6 +69,7 @@ namespace Fordi.Core
             MandalaParticles = m_settings.SelectedPreferences.Particles;
             Desktop = m_settings.SelectedPreferences.DesktopMode;
             ShowVR = m_settings.SelectedPreferences.ShowVR;
+            SelectedMicrophone = m_settings.SelectedPreferences.SelectedMicrophone;
         }
     }
 
