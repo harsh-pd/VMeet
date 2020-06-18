@@ -13326,6 +13326,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dropdown
       objectReference: {fileID: 0}
+    - target: {fileID: 7666799470827489779, guid: 1e432b331db1f1148b50f73ceab9f0c4,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 5847306447360029561, guid: 1e432b331db1f1148b50f73ceab9f0c4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13430,6 +13435,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821697620368837836, guid: 1e432b331db1f1148b50f73ceab9f0c4,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821697620368837836, guid: 1e432b331db1f1148b50f73ceab9f0c4,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821697620368837836, guid: 1e432b331db1f1148b50f73ceab9f0c4,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e432b331db1f1148b50f73ceab9f0c4, type: 3}
