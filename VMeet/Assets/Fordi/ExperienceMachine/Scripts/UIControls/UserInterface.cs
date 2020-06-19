@@ -348,7 +348,9 @@ namespace Fordi.UI
 
         public IScreen OpenSettingsInterface(AudioClip clip)
         {
-           return OpenInterface(m_settingsInterfacePrefab, m_settingsInterfacePrefab, true, true);
+            var menu = OpenInterface(m_settingsInterfacePrefab, m_settingsInterfacePrefab, true, true);
+            ((SettingsPanel)menu).OpenMenu(this, null);
+            return menu;
         }
 
         public virtual IScreen OpenMeetingForm(FormArgs args)

@@ -77,7 +77,7 @@ namespace Fordi.UI.MenuControl
 
         private AudioType m_playingSampleType = AudioType.NONE;
 
-        private static AudioSource s_audioSource;
+        private AudioSource m_micAudioSource;
 
         protected override void AwakeOverride()
         {
@@ -86,13 +86,13 @@ namespace Fordi.UI.MenuControl
             m_audio = IOC.Resolve<IAudio>();
             m_commonResource = IOC.Resolve<ICommonResource>();
             m_webInterace = IOC.Resolve<IWebInterface>();
-            Init();
             m_uiEngine.InputModuleChangeEvent += OnInputModuleChange;
             m_microphoneDropdown.onValueChanged.AddListener((val) => RefreshMikeDisplay());
         }
 
-        private void Init()
+        public override void OpenMenu(IUserInterface userInterface, MenuArgs args)
         {
+            m_userInterface = userInterface;
             m_microphoneDropdown.AddOptions(new List<string>(Microphone.devices));
             ResetToPreviousSettings();
             foreach (var item in m_toggles)
@@ -110,7 +110,6 @@ namespace Fordi.UI.MenuControl
 
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
             m_accountTab.isOn = true;
-            RefreshMikeDisplay();
         }
 
         protected override void OnDestroyOverride()
@@ -122,9 +121,11 @@ namespace Fordi.UI.MenuControl
             foreach (var item in m_dropDowns)
                 item.onValueChanged.RemoveAllListeners();
             m_uiEngine.InputModuleChangeEvent -= OnInputModuleChange;
-            if (s_audioSource != null)
-                Destroy(s_audioSource.gameObject);
-            s_audioSource = null;
+            if (m_micAudioSource != null)
+                Destroy(m_micAudioSource.gameObject);
+            m_micAudioSource = null;
+            if (m_userInterface.Platform == Platform.DESKTOP && Microphone.IsRecording(m_deviceName))
+                Microphone.End(m_deviceName);
         }
 
         private void ToggleEdit(bool val)
@@ -355,15 +356,16 @@ namespace Fordi.UI.MenuControl
         }
 
         #region MICROPHONE
-        private AudioClip m_micClip;
         private int m_lastPos, m_pos;
         private string m_deviceName = "";
 
         private static float s_microphoneDb = 0;
+        private bool m_recorgingMic = false;
+        private AudioClip m_micClip;
 
         private void RefreshMikeDisplay()
         {
-            if (Microphone.IsRecording(m_deviceName))
+            if (m_userInterface.Platform == Platform.DESKTOP && Microphone.IsRecording(m_deviceName))
                 Microphone.End(m_deviceName);
 
             m_deviceName = m_microphoneDropdown.options[m_microphoneDropdown.value].text;
@@ -373,33 +375,38 @@ namespace Fordi.UI.MenuControl
             m_micSlider.value = 0;
             m_micClip = null;
 
-            if (Microphone.IsRecording(m_deviceName))
+            if (m_userInterface.Platform != Platform.DESKTOP)
                 return;
 
 
-            if (s_audioSource == null)
+            if (m_micAudioSource == null)
             {
                 var obj = new GameObject("MicTestAudioSource");
-                s_audioSource = obj.AddComponent<AudioSource>();
-                s_audioSource.playOnAwake = false;
+                m_micAudioSource = obj.AddComponent<AudioSource>();
+                m_micAudioSource.playOnAwake = false;
             }
 
            
-            s_audioSource.clip = Microphone.Start(m_deviceName, true, 10, 44100);
-            m_micClip = s_audioSource.clip;
+            m_micAudioSource.clip = Microphone.Start(m_deviceName, true, 10, 44100);
+            m_micClip = m_micAudioSource.clip;
+            //Debug.LogError("Setting up m_micClip: " + name);
         }
 
         protected override void Update()
         {
             base.Update();
-            if (s_audioSource == null)
+
+            if (m_userInterface == null)
                 return;
 
-            if (m_micClip == null)
+            if (m_userInterface.Platform != Platform.DESKTOP)
             {
                 m_micSlider.value = s_microphoneDb;
                 return;
             }
+
+            if (m_micAudioSource == null)
+                return;
 
             if ((m_pos = Microphone.GetPosition(m_deviceName)) > 0)
             {
