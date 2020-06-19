@@ -8,6 +8,7 @@ using Fordi.Core;
 using Fordi.Common;
 using AudioType = Fordi.Core.AudioType;
 using Cornea.Web;
+using UniRx;
 
 namespace Fordi.UI.MenuControl
 {
@@ -52,6 +53,9 @@ namespace Fordi.UI.MenuControl
         private Toggle m_blackTeleportToggle;
         [SerializeField]
         private Toggle m_desktopMode;
+        
+        [SerializeField]
+        private Slider m_micSlider;
 
         [SerializeField]
         private TMP_InputField m_organization, m_name;
@@ -73,6 +77,8 @@ namespace Fordi.UI.MenuControl
 
         private AudioType m_playingSampleType = AudioType.NONE;
 
+        private static AudioSource s_audioSource;
+
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
@@ -82,6 +88,7 @@ namespace Fordi.UI.MenuControl
             m_webInterace = IOC.Resolve<IWebInterface>();
             Init();
             m_uiEngine.InputModuleChangeEvent += OnInputModuleChange;
+            m_microphoneDropdown.onValueChanged.AddListener((val) => RefreshMikeDisplay());
         }
 
         private void Init()
@@ -103,6 +110,7 @@ namespace Fordi.UI.MenuControl
 
             m_desktopMode.interactable = !m_settings.SelectedPreferences.ForcedDesktopMode;
             m_accountTab.isOn = true;
+            RefreshMikeDisplay();
         }
 
         protected override void OnDestroyOverride()
@@ -114,6 +122,9 @@ namespace Fordi.UI.MenuControl
             foreach (var item in m_dropDowns)
                 item.onValueChanged.RemoveAllListeners();
             m_uiEngine.InputModuleChangeEvent -= OnInputModuleChange;
+            if (s_audioSource != null)
+                Destroy(s_audioSource.gameObject);
+            s_audioSource = null;
         }
 
         private void ToggleEdit(bool val)
@@ -342,5 +353,81 @@ namespace Fordi.UI.MenuControl
         {
             m_experienceMachine.ExecuteMenuCommand(new MenuClickArgs("Logout", "Logout", "Logout", MenuCommandType.LOGOUT, null));
         }
+
+        #region MICROPHONE
+        private AudioClip m_micClip;
+        private int m_lastPos, m_pos;
+        private string m_deviceName = "";
+
+        private static float s_microphoneDb = 0;
+
+        private void RefreshMikeDisplay()
+        {
+            if (Microphone.IsRecording(m_deviceName))
+                Microphone.End(m_deviceName);
+
+            m_deviceName = m_microphoneDropdown.options[m_microphoneDropdown.value].text;
+            s_microphoneDb = 0;
+            m_lastPos = 0;
+            m_pos = 0;
+
+            if (Microphone.IsRecording(m_deviceName))
+                return;
+
+
+            if (s_audioSource == null)
+            {
+                var obj = new GameObject("MicTestAudioSource");
+                s_audioSource = obj.AddComponent<AudioSource>();
+                s_audioSource.playOnAwake = false;
+            }
+
+           
+            s_audioSource.clip = Microphone.Start(m_deviceName, true, 10, 44100);
+            m_micClip = s_audioSource.clip;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if (s_audioSource == null)
+                return;
+
+            if (m_micClip == null)
+            {
+                m_micSlider.value = s_microphoneDb;
+                return;
+            }
+
+            if ((m_pos = Microphone.GetPosition(m_deviceName)) > 0)
+            {
+                if (m_lastPos > m_pos) m_lastPos = 0;
+
+                if (m_pos - m_lastPos > 0)
+                {
+                    // Allocate the space for the new sample.
+                    int len = (m_pos - m_lastPos) * m_micClip.channels;
+                    float[] samples = new float[len];
+                    m_micClip.GetData(samples, m_lastPos);
+                    DisplayAudioLevel(samples);
+                    m_lastPos = m_pos;
+                }
+            }
+        }
+
+        private void DisplayAudioLevel(float[] samples)
+        {
+            s_microphoneDb = Average(samples);
+            m_micSlider.value = s_microphoneDb;
+        }
+
+        private float Average(float[] samples)
+        {
+            float sum = 0;
+            foreach (var item in samples)
+                sum += Mathf.Abs(item);
+            return sum / (.3f * samples.Length);
+        }
+        #endregion
     }
 }
