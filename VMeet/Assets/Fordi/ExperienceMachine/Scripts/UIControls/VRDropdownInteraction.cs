@@ -14,8 +14,6 @@ namespace Fordi.UI
         protected TextMeshProUGUI m_text;
         [SerializeField]
         protected Image m_image;
-        [SerializeField]
-        protected GameObject m_customBlockerPrefab;
 
         IUIEngine m_uiEngine;
 
@@ -30,37 +28,34 @@ namespace Fordi.UI
             base.AwakeOverride();
             m_uiEngine = IOC.Resolve<IUIEngine>();
             m_dropdown = (TMP_Dropdown)selectable;
-            m_dropdown.OnHide += OnOptionsHide;
-            m_dropdown.OnShow += OnOptionsShow;
         }
 
         protected override void OnDestroyOverride()
         {
             base.OnDestroyOverride();
-            m_dropdown.OnHide -= OnOptionsHide;
-            m_dropdown.OnShow -= OnOptionsShow;
             if (m_blocker != null)
                 Destroy(m_blocker);
+            m_dropdown.onValueChanged.RemoveAllListeners();
         }
 
-        private void OnOptionsShow(object sender, EventArgs e)
-        {
-            var rootCanvas = m_uiEngine.GetRootCanvas(m_platform);
-            if (rootCanvas != null && m_blocker == null)
-            {
-                m_blocker = Instantiate(m_customBlockerPrefab, transform);
-                m_blocker.transform.SetParent(rootCanvas.transform);
-                m_blocker.gameObject.SetActive(true);
-            }
-            if (m_blocker != null)
-                m_blocker.gameObject.SetActive(true);
-        }
+        //private void OnOptionsShow(object sender, EventArgs e)
+        //{
+        //    var rootCanvas = m_uiEngine.GetRootCanvas(m_platform);
+        //    if (rootCanvas != null && m_blocker == null)
+        //    {
+        //        m_blocker = Instantiate(m_customBlockerPrefab, transform);
+        //        m_blocker.transform.SetParent(rootCanvas.transform);
+        //        m_blocker.gameObject.SetActive(true);
+        //    }
+        //    if (m_blocker != null)
+        //        m_blocker.gameObject.SetActive(true);
+        //}
 
-        private void OnOptionsHide(object sender, EventArgs e)
-        {
-            if (m_blocker != null)
-                m_blocker.gameObject.SetActive(false);
-        }
+        //private void OnOptionsHide(object sender, EventArgs e)
+        //{
+        //    if (m_blocker != null)
+        //        m_blocker.gameObject.SetActive(false);
+        //}
 
         public override void ToggleOutlineHighlight(bool val)
         {

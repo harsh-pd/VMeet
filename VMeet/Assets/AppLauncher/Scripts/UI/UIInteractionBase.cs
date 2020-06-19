@@ -158,6 +158,9 @@ namespace AL.UI
 
             if (typeof(float) == typeof(T) && selectable is Slider slider)
                 slider.value = (float)(object)val;
+
+            if (typeof(int) == typeof(T) && selectable is TMP_Dropdown dropdown)
+                dropdown.value = (int)(object)val;
         }
 
         public void PointerClickEvent(int viewId)

@@ -370,6 +370,8 @@ namespace Fordi.UI.MenuControl
             s_microphoneDb = 0;
             m_lastPos = 0;
             m_pos = 0;
+            m_micSlider.value = 0;
+            m_micClip = null;
 
             if (Microphone.IsRecording(m_deviceName))
                 return;

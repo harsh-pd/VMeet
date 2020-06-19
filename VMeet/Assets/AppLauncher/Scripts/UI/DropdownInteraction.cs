@@ -8,6 +8,11 @@ namespace AL.UI
 {
     public class DropdownInteraction : UIInteractionBase
     {
+        protected override void OnDestroyOverride()
+        {
+            base.OnDestroyOverride();
+            ((TMP_Dropdown)selectable).onValueChanged.RemoveAllListeners();
+        }
         public override void ToggleBackgroundHighlight(bool val)
         {
             if (val && selectable.interactable)
