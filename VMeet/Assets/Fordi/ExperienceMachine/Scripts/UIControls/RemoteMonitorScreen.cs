@@ -11,6 +11,7 @@ using Fordi.Common;
 using Fordi.Core;
 using Fordi.UI.MenuControl;
 using Fordi.UI;
+using Fordi.VideoCall;
 
 namespace Fordi.ScreenSharing
 {
@@ -34,6 +35,7 @@ namespace Fordi.ScreenSharing
         private IAppTheme m_appTheme = null;
         private IScreenShare m_screenShare = null;
         private IVoiceChat m_voiceChat = null;
+        private IVideoCallEngine m_videoCallEngine = null;
 
         private VideoSurface m_remoteMonitorView;
         private Chat m_chat = null;
@@ -44,6 +46,8 @@ namespace Fordi.ScreenSharing
             m_appTheme = IOC.Resolve<IAppTheme>();
             m_screenShare = IOC.Resolve<IScreenShare>();
             m_voiceChat = IOC.Resolve<IVoiceChat>();
+            m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
+
             m_screenShare.OtherUserJoinedEvent += RemoteUserJoinedChannel;
             m_screenShare.RemoteScreenShareEvent += RemoteScreenShareNotification;
         }
@@ -126,6 +130,14 @@ namespace Fordi.ScreenSharing
                 m_screenShare = IOC.Resolve<IScreenShare>();
             if (m_screenShare != null)
                 m_screenShare.ToggleScreenSharing(val);
+        }
+
+        public void VideoToggle(bool val)
+        {
+            if (m_videoCallEngine == null)
+                m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
+            if (m_videoCallEngine != null)
+                m_videoCallEngine.EnableVideo(val);
         }
 
         private void ToggleMonitor(bool val)

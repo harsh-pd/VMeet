@@ -1,4 +1,5 @@
 ﻿using agora_gaming_rtc;
+using Fordi.Common;
 using Fordi.VideoCall;
 using System;
 using System.Collections;
@@ -11,6 +12,20 @@ namespace Fordi.UI.MenuControl
     {
         [SerializeField]
         private VideoItem m_presenterVideoItem;
+
+        [SerializeField]
+        private GameObject m_participantsGrid;
+
+        [SerializeField]
+        private MenuOnHover m_onHoverMenu;
+
+        private IVideoCallEngine m_videoCallEngine;
+
+        protected override void AwakeOverride()
+        {
+            base.AwakeOverride();
+            m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
+        }
 
         public override void OpenMenu(IUserInterface userInterface, MenuArgs args)
         {
@@ -33,6 +48,17 @@ namespace Fordi.UI.MenuControl
         public void StopPresenting()
         {
             m_presenterVideoItem.OnVideoMute(true);
+        }
+
+        public void ToggleVideo(bool val)
+        {
+            m_videoCallEngine.EnableVideo(!val);
+        }
+
+        public void ToggleFulscreen(bool val)
+        {
+            m_participantsGrid.gameObject.SetActive(!val);
+            m_onHoverMenu.ToggleFulScreen(val);
         }
     }
 }

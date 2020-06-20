@@ -9,6 +9,7 @@ using Fordi.UI.MenuControl;
 using Fordi.Core;
 using Photon.Pun;
 using System.Collections;
+using System;
 
 
 // this is an example of using Agora Unity SDK
@@ -21,7 +22,16 @@ namespace Fordi.VideoCall
 {
     public interface IVideoCallEngine
     {
+        void EnableVideo(bool val);
+        EventHandler<VideoEventArgs> VideoPauseToggle { get; set; }
     }
+
+    public class VideoEventArgs : EventArgs
+    {
+        public bool Pause;
+        public uint UserId;
+    }
+
 
     public class VideoCallEngine : MonoBehaviour, IVideoCallEngine
     {
@@ -32,6 +42,8 @@ namespace Fordi.VideoCall
         private IExperienceMachine m_experienceMachine;
 
         private const string APP_ID = "397c1095001f4f88abe788a32dcd1570";
+
+        public EventHandler<VideoEventArgs> VideoPauseToggle { get; set; }
 
         private void Awake()
         {
@@ -152,6 +164,12 @@ namespace Fordi.VideoCall
                 {
                     mRtcEngine.DisableVideo();
                 }
+
+                VideoPauseToggle?.Invoke(this, new VideoEventArgs()
+                {
+                    Pause = pauseVideo,
+                    UserId = 0
+                });
             }
         }
 
@@ -255,8 +273,8 @@ namespace Fordi.VideoCall
             go.name = goName;
             // set up transform
             go.transform.Rotate(-90.0f, 0.0f, 0.0f);
-            float yPos = Random.Range(3.0f, 5.0f);
-            float xPos = Random.Range(-2.0f, 2.0f);
+            float yPos = UnityEngine.Random.Range(3.0f, 5.0f);
+            float xPos = UnityEngine.Random.Range(-2.0f, 2.0f);
             go.transform.position = new Vector3(xPos, yPos, 0f);
             go.transform.localScale = new Vector3(0.25f, 0.5f, .5f);
 
@@ -289,8 +307,8 @@ namespace Fordi.VideoCall
             }
             // set up transform
             go.transform.Rotate(0f, 0.0f, 180.0f);
-            float xPos = Random.Range(Offset - Screen.width / 2f, Screen.width / 2f - Offset);
-            float yPos = Random.Range(Offset, Screen.height / 2f - Offset);
+            float xPos = UnityEngine.Random.Range(Offset - Screen.width / 2f, Screen.width / 2f - Offset);
+            float yPos = UnityEngine.Random.Range(Offset, Screen.height / 2f - Offset);
             go.transform.localPosition = new Vector3(xPos, yPos, 0f);
             go.transform.localScale = new Vector3(3f, 4f, 1f);
 
@@ -308,7 +326,7 @@ namespace Fordi.VideoCall
             GameObject go = GameObject.Find(uid.ToString());
             if (!ReferenceEquals(go, null))
             {
-                Object.Destroy(go);
+                Destroy(go);
             }
         }
 

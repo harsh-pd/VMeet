@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,28 +13,41 @@ namespace Fordi.UI
 
         private bool m_pointerHovering = false;
 
+        private bool m_fulscreenMode = false;
+
         private void OnEnable()
         {
-            if (m_pointerHovering)
+            if (!m_fulscreenMode || m_pointerHovering)
                 m_menu.SetActive(true);
         }
 
         private void OnDisable()
         {
-            m_menu.SetActive(false);
+            if (m_fulscreenMode)
+                m_menu.SetActive(false);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            m_menu.SetActive(true);
             m_pointerHovering = true;
+            m_menu.gameObject.SetActive(true);
 
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            m_menu.SetActive(false);
             m_pointerHovering = false;
+            if (m_fulscreenMode)
+                m_menu.gameObject.SetActive(false);
+        }
+
+        public void ToggleFulScreen(bool val)
+        {
+            m_fulscreenMode = val;
+            if (!val)
+                m_menu.gameObject.SetActive(true);
+            else
+                m_menu.gameObject.SetActive(m_pointerHovering);
         }
     }
 }
