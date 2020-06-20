@@ -326,6 +326,8 @@ MonoBehaviour:
     type: 3}
   m_meetingFormPrefab: {fileID: 1148804007043975701, guid: 1aada44c7b47d954f9b6888dd16ce797,
     type: 3}
+  m_videoCallInterfacePrefab: {fileID: 5845077787677940919, guid: d932d45253a308e4b80b3fe5376ce45a,
+    type: 3}
   m_objectInterfacePrefab: {fileID: 5884104107913635541, guid: 05fdfe0b0de9b4a4bb7657bf34eaafbc,
     type: 3}
   m_settingsInterfacePrefab: {fileID: 3600117033163445469, guid: bf07cea1670c34947adf3c390a7bec97,

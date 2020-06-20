@@ -32,6 +32,7 @@ namespace Fordi.UI
         void Popup(PopupInfo popupInfo);
         void OpenForm(FormArgs args);
         void LoadRemoteDesktopView(MenuArgs args);
+        void AddVideo(MenuItemInfo videoItem);
 
         Canvas GetRootCanvas(Platform platform);
 
@@ -254,6 +255,12 @@ namespace Fordi.UI
         {
             m_standaloneInterface.OpenForm(args);
             m_vrInterface?.OpenForm(args);
+        }
+
+        public void AddVideo(MenuItemInfo videoItem)
+        {
+            m_standaloneInterface.AddVideo(videoItem);
+            m_vrInterface?.AddVideo(videoItem);
         }
 
         public void DisplayResult(Error error, bool freshScreen = false)
