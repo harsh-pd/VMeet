@@ -186,34 +186,49 @@ namespace Fordi.VideoCall
             m_uiEngine.AddVideo(new MenuItemInfo()
             {
                 Data = (uint)0,
-                Text = PhotonNetwork.NickName
+                Text = "Local Player"
             });
+
+            //m_uiEngine.PresentVideo(new MenuItemInfo()
+            //{
+            //    Data = (uint)0,
+            //    Text = "Local Player"
+            //});
         }
 
         // When a remote user joined, this delegate will be called. Typically
         // create a GameObject to render video on it
         private void OnUserJoined(uint uid, int elapsed)
         {
-            Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
-            // this is called in main thread
+            //Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
+            //// this is called in main thread
 
-            // find a game object to render video stream from 'uid'
-            GameObject go = GameObject.Find(uid.ToString());
-            if (!ReferenceEquals(go, null))
-            {
-                return; // reuse
-            }
+            //// find a game object to render video stream from 'uid'
+            //GameObject go = GameObject.Find(uid.ToString());
+            //if (!ReferenceEquals(go, null))
+            //{
+            //    return; // reuse
+            //}
 
-            // create a GameObject and assign to this new user
-            VideoSurface videoSurface = MakeImageSurface(uid.ToString());
-            if (!ReferenceEquals(videoSurface, null))
+            //// create a GameObject and assign to this new user
+            //VideoSurface videoSurface = MakeImageSurface(uid.ToString());
+            //if (!ReferenceEquals(videoSurface, null))
+            //{
+            //    // configure videoSurface
+            //    videoSurface.SetForUser(uid);
+            //    videoSurface.SetEnable(true);
+            //    videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
+            //    videoSurface.SetGameFps(30);
+            //}
+
+            if (m_uiEngine == null)
+                m_uiEngine = IOC.Resolve<IUIEngine>();
+
+            m_uiEngine.AddVideo(new MenuItemInfo()
             {
-                // configure videoSurface
-                videoSurface.SetForUser(uid);
-                videoSurface.SetEnable(true);
-                videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
-                videoSurface.SetGameFps(30);
-            }
+                Data = (uint)uid,
+                Text = "user " + uid
+            });
         }
 
         public VideoSurface MakePlaneSurface(string goName)

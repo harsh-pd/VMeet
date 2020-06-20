@@ -77,6 +77,7 @@ namespace Fordi.UI
         void Hide();
         void Unhide();
         void Unblock();
+        void PresentVideo(MenuItemInfo item);
     }
 
     public abstract class UserInterface : MonoBehaviour, IUserInterface
@@ -377,7 +378,11 @@ namespace Fordi.UI
         public IScreen AddVideo(MenuItemInfo videoItem)
         {
             if (m_screenStack.Count > 0 && m_screenStack.Peek() is VideoCallInterface videoCallInterface)
+            {
+                Debug.LogError("AddVideo: " + videoItem.Text);
                 videoCallInterface.AddVideo(videoItem);
+                return videoCallInterface;
+            }
 
             var menu = (VideoCallInterface)SpawnScreen(m_videoCallInterfacePrefab);
             menu.OpenMenu(this, new MenuArgs()
@@ -392,6 +397,27 @@ namespace Fordi.UI
             menu.AddVideo(videoItem);
 
             return menu;
+        }
+
+        public void PresentVideo(MenuItemInfo item)
+        {
+            if (m_screenStack.Count > 0 && m_screenStack.Peek() is VideoCallInterface videoCallInterface)
+            {
+                videoCallInterface.Present(item);
+                return;
+            }
+
+            var menu = (VideoCallInterface)SpawnScreen(m_videoCallInterfacePrefab);
+            menu.OpenMenu(this, new MenuArgs()
+            {
+                BackEnabled = true,
+                Block = true,
+                Items = new MenuItemInfo[] { },
+                Persist = true,
+                Title = "Video Conference"
+            });
+
+            menu.Present(item);
         }
 
         //Not handled properly for VR screen

@@ -1,6 +1,7 @@
 ﻿using agora_gaming_rtc;
 using Fordi.UI;
 using Fordi.UI.MenuControl;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,8 @@ namespace Fordi.VideoCall
         private Image m_micIndicator;
         [SerializeField]
         private Sprite m_micOn, m_micOff;
+        [SerializeField]
+        private Image m_muteDisplay;
 
         protected MenuItemInfo m_item;
         public MenuItemInfo Item
@@ -41,15 +44,26 @@ namespace Fordi.VideoCall
         {
             m_userInterface = userInterface;
 
-            m_videoSurface.SetForUser((uint)item.Data);
-            m_videoSurface.SetEnable(true);
-            m_videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
-            m_videoSurface.SetGameFps(30);
+            uint uid = (uint)item.Data;
+
+            if (uid != 0)
+            {
+                m_videoSurface.SetForUser((uint)item.Data);
+                m_videoSurface.SetEnable(true);
+                m_videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
+                m_videoSurface.SetGameFps(30);
+            }
         }
 
         private void OnMicToggle(bool val)
         {
             m_micIndicator.sprite = val ? m_micOn : m_micOff;
+        }
+
+        public void OnVideoMute(bool val)
+        {
+            m_muteDisplay.gameObject.SetActive(val);
+            m_videoSurface.gameObject.SetActive(!val);
         }
     }
 }
