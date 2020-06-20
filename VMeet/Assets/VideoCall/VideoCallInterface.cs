@@ -10,7 +10,7 @@ namespace Fordi.UI.MenuControl
     public class VideoCallInterface : MenuScreen
     {
         [SerializeField]
-        private VideoItem m_preseterVideoItem;
+        private VideoItem m_presenterVideoItem;
 
         public override void OpenMenu(IUserInterface userInterface, MenuArgs args)
         {
@@ -26,13 +26,13 @@ namespace Fordi.UI.MenuControl
 
         public void Present(MenuItemInfo item)
         {
-            m_preseterVideoItem.DataBind(m_userInterface, item);
-            m_preseterVideoItem.OnVideoMute(false);
+            m_presenterVideoItem.DataBind(m_userInterface, item);
+            m_presenterVideoItem.OnVideoMute(false);
         }
 
         public void StopPresenting()
         {
-            m_preseterVideoItem.OnVideoMute(true);
+            m_presenterVideoItem.OnVideoMute(true);
         }
     }
 }

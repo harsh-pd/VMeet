@@ -12,6 +12,7 @@ using Network = Fordi.Networking.Network;
 using Fordi.UI;
 using Fordi.AssetManagement;
 using Fordi.Plugins;
+using Fordi.VideoCall;
 
 namespace Fordi.Core
 {
@@ -30,6 +31,25 @@ namespace Fordi.Core
                     experienceMachine = gameObject.AddComponent<ExperienceMachine>();
                 }
                 return experienceMachine;
+            }
+        }
+
+
+        private IVideoCallEngine m_videoCallEngine;
+
+        protected virtual IVideoCallEngine VideoCallEngine
+        {
+            get
+            {
+                VideoCallEngine dep = FindObjectOfType<VideoCallEngine>();
+                if (dep == null)
+                {
+                    var obj = new GameObject("VideoCallEngine");
+                    dep = obj.AddComponent<VideoCallEngine>();
+                    dep.transform.parent = m_modulesRoot;
+                    dep.transform.localPosition = Vector3.zero;
+                }
+                return dep;
             }
         }
 
@@ -305,6 +325,7 @@ namespace Fordi.Core
             m_mouseControl = MouseControl;
             m_screenShare = ScreenShare;
             m_voiceChat = VoiceChat;
+            m_videoCallEngine = VideoCallEngine;
             //m_annotation = Annotation;
             m_settings = Settings;
             m_uiEngine = UIEngine;
@@ -382,6 +403,7 @@ namespace Fordi.Core
             IOC.RegisterFallback(() => Instance.m_pluginHook);
             //IOC.RegisterFallback(() => Instance.m_annotation);
             IOC.RegisterFallback(() => Instance.m_uiEngine);
+            IOC.RegisterFallback(() => Instance.m_videoCallEngine);
 
             if (IOC.Resolve<IMenuSelection>() == null)
                 IOC.Register<IMenuSelection>(new MenuSelection());

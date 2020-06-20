@@ -8,6 +8,7 @@ using Fordi.Common;
 using Fordi.UI.MenuControl;
 using Fordi.Core;
 using Photon.Pun;
+using System.Collections;
 
 
 // this is an example of using Agora Unity SDK
@@ -18,7 +19,11 @@ using Photon.Pun;
 
 namespace Fordi.VideoCall
 {
-    public class VideoCallEngine : MonoBehaviour
+    public interface IVideoCallEngine
+    {
+    }
+
+    public class VideoCallEngine : MonoBehaviour, IVideoCallEngine
     {
 
         // instance of agora engine
@@ -33,8 +38,10 @@ namespace Fordi.VideoCall
             //m_uiEngine = IOC.Resolve<IUIEngine>();
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return null;
+            yield return null;
             Join("TempCh");
         }
 
@@ -189,11 +196,11 @@ namespace Fordi.VideoCall
                 Text = "Local Player"
             });
 
-            //m_uiEngine.PresentVideo(new MenuItemInfo()
-            //{
-            //    Data = (uint)0,
-            //    Text = "Local Player"
-            //});
+            m_uiEngine.PresentVideo(new MenuItemInfo()
+            {
+                Data = (uint)0,
+                Text = "Local Player"
+            });
         }
 
         // When a remote user joined, this delegate will be called. Typically
@@ -225,6 +232,12 @@ namespace Fordi.VideoCall
                 m_uiEngine = IOC.Resolve<IUIEngine>();
 
             m_uiEngine.AddVideo(new MenuItemInfo()
+            {
+                Data = (uint)uid,
+                Text = "user " + uid
+            });
+
+            m_uiEngine.PresentVideo(new MenuItemInfo()
             {
                 Data = (uint)uid,
                 Text = "user " + uid

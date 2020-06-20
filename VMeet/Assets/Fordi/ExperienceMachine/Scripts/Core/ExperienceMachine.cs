@@ -420,6 +420,9 @@ namespace Fordi.Core
 
         public void RegisterPlatform(IPlatformModule module)
         {
+            if (m_player != null && module.Platform == Platform.DESKTOP)
+                module.Player.GameObject.SetActive(false);
+
             if (m_player == null || module.Platform == Platform.VR)
             {
 
