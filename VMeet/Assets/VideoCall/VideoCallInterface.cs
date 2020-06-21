@@ -1,4 +1,5 @@
 ﻿using agora_gaming_rtc;
+using Fordi.ChatEngine;
 using Fordi.Common;
 using Fordi.Core;
 using Fordi.VideoCall;
@@ -21,8 +22,16 @@ namespace Fordi.UI.MenuControl
         [SerializeField]
         private MenuOnHover m_onHoverMenu;
 
+        [SerializeField]
+        private Chat m_chatPrefab;
+
+        [SerializeField]
+        private Transform m_chatRoot;
+
         private IVideoCallEngine m_videoCallEngine;
         private IVoiceChat m_voiceChat;
+
+        private Chat m_chat;
 
         protected override void AwakeOverride()
         {
@@ -62,6 +71,20 @@ namespace Fordi.UI.MenuControl
         public void ToggleMic(bool val)
         {
             m_voiceChat.ToggleMute(val);
+        }
+
+        public void ToggleChat(bool val)
+        {
+            if (!val)
+            {
+                if (m_chat != null)
+                    m_chat.gameObject.SetActive(false);
+                return;
+            }
+            if (m_chat == null)
+                m_chat = Instantiate(m_chatPrefab, m_chatRoot);
+            else
+                m_chat.gameObject.SetActive(true);
         }
     }
 }
