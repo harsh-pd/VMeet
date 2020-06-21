@@ -2,21 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Fordi.UI
 {
-    public class SpriteSwapToggle : MonoBehaviour
+    public class SpriteSwapToggle : MonoBehaviour, IPointerClickHandler
     {
 
         [SerializeField]
         private Toggle m_toggle;
 
         [SerializeField]
-        private Image m_rootImage;
+        private Image m_onImage, m_offImage;
 
-        [SerializeField]
-        private Sprite m_onToggle, m_offToggle;
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
 
         private void Awake()
         {
@@ -26,7 +29,8 @@ namespace Fordi.UI
 
         private void OnToggle(bool val)
         {
-            m_rootImage.sprite = val ? m_onToggle : m_offToggle;
+            m_onImage.gameObject.SetActive(val);
+            m_offImage.gameObject.SetActive(!val);
         }
     }
 

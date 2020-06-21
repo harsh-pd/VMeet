@@ -2,6 +2,7 @@
 using Fordi.Common;
 using Fordi.Core;
 using Fordi.VideoCall;
+using Fordi.Voice;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,11 +22,13 @@ namespace Fordi.UI.MenuControl
         private MenuOnHover m_onHoverMenu;
 
         private IVideoCallEngine m_videoCallEngine;
+        private IVoiceChat m_voiceChat;
 
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
             m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
+            m_voiceChat = IOC.Resolve<IVoiceChat>();
         }
 
         internal void AddVideo(MenuItemInfo item)
@@ -54,6 +57,11 @@ namespace Fordi.UI.MenuControl
         {
             m_participantsGrid.gameObject.SetActive(!val);
             m_onHoverMenu.ToggleFulScreen(val);
+        }
+
+        public void ToggleMic(bool val)
+        {
+            m_voiceChat.ToggleMute(val);
         }
     }
 }
