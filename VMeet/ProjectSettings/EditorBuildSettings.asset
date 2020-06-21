@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Fordi/ExperienceMachine/Demo/Scenes/Home.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
+    path: Assets/Fordi/ExperienceMachine/Demo/Scenes/Meeting.unity
+    guid: 73818871317768745a32111f0e1ff21f
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 045fef28552c4f341b492c093483e2dc,
       type: 2}
