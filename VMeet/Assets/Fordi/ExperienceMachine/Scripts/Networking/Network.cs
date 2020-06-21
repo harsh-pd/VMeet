@@ -16,6 +16,7 @@ using Fordi.Annotations;
 using Cornea.Web;
 using Fordi.UI;
 using UniRx;
+using Fordi.VideoCall;
 
 namespace Fordi.Networking
 {
@@ -23,7 +24,7 @@ namespace Fordi.Networking
     {
         void CreateRoom(string roomName);
         void JoinRoom(string roomName);
-        void LeaveRoom(Action done);
+        void LeaveRoom();
         EventHandler RoomListUpdateEvent { get; set; }
         void ToggleScreenStreaming(bool val);
         RemotePlayer GetRemotePlayer(int actorNumber);
@@ -69,6 +70,7 @@ namespace Fordi.Networking
             m_screenShare = IOC.Resolve<IScreenShare>();
             m_annotation = IOC.Resolve<IAnnotation>();
             m_webInterface = IOC.Resolve<IWebInterface>();
+
             if (!PhotonNetwork.IsConnectedAndReady)
                 PhotonNetwork.ConnectUsingSettings();
         }
@@ -105,12 +107,12 @@ namespace Fordi.Networking
             playerCustomProperties.Add(ActorNumberString, PhotonNetwork.LocalPlayer.ActorNumber);
             PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
             PhotonNetwork.LocalPlayer.NickName = m_webInterface.UserInfo.userName;
-            //if (PhotonNetwork.CountOfRooms > 0)
-            //{
-            //    JoinRoom("Test");
-            //}
-            //else
-            //    CreateRoom("Test");
+            if (PhotonNetwork.CountOfRooms > 0)
+            {
+                JoinRoom("Test");
+            }
+            else
+                CreateRoom("Test");
         }
 
         public void CreateRoom(string roomName)
@@ -186,17 +188,11 @@ namespace Fordi.Networking
             PhotonNetwork.JoinRoom(roomName);
         }
 
-        private Action m_onLeftRoom = null;
-        public void LeaveRoom(Action done)
+        public void LeaveRoom()
         {
             if (PhotonNetwork.InRoom)
             {
-                m_onLeftRoom = done;
                 PhotonNetwork.LeaveRoom();
-            }
-            else
-            {
-                done?.Invoke();
             }
         }
 
@@ -230,19 +226,11 @@ namespace Fordi.Networking
         public override void OnLeftRoom()
         {
             base.OnLeftRoom();
-            if (m_onLeftRoom != null)
-            {
-                m_onLeftRoom.Invoke();
-                m_onLeftRoom = null;
-            }
-            else
-            {
-                m_menuSelection.Location = LobbyRoom;
-                m_menuSelection.ExperienceType = ExperienceType.LOBBY;
-                m_uiEngine.Close();
-                m_experienceMachine.LoadExperience();
-            }
-
+            
+            m_menuSelection.Location = LobbyRoom;
+            m_menuSelection.ExperienceType = ExperienceType.LOBBY;
+            m_uiEngine.Close();
+            m_experienceMachine.LoadExperience();
         }
 
 

@@ -360,19 +360,14 @@ namespace Fordi.Core
             {
                 if (PhotonNetwork.InRoom)
                 {
-                    m_network.LeaveRoom(() =>
-                    {
-                        m_menuSelection.Location = args.Path;
-                        m_menuSelection.ExperienceType = ExperienceType.LOBBY;
-                        m_uiEngine.Close();
-                        m_experienceMachine.LoadExperience();
-                    });
+                    m_network.LeaveRoom();
                 }
                 else
                 {
                     m_menuSelection.Location = args.Path;
                     m_menuSelection.ExperienceType = ExperienceType.LOBBY;
                     m_uiEngine.Close();
+                    m_videoCallEngine.Leave();
                     m_experienceMachine.LoadExperience();
                 }
             }

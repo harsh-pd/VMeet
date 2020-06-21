@@ -79,6 +79,7 @@ namespace Fordi.UI
         void Unhide();
         void Unblock();
         void PresentVideo(MenuItemInfo item);
+        void RemoveVideo(uint uid);
     }
 
     public abstract class UserInterface : MonoBehaviour, IUserInterface
@@ -404,6 +405,15 @@ namespace Fordi.UI
             });
 
             return menu;
+        }
+
+        public void RemoveVideo(uint userId)
+        {
+            if (m_screenStack.Count > 0 && m_screenStack.Peek() is VideoCallInterface videoCallInterface)
+            {
+                Debug.LogError("RemoveVideo: " + userId);
+                videoCallInterface.RemoveVideo(userId);
+            }
         }
 
         public void PresentVideo(MenuItemInfo item)

@@ -11,6 +11,7 @@ using Photon.Pun;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using Photon.Realtime;
 
 
 // this is an example of using Agora Unity SDK
@@ -23,9 +24,11 @@ namespace Fordi.VideoCall
 {
     public interface IVideoCallEngine
     {
-        void EnableVideo(bool val);
         EventHandler<VideoEventArgs> VideoPauseToggle { get; set; }
         AgoraUserInfo[] Users { get; }
+        void Join(string v);
+        void EnableVideo(bool val);
+        void Leave();
     }
 
     public class VideoEventArgs : EventArgs
@@ -42,11 +45,11 @@ namespace Fordi.VideoCall
     }
 
 
-    public class VideoCallEngine : MonoBehaviour, IVideoCallEngine
+    public class VideoCallEngine : MonoBehaviour, IVideoCallEngine, IMatchmakingCallbacks
     {
 
         // instance of agora engine
-        private IRtcEngine mRtcEngine;
+        private static IRtcEngine mRtcEngine;
         private IUIEngine m_uiEngine;
         private IExperienceMachine m_experienceMachine;
 
@@ -68,13 +71,12 @@ namespace Fordi.VideoCall
         private void Awake()
         {
             //m_uiEngine = IOC.Resolve<IUIEngine>();
+            PhotonNetwork.AddCallbackTarget(this);
         }
 
-        private IEnumerator Start()
+        private void OnDestroy()
         {
-            yield return null;
-            yield return null;
-            Join("TempCh");
+            PhotonNetwork.RemoveCallbackTarget(this);
         }
 
         // load agora engine
@@ -231,26 +233,26 @@ namespace Fordi.VideoCall
             m_users.Add(new AgoraUserInfo()
             {
                 UserId = 0,
-                Name = "Local User"
+                Name = PhotonNetwork.NickName
             });
 
-            m_uiEngine.AddVideo(new MenuItemInfo()
-            {
-                Data = new AgoraUserInfo()
-                {
-                     UserId = 0,
-                     Name = "Local Player"
-                },
-            });
+            //m_uiEngine.AddVideo(new MenuItemInfo()
+            //{
+            //    Data = new AgoraUserInfo()
+            //    {
+            //         UserId = 0,
+            //         Name = PhotonNetwork.NickName
+            //    },
+            //});
 
-            m_uiEngine.PresentVideo(new MenuItemInfo()
-            {
-                Data = new AgoraUserInfo()
-                {
-                    UserId = 0,
-                    Name = "Local Player"
-                },
-            });
+            //m_uiEngine.PresentVideo(new MenuItemInfo()
+            //{
+            //    Data = new AgoraUserInfo()
+            //    {
+            //        UserId = 0,
+            //        Name = PhotonNetwork.NickName
+            //    },
+            //});
         }
 
         // When a remote user joined, this delegate will be called. Typically
@@ -358,14 +360,17 @@ namespace Fordi.VideoCall
         // delete the GameObject for this user
         private void OnUserOffline(uint uid, USER_OFFLINE_REASON reason)
         {
-            // remove video stream
-            Debug.Log("onUserOffline: uid = " + uid + " reason = " + reason);
-            // this is called in main thread
-            GameObject go = GameObject.Find(uid.ToString());
-            if (!ReferenceEquals(go, null))
-            {
-                Destroy(go);
-            }
+            //// remove video stream
+            //Debug.Log("onUserOffline: uid = " + uid + " reason = " + reason);
+            //// this is called in main thread
+            //GameObject go = GameObject.Find(uid.ToString());
+            //if (!ReferenceEquals(go, null))
+            //{
+            //    Destroy(go);
+            //}
+
+            m_users.RemoveWhere(item => item.UserId == uid);
+            m_uiEngine.RemoveVideo(uid);
         }
 
         #region APP_EVENTS
@@ -377,6 +382,44 @@ namespace Fordi.VideoCall
         void OnApplicationQuit()
         {
             UnloadEngine();
+        }
+        #endregion
+
+
+        #region MATCHMAKING_CALLBACKS
+        public void OnFriendListUpdate(List<FriendInfo> friendList)
+        {
+            
+        }
+
+        public void OnCreatedRoom()
+        {
+            
+        }
+
+        public void OnCreateRoomFailed(short returnCode, string message)
+        {
+            
+        }
+
+        public void OnJoinedRoom()
+        {
+            Join(PhotonNetwork.CurrentRoom.Name);
+        }
+
+        public void OnJoinRoomFailed(short returnCode, string message)
+        {
+            
+        }
+
+        public void OnJoinRandomFailed(short returnCode, string message)
+        {
+            
+        }
+
+        public void OnLeftRoom()
+        {
+            Leave();
         }
         #endregion
     }

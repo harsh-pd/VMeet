@@ -42,6 +42,8 @@ namespace Fordi.VideoCall
         private IUserInterface m_userInterface;
         private IVideoCallEngine m_videoCallEngine;
 
+        public GameObject Gameobject { get { return gameObject; } }
+
         private AgoraUserInfo m_userInfo;
 
         private void Awake()

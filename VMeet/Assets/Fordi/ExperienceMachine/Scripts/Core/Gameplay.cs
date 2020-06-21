@@ -7,6 +7,7 @@ using System;
 using TMPro;
 using Fordi.UI;
 using Fordi.VideoCall;
+using Photon.Pun;
 
 namespace Fordi.Core
 {
@@ -31,7 +32,7 @@ namespace Fordi.Core
                     Data = new AgoraUserInfo()
                     {
                         UserId = 0,
-                        Name = "Local Player"
+                        Name = PhotonNetwork.NickName
                     },
                 });
             }

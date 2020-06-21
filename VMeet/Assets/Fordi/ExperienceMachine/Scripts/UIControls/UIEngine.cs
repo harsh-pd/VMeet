@@ -53,6 +53,7 @@ namespace Fordi.UI
         void ActivateInterface(Platform platform);
         void RegisterInterface(IUserInterface userInterface);
         void PresentVideo(MenuItemInfo item);
+        void RemoveVideo(uint uid);
     }
 
     [DefaultExecutionOrder(-50)]
@@ -269,6 +270,13 @@ namespace Fordi.UI
         {
             m_standaloneInterface.AddVideo(videoItem);
             m_vrInterface?.AddVideo(videoItem);
+        }
+
+
+        public void RemoveVideo(uint uid)
+        {
+            m_standaloneInterface.RemoveVideo(uid);
+            m_vrInterface?.RemoveVideo(uid);
         }
 
         public void PresentVideo(MenuItemInfo item)

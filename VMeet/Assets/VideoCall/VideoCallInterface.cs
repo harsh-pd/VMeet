@@ -46,6 +46,17 @@ namespace Fordi.UI.MenuControl
             SpawnMenuItem(item, m_menuItem, m_contentRoot);
         }
 
+        public void RemoveVideo(uint userId)
+        {
+            var videoItem = m_menuItems.Find(item => ((AgoraUserInfo)item.Item.Data).UserId == userId);
+
+            if (videoItem != null)
+            {
+                m_menuItems.Remove(videoItem);
+                Destroy(videoItem.Gameobject);
+            }
+        }
+
         public void Present(MenuItemInfo item)
         {
             m_presenterVideoItem.DataBind(m_userInterface, item);

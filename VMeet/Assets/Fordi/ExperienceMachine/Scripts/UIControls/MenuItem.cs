@@ -19,6 +19,7 @@ namespace Fordi.UI.MenuControl
         MenuItemInfo Item { get; }
         Selectable Selectable { get; }
         void DataBind(IUserInterface userInterface, MenuItemInfo item);
+        GameObject Gameobject { get; }
     }
 
     public class MenuItem : VRButtonInteraction, IMenuItem
@@ -64,6 +65,8 @@ namespace Fordi.UI.MenuControl
             //    }
             //}
         }
+
+        public GameObject Gameobject { get { return gameObject; } }
 
         public virtual void DataBind(IUserInterface userInterface, MenuItemInfo item)
         {

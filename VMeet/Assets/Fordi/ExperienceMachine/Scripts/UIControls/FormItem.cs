@@ -35,6 +35,8 @@ namespace Fordi.UI.MenuControl
             //}
         }
 
+        public GameObject Gameobject { get { return gameObject; } }
+
         protected IExperienceMachine m_experienceMachine;
 
         protected override void AwakeOverride()
