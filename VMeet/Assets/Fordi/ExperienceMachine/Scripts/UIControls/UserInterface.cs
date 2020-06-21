@@ -65,6 +65,7 @@ namespace Fordi.UI
         IScreen DisplayProgress(string text, bool freshScreen = false);
         IScreen Block(string message, bool includeRoot = false);
         IScreen AddVideo(MenuItemInfo videoItem);
+        IScreen OpenVideoConference(MenuArgs args);
 
         void CloseLastScreen();
         void Close(IScreen screen);
@@ -375,6 +376,14 @@ namespace Fordi.UI
             return menu;
         }
 
+
+        public IScreen OpenVideoConference(MenuArgs args)
+        {
+            var menu = (VideoCallInterface)SpawnScreen(m_videoCallInterfacePrefab);
+            menu.OpenMenu(this, args);
+            return menu;
+        }
+
         public IScreen AddVideo(MenuItemInfo videoItem)
         {
             if (m_screenStack.Count > 0 && m_screenStack.Peek() is VideoCallInterface videoCallInterface)
@@ -389,12 +398,10 @@ namespace Fordi.UI
             {
                 BackEnabled = true,
                 Block = true,
-                Items = new MenuItemInfo[] {},
+                Items = new MenuItemInfo[] {videoItem},
                 Persist = true,
                 Title = "Video Conference"
             });
-
-            menu.AddVideo(videoItem);
 
             return menu;
         }

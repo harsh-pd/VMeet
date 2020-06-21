@@ -6,6 +6,7 @@ using Fordi.UI.MenuControl;
 using System;
 using TMPro;
 using Fordi.UI;
+using Fordi.VideoCall;
 
 namespace Fordi.Core
 {
@@ -21,6 +22,18 @@ namespace Fordi.Core
                 m_menuSelection.ExperienceType = ExperienceType.HOME;
                 ToggleMenu();
                 m_experienceMachine.LoadExperience();
+            }
+
+            if (args.CommandType == MenuCommandType.VIDEO_CONFERENCE)
+            {
+                m_uiEngine.AddVideo(new MenuItemInfo()
+                {
+                    Data = new AgoraUserInfo()
+                    {
+                        UserId = 0,
+                        Name = "Local Player"
+                    },
+                });
             }
 
             if (args.CommandType == MenuCommandType.CATEGORY_SELECTION)

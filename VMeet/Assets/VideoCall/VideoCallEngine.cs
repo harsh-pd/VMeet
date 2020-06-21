@@ -10,6 +10,7 @@ using Fordi.Core;
 using Photon.Pun;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 
 // this is an example of using Agora Unity SDK
@@ -24,12 +25,20 @@ namespace Fordi.VideoCall
     {
         void EnableVideo(bool val);
         EventHandler<VideoEventArgs> VideoPauseToggle { get; set; }
+        AgoraUserInfo[] Users { get; }
     }
 
     public class VideoEventArgs : EventArgs
     {
         public bool Pause;
         public uint UserId;
+    }
+
+    public class AgoraUserInfo
+    {
+        public uint UserId;
+        public string Name;
+        public bool MicOn = false;
     }
 
 
@@ -44,6 +53,17 @@ namespace Fordi.VideoCall
         private const string APP_ID = "397c1095001f4f88abe788a32dcd1570";
 
         public EventHandler<VideoEventArgs> VideoPauseToggle { get; set; }
+
+        private HashSet<AgoraUserInfo> m_users = new HashSet<AgoraUserInfo>();
+
+        public AgoraUserInfo[] Users
+        {
+            get {
+                AgoraUserInfo[] users = new AgoraUserInfo[m_users.Count];
+                m_users.CopyTo(users);
+                return users;
+            }
+        }
 
         private void Awake()
         {
@@ -208,16 +228,28 @@ namespace Fordi.VideoCall
             if (m_uiEngine == null)
                 m_uiEngine = IOC.Resolve<IUIEngine>();
 
+            m_users.Add(new AgoraUserInfo()
+            {
+                UserId = 0,
+                Name = "Local User"
+            });
+
             m_uiEngine.AddVideo(new MenuItemInfo()
             {
-                Data = (uint)0,
-                Text = "Local Player"
+                Data = new AgoraUserInfo()
+                {
+                     UserId = 0,
+                     Name = "Local Player"
+                },
             });
 
             m_uiEngine.PresentVideo(new MenuItemInfo()
             {
-                Data = (uint)0,
-                Text = "Local Player"
+                Data = new AgoraUserInfo()
+                {
+                    UserId = 0,
+                    Name = "Local Player"
+                },
             });
         }
 
@@ -251,14 +283,20 @@ namespace Fordi.VideoCall
 
             m_uiEngine.AddVideo(new MenuItemInfo()
             {
-                Data = (uint)uid,
-                Text = "user " + uid
+                Data = new AgoraUserInfo()
+                {
+                    UserId = uid,
+                    Name = "User: " + uid
+                },
             });
 
             m_uiEngine.PresentVideo(new MenuItemInfo()
             {
-                Data = (uint)uid,
-                Text = "user " + uid
+                Data = new AgoraUserInfo()
+                {
+                    UserId = uid,
+                    Name = "User: " + uid
+                },
             });
         }
 

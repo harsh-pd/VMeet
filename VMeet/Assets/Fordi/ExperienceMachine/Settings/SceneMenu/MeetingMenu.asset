@@ -13,6 +13,21 @@ MonoBehaviour:
   m_Name: MeetingMenu
   m_EditorClassIdentifier: 
   m_items:
+  - Path: Video Conference
+    Text: Video Conference
+    Icon: {fileID: 21300000, guid: 81a935273c82cc44ab42471e11e01f22, type: 3}
+    Command: Video Conference
+    CommandType: 23
+    Action:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
+    Validate:
+      m_PersistentCalls:
+        m_Calls: []
+      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
+        Culture=neutral, PublicKeyToken=null
   - Path: Music
     Text: Music
     Icon: {fileID: 21300000, guid: eb3e31e25c3590548bd779d3944c0bed, type: 3}

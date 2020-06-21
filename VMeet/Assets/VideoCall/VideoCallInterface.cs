@@ -1,5 +1,6 @@
 ﻿using agora_gaming_rtc;
 using Fordi.Common;
+using Fordi.Core;
 using Fordi.VideoCall;
 using System;
 using System.Collections;
@@ -27,15 +28,9 @@ namespace Fordi.UI.MenuControl
             m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
         }
 
-        public override void OpenMenu(IUserInterface userInterface, MenuArgs args)
-        {
-            base.OpenMenu(userInterface, args);
-            if (m_title != null)
-                m_title.text = args.Title;
-        }
-
         internal void AddVideo(MenuItemInfo item)
         {
+            Debug.LogError("AddVideo");
             SpawnMenuItem(item, m_menuItem, m_contentRoot);
         }
 

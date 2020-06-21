@@ -42,7 +42,7 @@ namespace Fordi.VideoCall
         private IUserInterface m_userInterface;
         private IVideoCallEngine m_videoCallEngine;
 
-        private uint m_uid;
+        private AgoraUserInfo m_userInfo;
 
         private void Awake()
         {
@@ -57,7 +57,10 @@ namespace Fordi.VideoCall
 
         private void VideoPauseToggle(object sender, VideoEventArgs e)
         {
-            if (e.UserId == m_uid)
+            if (m_userInfo == null)
+                return;
+            
+            if (e.UserId == m_userInfo.UserId)
                 OnVideoMute(e.Pause);
         }
 
@@ -65,15 +68,12 @@ namespace Fordi.VideoCall
         {
             m_userInterface = userInterface;
 
-            m_uid = (uint)item.Data;
-
-            if (m_uid != 0)
-            {
-                m_videoSurface.SetForUser((uint)item.Data);
-                m_videoSurface.SetEnable(true);
-                m_videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
-                m_videoSurface.SetGameFps(30);
-            }
+            m_userInfo = (AgoraUserInfo)item.Data;
+            m_videoSurface.SetForUser(m_userInfo.UserId);
+            m_videoSurface.SetEnable(true);
+            m_videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
+            m_videoSurface.SetGameFps(30);
+            
         }
 
         private void OnMicToggle(bool val)

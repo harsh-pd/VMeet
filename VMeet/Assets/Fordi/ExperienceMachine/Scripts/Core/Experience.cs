@@ -9,6 +9,7 @@ using UnityEngine;
 using Fordi.Common;
 using Fordi.UI.MenuControl;
 using Fordi.UI;
+using Fordi.VideoCall;
 
 namespace Fordi.Core
 {
@@ -162,6 +163,7 @@ namespace Fordi.Core
         protected IWebInterface m_webInterace;
         protected INetwork m_network;
         protected IUIEngine m_uiEngine;
+        protected IVideoCallEngine m_videoCallEngine;
 
         [SerializeField]
         protected Menu m_menu;
@@ -188,6 +190,8 @@ namespace Fordi.Core
             m_webInterace = IOC.Resolve<IWebInterface>();
             m_network = IOC.Resolve<INetwork>();
             m_uiEngine = IOC.Resolve<IUIEngine>();
+            m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
+
             AwakeOverride();
         }
 

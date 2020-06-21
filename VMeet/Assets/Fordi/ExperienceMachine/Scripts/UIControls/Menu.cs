@@ -63,7 +63,8 @@ namespace Fordi.UI.MenuControl
         USER,
         CREATE_MEETING,
         ANNOTATION,
-        LOGOUT
+        LOGOUT,
+        VIDEO_CONFERENCE
     }
 
     [Serializable]
