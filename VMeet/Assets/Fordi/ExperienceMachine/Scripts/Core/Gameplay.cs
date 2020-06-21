@@ -32,7 +32,8 @@ namespace Fordi.Core
                     Data = new AgoraUserInfo()
                     {
                         UserId = 0,
-                        Name = PhotonNetwork.NickName
+                        Name = PhotonNetwork.NickName,
+                        VideoOn = m_videoCallEngine.VideoEnabled
                     },
                 });
             }

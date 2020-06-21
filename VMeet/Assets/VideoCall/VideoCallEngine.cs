@@ -26,8 +26,9 @@ namespace Fordi.VideoCall
     {
         EventHandler<VideoEventArgs> VideoPauseToggle { get; set; }
         AgoraUserInfo[] Users { get; }
+        bool VideoEnabled { get; }
         void Join(string v);
-        void EnableVideo(bool val);
+        int EnableVideo(bool val);
         void Leave();
     }
 
@@ -41,7 +42,8 @@ namespace Fordi.VideoCall
     {
         public uint UserId;
         public string Name;
-        public bool MicOn = false;
+        public bool MicOn;
+        public bool VideoOn;
     }
 
 
@@ -57,14 +59,23 @@ namespace Fordi.VideoCall
 
         public EventHandler<VideoEventArgs> VideoPauseToggle { get; set; }
 
-        private HashSet<AgoraUserInfo> m_users = new HashSet<AgoraUserInfo>();
+        private static Dictionary<uint, AgoraUserInfo> m_users = new Dictionary<uint, AgoraUserInfo>();
 
         public AgoraUserInfo[] Users
         {
             get {
                 AgoraUserInfo[] users = new AgoraUserInfo[m_users.Count];
-                m_users.CopyTo(users);
+                m_users.Values.CopyTo(users, 0);
                 return users;
+            }
+        }
+
+        public bool VideoEnabled {
+            get
+            {
+                if (!m_users.ContainsKey(0))
+                    return false;
+                return m_users[0].VideoOn;
             }
         }
 
@@ -116,7 +127,8 @@ namespace Fordi.VideoCall
             mRtcEngine.OnUserOffline = OnUserOffline;
 
             // enable video
-            mRtcEngine.EnableVideo();
+            //var result = mRtcEngine.EnableVideo();
+            //VideoEnabled = result >= 0;
             // allow camera output callback
             mRtcEngine.EnableVideoObserver();
 
@@ -173,26 +185,35 @@ namespace Fordi.VideoCall
             }
         }
 
-
-        public void EnableVideo(bool pauseVideo)
+        public int EnableVideo(bool pauseVideo)
         {
             if (mRtcEngine != null)
             {
+                int result;
+
                 if (!pauseVideo)
                 {
-                    mRtcEngine.EnableVideo();
+                   result = mRtcEngine.EnableVideo();
                 }
                 else
                 {
-                    mRtcEngine.DisableVideo();
+                   result = mRtcEngine.DisableVideo();
                 }
 
-                VideoPauseToggle?.Invoke(this, new VideoEventArgs()
+                if (result >= 0)
                 {
-                    Pause = pauseVideo,
-                    UserId = 0
-                });
+                    m_users[0].VideoOn = !pauseVideo;
+
+                    VideoPauseToggle?.Invoke(this, new VideoEventArgs()
+                    {
+                        Pause = pauseVideo,
+                        UserId = 0
+                    });
+                }
+
+                return result;
             }
+            return -1;
         }
 
         //accessing GameObject in Scnene1
@@ -230,11 +251,12 @@ namespace Fordi.VideoCall
             if (m_uiEngine == null)
                 m_uiEngine = IOC.Resolve<IUIEngine>();
 
-            m_users.Add(new AgoraUserInfo()
+            m_users[0] = new AgoraUserInfo()
             {
                 UserId = 0,
-                Name = PhotonNetwork.NickName
-            });
+                Name = PhotonNetwork.NickName,
+                VideoOn = false
+            };
 
             //m_uiEngine.AddVideo(new MenuItemInfo()
             //{
@@ -279,6 +301,13 @@ namespace Fordi.VideoCall
             //    videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
             //    videoSurface.SetGameFps(30);
             //}
+
+            m_users[uid] = new AgoraUserInfo
+            {
+                UserId = uid,
+                VideoOn = true,
+                MicOn = true
+            };
 
             if (m_uiEngine == null)
                 m_uiEngine = IOC.Resolve<IUIEngine>();
@@ -369,7 +398,7 @@ namespace Fordi.VideoCall
             //    Destroy(go);
             //}
 
-            m_users.RemoveWhere(item => item.UserId == uid);
+            m_users.Remove(uid);
             m_uiEngine.RemoveVideo(uid);
         }
 

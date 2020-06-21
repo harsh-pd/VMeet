@@ -75,7 +75,9 @@ namespace Fordi.VideoCall
             m_videoSurface.SetEnable(true);
             m_videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
             m_videoSurface.SetGameFps(30);
-            
+
+            OnVideoMute(!m_userInfo.VideoOn);
+            OnMicToggle(m_userInfo.MicOn);
         }
 
         private void OnMicToggle(bool val)

@@ -28,6 +28,9 @@ namespace Fordi.UI.MenuControl
         [SerializeField]
         private Transform m_chatRoot;
 
+        [SerializeField]
+        private ProcessButton m_videoToggle, m_micToggle, m_fulscreenToggle, m_chatToggle;
+
         private IVideoCallEngine m_videoCallEngine;
         private IVoiceChat m_voiceChat;
 
@@ -38,6 +41,32 @@ namespace Fordi.UI.MenuControl
             base.AwakeOverride();
             m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
             m_voiceChat = IOC.Resolve<IVoiceChat>();
+
+            m_videoToggle.onValueChangeRequest.AddListener(ToggleVideo);
+            m_micToggle.onValueChangeRequest.AddListener(ToggleMic);
+            m_fulscreenToggle.onValueChangeRequest.AddListener(ToggleFulscreen);
+            if (m_chatToggle)
+                m_chatToggle.onValueChangeRequest.AddListener(ToggleChat);
+            m_videoToggle.IsOn = m_videoCallEngine.VideoEnabled;
+
+            m_videoCallEngine.VideoPauseToggle += VideoPauseTOggle;
+        }
+
+        private void VideoPauseTOggle(object sender, VideoEventArgs e)
+        {
+            if (e.UserId == 0)
+                m_videoToggle.IsOn = !e.Pause;
+        }
+
+        protected override void OnDestroyOverride()
+        {
+            base.OnDestroyOverride();
+            m_videoCallEngine.VideoPauseToggle -= VideoPauseTOggle;
+            m_videoToggle.onValueChangeRequest.RemoveAllListeners();
+            m_micToggle.onValueChangeRequest.RemoveAllListeners();
+            m_fulscreenToggle.onValueChangeRequest.RemoveAllListeners();
+            if (m_chatToggle)
+                m_chatToggle.onValueChangeRequest.RemoveAllListeners();
         }
 
         internal void AddVideo(MenuItemInfo item)
@@ -68,34 +97,39 @@ namespace Fordi.UI.MenuControl
             m_presenterVideoItem.OnVideoMute(true);
         }
 
-        public void ToggleVideo(bool val)
+        public void ToggleVideo(bool val, Action<bool> done)
         {
-            m_videoCallEngine.EnableVideo(!val);
+            var result = m_videoCallEngine.EnableVideo(!val);
         }
 
-        public void ToggleFulscreen(bool val)
+        public void ToggleFulscreen(bool val, Action<bool> done)
         {
             m_participantsGrid.gameObject.SetActive(!val);
             m_onHoverMenu.ToggleFulScreen(val);
+            done.Invoke(true);
         }
 
-        public void ToggleMic(bool val)
+        public void ToggleMic(bool val, Action<bool> done)
         {
             m_voiceChat.ToggleMute(val);
+            done.Invoke(true);
         }
 
-        public void ToggleChat(bool val)
+        public void ToggleChat(bool val, Action<bool> done)
         {
             if (!val)
             {
                 if (m_chat != null)
                     m_chat.gameObject.SetActive(false);
+
+                done.Invoke(true);
                 return;
             }
             if (m_chat == null)
                 m_chat = Instantiate(m_chatPrefab, m_chatRoot);
             else
                 m_chat.gameObject.SetActive(true);
+            done.Invoke(true);
         }
     }
 }

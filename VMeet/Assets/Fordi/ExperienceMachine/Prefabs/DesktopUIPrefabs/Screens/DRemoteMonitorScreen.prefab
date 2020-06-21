@@ -588,6 +588,7 @@ MonoBehaviour:
   m_chatPrefab: {fileID: 5962577781153714164, guid: dd8b232454063734fad21ec38b9273d0,
     type: 3}
   m_chatRoot: {fileID: 6689336946410755319}
+  m_videoToggle: {fileID: 4543588837183206871}
 --- !u!1 &8165484787880361731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,7 +1535,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 81a935273c82cc44ab42471e11e01f22,
+      objectReference: {fileID: 21300000, guid: 455b66feaecd5cb41934c6a935fead34,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fd5c1e5e4fe59f4387074c88a19ae5b, type: 3}
@@ -1544,3 +1545,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8488226218826513234}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4543588837183206871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5386917854907174533, guid: 8fd5c1e5e4fe59f4387074c88a19ae5b,
+    type: 3}
+  m_PrefabInstance: {fileID: 8488226218826513234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 2109663825, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

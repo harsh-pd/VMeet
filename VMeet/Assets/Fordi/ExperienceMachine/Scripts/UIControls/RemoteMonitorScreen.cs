@@ -27,6 +27,8 @@ namespace Fordi.ScreenSharing
         private Chat m_chatPrefab;
         [SerializeField]
         private Transform m_chatRoot = null;
+        [SerializeField]
+        private Toggle m_videoToggle;
 
         private Toggle m_micToggle = null;
         private Toggle m_screenShareToggle = null;
@@ -50,13 +52,25 @@ namespace Fordi.ScreenSharing
 
             m_screenShare.OtherUserJoinedEvent += RemoteUserJoinedChannel;
             m_screenShare.RemoteScreenShareEvent += RemoteScreenShareNotification;
+            m_videoCallEngine.VideoPauseToggle += VideoPauseToggle;
         }
+
+       
 
         protected override void OnDestroyOverride()
         {
             base.OnDestroyOverride();
             m_screenShare.OtherUserJoinedEvent -= RemoteUserJoinedChannel;
             m_screenShare.RemoteScreenShareEvent -= RemoteScreenShareNotification;
+            m_videoCallEngine.VideoPauseToggle -= VideoPauseToggle;
+        }
+
+        private void VideoPauseToggle(object sender, VideoEventArgs e)
+        {
+            if (e.UserId == 0)
+            {
+                m_videoToggle.SetValue(!e.Pause);
+            }
         }
 
         private void RemoteUserJoinedChannel(object sender, uint e)
@@ -137,7 +151,7 @@ namespace Fordi.ScreenSharing
             if (m_videoCallEngine == null)
                 m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
             if (m_videoCallEngine != null)
-                m_videoCallEngine.EnableVideo(val);
+                m_videoCallEngine.EnableVideo(!val);
         }
 
         private void ToggleMonitor(bool val)
