@@ -12,6 +12,8 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
+using Network = Fordi.Networking.Network;
 
 
 // this is an example of using Agora Unity SDK
@@ -47,7 +49,7 @@ namespace Fordi.VideoCall
     }
 
 
-    public class VideoCallEngine : MonoBehaviour, IVideoCallEngine, IMatchmakingCallbacks
+    public class VideoCallEngine : MonoBehaviour, IVideoCallEngine, IMatchmakingCallbacks, IOnEventCallback
     {
 
         // instance of agora engine
@@ -78,6 +80,8 @@ namespace Fordi.VideoCall
                 return m_users[0].VideoOn;
             }
         }
+
+        private uint m_localPlayerId;
 
         private void Awake()
         {
@@ -209,6 +213,15 @@ namespace Fordi.VideoCall
                         Pause = pauseVideo,
                         UserId = 0
                     });
+
+                    if (PhotonNetwork.InRoom)
+                    {
+                        object[] content = new object[2];
+                        content[0] = m_localPlayerId;
+                        content[1] = !pauseVideo;
+                        PhotonNetwork.RaiseEvent(Network.videoMuteToggle, content, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, new SendOptions { Reliability = true });
+                        Debug.LogError("____videoMuteToggle event fired");
+                    }
                 }
 
                 return result;
@@ -248,6 +261,9 @@ namespace Fordi.VideoCall
         private void OnJoinChannelSuccess(string channelName, uint uid, int elapsed)
         {
             Debug.Log("JoinChannelSuccessHandler: uid = " + uid);
+
+            m_localPlayerId = uid;
+
             if (m_uiEngine == null)
                 m_uiEngine = IOC.Resolve<IUIEngine>();
 
@@ -415,7 +431,7 @@ namespace Fordi.VideoCall
         #endregion
 
 
-        #region MATCHMAKING_CALLBACKS
+        #region PUN_CALLBACKS
         public void OnFriendListUpdate(List<FriendInfo> friendList)
         {
             
@@ -449,6 +465,30 @@ namespace Fordi.VideoCall
         public void OnLeftRoom()
         {
             Leave();
+        }
+
+        public void OnEvent(EventData photonEvent)
+        {
+            switch (photonEvent.Code)
+            {
+                case Network.videoMuteToggle:
+                    Debug.Log("_____videoMuteToggle event");
+                    object[] videoMuteData = (object[])photonEvent.CustomData;
+
+                    uint userId = (uint)videoMuteData[0];
+                    bool videoOn = (bool)videoMuteData[1];
+
+                    if (m_users.ContainsKey(userId))
+                    {
+                        m_users[userId].VideoOn = videoOn;
+                        VideoPauseToggle?.Invoke(this, new VideoEventArgs()
+                        {
+                            UserId = userId,
+                            Pause = !videoOn
+                        });
+                    }
+                    break;
+            }
         }
         #endregion
     }

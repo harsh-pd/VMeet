@@ -39,6 +39,7 @@ namespace Fordi.Networking
         public const byte trailFinish = 138;
         public const byte deletePreviousTrail = 139;
         public const byte whiteboardNoteBegan = 140;
+        public const byte videoMuteToggle = 141;
 
         public const string MeetingRoom = "Meeting";
         public const string LobbyRoom = "Lobby";
