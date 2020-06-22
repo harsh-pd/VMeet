@@ -223,7 +223,7 @@ namespace Fordi.VideoCall
                    result = mRtcEngine.DisableVideo();
                 }
 
-                if (result >= 0)
+                if (result >= 0 && m_users.ContainsKey(0))
                 {
                     m_users[0].VideoOn = !pauseVideo;
 
