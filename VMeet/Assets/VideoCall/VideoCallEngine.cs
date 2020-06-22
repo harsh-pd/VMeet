@@ -232,7 +232,7 @@ namespace Fordi.VideoCall
                     if (PhotonNetwork.InRoom)
                     {
                         object[] content = new object[2];
-                        content[0] = m_localPlayerId;
+                        content[0] = (int)m_localPlayerId;
                         content[1] = !pauseVideo;
                         PhotonNetwork.RaiseEvent(Network.videoMuteToggle, content, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, new SendOptions { Reliability = true });
                         Debug.LogError("____videoMuteToggle event fired");
