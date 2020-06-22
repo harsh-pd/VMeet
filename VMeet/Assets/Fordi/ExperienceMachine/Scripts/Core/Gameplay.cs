@@ -27,14 +27,23 @@ namespace Fordi.Core
 
             if (args.CommandType == MenuCommandType.VIDEO_CONFERENCE)
             {
-                m_uiEngine.AddVideo(new MenuItemInfo()
+                //m_uiEngine.AddVideo(new MenuItemInfo()
+                //{
+                //    Data = new AgoraUserInfo()
+                //    {
+                //        UserId = 0,
+                //        Name = PhotonNetwork.NickName,
+                //        VideoOn = m_videoCallEngine.VideoEnabled
+                //    },
+                //});
+
+                m_uiEngine.OpenVideoConference(new MenuArgs()
                 {
-                    Data = new AgoraUserInfo()
-                    {
-                        UserId = 0,
-                        Name = PhotonNetwork.NickName,
-                        VideoOn = m_videoCallEngine.VideoEnabled
-                    },
+                    Block = true,
+                    BackEnabled = true,
+                    Items = ResourceToMenuItems(m_videoCallEngine.Users),
+                    Persist = true,
+                    Title = "Video Conference"
                 });
             }
 

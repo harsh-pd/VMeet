@@ -40,10 +40,11 @@ namespace Fordi.VideoCall
         public uint UserId;
     }
 
-    public class AgoraUserInfo
+
+    [Serializable]
+    public class AgoraUserInfo : ExperienceResource
     {
         public uint UserId;
-        public string Name;
         public bool MicOn;
         public bool VideoOn;
     }
@@ -87,11 +88,25 @@ namespace Fordi.VideoCall
         {
             //m_uiEngine = IOC.Resolve<IUIEngine>();
             PhotonNetwork.AddCallbackTarget(this);
+
+            if (mRtcEngine != null)
+            {
+                mRtcEngine.OnJoinChannelSuccess = OnJoinChannelSuccess;
+                mRtcEngine.OnUserJoined = OnUserJoined;
+                mRtcEngine.OnUserOffline = OnUserOffline;
+            }
         }
 
         private void OnDestroy()
         {
             PhotonNetwork.RemoveCallbackTarget(this);
+
+            if (mRtcEngine != null)
+            {
+                mRtcEngine.OnJoinChannelSuccess -= OnJoinChannelSuccess;
+                mRtcEngine.OnUserJoined -= OnUserJoined;
+                mRtcEngine.OnUserOffline -= OnUserOffline;
+            }
         }
 
         // load agora engine
@@ -278,8 +293,8 @@ namespace Fordi.VideoCall
             //{
             //    Data = new AgoraUserInfo()
             //    {
-            //         UserId = 0,
-            //         Name = PhotonNetwork.NickName
+            //        UserId = 0,
+            //        Name = PhotonNetwork.NickName
             //    },
             //});
 
@@ -297,7 +312,7 @@ namespace Fordi.VideoCall
         // create a GameObject to render video on it
         private void OnUserJoined(uint uid, int elapsed)
         {
-            //Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
+            Debug.Log("onUserJoined: uid = " + uid + " elapsed = " + elapsed);
             //// this is called in main thread
 
             //// find a game object to render video stream from 'uid'
@@ -475,15 +490,15 @@ namespace Fordi.VideoCall
                     Debug.Log("_____videoMuteToggle event");
                     object[] videoMuteData = (object[])photonEvent.CustomData;
 
-                    uint userId = (uint)videoMuteData[0];
+                    int userId = (int)videoMuteData[0];
                     bool videoOn = (bool)videoMuteData[1];
 
-                    if (m_users.ContainsKey(userId))
+                    if (m_users.ContainsKey((uint)userId))
                     {
-                        m_users[userId].VideoOn = videoOn;
+                        m_users[(uint)userId].VideoOn = videoOn;
                         VideoPauseToggle?.Invoke(this, new VideoEventArgs()
                         {
-                            UserId = userId,
+                            UserId = (uint)userId,
                             Pause = !videoOn
                         });
                     }
