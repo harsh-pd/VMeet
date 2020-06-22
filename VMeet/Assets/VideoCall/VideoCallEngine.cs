@@ -145,10 +145,12 @@ namespace Fordi.VideoCall
             mRtcEngine.OnUserJoined = OnUserJoined;
             mRtcEngine.OnUserOffline = OnUserOffline;
 
+            mRtcEngine.SetExternalVideoSource(true, false);
             // enable video
             //var result = mRtcEngine.EnableVideo();
             //VideoEnabled = result >= 0;
             // allow camera output callback
+            EnableVideo(false);
             mRtcEngine.EnableVideoObserver();
 
             // join channel
@@ -208,6 +210,8 @@ namespace Fordi.VideoCall
         {
             if (mRtcEngine != null)
             {
+                mRtcEngine.SetExternalVideoSource(false, false);
+
                 int result;
 
                 if (!pauseVideo)
