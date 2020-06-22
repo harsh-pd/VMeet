@@ -14,6 +14,7 @@ using Fordi.Meeting;
 using Fordi.Meetings.UI;
 using Fordi.ScreenSharing;
 using Fordi.UI.MenuControl;
+using Fordi.VideoCall;
 
 namespace Fordi.UI
 {
@@ -138,6 +139,7 @@ namespace Fordi.UI
         protected ICommonResource m_commonResource;
         protected ISettings m_settings;
         protected IUIEngine m_uiEngine = null;
+        protected IVideoCallEngine m_videoCallEngine = null;
 
         protected IScreen m_blocker;
 
@@ -417,9 +419,9 @@ namespace Fordi.UI
             var menu = (VideoCallInterface)SpawnScreen(m_videoCallInterfacePrefab);
             menu.OpenMenu(this, new MenuArgs()
             {
-                BackEnabled = true,
                 Block = true,
-                Items = new MenuItemInfo[] { },
+                BackEnabled = true,
+                Items = Experience.ResourceToMenuItems(m_videoCallEngine.Users),
                 Persist = true,
                 Title = "Video Conference"
             });

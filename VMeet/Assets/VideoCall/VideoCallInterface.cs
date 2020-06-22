@@ -89,7 +89,6 @@ namespace Fordi.UI.MenuControl
         public void Present(MenuItemInfo item)
         {
             m_presenterVideoItem.DataBind(m_userInterface, item);
-            m_presenterVideoItem.OnVideoMute(false);
         }
 
         public void StopPresenting()

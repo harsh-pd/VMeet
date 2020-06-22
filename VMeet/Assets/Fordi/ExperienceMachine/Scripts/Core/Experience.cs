@@ -295,7 +295,7 @@ namespace Fordi.Core
         }
 
 
-        protected MenuItemInfo[] ResourceToMenuItems(ExperienceResource[] resources)
+        public static MenuItemInfo[] ResourceToMenuItems(ExperienceResource[] resources)
         {
             MenuItemInfo[] menuItems = new MenuItemInfo[resources.Length];
             for (int i = 0; i < resources.Length; i++)
