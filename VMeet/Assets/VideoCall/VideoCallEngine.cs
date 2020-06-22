@@ -336,7 +336,7 @@ namespace Fordi.VideoCall
             m_users[uid] = new AgoraUserInfo
             {
                 UserId = uid,
-                VideoOn = true,
+                VideoOn = false,
                 MicOn = true
             };
 
