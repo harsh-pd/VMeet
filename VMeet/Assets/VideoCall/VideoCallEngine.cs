@@ -235,7 +235,7 @@ namespace Fordi.VideoCall
                         content[0] = (int)m_localPlayerId;
                         content[1] = !pauseVideo;
                         PhotonNetwork.RaiseEvent(Network.videoMuteToggle, content, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, new SendOptions { Reliability = true });
-                        Debug.LogError("____videoMuteToggle event fired");
+                        Debug.LogError("____videoMuteToggle event fired: " + (uint)((int)content[0]));
                     }
                 }
 
@@ -487,11 +487,12 @@ namespace Fordi.VideoCall
             switch (photonEvent.Code)
             {
                 case Network.videoMuteToggle:
-                    Debug.Log("_____videoMuteToggle event");
                     object[] videoMuteData = (object[])photonEvent.CustomData;
 
                     int userId = (int)videoMuteData[0];
                     bool videoOn = (bool)videoMuteData[1];
+
+                    Debug.Log("_____videoMuteToggle event : " + (uint)userId + " " + videoOn);
 
                     if (m_users.ContainsKey((uint)userId))
                     {
