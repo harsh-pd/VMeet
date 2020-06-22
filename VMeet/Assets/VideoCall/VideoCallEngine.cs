@@ -229,7 +229,7 @@ namespace Fordi.VideoCall
                         UserId = 0
                     });
 
-                    int localPlayerId = checked((int)m_localPlayerId);
+                    int localPlayerId = (int)m_localPlayerId;
 
                     Debug.LogError(localPlayerId);
 
