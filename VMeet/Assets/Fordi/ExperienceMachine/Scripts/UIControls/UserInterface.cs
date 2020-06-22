@@ -156,6 +156,7 @@ namespace Fordi.UI
             m_commonResource = IOC.Resolve<ICommonResource>();
             m_settings = IOC.Resolve<ISettings>();
             m_uiEngine = IOC.Resolve<IUIEngine>();
+            m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
         }
 
         protected virtual IEnumerator Start()
