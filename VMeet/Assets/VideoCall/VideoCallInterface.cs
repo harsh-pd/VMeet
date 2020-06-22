@@ -98,7 +98,7 @@ namespace Fordi.UI.MenuControl
 
         public void ToggleVideo(bool val, Action<bool> done)
         {
-            var result = m_videoCallEngine.EnableVideo(!val);
+            var result = m_videoCallEngine.EnableVideo(val);
         }
 
         public void ToggleFulscreen(bool val, Action<bool> done)

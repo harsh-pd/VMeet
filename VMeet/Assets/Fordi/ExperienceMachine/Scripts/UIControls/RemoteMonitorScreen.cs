@@ -151,7 +151,7 @@ namespace Fordi.ScreenSharing
             if (m_videoCallEngine == null)
                 m_videoCallEngine = IOC.Resolve<IVideoCallEngine>();
             if (m_videoCallEngine != null)
-                m_videoCallEngine.EnableVideo(!val);
+                m_videoCallEngine.EnableVideo(val);
         }
 
         private void ToggleMonitor(bool val)

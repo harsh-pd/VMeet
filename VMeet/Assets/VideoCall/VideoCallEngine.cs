@@ -145,12 +145,11 @@ namespace Fordi.VideoCall
             mRtcEngine.OnUserJoined = OnUserJoined;
             mRtcEngine.OnUserOffline = OnUserOffline;
 
-            mRtcEngine.SetExternalVideoSource(true, false);
             // enable video
             //var result = mRtcEngine.EnableVideo();
             //VideoEnabled = result >= 0;
             // allow camera output callback
-            EnableVideo(false);
+            EnableVideo(true);
             mRtcEngine.EnableVideoObserver();
 
             // join channel
@@ -206,15 +205,13 @@ namespace Fordi.VideoCall
             }
         }
 
-        public int EnableVideo(bool pauseVideo)
+        public int EnableVideo(bool enable)
         {
             if (mRtcEngine != null)
             {
-                mRtcEngine.SetExternalVideoSource(false, false);
-
                 int result;
 
-                if (!pauseVideo)
+                if (enable)
                 {
                    result = mRtcEngine.EnableVideo();
                 }
@@ -225,23 +222,19 @@ namespace Fordi.VideoCall
 
                 if (result >= 0 && m_users.ContainsKey(0))
                 {
-                    m_users[0].VideoOn = !pauseVideo;
+                    m_users[0].VideoOn = enable;
 
                     VideoPauseToggle?.Invoke(this, new VideoEventArgs()
                     {
-                        Pause = pauseVideo,
+                        Pause = !enable,
                         UserId = 0
                     });
-
-                    int localPlayerId = (int)m_localPlayerId;
-
-                    Debug.LogError(localPlayerId);
 
                     if (PhotonNetwork.InRoom)
                     {
                         object[] content = new object[2];
-                        content[0] = (int)localPlayerId;
-                        content[1] = !pauseVideo;
+                        content[0] = (int)m_localPlayerId;
+                        content[1] = enable;
                         PhotonNetwork.RaiseEvent(Network.videoMuteToggle, content, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, new SendOptions { Reliability = true });
                         Debug.LogError("____videoMuteToggle event fired for user: " + (uint)((int)content[0]));
                     }
@@ -444,7 +437,7 @@ namespace Fordi.VideoCall
         #region APP_EVENTS
         void OnApplicationPause(bool paused)
         {
-            EnableVideo(paused);
+            EnableVideo(!paused);
         }
 
         void OnApplicationQuit()
