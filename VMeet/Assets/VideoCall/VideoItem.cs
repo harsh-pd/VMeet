@@ -92,7 +92,7 @@ namespace Fordi.VideoCall
             Debug.LogError("OnVideoMute: " + val + " User: " + m_userInfo.UserId);
 
             //m_videoSurface.SetForUser(m_userInfo.UserId);
-            m_videoSurface.SetEnable(val);
+            //m_videoSurface.SetEnable(val);
             //m_videoSurface.SetVideoSurfaceType(AgoraVideoSurfaceType.RawImage);
             //m_videoSurface.SetGameFps(30);
         }
