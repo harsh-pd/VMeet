@@ -394,17 +394,7 @@ namespace Fordi.UI
                 return videoCallInterface;
             }
 
-            var menu = (VideoCallInterface)SpawnScreen(m_videoCallInterfacePrefab);
-            menu.OpenMenu(this, new MenuArgs()
-            {
-                BackEnabled = true,
-                Block = true,
-                Items = new MenuItemInfo[] {videoItem},
-                Persist = true,
-                Title = "Video Conference"
-            });
-
-            return menu;
+            return null;
         }
 
         public void RemoveVideo(uint userId)
