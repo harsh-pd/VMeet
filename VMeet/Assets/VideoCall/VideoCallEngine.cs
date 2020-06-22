@@ -82,7 +82,7 @@ namespace Fordi.VideoCall
             }
         }
 
-        private uint m_localPlayerId;
+        private static uint m_localPlayerId;
 
         private void Awake()
         {
@@ -229,13 +229,17 @@ namespace Fordi.VideoCall
                         UserId = 0
                     });
 
+                    int localPlayerId = checked((int)m_localPlayerId);
+
+                    Debug.LogError(localPlayerId);
+
                     if (PhotonNetwork.InRoom)
                     {
                         object[] content = new object[2];
-                        content[0] = (int)m_localPlayerId;
+                        content[0] = (int)localPlayerId;
                         content[1] = !pauseVideo;
                         PhotonNetwork.RaiseEvent(Network.videoMuteToggle, content, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, new SendOptions { Reliability = true });
-                        Debug.LogError("____videoMuteToggle event fired: " + (uint)((int)content[0]));
+                        Debug.LogError("____videoMuteToggle event fired for user: " + (uint)((int)content[0]));
                     }
                 }
 
