@@ -69,7 +69,7 @@ namespace Fordi.VideoCall
         public void DataBind(IUserInterface userInterface, MenuItemInfo item)
         {
             m_userInterface = userInterface;
-
+            m_item = item;
             m_userInfo = (AgoraUserInfo)item.Data;
             m_videoSurface.SetForUser(m_userInfo.UserId);
             m_videoSurface.SetEnable(true);
