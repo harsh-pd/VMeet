@@ -217,7 +217,8 @@ namespace Fordi.VideoCall
                 }
                 else
                 {
-                   result = mRtcEngine.DisableVideo();
+                    //result = mRtcEngine.DisableVideo();
+                    result = 0;
                 }
 
                 if (result >= 0 && m_users.ContainsKey(0))

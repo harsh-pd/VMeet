@@ -47,6 +47,8 @@ namespace Fordi.ScreenSharing
 
         private INetwork m_network;
 
+        private const string SCREEN_SHARE_PREFIX = "ScreenShare";
+
         private void CreateTextureIfNeeded()
         {
             if (!mTexture || mTexture.width != MouseControl.SystemWidth || mTexture.height != MouseControl.SystemHeight)
@@ -207,7 +209,7 @@ namespace Fordi.ScreenSharing
             // allow camera output callback
             mRtcEngine.EnableVideoObserver();
             // join channel
-            mRtcEngine.JoinChannel(PhotonNetwork.CurrentRoom.Name, null, 0);
+            mRtcEngine.JoinChannel(SCREEN_SHARE_PREFIX + PhotonNetwork.CurrentRoom.Name, null, 0);
             mRtcEngine.OnUserJoined = OtherUserJoined;
             m_network.ToggleScreenStreaming(val);
         }
@@ -244,7 +246,7 @@ namespace Fordi.ScreenSharing
             //// allow camera output callback
             mRtcEngine.EnableVideoObserver();
             // join channel
-            mRtcEngine.JoinChannel(PhotonNetwork.CurrentRoom.Name, null, 0);
+            mRtcEngine.JoinChannel(SCREEN_SHARE_PREFIX + PhotonNetwork.CurrentRoom.Name, null, 0);
             mRtcEngine.OnUserJoined = OtherUserJoined;
             RemoteScreenShareEvent?.Invoke(this, new ScreenEventArgs { Streaming = val });
             m_receivingRemoteStream = true;
