@@ -56,7 +56,7 @@ namespace UnityFBXExporter
             // Need to get all unique materials for the submesh here and then write them in
             //@cartzhang modify.As meshrender and skinnedrender is same level in inherit relation shape.
             // if not check,skinned render ,may lost some materials.
-            Renderer[] meshRenders = gameObj.GetComponentsInChildren<Renderer>();
+            Renderer[] meshRenders = gameObj.GetComponentsInChildren<MeshRenderer>();
 			
 			List<Material> uniqueMaterials = new List<Material>();
 
