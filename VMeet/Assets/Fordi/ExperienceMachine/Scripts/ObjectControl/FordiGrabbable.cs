@@ -18,19 +18,28 @@ namespace Fordi.ObjectControl
         /// </summary>
         private bool m_initiallyKinematic = false;
 
+        protected override void AwakeOverride()
+        {
+            if (m_grabPoints == null)
+                m_grabPoints = new Collider[] { };
+
+            base.AwakeOverride();
+            if (m_rigidbody == null)
+                m_rigidbody = GetComponent<Rigidbody>();
+            if (m_rigidbody != null)
+                m_initiallyKinematic = m_rigidbody.isKinematic;
+        }
+
+
         protected override void Start()
         {
             base.Start();
             m_vrMenu = IOC.Resolve<IUserInterface>();
         }
 
-        protected override void AwakeOverride()
+        public void SetGrabPoints(Collider[] grabPoints)
         {
-            base.AwakeOverride();
-            if (m_rigidbody == null)
-                m_rigidbody = GetComponent<Rigidbody>();
-            if (m_rigidbody != null)
-                m_initiallyKinematic = m_rigidbody.isKinematic;
+            m_grabPoints = grabPoints;
         }
 
         public override void GrabBegin(OVRGrabber hand, Collider grabPoint)

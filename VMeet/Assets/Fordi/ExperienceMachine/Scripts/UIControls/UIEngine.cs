@@ -34,6 +34,8 @@ namespace Fordi.UI
         void LoadRemoteDesktopView(MenuArgs args);
         void AddVideo(MenuItemInfo videoItem);
         void OpenVideoConference(MenuArgs args);
+        void DeactivateUI();
+        void ShowUI();
 
         Canvas GetRootCanvas(Platform platform);
 
@@ -264,6 +266,19 @@ namespace Fordi.UI
         {
             m_standaloneInterface.OpenVideoConference(args);
             m_vrInterface?.OpenVideoConference(args);
+        }
+
+        public void DeactivateUI()
+        {
+            m_standaloneInterface.DeactivateUI();
+            m_vrInterface?.DeactivateUI();
+        }
+
+
+        public void ShowUI()
+        {
+            m_standaloneInterface.ShowUI();
+            m_vrInterface?.ShowUI();
         }
 
         public void AddVideo(MenuItemInfo videoItem)

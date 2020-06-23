@@ -1,22 +1,12 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1383092242097550}
-  m_IsPrefabParent: 1
 --- !u!1 &1383092242097550
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 4761610879559674}
   - component: {fileID: 96467200036460756}
@@ -30,9 +20,10 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4761610879559674
 Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383092242097550}
   m_LocalRotation: {x: -0.3668884, y: -0.008041458, z: -0.36768708, w: 0.8544791}
   m_LocalPosition: {x: -0.059374653, y: -0.058411717, z: 0.049508158}
@@ -44,9 +35,10 @@ Transform:
 --- !u!96 &96467200036460756
 TrailRenderer:
   serializedVersion: 2
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383092242097550}
   m_Enabled: 0
   m_CastShadows: 1
@@ -56,6 +48,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
+  m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 59384e3c5eba3c84cb0d03312b8f624b, type: 2}
   m_StaticBatchInfo:
@@ -79,7 +72,7 @@ TrailRenderer:
   m_SortingOrder: 0
   m_Time: 0.1
   m_Parameters:
-    serializedVersion: 2
+    serializedVersion: 3
     widthMultiplier: 0.005
     widthCurve:
       serializedVersion: 2
@@ -156,18 +149,26 @@ TrailRenderer:
     numCapVertices: 10
     alignment: 0
     textureMode: 0
+    shadowBias: 0
     generateLightingData: 0
   m_MinVertexDistance: 0.01
   m_Autodestruct: 0
+  m_Emitting: 1
 --- !u!114 &114673819776552032
 MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383092242097550}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afc14b7f44731804da055badd12264a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_bakedMeshMaterial: {fileID: 2100000, guid: 1f06b3628d65a46419ba96d3ff588e8d, type: 2}
+  m_grabbableLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   trailRend: {fileID: 96467200036460756}
+  m_ReceivedUpdate: 0

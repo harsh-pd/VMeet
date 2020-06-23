@@ -81,7 +81,7 @@ namespace Fordi.ObjectControl
 
         protected DistanceGrabbable m_target;
 
-        private IUserInterface m_vrMenu;
+        private IUIEngine m_vrMenu;
         private IExperienceMachine m_experienceMachine;
 
         private bool m_grabIntention = false;
@@ -100,7 +100,7 @@ namespace Fordi.ObjectControl
             m_grabCount = 0;
             base.Start();
 
-            m_vrMenu = IOC.Resolve<IUserInterface>();
+            m_vrMenu = IOC.Resolve<IUIEngine>();
             m_experienceMachine = IOC.Resolve<IExperienceMachine>();
             // Set up our max grab distance to be based on the player's max grab distance.
             // Adding a liberal margin of error here, because users can move away some from the 
@@ -236,7 +236,7 @@ namespace Fordi.ObjectControl
                 m_grabCount++;
                 m_experienceMachine.Player.RequestHaltMovement(true);
                 if (m_vrMenu == null)
-                    m_vrMenu = IOC.Resolve<IUserInterface>();
+                    m_vrMenu = IOC.Resolve<IUIEngine>();
                 m_vrMenu.DeactivateUI();
             }
         }

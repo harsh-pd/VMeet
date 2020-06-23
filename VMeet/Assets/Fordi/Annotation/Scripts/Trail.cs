@@ -4,6 +4,8 @@ using UnityEngine;
 using DG.Tweening;
 using Photon.Pun;
 using Fordi.Common;
+using Fordi.Core;
+using Fordi.ObjectControl;
 
 namespace Fordi.Annotations
 {
@@ -36,7 +38,11 @@ namespace Fordi.Annotations
 
     public class Trail : MonoBehaviour
     {
-       
+
+        [SerializeField]
+        private Material m_bakedMeshMaterial;
+
+        private const string GRABBABLE_LAYER = "Object";
 
         public TrailRenderer trailRend;
 
@@ -111,6 +117,9 @@ namespace Fordi.Annotations
             Destroy(gameObject);
         }
 
+        private MeshFilter m_meshFilter;
+        private MeshRenderer m_meshRenderer;
+
         public void FinishTrail()
         {
             //print("FinishTrail");
@@ -126,6 +135,29 @@ namespace Fordi.Annotations
             if (photonView != null)
                 photonView.enabled = false;
             //Destroy(photonView);
+
+            m_meshFilter = gameObject.AddComponent<MeshFilter>();
+            var mesh = new Mesh();
+
+            trailRend.BakeMesh(mesh, ((IVRPlayer)(IOC.Resolve<IExperienceMachine>().Player)).CameraRig.centerEyeAnchor.GetComponent<Camera>());
+            m_meshFilter.mesh = mesh;
+            m_meshRenderer = gameObject.AddComponent<MeshRenderer>();
+            m_meshRenderer.sharedMaterial = m_bakedMeshMaterial;
+            m_meshRenderer.material.color = trailRend.material.GetColor(Annotation.TintColorProperty);
+            trailRend.enabled = false;
+            transform.rotation = Quaternion.identity;
+            transform.position = Vector3.zero;
+            MakeGrabbable();
+        }
+
+        private void MakeGrabbable()
+        {
+            var boxCollider = gameObject.AddComponent<BoxCollider>();
+            var rigidbody = gameObject.AddComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+            var grabbable = gameObject.AddComponent<FordiGrabbable>();
+            gameObject.layer = LayerMask.NameToLayer(GRABBABLE_LAYER);
+            grabbable.SetGrabPoints(new Collider[] { boxCollider });
         }
 
         public void SetColor(Color col)
