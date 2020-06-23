@@ -58,7 +58,7 @@ namespace Fordi.Annotations
         public DrawMode DrawMode { get { return drawmode; } }
 
         private PhotonView photonView;
-        private AnnotationView photonTransformView;
+        private PhotonTransformView photonTransformView;
         private bool local = true;
 
         public int PhotonViewId {
@@ -152,12 +152,18 @@ namespace Fordi.Annotations
 
         private void MakeGrabbable()
         {
+            gameObject.layer = LayerMask.NameToLayer(GRABBABLE_LAYER);
             var boxCollider = gameObject.AddComponent<BoxCollider>();
             var rigidbody = gameObject.AddComponent<Rigidbody>();
             rigidbody.isKinematic = true;
             var grabbable = gameObject.AddComponent<FordiGrabbable>();
-            gameObject.layer = LayerMask.NameToLayer(GRABBABLE_LAYER);
             grabbable.SetGrabPoints(new Collider[] { boxCollider });
+
+            photonTransformView = gameObject.AddComponent<PhotonTransformView>();
+            photonTransformView.m_SynchronizePosition = true;
+            photonTransformView.m_SynchronizeRotation = true;
+            photonView.ObservedComponents = new List<Component>();
+            photonView.ObservedComponents.Add(photonTransformView);
         }
 
         public void SetColor(Color col)
