@@ -237,6 +237,9 @@ namespace Fordi.Networking
 
         public void OnEvent(EventData photonEvent)
         {
+            if (m_annotation == null)
+                m_annotation = IOC.Resolve<IAnnotation>();
+
             switch (photonEvent.Code)
             {
                 case trailBegin:
