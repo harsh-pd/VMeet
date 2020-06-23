@@ -211,33 +211,36 @@ namespace UnityFBXExporter
 				tempObjectSb.AppendLine("\t\t\tNormals: *" + (triangleCount * 3) + " {");
 				tempObjectSb.Append("\t\t\t\ta: ");
 
-				//for(int i = 0; i < triangleCount; i += 3)
-				//{
-				//	if(i > 0)
-				//		tempObjectSb.Append(",");
+                if (normals.Length == triangles.Length)
+                {
+                    for (int i = 0; i < triangleCount; i += 3)
+                    {
+                        if (i > 0)
+                            tempObjectSb.Append(",");
 
-				//	// To get the correct normals, must rewind the normal triangles like the triangles above since x was flipped
-				//	Vector3 newNormal = normals[triangles[i]];
+                        // To get the correct normals, must rewind the normal triangles like the triangles above since x was flipped
+                        Vector3 newNormal = normals[triangles[i]];
 
-				//	tempObjectSb.AppendFormat("{0},{1},{2},",
-				//							 FE.FBXFormat(newNormal.x * -1), // Switch normal as is tradition
-				//							 FE.FBXFormat(newNormal.y),
-				//							 FE.FBXFormat(newNormal.z));
+                        tempObjectSb.AppendFormat("{0},{1},{2},",
+                                                 FE.FBXFormat(newNormal.x * -1), // Switch normal as is tradition
+                                                 FE.FBXFormat(newNormal.y),
+                                                 FE.FBXFormat(newNormal.z));
 
-				//	newNormal = normals[triangles[i + 2]];
+                        newNormal = normals[triangles[i + 2]];
 
-				//	tempObjectSb.AppendFormat("{0},{1},{2},",
-				//							 FE.FBXFormat(newNormal.x * -1), // Switch normal as is tradition
-				//							 FE.FBXFormat(newNormal.y),
-				//							 FE.FBXFormat(newNormal.z));
+                        tempObjectSb.AppendFormat("{0},{1},{2},",
+                                                 FE.FBXFormat(newNormal.x * -1), // Switch normal as is tradition
+                                                 FE.FBXFormat(newNormal.y),
+                                                 FE.FBXFormat(newNormal.z));
 
-				//	newNormal = normals[triangles[i + 1]];
+                        newNormal = normals[triangles[i + 1]];
 
-				//	tempObjectSb.AppendFormat("{0},{1},{2}",
-				//							 FE.FBXFormat(newNormal.x * -1), // Switch normal as is tradition
-				//							 FE.FBXFormat(newNormal.y),
-				//							 FE.FBXFormat(newNormal.z));
-				//}
+                        tempObjectSb.AppendFormat("{0},{1},{2}",
+                                                 FE.FBXFormat(newNormal.x * -1), // Switch normal as is tradition
+                                                 FE.FBXFormat(newNormal.y),
+                                                 FE.FBXFormat(newNormal.z));
+                    }
+                }
 
 				tempObjectSb.AppendLine();
 				tempObjectSb.AppendLine("\t\t\t}");
