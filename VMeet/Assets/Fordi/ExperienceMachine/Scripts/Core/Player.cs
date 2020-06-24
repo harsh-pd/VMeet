@@ -470,7 +470,7 @@ namespace Fordi.Core
         {
             if (buttonGroups.Count == 0)
             {
-                ToggleShortTooltips(false);
+                //ToggleShortTooltips(false);
                 return;
             }
 

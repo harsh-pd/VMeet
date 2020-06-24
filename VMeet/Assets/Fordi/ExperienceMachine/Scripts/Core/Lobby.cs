@@ -13,6 +13,8 @@ namespace Fordi.Core
 {
     public class Lobby : Gameplay
     {
+        private static bool m_trainingDone = false;
+
         protected override void AwakeOverride()
         {
             base.AwakeOverride();
@@ -224,6 +226,13 @@ namespace Fordi.Core
 
         public override void OnLoad()
         {
+            if (!m_trainingDone)
+            {
+                ExperienceMachine.AppMode = AppMode.TRAINING;
+                m_trainingDone = true;
+            }
+            else
+                ExperienceMachine.AppMode = AppMode.APPLICATION;
             base.OnLoad();
             StartCoroutine(TakeASeat());
         }

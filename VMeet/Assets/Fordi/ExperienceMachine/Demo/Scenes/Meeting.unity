@@ -251,7 +251,7 @@ PrefabInstance:
     - target: {fileID: 3442827090584250967, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}
       propertyPath: m_teleportAnchors.Array.size
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3442827090584250967, guid: 2a7e3c1abf054f745bb1480314b29966,
         type: 3}

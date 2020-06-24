@@ -142,7 +142,6 @@ namespace Fordi.Core
 
         private void Awake()
         {
-            AppMode = AppMode.TRAINING;
             m_isRunning = true;
             m_home = GetComponentInChildren<Home>();
             m_lobby = GetComponentInChildren<Lobby>();
