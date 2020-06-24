@@ -544,6 +544,7 @@ namespace Fordi.Core
         #region SETTING_CHANGES
         public void ApplyTooltipSettings()
         {
+            return;
             if (m_settings == null)
                 m_settings = IOC.Resolve<ISettings>();
             if (m_settings.SelectedPreferences.ShowTooltip && !m_shortTipOn && OVRInput.GetActiveController() == OVRInput.Controller.Touch)
