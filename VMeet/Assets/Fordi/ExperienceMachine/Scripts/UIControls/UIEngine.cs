@@ -21,6 +21,7 @@ namespace Fordi.UI
         EventHandler InputModuleChangeEvent { get; set; }
 
         void OpenMenu(MenuArgs args);
+        void OpenStandaloneMenu(MenuArgs menuArgs);
         void OpenGridMenu(GridArgs args);
         void OpenInventory(GridArgs args);
         void OpenSettingsInterface(AudioClip clip);
@@ -207,6 +208,11 @@ namespace Fordi.UI
                 m_vrInterface.OpenMenu(args);
                 m_menuOn = true;
             }
+        }
+
+        public void OpenStandaloneMenu(MenuArgs args)
+        {
+            m_standaloneInterface.OpenMenu(args);
         }
 
         public void OpenGridMenu(GridArgs args)

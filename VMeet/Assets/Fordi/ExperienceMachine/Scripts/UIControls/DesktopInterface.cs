@@ -57,6 +57,9 @@ namespace Fordi.UI.MenuControl
         #region CORE
         public override IScreen OpenMenu(MenuArgs args)
         {
+            if (m_permanentDesktopScreen != null)
+                return m_permanentDesktopScreen;
+
             var menu = Instantiate(m_mainMenuPrefab, m_screensRoot);
             menu.OpenMenu(this, args);
             m_menuOn = true;

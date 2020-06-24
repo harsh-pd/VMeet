@@ -233,7 +233,7 @@ namespace Fordi.Core
                 m_experienceMachine.Player.DoWaypointTeleport(m_teleportAnchors[0]);
 
             yield return new WaitForSeconds(.2f);
-            ToggleMenu();
+            m_uiEngine.OpenStandaloneMenu(new MenuArgs() { Items = m_menu.Items });
         }
     }
 }
