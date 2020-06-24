@@ -34,6 +34,7 @@ namespace UnityEngine.EventSystems
         }
     }
 
+    [DefaultExecutionOrder(-100)]
     public class FordiInput : MonoBehaviour
     {
         public static bool Blocked { get; set; }

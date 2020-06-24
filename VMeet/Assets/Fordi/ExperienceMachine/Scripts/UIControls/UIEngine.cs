@@ -188,6 +188,9 @@ namespace Fordi.UI
         {
             m_vrInterface?.Close();
             m_standaloneInterface.Close();
+            if (m_vrInterface != null)
+                m_menuOff = true;
+
         }
 
         public void GoBack()
@@ -199,19 +202,34 @@ namespace Fordi.UI
         public void OpenMenu(MenuArgs args)
         {
             m_standaloneInterface.OpenMenu(args);
-            m_vrInterface?.OpenMenu(args);
+            if (m_vrInterface != null)
+            {
+                m_vrInterface.OpenMenu(args);
+                m_menuOn = true;
+            }
         }
 
         public void OpenGridMenu(GridArgs args)
         {
             m_standaloneInterface.OpenGridMenu(args);
             m_vrInterface?.OpenGridMenu(args);
+            if (m_vrInterface != null)
+            {
+                if (args.Items != null && args.Items.Length > 0 && args.Items[0].Data.GetType() == typeof(ObjectGroup))
+                    m_inventoryOpen = true;
+            }
         }
 
         public void OpenInventory(GridArgs args)
         {
             m_standaloneInterface.OpenInventory(args);
             m_vrInterface?.OpenInventory(args);
+
+            if (m_vrInterface != null)
+            {
+                if (args.Items != null && args.Items.Length > 0 && args.Items[0].Data.GetType() == typeof(ObjectGroup))
+                    m_inventoryOpen = true;
+            }
         }
 
         public void OpenSettingsInterface(AudioClip clip)
@@ -365,5 +383,34 @@ namespace Fordi.UI
             else
                 throw new InvalidOperationException("VR Module not available");
         }
+
+        #region GUIDE_CONDITIONS
+        private bool m_menuOn = false, m_menuOff = false, m_inventoryOpen = false;
+
+        public bool MenuOn()
+        {
+            Debug.LogError("MenuOn: " + m_menuOn);
+            var val = m_menuOn;
+            if (m_menuOn)
+                m_menuOn = false;
+            return val;
+        }
+
+        public bool MenuOff()
+        {
+            var val = m_menuOff;
+            if (m_menuOff)
+                m_menuOff = false;
+            return val;
+        }
+
+        public bool InventoryOpen()
+        {
+            var val = m_inventoryOpen;
+            if (m_inventoryOpen)
+                m_inventoryOpen = false;
+            return val;
+        }
+        #endregion
     }
 }

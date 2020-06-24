@@ -34,13 +34,13 @@ namespace Fordi.Core
         protected override void UpdateOverride()
         {
             base.UpdateOverride();
-            //WaypointTeleportInput();
+            WaypointTeleportInput();
         }
 
 
         void WaypointTeleportInput()
         {
-            if (canTeleport && FordiInput.GetDown(m_waypointTeleportButton, OVRInput.Controller.RTouch))
+            if (canTeleport && !FordiInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch) && !FordiInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && FordiInput.GetDown(m_waypointTeleportButton, OVRInput.Controller.RTouch))
                 WaypointTeleport();
         }
 

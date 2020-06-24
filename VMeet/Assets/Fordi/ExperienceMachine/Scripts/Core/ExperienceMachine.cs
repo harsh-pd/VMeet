@@ -142,6 +142,7 @@ namespace Fordi.Core
 
         private void Awake()
         {
+            AppMode = AppMode.TRAINING;
             m_isRunning = true;
             m_home = GetComponentInChildren<Home>();
             m_lobby = GetComponentInChildren<Lobby>();
@@ -394,6 +395,20 @@ namespace Fordi.Core
         public bool ClickCondition()
         {
             return m_clicked;
+        }
+
+        public bool Teleported()
+        {
+            if (m_player is IVRPlayer m_vrPlayer)
+                return m_vrPlayer.Teleported();
+            return false;
+        }
+
+        public bool WaypointTeleported()
+        {
+            if (m_player is IVRPlayer m_vrPlayer)
+                return m_vrPlayer.WaypointTeleported();
+            return false;
         }
 
         public void SetAmbienceAudioVolume(float volume)

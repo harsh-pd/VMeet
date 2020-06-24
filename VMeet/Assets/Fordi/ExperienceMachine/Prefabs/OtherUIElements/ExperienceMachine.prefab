@@ -65,7 +65,6 @@ MonoBehaviour:
     Preview: {fileID: 0}
     LargePreview: {fileID: 0}
     SpecialCommand: 
-  m_glow: {fileID: 0}
 --- !u!1 &1401431457
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,82 +301,6 @@ MonoBehaviour:
   m_menu: {fileID: 11400000, guid: a9fee23cbf5bc1b4d8c9ab91e3c22e7a, type: 2}
   m_teleportAnchors: []
   m_usedButtons: []
-  m_insceneMenuItems:
-  - Path: Music
-    Text: Music
-    Icon: {fileID: 21300000, guid: eb3e31e25c3590548bd779d3944c0bed, type: 3}
-    Command: 
-    CommandType: 1
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Settings
-    Text: Settings
-    Icon: {fileID: 21300000, guid: 9a79de8f89df6af44b46fc24a215532a, type: 3}
-    Command: 
-    CommandType: 11
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Lobby
-    Text: Leave
-    Icon: {fileID: 21300000, guid: 315d69f256f3f49499fa2fc60419e30c, type: 3}
-    Command: Leave
-    CommandType: 16
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Annotation
-    Text: Annotation
-    Icon: {fileID: 21300000, guid: 741000c94b292c34faaab6ab30247342, type: 3}
-    Command: Annotation
-    CommandType: 21
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Exit
-    Text: Exit
-    Icon: {fileID: 21300000, guid: a75e33bd7120bdb47a93e25ebbcef864, type: 3}
-    Command: Exit
-    CommandType: 12
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
 --- !u!1 &5969444268832936597
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,98 +346,115 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_menu: {fileID: 11400000, guid: 32352fbd902202e4689c3e5502eff772, type: 2}
   m_teleportAnchors: []
-  m_usedButtons: []
-  m_insceneMenuItems:
-  - Path: Create New
-    Text: Create New
-    Icon: {fileID: 21300000, guid: efdd1506da06ea64b8868d7cecd8dcc8, type: 3}
-    Command: 
-    CommandType: 20
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: My Meetings
-    Text: My Meetings
-    Icon: {fileID: 21300000, guid: 0ceb7ce5cf447854f9ed91ace824d020, type: 3}
-    Command: 
-    CommandType: 18
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Annotation
-    Text: Annotation
-    Icon: {fileID: 21300000, guid: 741000c94b292c34faaab6ab30247342, type: 3}
-    Command: Annotation
-    CommandType: 21
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Settings
-    Text: Settings
-    Icon: {fileID: 21300000, guid: 9a79de8f89df6af44b46fc24a215532a, type: 3}
-    Command: Settings
-    CommandType: 11
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Music
-    Text: Music
-    Icon: {fileID: 21300000, guid: eb3e31e25c3590548bd779d3944c0bed, type: 3}
-    Command: Music
-    CommandType: 1
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-  - Path: Logout
-    Text: Logout
-    Icon: {fileID: 21300000, guid: 1eaa873a43f328246957727eb7b25950, type: 3}
-    Command: Logout
-    CommandType: 22
-    Action:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
-    Validate:
-      m_PersistentCalls:
-        m_Calls: []
-      m_TypeName: Fordi.UI.MenuControl.MenuItemValidationEvent, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+  m_usedButtons:
+  - Name: Walkthrough
+    TooltipOperation: 1
+    CommonTip: Press thumbstick to move around.
+    VRButtons:
+    - Tip: Press thumbstick left to move left.
+      Button: 1073741824
+      Controller: 1
+      GuideClip: {fileID: 8300000, guid: 49dd2740ca0f07a409184b1771ad3e5f, type: 3}
+    - Tip: Press thumbstick right to move right.
+      Button: -2147483648
+      Controller: 1
+      GuideClip: {fileID: 8300000, guid: fe8becc836d0bbe4495ddc83d2959838, type: 3}
+    - Tip: Press thumbstick down to move back.
+      Button: 536870912
+      Controller: 1
+      GuideClip: {fileID: 8300000, guid: 65efde8fb064b8448a7ffd1a0c8bd18f, type: 3}
+    - Tip: Press thumbstick up to move forward.
+      Button: 268435456
+      Controller: 1
+      GuideClip: {fileID: 8300000, guid: fa2b035081aa25d46817f40dd085ef7b, type: 3}
+    Condition:
+      _target: {fileID: 0}
+      _methodName: 
+      _args: []
+      _dynamic: 0
+      _typeName: Fordi.Core.Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dirty: 0
+  - Name: Menu On
+    TooltipOperation: 0
+    CommonTip: 
+    VRButtons:
+    - Tip: Press the menu button to open the menu.
+      Button: 256
+      Controller: 1
+      GuideClip: {fileID: 8300000, guid: 871c7ce38a9e7764c914e10d8bbb4ce0, type: 3}
+    Condition:
+      _target: {fileID: 7364971764191595898}
+      _methodName: MenuOn
+      _args: []
+      _dynamic: 0
+      _typeName: Fordi.Core.Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dirty: 0
+  - Name: Click
+    TooltipOperation: 0
+    CommonTip: 
+    VRButtons:
+    - Tip: Point towards a button and press A to click.
+      Button: 1
+      Controller: 2
+      GuideClip: {fileID: 8300000, guid: 1abc0ddf10d3dbe4bb4362d3918077bf, type: 3}
+    Condition:
+      _target: {fileID: 8221756215893366406}
+      _methodName: ClickCondition
+      _args: []
+      _dynamic: 0
+      _typeName: Fordi.Core.Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dirty: 0
+  - Name: Menu Off
+    TooltipOperation: 0
+    CommonTip: 
+    VRButtons:
+    - Tip: Press the menu button to turn off the menu.
+      Button: 256
+      Controller: 1
+      GuideClip: {fileID: 8300000, guid: 646db36a4ef2efd48927f5eb95f8e305, type: 3}
+    Condition:
+      _target: {fileID: 7364971764191595898}
+      _methodName: MenuOff
+      _args: []
+      _dynamic: 0
+      _typeName: Fordi.Core.Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dirty: 0
+  - Name: Waypoint Teleport
+    TooltipOperation: 0
+    CommonTip: 
+    VRButtons:
+    - Tip: Press B to teleport to the next preset location.
+      Button: 2
+      Controller: 2
+      GuideClip: {fileID: 8300000, guid: 7f4d0279861200847a9d4ea2261888e0, type: 3}
+    Condition:
+      _target: {fileID: 8221756215893366406}
+      _methodName: WaypointTeleported
+      _args: []
+      _dynamic: 0
+      _typeName: Fordi.Core.Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dirty: 0
+  - Name: Teleport
+    TooltipOperation: 0
+    CommonTip: 
+    VRButtons:
+    - Tip: Press the front trigger to teleport to the desired location.
+      Button: 32768
+      Controller: 2
+      GuideClip: {fileID: 8300000, guid: e02281f4fd242ef4999daa9757571b91, type: 3}
+    Condition:
+      _target: {fileID: 8221756215893366406}
+      _methodName: Teleported
+      _args: []
+      _dynamic: 0
+      _typeName: Fordi.Core.Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      dirty: 0
 --- !u!1 &7673973076804688855
 GameObject:
   m_ObjectHideFlags: 0

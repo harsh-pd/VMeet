@@ -3348,6 +3348,7 @@ MonoBehaviour:
   - {fileID: 4328259643225809751, guid: 95614d0314e726a46b2c24c7d9ffd560, type: 3}
   - {fileID: 4328259643225809751, guid: c350886370c94a840a13535b532a94a2, type: 3}
   - {fileID: 4328259643225809751, guid: a363614c1396c794a93dd0edfc572423, type: 3}
+  - {fileID: 4328259643225809751, guid: f4dc9e2341ce24b4fb5cceeb9d24c3e7, type: 3}
   m_leftControllerShortTips:
   - {fileID: 6605113822136311797, guid: cf0031c47f15dbf478467166677fa1fa, type: 3}
   - {fileID: 6605113822136311797, guid: b8fee556131d5ea439b945e5aafe0b08, type: 3}

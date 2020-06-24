@@ -28,6 +28,8 @@ namespace Fordi.Core
         void ToogleGrabGuide(OVRInput.Controller controller, bool val);
         bool GuideOn { get; }
         void FadeOut();
+        bool Teleported();
+        bool WaypointTeleported();
     }
 
     public class ToolTip
@@ -50,8 +52,15 @@ namespace Fordi.Core
         {
             if (Condition == null || Condition.target == null || string.IsNullOrEmpty(Condition.methodName))
             {
+                //Debug.LogError(VRButton.Button.ToString() + " : " + FordiInput.LastPressedButton.ToString() + " " + VRButton.Controller.ToString() + " : " + FordiInput.LastPressedController.ToString());
                 return FordiInput.LastPressedButton == VRButton.Button && FordiInput.LastPressedController == VRButton.Controller;
             }
+
+            if (OVRInput.GetDown(OVRInput.Button.Any))
+            {
+                Debug.LogError(VRButton.Button.ToString() + " : " + FordiInput.LastPressedButton.ToString() + " " + VRButton.Controller.ToString() + " : " + FordiInput.LastPressedController.ToString());
+            }
+
             return Condition.Invoke() && FordiInput.LastPressedButton == VRButton.Button && FordiInput.LastPressedController == VRButton.Controller;
         }
     }
@@ -599,6 +608,16 @@ namespace Fordi.Core
         public void FadeOut()
         {
             m_fadeScript.FadeOut();
+        }
+
+        public bool Teleported()
+        {
+            return m_teleport.Teleported();
+        }
+
+        public bool WaypointTeleported()
+        {
+            return m_teleport.WaypointTeleported();
         }
     }
 }
