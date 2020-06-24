@@ -527,6 +527,8 @@ namespace Fordi.Core
                 yield return new WaitUntil(() => m_tooltips.Count == 0);
             }
 
+            ToggleShortTooltips(false);
+
             if (m_welldoneClip != null)
             {
                 AudioArgs audioArgs = new AudioArgs(m_welldoneClip, AudioType.VO)
