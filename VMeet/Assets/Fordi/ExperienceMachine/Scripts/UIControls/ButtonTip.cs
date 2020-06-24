@@ -16,6 +16,8 @@ namespace Fordi.UI
         private TextMeshProUGUI m_content;
         [SerializeField]
         private ButtonController m_buttonController;
+        [SerializeField]
+        private GameObject m_solidBackground;
 
         private Color m_textColor, m_backgroundColor;
         private string m_defaultText = null;
@@ -66,6 +68,8 @@ namespace Fordi.UI
                 m_backgroudColorTween = m_background.DOColor(Color.clear, fadeLength);
                 m_textColorTween = m_content.DOColor(Color.clear, fadeLength);
             }
+
+            m_solidBackground?.SetActive(val);
         }
 
         public void OnReset()
