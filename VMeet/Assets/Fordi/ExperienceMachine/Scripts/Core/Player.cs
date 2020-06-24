@@ -56,10 +56,10 @@ namespace Fordi.Core
                 return FordiInput.LastPressedButton == VRButton.Button && FordiInput.LastPressedController == VRButton.Controller;
             }
 
-            if (OVRInput.GetDown(OVRInput.Button.Any))
-            {
-                Debug.LogError(VRButton.Button.ToString() + " : " + FordiInput.LastPressedButton.ToString() + " " + VRButton.Controller.ToString() + " : " + FordiInput.LastPressedController.ToString());
-            }
+            //if (OVRInput.GetDown(OVRInput.Button.Any))
+            //{
+            //    Debug.LogError(VRButton.Button.ToString() + " : " + FordiInput.LastPressedButton.ToString() + " " + VRButton.Controller.ToString() + " : " + FordiInput.LastPressedController.ToString());
+            //}
 
             return Condition.Invoke() && FordiInput.LastPressedButton == VRButton.Button && FordiInput.LastPressedController == VRButton.Controller;
         }

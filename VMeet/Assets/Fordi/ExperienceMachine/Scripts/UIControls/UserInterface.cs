@@ -143,7 +143,7 @@ namespace Fordi.UI
 
         protected IScreen m_blocker;
 
-        private Vector3 m_screenRootScale;
+        protected Vector3 m_screenRootScale;
 
         protected BaseInputModule m_inputModule = null;
 
@@ -585,6 +585,8 @@ namespace Fordi.UI
         {
             if (includeRoot)
                 m_screensRoot.localScale = Vector3.zero;
+            else
+                m_screensRoot.localScale = m_screenRootScale;
 
             if (m_blocker != null)
             {

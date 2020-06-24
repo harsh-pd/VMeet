@@ -103,12 +103,15 @@ namespace Fordi.UI.MenuControl
 
         public override IScreen Block(string message, bool includeRoot = false)
         {
-             if (includeRoot)
+            if (includeRoot)
                 m_screensRoot.localScale = Vector3.zero;
+            else
+                m_screensRoot.localScale = m_screenRootScale;
 
             if (m_blocker != null)
             {
                 m_blocker.Reopen();
+                m_blocker.Gameobject.transform.localScale = includeRoot ? Vector3.zero : Vector3.one;
                 return m_blocker;
             }
             else
@@ -124,6 +127,7 @@ namespace Fordi.UI.MenuControl
 
                 m_blocker = menu;
                 m_menuOn = true;
+                menu.transform.localScale = includeRoot ? Vector3.zero : Vector3.one;
                 return menu;
             }
         }
