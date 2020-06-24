@@ -469,7 +469,10 @@ namespace Fordi.Core
         public void StartTooltipRoutine(List<VRButtonGroup> buttonGroups)
         {
             if (buttonGroups.Count == 0)
+            {
+                ToggleShortTooltips(false);
                 return;
+            }
 
             if (m_tooltipCoroutine != null)
                 StopCoroutine(m_tooltipCoroutine);

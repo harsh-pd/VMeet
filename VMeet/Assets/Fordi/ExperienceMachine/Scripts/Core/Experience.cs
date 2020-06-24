@@ -148,6 +148,7 @@ namespace Fordi.Core
         void UpdateResourceSelection(MenuClickArgs args);
         void OnLoad();
         void ToggleInventory();
+        void AddTeleportAnchor(Transform anchor);
         Transform GetNextTeleportAnchor();
         ResourceComponent[] GetCategories(ResourceType resourceType);
         Experience experience { get; }
@@ -169,7 +170,7 @@ namespace Fordi.Core
         protected Menu m_menu;
 
         [SerializeField]
-        protected Transform[] m_teleportAnchors;
+        protected List<Transform> m_teleportAnchors;
 
         [SerializeField]
         private List<VRButtonGroup> m_usedButtons;
@@ -578,13 +579,18 @@ namespace Fordi.Core
         public Transform GetNextTeleportAnchor()
         {
             teleportAnchorIndex++;
-            if (teleportAnchorIndex == m_teleportAnchors.Length)
+            if (teleportAnchorIndex == m_teleportAnchors.Count)
                 teleportAnchorIndex = 0;
 
-            if (teleportAnchorIndex > m_teleportAnchors.Length - 1)
+            if (teleportAnchorIndex > m_teleportAnchors.Count - 1)
                 return null;
             else
                 return m_teleportAnchors[teleportAnchorIndex];
+        }
+
+        public void AddTeleportAnchor(Transform anchor)
+        {
+            m_teleportAnchors.Add(anchor);
         }
 
         public void ToggleInventory()

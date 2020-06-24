@@ -236,7 +236,7 @@ namespace Fordi.Core
             yield return null;
             yield return null;
 
-            if (m_teleportAnchors.Length > 0)
+            if (m_teleportAnchors.Count > 0)
                 m_experienceMachine.Player.DoWaypointTeleport(m_teleportAnchors[0]);
 
             yield return new WaitForSeconds(.2f);
