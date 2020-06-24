@@ -162,6 +162,7 @@ namespace Fordi.Annotations
             photonTransformView = gameObject.AddComponent<PhotonTransformView>();
             photonTransformView.m_SynchronizePosition = true;
             photonTransformView.m_SynchronizeRotation = true;
+            photonView.Synchronization = ViewSynchronization.UnreliableOnChange;
             photonView.ObservedComponents = new List<Component>();
             photonView.ObservedComponents.Add(photonTransformView);
         }
