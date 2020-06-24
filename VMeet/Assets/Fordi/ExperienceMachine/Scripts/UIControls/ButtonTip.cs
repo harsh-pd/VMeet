@@ -69,7 +69,8 @@ namespace Fordi.UI
                 m_textColorTween = m_content.DOColor(Color.clear, fadeLength);
             }
 
-            m_solidBackground?.SetActive(val);
+            if (m_solidBackground != null)
+                m_solidBackground?.SetActive(val);
         }
 
         public void OnReset()
