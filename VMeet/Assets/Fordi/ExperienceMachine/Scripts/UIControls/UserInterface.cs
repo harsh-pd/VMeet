@@ -229,7 +229,7 @@ namespace Fordi.UI
 
         public virtual IScreen OpenInventory(GridArgs args)
         {
-            var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
+            var menu = (MenuScreen)SpawnScreen(m_inventoryMenuPrefab);
             menu.OpenGridMenu(this, args);
             m_inventoryOpen = true;
             return menu;
@@ -245,7 +245,7 @@ namespace Fordi.UI
 
         public virtual IScreen OpenObjectInterface(GridArgs args)
         {
-            var menu = (MenuScreen)SpawnScreen(m_mainMenuPrefab);
+            var menu = (MenuScreen)SpawnScreen(m_objectInterfacePrefab);
             menu.OpenGridMenu(this, args);
             return menu;
         }

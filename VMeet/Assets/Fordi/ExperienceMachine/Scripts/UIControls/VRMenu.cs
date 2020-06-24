@@ -114,7 +114,7 @@ namespace Fordi.UI.MenuControl
             PrepareForNewScreen();
             ((IVRPlayer)m_experienceMachine.Player).PrepareForSpawn();
             var menu = Instantiate(screenPrefab.Gameobject, ((IVRPlayer)m_experienceMachine.Player).PlayerCanvas).GetComponent<IScreen>();
-            BringInFront(menu.Gameobject.transform, enlarge);
+            BringInFront(menu.Gameobject.transform, enlarge, !(screenPrefab is ObjectInterface));
             if (!external)
             {
                 m_screenStack.Push(menu);
@@ -138,9 +138,14 @@ namespace Fordi.UI.MenuControl
                 var solidBackground = Instantiate(m_solidBackgroundPrefab, menuTransform);
                 if (enlarge)
                     solidBackground.Enlarge();
+            }
+
+            if (m_experienceMachine.GetExperience(m_experienceMachine.CurrentExperience) is Gameplay)
+            {
                 Vector3 localRotation = menuTransform.localRotation.eulerAngles;
                 menuTransform.localRotation = Quaternion.Euler(new Vector3(30, localRotation.y, localRotation.z));
             }
+
             ((IVRPlayer)m_experienceMachine.Player).RequestHaltMovement(true);
         }
 

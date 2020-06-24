@@ -27,6 +27,12 @@ namespace Fordi.Core
                 return;
             }
 
+            if (args.CommandType == MenuCommandType.CATEGORY_SELECTION && ((ResourceComponent)args.Data).ResourceType == ResourceType.OBJECT)
+            {
+                base.ExecuteMenuCommand(args);
+                return;
+            }
+
             if ((!(args.Data is MeetingResource) && args.CommandType != MenuCommandType.CATEGORY_SELECTION) && args.CommandType != MenuCommandType.MEETING && args.CommandType != MenuCommandType.USER && args.CommandType != MenuCommandType.CREATE_MEETING)
                 base.ExecuteMenuCommand(args);
 
@@ -102,9 +108,10 @@ namespace Fordi.Core
                 if (resourceComponent.ResourceType == ResourceType.AUDIO)
                     m_menuSelection.MusicGroup = Array.Find(m_commonResource.AssetDb.AudioGroups, item => item.Name != null && item.Name.Equals(args.Command)).MusicGroupName;
                 var resourceType = resourceComponent.ResourceType;
+                var resources = resourceType == ResourceType.OBJECT ? m_commonResource.GetResource(resourceType, args.Command) : m_webInterace.GetResource(resourceType, args.Command);
                 m_uiEngine.OpenGridMenu(new GridArgs()
                 {
-                    Items = ResourceToMenuItems(m_webInterace.GetResource(resourceType, args.Command)),
+                    Items = ResourceToMenuItems(resources),
                     Title = "SELECT " + resourceType.ToString().ToUpper(),
                     RefreshCategory = args.Command
                 });

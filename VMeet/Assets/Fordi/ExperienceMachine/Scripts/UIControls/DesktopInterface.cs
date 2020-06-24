@@ -68,6 +68,28 @@ namespace Fordi.UI.MenuControl
             return menu;
         }
 
+        public override IScreen OpenObjectInterface(GridArgs args)
+        {
+            return DisplayMessage(new MessageArgs()
+            {
+                Persist = true,
+                Block = true,
+                Text = "Object interface available in VR.",
+                BackEnabled = true
+            });
+        }
+
+        public override IScreen OpenInventory(GridArgs args)
+        {
+            return DisplayMessage(new MessageArgs()
+            {
+                Persist = true,
+                Block = true,
+                Text = "Object inventory available in VR.",
+                BackEnabled = true
+            });
+        }
+
         public IScreen LoadRemoteDesktopView(MenuArgs args)
         {
             var menu = Instantiate(m_remoteMonitorScreen, m_screensRoot);

@@ -396,7 +396,7 @@ namespace Fordi.UI
 
         public bool MenuOn()
         {
-            Debug.LogError("MenuOn: " + m_menuOn);
+            //Debug.LogError("MenuOn: " + m_menuOn);
             var val = m_menuOn;
             if (m_menuOn)
                 m_menuOn = false;
