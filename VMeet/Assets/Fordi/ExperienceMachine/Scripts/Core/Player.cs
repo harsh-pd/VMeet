@@ -111,9 +111,39 @@ namespace Fordi.Core
         [SerializeField]
         private OVRScreenFade m_fadeScript;
 
-        public int PlayerViewId { get { return m_playerPhotonView.ViewID; } set { m_playerPhotonView.ViewID = value; } }
+        public int PlayerViewId
+        {
+            get
+            {
+                if (m_playerPhotonView.ViewID == 0)
+                {
+                    m_playerPhotonView.ViewID = PhotonNetwork.AllocateViewID(false);
+                    m_playerPhotonView.Synchronization = ViewSynchronization.UnreliableOnChange;
+                }
 
-        public int AvatarViewId { get { return m_avatarPhotonView.ViewID; } set { m_avatarPhotonView.ViewID = value; } }
+                return m_playerPhotonView.ViewID;
+            }
+            set
+            {
+                m_playerPhotonView.ViewID = value;
+            }
+        }
+
+        public int AvatarViewId {
+            get
+            {
+                if (m_avatarPhotonView.ViewID == 0)
+                {
+                    m_avatarPhotonView.ViewID = PhotonNetwork.AllocateViewID(false);
+                    m_avatarPhotonView.Synchronization = ViewSynchronization.UnreliableOnChange;
+                }
+                return m_avatarPhotonView.ViewID;
+            }
+            set
+            {
+                m_avatarPhotonView.ViewID = value;
+            }
+        }
 
         private GameObject m_leftGrabGuide, m_rightGrabGuide;
 
