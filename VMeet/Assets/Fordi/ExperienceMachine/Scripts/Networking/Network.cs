@@ -306,16 +306,12 @@ namespace Fordi.Networking
 
         public void RaisePlayerSpawnEvent()
         {
-            int viewAvatarId = PhotonNetwork.AllocateViewID(false);
-            int viewPlayerId = PhotonNetwork.AllocateViewID(false);
-            Log(SceneManager.GetActiveScene().name + " " + viewAvatarId + " " + viewPlayerId);
+            Log(SceneManager.GetActiveScene().name + " " + m_experienceMachine.Player.AvatarViewId + " " + m_experienceMachine.Player.PlayerViewId);
 
             try
             {
                 var playerSync = m_experienceMachine.Player.PlayerController.GetComponent<OvrPlayerSync>();
                 playerSync.Init(true, false, PhotonNetwork.LocalPlayer.ActorNumber);
-                m_experienceMachine.Player.PlayerViewId = viewPlayerId;
-                m_experienceMachine.Player.AvatarViewId = viewAvatarId;
             }
             catch (NullReferenceException)
             {
@@ -328,7 +324,7 @@ namespace Fordi.Networking
             //    CachingOption = EventCaching.AddToRoomCache,
             //    Receivers = ReceiverGroup.All
             //};
-            photonView.RPC("RPC_SpawnPlayer", RpcTarget.Others, PhotonNetwork.LocalPlayer.ActorNumber, viewPlayerId, viewAvatarId, true);
+            photonView.RPC("RPC_SpawnPlayer", RpcTarget.Others, PhotonNetwork.LocalPlayer.ActorNumber, m_experienceMachine.Player.PlayerViewId, m_experienceMachine.Player.AvatarViewId, true);
         }
 
         public void ToggleScreenStreaming(bool val)
