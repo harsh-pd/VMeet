@@ -311,7 +311,8 @@ namespace Fordi.UI.MenuControl
         {
             if (Pair != null)
                 Pair.Close();
-            Destroy(gameObject);
+            if (gameObject != null)
+                Destroy(gameObject);
         }
 
         public void CloseAllScreen()
