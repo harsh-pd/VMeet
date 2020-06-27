@@ -81,7 +81,7 @@ namespace Fordi.Networking
             if (PhotonNetwork.InRoom)
             {
                 Log("Level: " + level + " In room: " + PhotonNetwork.InRoom);
-                RaisePlayerSpawnEvent();
+                Observable.TimerFrame(20).Subscribe(_ => RaisePlayerSpawnEvent()); 
             }
             //    if (PhotonNetwork.InRoom)
             //        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Cube"), Vector3.one, Quaternion.identity, 0);
