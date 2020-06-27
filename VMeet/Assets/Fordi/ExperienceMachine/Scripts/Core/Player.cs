@@ -140,6 +140,8 @@ namespace Fordi.Core
                     m_avatarPhotonView.ViewID = PhotonNetwork.AllocateViewID(false);
                     m_avatarPhotonView.Synchronization = ViewSynchronization.UnreliableOnChange;
                     m_avatarViewIdAllocated = true;
+                    var photonAvatarView = GetComponentInChildren<PhotonAvatarView>();
+                    photonAvatarView.Init();
                 }
                 return m_avatarPhotonView.ViewID;
             }

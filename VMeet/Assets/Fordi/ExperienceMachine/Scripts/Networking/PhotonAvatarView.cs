@@ -12,23 +12,21 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable
     private OvrAvatarRemoteDriver remoteDriver;
 
     private List<byte[]> packetData;
+    private bool m_localAvatar = true;
 
-    public void Start()
+    public void Init()
     {
-        photonView = GetComponent<PhotonView>();
-        Debug.LogError("PhotonAvatarView: " + name + " "  + photonView.IsMine);
-        if (photonView.IsMine)
+        var remoteDriver = GetComponent<OvrAvatarRemoteDriver>();
+
+        if (remoteDriver != null)
         {
             ovrAvatar = GetComponent<OvrAvatar>();
             ovrAvatar.RecordPackets = true;
             ovrAvatar.PacketRecorded += OnLocalAvatarPacketRecorded;
-
             packetData = new List<byte[]>();
         }
-        else
-        {
-            remoteDriver = GetComponent<OvrAvatarRemoteDriver>();
-        }
+
+        photonView.Synchronization = ViewSynchronization.UnreliableOnChange;
     }
 
     public void OnDisable()
