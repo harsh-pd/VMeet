@@ -291,7 +291,19 @@ namespace Fordi.Networking
         {
             Debug.LogError("RPC_SpawnPlayer: " + senderId + " " + firstHand);
             var remotePlayer = Instantiate(m_remotePlayerPrefab);
-            remotePlayer.Setup(senderId, playerViewId, avatarViewId);
+
+            var player = Array.Find(PhotonNetwork.PlayerList, item => item.ActorNumber == senderId);
+
+            object oculusId = "";
+
+            if (player != null)
+            {
+                var customProperties = player.CustomProperties;
+                if (customProperties != null)
+                    customProperties.TryGetValue(OculusIDString, out oculusId);
+            }
+
+            remotePlayer.Setup(senderId, playerViewId, avatarViewId, (string)oculusId);
             m_remotePlayers[senderId] = remotePlayer;
             if (firstHand)
                 RaiseSecondHandPlayerSpawnEvent(senderId);

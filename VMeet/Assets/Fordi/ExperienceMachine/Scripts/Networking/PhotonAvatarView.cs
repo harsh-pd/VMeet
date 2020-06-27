@@ -14,11 +14,22 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable
     private List<byte[]> packetData;
     private bool m_localAvatar = true;
 
+    private void Start()
+    {
+        if (photonView == null)
+            photonView = GetComponent<PhotonView>();
+        if (remoteDriver == null)
+            remoteDriver = GetComponent<OvrAvatarRemoteDriver>();
+    }
+
     public void Init()
     {
-        var remoteDriver = GetComponent<OvrAvatarRemoteDriver>();
+        photonView = GetComponent<PhotonView>();
 
-        if (remoteDriver != null)
+        if (remoteDriver == null)
+            remoteDriver = GetComponent<OvrAvatarRemoteDriver>();
+
+        if (remoteDriver == null)
         {
             ovrAvatar = GetComponent<OvrAvatar>();
             ovrAvatar.RecordPackets = true;
@@ -36,11 +47,6 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable
             ovrAvatar.RecordPackets = false;
             ovrAvatar.PacketRecorded -= OnLocalAvatarPacketRecorded;
         }
-    }
-
-    private void Update()
-    {
-        Debug.LogError(name + " " + photonView.IsMine);
     }
 
     private int localSequence;

@@ -38,9 +38,10 @@ namespace Fordi.Networking
 
         private Photon.Realtime.Player m_photonPlayer = null;
 
-        public void Setup(int senderId, int playerViewId, int avatarViewId)
+        public void Setup(int senderId, int playerViewId, int avatarViewId, string oculusId)
         {
-            Debug.LogError(senderId + " " + playerViewId + " " + avatarViewId);
+            Debug.LogError(senderId + " " + playerViewId + " " + avatarViewId + " " + oculusId);
+            m_avatar.oculusUserID = oculusId;
             name = "RemotePlayer: " + senderId; 
             m_playerSync.isRemotePlayer = true;
             m_playerSync.playerId = senderId;
