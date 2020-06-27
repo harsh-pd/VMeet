@@ -289,7 +289,7 @@ namespace Fordi.Networking
         [PunRPC]
         private void RPC_SpawnPlayer(int senderId, int playerViewId, int avatarViewId, bool firstHand)
         {
-            Debug.LogError(senderId + " " + firstHand);
+            Debug.LogError("RPC_SpawnPlayer: " + senderId + " " + firstHand);
             var remotePlayer = Instantiate(m_remotePlayerPrefab);
             remotePlayer.Setup(senderId, playerViewId, avatarViewId);
             m_remotePlayers[senderId] = remotePlayer;
@@ -300,13 +300,14 @@ namespace Fordi.Networking
 
         public void RaiseSecondHandPlayerSpawnEvent(int targetPlayerId)
         {
+            Debug.LogError("RaisePlayerSpawnEvent: " + SceneManager.GetActiveScene().name + " " + m_experienceMachine.Player.AvatarViewId + " " + m_experienceMachine.Player.PlayerViewId);
             var targetPlayer = Array.Find(PhotonNetwork.PlayerList, item => item.ActorNumber == targetPlayerId);
             photonView.RPC("RPC_SpawnPlayer", targetPlayer, PhotonNetwork.LocalPlayer.ActorNumber, m_experienceMachine.Player.PlayerViewId, m_experienceMachine.Player.AvatarViewId, false);
         }
 
         public void RaisePlayerSpawnEvent()
         {
-            Log(SceneManager.GetActiveScene().name + " " + m_experienceMachine.Player.AvatarViewId + " " + m_experienceMachine.Player.PlayerViewId);
+            Debug.LogError("RaisePlayerSpawnEvent: " + SceneManager.GetActiveScene().name + " " + m_experienceMachine.Player.AvatarViewId + " " + m_experienceMachine.Player.PlayerViewId);
 
             try
             {
