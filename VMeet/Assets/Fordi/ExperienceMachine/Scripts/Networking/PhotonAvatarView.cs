@@ -16,7 +16,7 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable
     public void Start()
     {
         photonView = GetComponent<PhotonView>();
-
+        Debug.LogError("PhotonAvatarView: " + name + " "  + photonView.IsMine);
         if (photonView.IsMine)
         {
             ovrAvatar = GetComponent<OvrAvatar>();
@@ -38,6 +38,11 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable
             ovrAvatar.RecordPackets = false;
             ovrAvatar.PacketRecorded -= OnLocalAvatarPacketRecorded;
         }
+    }
+
+    private void Update()
+    {
+        Debug.LogError(name + " " + photonView.IsMine);
     }
 
     private int localSequence;
@@ -82,40 +87,40 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        try
+        //try
+        //{
+        if (stream.IsWriting)
         {
-            if (stream.IsWriting)
+            if (packetData.Count == 0)
             {
-                if (packetData.Count == 0)
-                {
-                    return;
-                }
-
-                stream.SendNext(packetData.Count);
-
-                foreach (byte[] b in packetData)
-                {
-                    stream.SendNext(b);
-                }
-
-                packetData.Clear();
+                return;
             }
 
-            if (stream.IsReading)
+            stream.SendNext(packetData.Count);
+
+            foreach (byte[] b in packetData)
             {
-                int num = (int)stream.ReceiveNext();
+                stream.SendNext(b);
+            }
 
-                for (int counter = 0; counter < num; ++counter)
-                {
-                    byte[] data = (byte[])stream.ReceiveNext();
+            packetData.Clear();
+        }
 
-                    DeserializeAndQueuePacketData(data);
-                }
+        if (stream.IsReading)
+        {
+            int num = (int)stream.ReceiveNext();
+
+            for (int counter = 0; counter < num; ++counter)
+            {
+                byte[] data = (byte[])stream.ReceiveNext();
+
+                DeserializeAndQueuePacketData(data);
             }
         }
-        catch (Exception e)
-        {
+        //}
+        //catch (Exception e)
+        //{
 
-        }
+        //}
     }
 }

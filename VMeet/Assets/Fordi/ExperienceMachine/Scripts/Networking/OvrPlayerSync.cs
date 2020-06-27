@@ -94,7 +94,7 @@ namespace Fordi.Networking
             }
             catch (Exception e)
             {
-
+                Debug.Log(e.Message);
             }
         }
 
