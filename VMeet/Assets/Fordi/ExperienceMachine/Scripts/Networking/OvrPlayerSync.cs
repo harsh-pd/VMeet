@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,30 +64,37 @@ namespace Fordi.Networking
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
-            if (stream.IsWriting)
+            try
             {
-                //local player is streaming tracking rotation
-                if (camRig == null)
+                if (stream.IsWriting)
                 {
-                    var cameraRig = transform.GetComponentInChildren<OVRCameraRig>();
-                    if (cameraRig && cameraRig.transform.childCount > 0)
-                        camRig = transform.GetComponentInChildren<OVRCameraRig>().transform.GetChild(0);
+                    //local player is streaming tracking rotation
+                    if (camRig == null)
+                    {
+                        var cameraRig = transform.GetComponentInChildren<OVRCameraRig>();
+                        if (cameraRig && cameraRig.transform.childCount > 0)
+                            camRig = transform.GetComponentInChildren<OVRCameraRig>().transform.GetChild(0);
 
+                    }
+                    else
+                        stream.SendNext(camRig.localRotation.eulerAngles.y);
                 }
-                else
-                    stream.SendNext(camRig.localRotation.eulerAngles.y);
+
+                if (stream.IsReading)
+                {
+                    //remote player is receiving the tracking rotation
+                    if (camRig == null)
+                        camRig = transform.GetChild(0);
+                    else
+                    {
+                        float y = (float)stream.ReceiveNext();
+                        camRig.transform.localEulerAngles = new Vector3(0, y, 0);
+                    }
+                }
             }
-
-            if (stream.IsReading)
+            catch (Exception e)
             {
-                //remote player is receiving the tracking rotation
-                if (camRig == null)
-                    camRig = transform.GetChild(0);
-                else
-                {
-                    float y = (float)stream.ReceiveNext();
-                    camRig.transform.localEulerAngles = new Vector3(0, y, 0);
-                }
+
             }
         }
 

@@ -115,10 +115,11 @@ namespace Fordi.Core
         {
             get
             {
-                if (m_playerPhotonView.ViewID == 0)
+                if (!m_playerViewIdAllocated)
                 {
                     m_playerPhotonView.ViewID = PhotonNetwork.AllocateViewID(false);
                     m_playerPhotonView.Synchronization = ViewSynchronization.UnreliableOnChange;
+                    m_playerViewIdAllocated = true;
                 }
 
                 return m_playerPhotonView.ViewID;
@@ -129,13 +130,16 @@ namespace Fordi.Core
             }
         }
 
+        private bool m_avatarViewIdAllocated = false;
+        private bool m_playerViewIdAllocated = false;
         public int AvatarViewId {
             get
             {
-                if (m_avatarPhotonView.ViewID == 0)
+                if (!m_avatarViewIdAllocated)
                 {
                     m_avatarPhotonView.ViewID = PhotonNetwork.AllocateViewID(false);
                     m_avatarPhotonView.Synchronization = ViewSynchronization.UnreliableOnChange;
+                    m_avatarViewIdAllocated = true;
                 }
                 return m_avatarPhotonView.ViewID;
             }
