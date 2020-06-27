@@ -41,10 +41,43 @@ namespace Fordi.Core
 
         [SerializeField]
         private GameObject m_playerController;
+        public int PlayerViewId
+        {
+            get
+            {
+                if (!m_playerViewIdAllocated)
+                {
+                    m_playerPhotonView.ViewID = PhotonNetwork.AllocateViewID(false);
+                    m_playerPhotonView.Synchronization = ViewSynchronization.UnreliableOnChange;
+                    m_playerViewIdAllocated = true;
+                }
 
-        public int PlayerViewId { get { return m_playerPhotonView.ViewID; } set { m_playerPhotonView.ViewID = value; } }
+                return m_playerPhotonView.ViewID;
+            }
+            set
+            {
+                m_playerPhotonView.ViewID = value;
+            }
+        }
 
-        public int AvatarViewId { get { return m_avatarPhotonView.ViewID; } set { m_avatarPhotonView.ViewID = value; } }
+        private bool m_avatarViewIdAllocated = false;
+        private bool m_playerViewIdAllocated = false;
+        public int AvatarViewId
+        {
+            get
+            {
+                if (!m_avatarViewIdAllocated)
+                {
+                    m_avatarPhotonView.ViewID = PhotonNetwork.AllocateViewID(false);
+                    m_avatarViewIdAllocated = true;
+                }
+                return m_avatarPhotonView.ViewID;
+            }
+            set
+            {
+                m_avatarPhotonView.ViewID = value;
+            }
+        }
 
         public GameObject PlayerController { get { return m_playerController; } }
 

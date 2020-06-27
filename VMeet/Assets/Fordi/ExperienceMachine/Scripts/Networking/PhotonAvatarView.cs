@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
-public class PhotonAvatarView : MonoBehaviour, IPunObservable {
+public class PhotonAvatarView : MonoBehaviour, IPunObservable
+{
 
     private PhotonView photonView;
     private OvrAvatar ovrAvatar;
@@ -80,33 +82,40 @@ public class PhotonAvatarView : MonoBehaviour, IPunObservable {
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
+        try
         {
-            if (packetData.Count == 0)
+            if (stream.IsWriting)
             {
-                return;
+                if (packetData.Count == 0)
+                {
+                    return;
+                }
+
+                stream.SendNext(packetData.Count);
+
+                foreach (byte[] b in packetData)
+                {
+                    stream.SendNext(b);
+                }
+
+                packetData.Clear();
             }
 
-            stream.SendNext(packetData.Count);
-
-            foreach (byte[] b in packetData)
+            if (stream.IsReading)
             {
-                stream.SendNext(b);
-            }
+                int num = (int)stream.ReceiveNext();
 
-            packetData.Clear();
+                for (int counter = 0; counter < num; ++counter)
+                {
+                    byte[] data = (byte[])stream.ReceiveNext();
+
+                    DeserializeAndQueuePacketData(data);
+                }
+            }
         }
-
-        if (stream.IsReading)
+        catch (Exception e)
         {
-            int num = (int)stream.ReceiveNext();
 
-            for (int counter = 0; counter < num; ++counter)
-            {
-                byte[] data = (byte[])stream.ReceiveNext();
-
-                DeserializeAndQueuePacketData(data);
-            }
         }
     }
 }
