@@ -149,7 +149,7 @@ namespace Fordi.VideoCall
             //var result = mRtcEngine.EnableVideo();
             //VideoEnabled = result >= 0;
             // allow camera output callback
-            EnableVideo(true);
+            mRtcEngine.EnableVideo();
             mRtcEngine.EnableVideoObserver();
 
             // join channel
@@ -213,11 +213,11 @@ namespace Fordi.VideoCall
 
                 if (enable)
                 {
-                   result = mRtcEngine.EnableVideo();
+                   result = mRtcEngine.EnableLocalVideo(true);
                 }
                 else
                 {
-                    //result = mRtcEngine.DisableVideo();
+                    result = mRtcEngine.EnableLocalVideo(false);
                     result = 0;
                 }
 
