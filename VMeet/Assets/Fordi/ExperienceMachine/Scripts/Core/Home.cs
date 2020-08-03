@@ -341,9 +341,9 @@ namespace Fordi.Core
         {
             var emailInput = new MenuItemInfo
             {
-                Path = "Email",
-                Text = "Email",
-                Command = "Email",
+                Path = "Username",
+                Text = "Username",
+                Command = "Username",
                 Icon = null,
                 Data = TMP_InputField.ContentType.EmailAddress,
                 CommandType = MenuCommandType.FORM_INPUT
