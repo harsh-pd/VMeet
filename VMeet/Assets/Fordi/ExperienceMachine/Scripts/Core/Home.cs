@@ -8,6 +8,7 @@ using Fordi.Common;
 using Fordi.UI.MenuControl;
 using Fordi.UI;
 using UniRx;
+using LitJson;
 
 namespace Fordi.Core
 {
@@ -261,8 +262,7 @@ namespace Fordi.Core
         {
             m_menuSelection.VoiceOver = null;
             base.OnLoad();
-            //Observable.TimerFrame(20).Subscribe(_ => OpenLoginPage());
-            Observable.TimerFrame(20).Subscribe(_ => ToggleMenu());
+            Observable.TimerFrame(20).Subscribe(_ => OpenLoginPage());
             m_experienceMachine.Player.RequestHaltMovement(true);
         }
 
@@ -300,9 +300,95 @@ namespace Fordi.Core
             };
 
             MenuItemInfo[] formItems = new MenuItemInfo[] {organizationInput, usernameInput, passwordInput };
-            FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => { m_webInterace.ValidateUserLogin(inputs[0], inputs[1], inputs[2]); })
+            FormArgs args = new FormArgs(formItems, "LOGIN", "Login", (inputs) => {
+                m_webInterace.ValidateUserLogin(inputs[0], inputs[1], inputs[2],
+                    (isNetworkError, message) =>
+                    {
+                        //Debug.LogError(message);
+                        JsonData validateUserLoginResult = JsonMapper.ToObject(message);
+                        if (validateUserLoginResult["success"].ToString() == "True")
+                        {
+                            m_experienceMachine.OpenSceneMenu();
+                            //Coordinator.instance.screenManager.SwitchToHomeScreen();
+                        }
+                        else
+                        {
+                            if (validateUserLoginResult["error"]["message"].ToString() == "No valid license is activated from this system")
+                                OpenLicensePage();
+                        }
+                    });
+            })
             {
                 FormType = FormType.LOGIN
+            };
+            m_uiEngine.OpenForm(args);
+        }
+
+        private string TruncateString(string input)
+        {
+            if (input.Length > 88)
+            {
+                var firstDotIndex = input.IndexOf('.');
+                if (firstDotIndex > -1)
+                    input = input.Substring(0, firstDotIndex + 1);
+                if (input.Length > 88)
+                    return input.Substring(0, 88);
+            }
+            return input;
+        }
+
+        private void OpenLicensePage()
+        {
+            var emailInput = new MenuItemInfo
+            {
+                Path = "Email",
+                Text = "Email",
+                Command = "Email",
+                Icon = null,
+                Data = TMP_InputField.ContentType.EmailAddress,
+                CommandType = MenuCommandType.FORM_INPUT
+            };
+
+            var keyInput = new MenuItemInfo
+            {
+                Path = "License key",
+                Text = "License key",
+                Command = "License key",
+                Icon = null,
+                Data = TMP_InputField.ContentType.Standard,
+                CommandType = MenuCommandType.FORM_INPUT
+            };
+
+            MenuItemInfo[] formItems = new MenuItemInfo[] { emailInput, keyInput };
+            FormArgs args = new FormArgs(formItems, "ACTIVATE LICENSE", "Activate", (inputs) =>
+            {
+                m_webInterace.ActivateUserLicense(inputs[0], inputs[1]).OnRequestComplete(
+                (isNetworkError, message) =>
+                {
+                    Debug.Log(message);
+                    JsonData activateLicenseResult = JsonMapper.ToObject(message);
+                    if (activateLicenseResult["success"].ToString() == "True")
+                    {
+                        Debug.Log("License has been successfully activated. Ok");
+
+                        Error error = new Error();
+                        error.ErrorText = "License has been successfully activated.";
+                        m_uiEngine.DisplayResult(error);
+
+                        Observable.TimerFrame(20).Subscribe(_ => OpenLoginPage());
+                    }
+                    else
+                    {
+                        Error error = new Error(Error.E_NotFound);
+                        error.ErrorText = activateLicenseResult["error"]["message"].ToString();
+                        m_uiEngine.DisplayResult(error);
+                        Debug.LogFormat("Error", activateLicenseResult["error"]["message"].ToString(), "Ok");
+                    }
+                }
+            );
+            })
+            {
+                FormType = FormType.LICENSE
             };
             m_uiEngine.OpenForm(args);
         }

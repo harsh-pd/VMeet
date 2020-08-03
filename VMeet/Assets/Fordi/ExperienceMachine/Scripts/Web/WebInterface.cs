@@ -23,7 +23,7 @@ namespace Cornea.Web
     public interface IWebInterface
     {
         string AccessToken { get; }
-        void ValidateUserLogin(string organization, string username, string password);
+        void ValidateUserLogin(string organization, string username, string password, OnCompleteAction action);
         void RegisterRequestFailure(string errorMessage, APIRequest req);
         void RemoveRequest(APIRequest req);
         APIRequest ListAllMeetingDetails(MeetingFilter meetingFilter);
@@ -31,6 +31,7 @@ namespace Cornea.Web
         APIRequest AcceptMeeting(int meetingId);
         APIRequest RejectMeeting(int meetingId);
         APIRequest CancelMeeting(int meetingId);
+        APIRequest ActivateUserLicense(string userName, string key);
         List<UserInfo> ParseUserListJson(string userListJson);
         List<MeetingInfo> ParseMeetingListJson(string meetingListJson, MeetingCategory category);
         ExperienceResource[] GetResource(ResourceType resourceType, string category);
@@ -269,18 +270,6 @@ namespace Cornea.Web
         [SerializeField]
         private Button meetingButton;
 
-        [Header("Web Interface Input")]
-        public TMP_InputField organizationCode;
-        public TMP_InputField userName;
-        public TMP_InputField password;
-        public TMP_InputField licenseKey;
-        public TMP_InputField licenseActivationEmail;
-
-        [Header("User Info")]
-        public TMP_InputField Name;
-        public TMP_InputField Email;
-        public TMP_InputField OrganisationId;
-
         private static UserInfo m_userInfo = new UserInfo();
 
         private List<MeetingGroup> m_meetings = new List<MeetingGroup>();
@@ -299,7 +288,7 @@ namespace Cornea.Web
         private string MacAddress {
             get
             {
-                //return "6dc53fb71be5e6b9762a4053e49fa0f28b3f54a4";
+                return "6dc53fb71be5e6b9762a4053e49fa0f28b3f54a4";
                 //Debug.LogError(SystemInfo.deviceUniqueIdentifier);
                 return SystemInfo.deviceUniqueIdentifier;
             }
@@ -359,7 +348,7 @@ namespace Cornea.Web
 
 #region API_REQUESTS
 
-        public void TokenAuthenticate(string organization, string username, string password)
+        public void TokenAuthenticate(string organization, string username, string password, OnCompleteAction onloginApiDone)
         {
             var jsonString = "{\"UserNameOrEmailAddress\":\"" + username + "\",\"Password\":\"" + password + "\",\"TenancyName\":\"" + organization + "\"}";
             APIRequest loginReq = new APIRequest(vesApiBaseUrl + tokenAuth, UnityWebRequest.kHttpVerbPOST)
@@ -391,7 +380,7 @@ namespace Cornea.Web
                                     return;
                                 }
                                 access_token = token.ToString();
-                                ValidateUserLogin(organization, username, password);
+                                ValidateUserLogin(organization, username, password, onloginApiDone);
                             }
                             else
                             {
@@ -419,41 +408,11 @@ namespace Cornea.Web
             );
         }
 
-        private void OpenLicensePage()
-        {
-            var organizationInput = new MenuItemInfo
-            {
-                Path = "Organization",
-                Text = "Organization",
-                Command = "Organization",
-                Icon = null,
-                Data = TMP_InputField.ContentType.Standard,
-                CommandType = MenuCommandType.FORM_INPUT
-            };
-
-            var keyInput = new MenuItemInfo
-            {
-                Path = "License key",
-                Text = "License key",
-                Command = "License key",
-                Icon = null,
-                Data = TMP_InputField.ContentType.Standard,
-                CommandType = MenuCommandType.FORM_INPUT
-            };
-
-            MenuItemInfo[] formItems = new MenuItemInfo[] { organizationInput, keyInput };
-            FormArgs args = new FormArgs(formItems, "ACTIVATE LICENSE", "Activate", (inputs) => { Debug.LogError("Form button click"); })
-            {
-                FormType = FormType.LICENSE
-            };
-            m_uiEngine.OpenForm(args);
-        }
-
-        public void ValidateUserLogin(string organization, string username, string password)
+        public void ValidateUserLogin(string organization, string username, string password, OnCompleteAction action)
         {
             if (access_token.Equals(""))
             {
-                TokenAuthenticate(organization, username, password);
+                TokenAuthenticate(organization, username, password, action);
                 return;
             }
 
@@ -475,40 +434,32 @@ namespace Cornea.Web
                 (isNetworkError, message) =>
                 {
                     //Debug.LogError(message);
+                    action?.Invoke(isNetworkError, message);
+
                     JsonData validateUserLoginResult = JsonMapper.ToObject(message);
                     if (validateUserLoginResult["success"].ToString() == "True")
                     {
                         ZPlayerPrefs.SetInt("LoggedIn", 1);
                         SetUserData(validateUserLoginResult["result"]);
-                        m_experienceMachine.OpenSceneMenu();
-                        //Coordinator.instance.screenManager.SwitchToHomeScreen();
                     }
                     else
                     {
                         Debug.Log("Error " + validateUserLoginResult["error"]["message"].ToString() + " Ok");
-                        if (validateUserLoginResult["error"]["message"].ToString() == "No valid license is activated from this system")
-                        {
-                            OpenLicensePage();
-                            //Coordinator.instance.screenManager.InitScreen(Enums.StartLevel.license_key);
-                        }
-                        else
+                        if (validateUserLoginResult["error"]["message"].ToString() != "No valid license is activated from this system")
                         {
                             var loginFailureMessage = TruncateString((string)validateUserLoginResult["error"]["message"]);
-
                             Error error = new Error(Error.E_Exception);
                             error.ErrorText = loginFailureMessage;
                             m_uiEngine.DisplayResult(error);
-
-                            //Coordinator.instance.screenManager.OnLoginFailure(loginFailureMessage);
                         }
                     }
                 }
             );
         }
 
-        public void ActivateUserLicense()
+        public APIRequest ActivateUserLicense(string userName, string key)
         {
-            var jsonString = "{\"macAddress\":\"" + MacAddress + "\",\"userEmailAddress\":\"" + licenseActivationEmail.text + "\",\"licenseKey\":\"" + licenseKey.text + "\"}";
+            var jsonString = "{\"macAddress\":\"" + MacAddress + "\",\"userEmailAddress\":\"" + userName + "\",\"licenseKey\":\"" + key + "\"}";
             byte[] byteData = System.Text.Encoding.ASCII.GetBytes(jsonString.ToCharArray());
 
             Dictionary<string, string> headers = new Dictionary<string, string>
@@ -528,29 +479,10 @@ namespace Cornea.Web
                 (isNetworkError, message) =>
                 {
                     Debug.Log(message);
-                    JsonData activateLicenseResult = JsonMapper.ToObject(message);
-                    if (activateLicenseResult["success"].ToString() == "True")
-                    {
-                        Debug.Log("License has been successfully activated. Ok");
-
-                        Error error = new Error();
-                        error.ErrorText = "License has been successfully activated.";
-                        m_uiEngine.DisplayResult(error);
-
-                        //Coordinator.instance.screenManager.LicenseValidation(true, "License has been successfully activated.");
-                    }
-                    else
-                    {
-                        Error error = new Error(Error.E_NotFound);
-                        error.ErrorText = activateLicenseResult["error"]["message"].ToString();
-                        m_uiEngine.DisplayResult(error);
-
-                        Debug.LogFormat("Error", activateLicenseResult["error"]["message"].ToString(), "Ok");
-
-                        //Coordinator.instance.screenManager.LicenseValidation(false, (string)activateLicenseResult["error"]["message"]);
-                    }
                 }
             );
+
+            return activateLicenseRequest;
         }
 
         public APIRequest GetUsersByOrganization()
